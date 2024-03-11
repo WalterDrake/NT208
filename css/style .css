@@ -240,6 +240,8 @@
     width: 142px;
     font-size: 14.96px;
     font-family: arial;
+   
+   box-sizing: ;
     border-radius: 30px;
     display: flex;
     justify-content: center;
@@ -510,11 +512,11 @@
     height: 166.27px;
     width: 160.53px;
     border-radius: 4.59px ;
-    background-color: orange;
+    background-image: url('https://s3-alpha-sig.figma.com/img/d6aa/65b0/d39a7dbd34dfe8fd94bfbddd354a1ac7?Expires=1710720000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ge9zcHal1lmaevOUtajtpvrv9ybCBk1GATUFWntLlZ5i8xwtkFIB5r2kc3Z5qsMQPb3ovDxrGAlNzkQO0v7Qq74HTQ1M7XKEPPliiucHOGtmWMi3~uGkGONvGbaP-81pSDop5CRD~Tf5hK8gpbnaBOAxDuuFtTccuOlaY3fdVFMwdIHNAhTyfCZFqgqM5xuMBLh5iBF52VU0P5vGUagMrzaV~~aGFnAi~jctTv4HIB0vo94Le-O9Lv06OhPOiSqEgX0Z-PgNhJk2rpBh4idsP0NN6DDr2bRwT5m0bKbZnJrIRbwo7KInRPqmvNviX0I494k0S1eO-JeNw~nV5t7xkg__');
     background-size: 100%;
     background-repeat: no-repeat;
     position: relative;
-    top: 5px;
+    top: 40px;
     left: 5px;
 
 }
@@ -523,11 +525,11 @@
     height: 166.27px;
     width: 160.53px;
     border-radius: 4.59px ;
-    background-color: brown;
+    background-image: url('https://s3-alpha-sig.figma.com/img/d6aa/65b0/d39a7dbd34dfe8fd94bfbddd354a1ac7?Expires=1710720000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ge9zcHal1lmaevOUtajtpvrv9ybCBk1GATUFWntLlZ5i8xwtkFIB5r2kc3Z5qsMQPb3ovDxrGAlNzkQO0v7Qq74HTQ1M7XKEPPliiucHOGtmWMi3~uGkGONvGbaP-81pSDop5CRD~Tf5hK8gpbnaBOAxDuuFtTccuOlaY3fdVFMwdIHNAhTyfCZFqgqM5xuMBLh5iBF52VU0P5vGUagMrzaV~~aGFnAi~jctTv4HIB0vo94Le-O9Lv06OhPOiSqEgX0Z-PgNhJk2rpBh4idsP0NN6DDr2bRwT5m0bKbZnJrIRbwo7KInRPqmvNviX0I494k0S1eO-JeNw~nV5t7xkg__');
     background-size: 100%;
     background-repeat: no-repeat;
     position: relative;
-    top: 5px;
+    top: 40px;
     left: 5px;
 
 }
@@ -536,11 +538,11 @@
     height: 166.27px;
     width: 160.53px;
     border-radius: 4.59px ;
-    background-color: deeppink;
+    background-image: url('https://s3-alpha-sig.figma.com/img/d6aa/65b0/d39a7dbd34dfe8fd94bfbddd354a1ac7?Expires=1710720000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ge9zcHal1lmaevOUtajtpvrv9ybCBk1GATUFWntLlZ5i8xwtkFIB5r2kc3Z5qsMQPb3ovDxrGAlNzkQO0v7Qq74HTQ1M7XKEPPliiucHOGtmWMi3~uGkGONvGbaP-81pSDop5CRD~Tf5hK8gpbnaBOAxDuuFtTccuOlaY3fdVFMwdIHNAhTyfCZFqgqM5xuMBLh5iBF52VU0P5vGUagMrzaV~~aGFnAi~jctTv4HIB0vo94Le-O9Lv06OhPOiSqEgX0Z-PgNhJk2rpBh4idsP0NN6DDr2bRwT5m0bKbZnJrIRbwo7KInRPqmvNviX0I494k0S1eO-JeNw~nV5t7xkg__');
     background-size: 100%;
     background-repeat: no-repeat;
     position: relative;
-    top: 5px;
+    top: 40px;
     left: 5px;
 
 }
@@ -549,11 +551,11 @@
     height: 166.27px;
     width: 160.53px;
     border-radius: 4.59px ;
-    background-color: deepskyblue;
+    background-color: #B5D5FB;
     background-size: 100%;
     background-repeat: no-repeat;
     position: relative;
-    top: 5px;
+    top: 40px;
     left: 5px;
 
 }
@@ -562,11 +564,11 @@
     height: 166.27px;
     width: 160.53px;
     border-radius: 4.59px ;
-    background-color: gold;
+    background-color: aquamarine;
     background-size: 100%;
     background-repeat: no-repeat;
     position: relative;
-    top: 5px;
+    top: 40px;
     left: 5px;
 
 }
@@ -578,7 +580,7 @@
     background-size: 100%;
     background-repeat: no-repeat;
     position: relative;
-    top: 5px;
+    top: 40px;
     left: 5px;
 
 }
@@ -586,11 +588,11 @@
     height: 166.27px;
     width: 160.53px;
     border-radius: 4.59px ;
-    background-color:#B5D5FB ;
+    background-color: antiquewhite;
     background-size: 100%;
     background-repeat: no-repeat;
     position: relative;
-    top: 5px;
+    top: 40px;
     left: 5px;
 
 }
@@ -598,11 +600,11 @@
     height: 166.27px;
     width: 160.53px;
     border-radius: 4.59px ;
-    background-color:#e83a45 ;
+    background-image: url('https://s3-alpha-sig.figma.com/img/d6aa/65b0/d39a7dbd34dfe8fd94bfbddd354a1ac7?Expires=1710720000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ge9zcHal1lmaevOUtajtpvrv9ybCBk1GATUFWntLlZ5i8xwtkFIB5r2kc3Z5qsMQPb3ovDxrGAlNzkQO0v7Qq74HTQ1M7XKEPPliiucHOGtmWMi3~uGkGONvGbaP-81pSDop5CRD~Tf5hK8gpbnaBOAxDuuFtTccuOlaY3fdVFMwdIHNAhTyfCZFqgqM5xuMBLh5iBF52VU0P5vGUagMrzaV~~aGFnAi~jctTv4HIB0vo94Le-O9Lv06OhPOiSqEgX0Z-PgNhJk2rpBh4idsP0NN6DDr2bRwT5m0bKbZnJrIRbwo7KInRPqmvNviX0I494k0S1eO-JeNw~nV5t7xkg__');
     background-size: 100%;
     background-repeat: no-repeat;
     position: relative;
-    top: 5px;
+    top: 40px;
     left: 5px;
 
 }
