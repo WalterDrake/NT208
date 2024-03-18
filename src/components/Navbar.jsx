@@ -5,19 +5,21 @@ import { AiOutlineMessage } from "react-icons/ai";
 import { UserProfile } from './UserProfile';
 import { IoNotificationsOutline } from "react-icons/io5";
 
+
 const Navbar = () => {
     return (
-        <nav className='bg-white flex px-4 py-3 justify-end'>
+        <nav className='bg-white items-center flex p-26 pt-[0.5rem]'>
+            <div>
+                <img className='ml-[4rem]  ' src="./src/assets/LogoUIT.svg" alt="logiUIT" />
 
-            <div className='flex items-center  gap-x-10 '>
-                <div className='justify-start'>
-                    <img src='/assets/img/LogoUIT.svg' alt='LogoUIT' />
-                </div>
-                <div className='relative grow ml-2'>
-                    <span className='relative md:absolute inset-y-0 left-0 flex pl-2'>
-                        <button className='p-3 focus:outline-none text-black md:text-black'><FaSearch /></button></span>
-                    <input type="text" className='mr-2 w-full px-4 py-2 pl-24 rounded shadow-lg outline-none' placeholder='Tìm kiếm Khóa học, Tài liệu, Môn học,...' />
-                </div>
+            </div>
+            <div className=' relative ml-40 h-[3.125rem] w-[27rem]'>
+                <input type="text" className='mr-16 w-full px-4 py-2 shadow-lg rounded-3xl border-2 border-gray-300 pl-10 trancate outline-none' placeholder='Tìm kiếm Khóa học, Tài liệu, Môn học,...' />
+                <FaSearch className='absolute left-3 top-2.5 h-5 w-5 text-gray-400' />
+            </div>
+            <div className='flex items-center ml-auto gap-x-10 '>
+
+
                 <div className='text-[#0077FF] '>
                     <HiMiniHome className='w-10 h-10' />
                 </div>

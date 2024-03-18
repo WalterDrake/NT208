@@ -2,10 +2,12 @@ import React from 'react'
 import { LiaSchoolSolid } from "react-icons/lia";
 import { TbSchool } from "react-icons/tb";
 import { SlSocialDribbble } from "react-icons/sl";
+import { LuLogOut } from "react-icons/lu";
+
 
 const Sidebar = () => {
     return (
-        <div className='w-60 bg-white fixed h-400 px-10 py-2 rounded-r-lg inset-y-20'>
+        <div className='w-50 bg-white fixed  px-10 py-2 top-[6rem] rounded-r-lg inset-y-20'>
 
             <ul className='mt-9 text-[#8A8A8A] font-bold'>
                 <li className='mb-6 rounded hover:shadow hover:bg-[#F0F7FF] py-2'>
@@ -34,7 +36,14 @@ const Sidebar = () => {
                         Diễn đàn
                     </a>
                 </li>
+
             </ul>
+            <div className='mt-9 text-[#ff3e3e] font-bold mb-6 rounded hover:shadow hover:bg-[#F0F7FF] py-2'>
+                <a href="#" className='px-3'>
+                    <LuLogOut className='inline-block w-6 h-6 mr-2 -mt-2'></LuLogOut>
+                    Đăng xuất
+                </a>
+            </div>
         </div>
     )
 }
