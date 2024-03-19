@@ -1,0 +1,73 @@
+.box{
+    height: 254.87px;
+    width: 172px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5.73px;
+    box-shadow: 0px 5px 7px rgba(0, 0, 0, 0.175);
+    
+}
+ .taskbar:hover{
+    height: 25px;
+    width: 100px;
+    border-radius: 30px;
+    background-color: rgba(199, 199, 199, 0.822);
+ }
+.background_content{
+    height: 166.27px;
+    width: 160.53px;
+    border-radius: 4.59px ;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    
+}
+.canchinh{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.text-xs{
+    font-size: 0.65rem;
+}
+
+
+.heart{
+    height: 18.35px;
+    width: 18.35px;
+    background-color: #000000a7;
+    border-radius: 18.35px;
+    border: 1px solid #FFFFFF12;
+    position: relative;
+    top: 70px;
+    left: 17px
+
+}
+.pic_1{
+    height: 166.27px;
+    width: 160.53px;
+    border-radius: 4.59px ;
+    background-image: url('KNTT.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    position: relative;
+    top: 40px;
+    left: 5px;
+
+}
+.pic_2{
+    height: 166.27px;
+    width: 160.53px;
+    border-radius: 4.59px ;
+    background-image: url('crytology.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    position: relative;
+    top: 40px;
+    left: 5px;
+
+}
+.pos{
+    position: relative;
+    top: 126px;
+    left: 311px;
+}
