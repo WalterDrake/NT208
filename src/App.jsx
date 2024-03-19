@@ -13,11 +13,11 @@ function App() {
 
   return (
     <div className='h-screen bg-[#F0F7FF]'>
-      {/*<Sidebar />
+      <Sidebar />
       <Navbar />
       <Dashboard />
-      <Login />*/}
-      <Signin />
+      {/*<Login />
+      <Signin />*/}
 
 
     </div>
