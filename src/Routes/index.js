@@ -1,15 +1,24 @@
-import HeaderOnly from "../Components/Layout/HeaderOnly/HeaderOnly";
-import DienDan from "../Pages/DienDan";
-import Khoahoc from "../Pages/DienDan/Khoahoc";
-import Home from "../Pages/Home";
-import Upload from "../Pages/Upload";
-import routesConfig from "../config/routes";
+import routesConfig from "../../src/config/routes";
+import Diendanpages from "../Pages/Diendanpages";
+import Hocnhompage from "../Pages/Hocnhompage";
+import Hoctappage from "../Pages/Hoctappage";
+import Khoahocpage from "../Pages/Khoahocpage";
+import Profilepage from "../Pages/Profilepage";
+import Thongbaopage from "../Pages/Thongbaopage";
+import Tinnhanpage from "../Pages/Tinnhanpage";
+import Home from "../components/NavBar/Home";
+import Diendan from "../components/Sidebar/Diendan";
 
 const publicRoutes = [
   { path: routesConfig.home, component: Home },
-  { path: routesConfig.diendan, component: DienDan },
-  { path: "/Upload", component: Upload, layout: HeaderOnly },
-  { path: routesConfig.khoahoc, component: Khoahoc },
+  { path: routesConfig.diendan, component: Diendanpages, layout: null },
+  { path: routesConfig.hocnhom, component: Hocnhompage },
+  { path: routesConfig.khoahoc, component: Khoahocpage },
+  { path: routesConfig.hoctap, component: Hoctappage },
+
+  { path: routesConfig.profile, component: Profilepage },
+  { path: routesConfig.thongbao, component: Thongbaopage },
+  { path: routesConfig.tinnhan, component: Tinnhanpage },
 ];
 
 //Không cần đăng nhập vẫn vào được
