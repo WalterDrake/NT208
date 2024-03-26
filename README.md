@@ -2,7 +2,7 @@
 
 ## Logo
 
-![Logo](src\assets\LogoUIT.svg)
+![Logo](src\assets\Avt.jpg)
 
 
 #Tên trang web: UITeCo
