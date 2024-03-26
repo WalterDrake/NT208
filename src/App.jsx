@@ -19,9 +19,9 @@ function App() {
 
           let Layout = DefaultLayout;
 
-          if (route.layout) {
+          if (route.layout)  { // nếu có layout thì gán layout
             Layout = route.layout;
-          } else if (route.layout === null) {
+          } else if (route.layout === null) {  // nếu không có layout thì gán layout = Fragment
             Layout = route.Fragment;
           }
           return (

@@ -1,3 +1,4 @@
+// homepage
 const routes = {
   home: "/",
   diendan: "/Diendanpage",

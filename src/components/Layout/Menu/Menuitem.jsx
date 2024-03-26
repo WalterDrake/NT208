@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
-
+ // navlink là 1 thẻ a của react-router-dom
 const Menuitem = ({ title, to }) => {
   return (
     <NavLink className="flex" to={to}>
