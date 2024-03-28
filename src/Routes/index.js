@@ -11,11 +11,10 @@ import Diendan from "../components/Sidebar/Diendan";
 
 const publicRoutes = [
   { path: routesConfig.home, component: Home },
-  { path: routesConfig.diendan, component: Diendanpages, layout: null },
+  { path: routesConfig.diendan, component: Diendanpages },
   { path: routesConfig.hocnhom, component: Hocnhompage },
   { path: routesConfig.khoahoc, component: Khoahocpage },
   { path: routesConfig.hoctap, component: Hoctappage },
-
   { path: routesConfig.profile, component: Profilepage },
   { path: routesConfig.thongbao, component: Thongbaopage },
   { path: routesConfig.tinnhan, component: Tinnhanpage },

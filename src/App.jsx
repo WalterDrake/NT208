@@ -14,7 +14,7 @@ function App() {
   return (
     <Router className="h-screen bg-[#F0F7FF]">
       <Routes>
-        {publicRoutes.map((route, index) => {
+        {publicRoutes.map((route, index) => {  // là các page không đăng nhập vẫn vô đc
           const Page = route.component;
 
           let Layout = DefaultLayout;
@@ -36,8 +36,10 @@ function App() {
             />
           );
         })}
+
       </Routes>
     </Router>
+
   );
 }
 

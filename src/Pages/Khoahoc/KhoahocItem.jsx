@@ -2,8 +2,7 @@ import React from "react";
 
 const KhoahocItem = ({KhoaHoc}) => { // tạo props với object
   return (
-    <div className="border-2 ml-[100px] ">
- 
+    <div className="border-2 ml-[100px] wrap">
       <h1>title className: {KhoaHoc.ten}</h1>
         <div>  {/* content của môn học*/}
         <p>GVTH: {KhoaHoc.giaovien}</p>
