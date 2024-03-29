@@ -3,11 +3,11 @@ import KhoahocItem from "./Khoahoc/KhoahocItem";
 import { Link, Route } from "react-router-dom";
 
 const khoahoc = [
-  { giaovien: "Thay Thanh1", ten: "React", siso: 20, tinhtrang: 1 },
-  { giaovien: "Thay Thanh2", ten: "React", siso: 20, tinhtrang: 1 },
-  { giaovien: "Thay Thanh3", ten: "React", siso: 20, tinhtrang: 0 },
-  { giaovien: "Thay Thanh4", ten: "React", siso: 20, tinhtrang: 0 },
-  { giaovien: "thầy thắng", ten: "React-wed", siso: 100, tinhtrang: 1 },
+  { giaovien: "Thay Thanh1", ten: "React", siso: 20, tinhtrang: 1,image: "" },
+  { giaovien: "Thay Thanh2", ten: "React", siso: 20, tinhtrang: 1,image: "" },
+  { giaovien: "Thay Thanh3", ten: "React", siso: 20, tinhtrang: 0 ,image: "" },
+  { giaovien: "Thay Thanh4", ten: "React", siso: 20, tinhtrang: 0 ,image: "" },
+  { giaovien: "thầy thắng", ten: "React-wed", siso: 100, tinhtrang: 1 ,image: "" },
 ];
 
 const Khoahocpage = () => {
