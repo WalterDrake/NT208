@@ -1,7 +1,7 @@
 import React from "react";
 
 const KhoahocItem = ({KhoaHoc,Tinhtrang}) => { // tạo props với object
-  console.log(Tinhtrang)
+  //console.log(Tinhtrang) để debug
   if (Tinhtrang == 2 || Tinhtrang == KhoaHoc.tinhtrang)
   {
     return (
