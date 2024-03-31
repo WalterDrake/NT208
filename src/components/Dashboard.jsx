@@ -3,7 +3,7 @@ import Navbar from './Navbar'
 
 const Dashboard = () => {
     return (
-        <div className=' bg-blue-200 '>
+        <div className=' bg-black '>
 
         </div>
     )
