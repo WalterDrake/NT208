@@ -8,7 +8,7 @@ export const UserProfile = () => {
                 <h1 className='font-bold'>Lê Thị Thùy Trang</h1>
                 <h2 className='text-gray-500'>MMTT2022</h2>
             </div>
-            <img className='w-[48px] rounded-full shadow-lg border-[4px] border-black-200' src="./src/assets/Avt.jpg" alt="avt" />
+            <img className='w-[48px] rounded-full shadow-lg border-[4px] border-[#925FE2]' src="./src/assets/Avt.jpg" alt="avt" />
         </div>
     )
 }

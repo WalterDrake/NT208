@@ -89,7 +89,7 @@ main {
 aside {
   background-color: #f2d8ca;
   height: 760px;
-  
+  margin-top: 30px;
   width: 276px;
 }
 
@@ -97,22 +97,28 @@ aside {
 
 header {
   background: white;
-  
   position: fixed;
   height: 100px;
   top: 0;
   left: 0;
   padding: 0;
   width: 100%;
+  z-index: 1;
 }
-body {
+main {
   height: 1024px;
   top: 200px;
-  left: 500px;
+  left: 50px;
   bottom: 500px;
+  padding-top: 100px;
   margin: 0 auto;
   text-align: left;
   overflow: auto;
+  margin-left: 1rem;
+  margin-right: 0;
+  max-width: 1200px;  
+  padding: 5px;
+  width:calc(100% - 18.5rem);
 }
 /* content {
   position: fixed;
@@ -130,8 +136,7 @@ footer {
   
   font-weight: bold;
   height: 260px;
- 
-  
+
   bottom: 0;
   left: 0;
   width: 100%;

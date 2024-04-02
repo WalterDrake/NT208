@@ -10,7 +10,7 @@ import config from "../config/routes";
 
 const Navbar = () => {
   return (
-    <nav className=" items-center flex p-26 ">
+    <nav className=" items-center flex z-50 p-26 ">
       <div>
         <img
           className="ml-[4rem] mt-[1rem] "
