@@ -1,7 +1,7 @@
 import React from "react";
 
 const Thongbaopage = () => {
-  return <div></div>;
+  return <div>Thong báo</div>;
 };
 
 export default Thongbaopage;

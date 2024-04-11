@@ -1,4 +1,5 @@
 import routesConfig from "../../src/config/routes";
+import Dangnhappage from "../Pages/Dangnhappage";
 import Diendanpages from "../Pages/Diendanpages";
 import Hocnhompage from "../Pages/Hocnhompage";
 import Hoctappage from "../Pages/Hoctappage";
@@ -15,6 +16,7 @@ const publicRoutes = [
   { path: routesConfig.hocnhom, component: Hocnhompage },
   { path: routesConfig.khoahoc, component: Khoahocpage },
   { path: routesConfig.hoctap, component: Hoctappage },
+  { path: routesConfig.dangxuat, component: Dangnhappage },
   { path: routesConfig.profile, component: Profilepage },
   { path: routesConfig.thongbao, component: Thongbaopage },
   { path: routesConfig.tinnhan, component: Tinnhanpage },

@@ -6,6 +6,7 @@ import Khoahoc from "./Sidebar/Khoahoc";
 import Hocnhom from "./Sidebar/Hocnhom";
 import Menu from "./Layout/Menu/Menu";
 import config from "../config/routes";
+import Dangxuat from "./Sidebar/Dangxuat";
 
 const Sidebar = () => {
     return (
@@ -15,6 +16,8 @@ const Sidebar = () => {
                 <Menuitem title={<Hocnhom />} to={config.hocnhom} />
                 <Menuitem title={<Hoctap />} to={config.hoctap} />
                 <Menuitem title={<Diendan />} to={config.diendan} />
+                <Menuitem title={<Dangxuat />} to={config.dangxuat} />
+
             </Menu>
         </div>
     );
