@@ -40,10 +40,6 @@ export const Login = () => {
                         <img className='w-full  ' src={loginImg} alt="#" />
                         <div className='absolute bottom-0 left-0'>
 
-                            <div className='flex gap-3 justify-center  items-center'>
-                                <p className='mb-2 text-gray-500 mt-2 p-2 ml-20'>Bạn chưa có tài khoản?</p>
-                                <button> <a href='#' className='bg-white hover:scale-110 duration-300 rounded-lg text-[#0077FF] px-4 py-1 inline-block font-semibold hover:bg-[#0077FF] hover:text-white'>Đăng ký</a></button>
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -38,13 +38,10 @@ const Dangnhappage = () => {
 
                     <div className='w-4/7 bg-[#71ACF2] md:block hidden justify-center items-center rounded-md max-w-3xl relative'>
                         <h2 className='text-3xl absolute ml-6 mt-9 text-white font-bold mb-2'>Chào mừng bạn quay trở lại!</h2>
-                        <img className='w-full  ' src={loginImg} alt="#" />
+                        <img className='w-full' src={loginImg} alt="#" />
                         <div className='absolute bottom-0 left-0'>
 
-                            <div className='flex gap-3 justify-center  items-center'>
-                                <p className='mb-2 text-gray-500 mt-2 p-2 ml-20'>Bạn chưa có tài khoản?</p>
-                                <button> <a href='#' className='bg-white hover:scale-110 duration-300 rounded-lg text-[#0077FF] px-4 py-1 inline-block font-semibold hover:bg-[#0077FF] hover:text-white'>Đăng ký</a></button>
-                            </div>
+
                         </div>
                     </div>
                 </div>
