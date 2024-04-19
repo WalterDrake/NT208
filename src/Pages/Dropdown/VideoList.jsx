@@ -76,7 +76,7 @@ const VideoList = () => {
                     <div className="bg-white rounded-lg p-4">
                         <Button
                             onClick={handleCloseSubVideos}
-                            className="absolute top-2 right-2 text-gray-600"
+                            className="absolute top-[100px] right-2 text-black-600 fixed"
                         >
                             Close
                         </Button>
