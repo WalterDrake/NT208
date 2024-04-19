@@ -7,7 +7,7 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import Navbarmenu from "./Layout/NavBaritem/Navbarmenu";
 import Navbaritem from "./Layout/NavBaritem/Navbaritem";
 import config from "../config/routes";
-
+import Badge from '@mui/material/Badge';
 const Navbar = () => {
   return (
     <nav className=" items-center flex z-50 p-26 ">
@@ -35,7 +35,10 @@ const Navbar = () => {
         />
         <Navbaritem
           to={config.tinnhan}
-          icon={<AiOutlineMessage className="w-10 h-10" />}
+
+          icon={<Badge color="error" badgeContent={7}>
+            <AiOutlineMessage className="w-10 h-10" />
+          </Badge>}
         />
         <Navbaritem
           to={config.thongbao}

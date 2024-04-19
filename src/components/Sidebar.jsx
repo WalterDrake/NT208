@@ -10,7 +10,7 @@ import Dangxuat from "./Sidebar/Dangxuat";
 
 const Sidebar = () => {
     return (
-        <div className=" bg-white  px-10 py-2 top-[6rem] rounded-r-lg inset-y-20">
+        <div className=" bg-white px-20 py-48 rounded-r-lg inset-y-10">
             <Menu>
                 <Menuitem title={<Khoahoc />} to={config.khoahoc} />
                 <Menuitem title={<Hocnhom />} to={config.hocnhom} />
