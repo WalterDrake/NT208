@@ -106,4 +106,4 @@ const HocNhompage = () => {
   );
 };
 
-export default HocNhompage;
+export default HocNhompage

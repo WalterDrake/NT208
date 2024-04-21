@@ -1,7 +1,7 @@
 import React from "react";
 
 const Tinnhan = () => {
-  return <div></div>;
+  return <div>tin nhắn nha</div>;
 };
 
 export default Tinnhan;
