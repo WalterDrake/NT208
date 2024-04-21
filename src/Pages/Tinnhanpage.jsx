@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
 const Tinnhanpage = () => {
-  return <div>Tin nhan</div>;
-};
+  return <div>Tin nhan</div>
+}
 
-export default Tinnhanpage;
+export default Tinnhanpage

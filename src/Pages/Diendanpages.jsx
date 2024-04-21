@@ -1,9 +1,9 @@
-import React from "react";
-import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import CropOriginalIcon from '@mui/icons-material/CropOriginal';
-import VideoList from "./Dropdown/VideoList";
+import React from "react"
+import { styled } from '@mui/material/styles'
+import Button from '@mui/material/Button'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'
+import CropOriginalIcon from '@mui/icons-material/CropOriginal'
+import VideoList from "./Dropdown/VideoList"
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -14,13 +14,13 @@ const VisuallyHiddenInput = styled('input')({
   bottom: 0,
   left: 0,
   whiteSpace: 'nowrap',
-  width: 1,
-});
+  width: 1
+})
 
 const Diendanpages = () => {
   return (
     <div className="ml-2">
-      <Button variant="contained" className="bg-black mr-2">Hello world</Button>
+      <Button variant="contained" className="bg-black mr-2 rounded-full">Hello world</Button>
       <Button
         component="label"
         role={undefined}
@@ -34,7 +34,7 @@ const Diendanpages = () => {
       <CropOriginalIcon className="text-pink-300" />
       <VideoList />
     </div>
-  );
-};
+  )
+}
 
-export default Diendanpages;
+export default Diendanpages

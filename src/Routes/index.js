@@ -16,7 +16,7 @@ const publicRoutes = [
   { path: routesConfig.hocnhom, component: Hocnhompage },
   { path: routesConfig.khoahoc, component: Khoahocpage },
   { path: routesConfig.hoctap, component: Hoctappage },
-  { path: routesConfig.dangxuat, component: Dangnhappage },
+  { path: routesConfig.dangxuat, component: Dangnhappage, },
   { path: routesConfig.profile, component: Profilepage },
   { path: routesConfig.thongbao, component: Thongbaopage },
   { path: routesConfig.tinnhan, component: Tinnhanpage },
