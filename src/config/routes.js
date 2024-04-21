@@ -6,9 +6,8 @@ const routes = {
   hoctap: "/Hoctappage",
   hocnhom: "/Hocnhompage",
   dangxuat: "/Dangnhappage",
-  dangky: "/Dangkypage",
   profile: "/Profile",
   thongbao: "/Thongbao",
-  tinnhan: "/Tinnhan",
-};
-export default routes;
+  tinnhan: "/Tinnhan"
+}
+export default routes

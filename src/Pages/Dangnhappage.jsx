@@ -1,8 +1,6 @@
 import React from 'react'
-
 import loginImg from '../assets/BackgroundLogin.svg'
-import { FaRegEyeSlash } from "react-icons/fa6";
-
+import { FaRegEyeSlash } from "react-icons/fa6"
 
 const Dangnhappage = () => {
     return (
@@ -12,9 +10,7 @@ const Dangnhappage = () => {
                     <div className='md:w-4/5 p-6'>
                         <div className=' py-8'>
                             <img className='px-24 ' src="./src/assets/LogoUIT.svg" alt="logiUIT" />
-
                             <h2 className='text-3xl mt-2 font-bold text-black mb-2'>Đăng nhập</h2>
-
                         </div>
                         <div>
                             <form className='flex flex-col gap-2'>
@@ -27,21 +23,16 @@ const Dangnhappage = () => {
                                 </div>
                                 <div className='text-sm mr-10'>
                                     <p ><input type="checkbox" />Nhớ tài khoản của tôi</p>
-
                                 </div>
                                 <button> <a href='#' className='bg-[#0077FF] hover:scale-110 mt-6 rounded-lg text-white px-4 py-1 inline-block font-semibold hover:bg-[#2e7bd9] hover:text-white'>Đăng nhập</a></button>
                                 <p className='text-sm mt-4'><a href='#'>Quên mật khẩu?</a></p>
                             </form>
                         </div>
-
                     </div>
-
                     <div className='w-4/7 bg-[#71ACF2] md:block hidden justify-center items-center rounded-md max-w-3xl relative'>
                         <h2 className='text-3xl absolute ml-6 mt-9 text-white font-bold mb-2'>Chào mừng bạn quay trở lại!</h2>
                         <img className='w-full' src={loginImg} alt="#" />
                         <div className='absolute bottom-0 left-0'>
-
-
                         </div>
                     </div>
                 </div>
@@ -53,4 +44,4 @@ const Dangnhappage = () => {
     )
 }
 
-export default Dangnhappage;
+export default Dangnhappage

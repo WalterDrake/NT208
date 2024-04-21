@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import KhoahocItem from "./Khoahoc/KhoahocItem";
-import { Link, Route } from "react-router-dom";
-import "./Add.css";
+import React, { useState } from "react"
+import KhoahocItem from "./Khoahoc/KhoahocItem"
+//import { Link, Route } from "react-router-dom"
+import "./Add.css"
 
 const khoahoc = [
   {
-     image: "src\\assets\\KhoaHoc_img\\WannaGame.jpg", 
-     ten: "WannaGame",
-     mota: "Chuỗi training CTF do CLB Wanna.W1n tổ chức", 
-     siso: 30, 
-     tinhtrang: 1,
+     image: 'src\\assets\\KhoaHoc_img\\WannaGame.jpg',
+     ten: 'WannaGame',
+     mota: 'Chuỗi training CTF do CLB Wanna.W1n tổ chức',
+     siso: 30,
+     tinhtrang: 1
    },
   
    {
@@ -17,7 +17,7 @@ const khoahoc = [
      ten: "AWS Cloud Training", 
      mota: "Khoa Mạng máy tính và Truyền thông",
      siso: 140, 
-     tinhtrang: 1,
+     tinhtrang: 1
    },
 
    {
@@ -25,7 +25,7 @@ const khoahoc = [
      ten: "Truyền dữ liệu", 
      mota: "Khoa Mạng máy tính và Truyền thông dữ liệu",
      siso: 100, 
-     tinhtrang: 1,
+     tinhtrang: 1
    },
 
 
@@ -34,7 +34,7 @@ const khoahoc = [
       ten: "Lập trình mạng căn bản", 
       mota: "Khoa Mạng máy tính và Truyền thông",
       siso: 95, 
-      tinhtrang: 1,
+      tinhtrang: 1
     },
 
 
@@ -44,7 +44,7 @@ const khoahoc = [
      ten: "Training Kỹ năng thông tin", 
      mota: "Do Thư viện Trường Đại học Công nghệ Thông tin tổ chức",
      siso: 140, 
-     tinhtrang: 1,
+     tinhtrang: 1
    },
 
 
@@ -53,7 +53,7 @@ const khoahoc = [
         ten: "Lập trình Web", 
         mota: "Khoa Mạng máy tính và Truyền thông",
         siso: 140, 
-        tinhtrang: 1,
+        tinhtrang: 1
       },
 
 
@@ -62,7 +62,7 @@ const khoahoc = [
         ten: "Vi xử lý - Vi điều khiển",
         mota: "Khoa Kỹ thuật máy tính", 
         siso: 140, 
-        tinhtrang: 1,
+        tinhtrang: 1
      }, 
 
 
@@ -71,16 +71,16 @@ const khoahoc = [
          ten: "Mật mã học",
          mota: "Khoa Mạng máy tính và Truyền thông",
          siso: 140, 
-         tinhtrang: 1,
-      },   
-];
+         tinhtrang: 1
+      } 
+]
 
 const Khoahocpage = () => {
   const [filter, setFilter] = useState(2); // Default filter: all (2)
 
   const handleFilterChange = (value) => {
-    setFilter(value);
-  };
+    setFilter(value)
+  }
 
   return (
     <div className="bg-white dimension ">
@@ -111,7 +111,7 @@ const Khoahocpage = () => {
         </div>
      </div>
     </div>
-  );
-};
+  )
+}
 
-export default Khoahocpage;
+export default Khoahocpage
