@@ -9,6 +9,7 @@ import Thongbaopage from "../Pages/Thongbaopage";
 import Tinnhanpage from "../Pages/Tinnhanpage";
 import Home from "../components/NavBar/Home";
 import Diendan from "../components/Sidebar/Diendan";
+import Blankpage from "../components/Layout/Blankpage";
 
 const publicRoutes = [
   { path: routesConfig.home, component: Home },
@@ -16,7 +17,7 @@ const publicRoutes = [
   { path: routesConfig.hocnhom, component: Hocnhompage },
   { path: routesConfig.khoahoc, component: Khoahocpage },
   { path: routesConfig.hoctap, component: Hoctappage },
-  { path: routesConfig.dangxuat, component: Dangnhappage },
+  { path: routesConfig.dangxuat, component: Dangnhappage, layout: Blankpage },
   { path: routesConfig.profile, component: Profilepage },
   { path: routesConfig.thongbao, component: Thongbaopage },
   { path: routesConfig.tinnhan, component: Tinnhanpage },
