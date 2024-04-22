@@ -9,7 +9,7 @@ import Profilepage from "../Pages/Profilepage";
 import Thongbaopage from "../Pages/Thongbaopage";
 import Tinnhanpage from "../Pages/Tinnhanpage";
 import Home from "../components/NavBar/Home";
-
+import KhoahocitemDetail from "../Pages/Khoahoc/KhoahocItemDetail";   
 import DangnhapLayout from "../components/Layout/DangnhapLayout";
 
 
@@ -23,6 +23,7 @@ const publicRoutes = [
   { path: routesConfig.profile, component: Profilepage },
   { path: routesConfig.thongbao, component: Thongbaopage },
   { path: routesConfig.tinnhan, component: Tinnhanpage },
+  { path: routesConfig.khoahocitem, component: KhoahocitemDetail, layout: Fragment},
 ];
 
 //Không cần đăng nhập vẫn vào được

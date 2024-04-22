@@ -8,6 +8,7 @@ const routes = {
   dangxuat: "/Dangnhappage",
   profile: "/Profile",
   thongbao: "/Thongbao",
-  tinnhan: "/Tinnhan"
+  tinnhan: "/Tinnhan",
+  khoahocitem: "/Khoahocpage/:courseName"
 }
 export default routes
