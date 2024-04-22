@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import routesConfig from "../../src/config/routes";
 import Dangnhappage from "../Pages/Dangnhappage";
 import Diendanpages from "../Pages/Diendanpages";
@@ -8,8 +9,9 @@ import Profilepage from "../Pages/Profilepage";
 import Thongbaopage from "../Pages/Thongbaopage";
 import Tinnhanpage from "../Pages/Tinnhanpage";
 import Home from "../components/NavBar/Home";
-import Diendan from "../components/Sidebar/Diendan";
+
 import Blankpage from "../components/Layout/Blankpage";
+
 
 const publicRoutes = [
   { path: routesConfig.home, component: Home },

@@ -1,7 +1,6 @@
 import React from 'react'
-
 import loginImg from '../assets/BackgroundLogin.svg'
-import { FaRegEyeSlash } from "react-icons/fa6";
+import { FaRegEyeSlash } from "react-icons/fa6"
 
 export const Login = () => {
     return (
