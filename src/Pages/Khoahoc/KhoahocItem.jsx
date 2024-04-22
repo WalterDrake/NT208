@@ -4,9 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const KhoahocItem = ({ KhoaHoc, Tinhtrang }) => {
-  // tạo props với object
-  //console.log(Tinhtrang) để debug
-  if (Tinhtrang == 2 || Tinhtrang == KhoaHoc.tinhtrang) {
     return (
       // các thuộc tính nào khác nhau ở từng item muốn render thì qua bên mảng kia thêm nha
       <div className=" ml-4 frame rounded-md bg-white ">
@@ -30,6 +27,4 @@ const KhoahocItem = ({ KhoaHoc, Tinhtrang }) => {
       </div>
     );
   }
-};
-// tạo component KhoahocItem với props ten, giaovien, siso và trả về 1 div chứa title, giáo viên và sĩ số
 export default KhoahocItem;
