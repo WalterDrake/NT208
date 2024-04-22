@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Blankpage({children}) {
+export default function DangnhapLayout({children}) {
   return (
     <div>
       {children}
