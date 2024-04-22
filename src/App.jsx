@@ -2,7 +2,7 @@ import "./App.css"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { publicRoutes } from "./Routes"
 import DefaultLayout from "./components/Layout/DefaultLayout"
-
+import KhoahocItemDetail from "./Pages/Khoahoc/KhoahocItemDetail"
 function App() {
   return (
     <Router className="h-screen bg-[#F0F7FF]">
@@ -30,6 +30,7 @@ function App() {
         }
         )
         }
+         <Route path="Khoahocpage/:courseName" element={<KhoahocItemDetail />} />
       </Routes>
     </Router>
   )
