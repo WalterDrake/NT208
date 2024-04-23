@@ -1,70 +1,64 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from 'react'
 
 function CourseDetails() {
-  const { courseName } = useParams();
-  const [courseDetails, setCourseDetails] = useState({
-    name: 'hocReact',
-    description: 'hoc react tren web',
-    videoList: [{
-      id: 1,
-      title: ' Bài 1:hoc react',
-      url: 'https://www.youtube.com/watch?v=Ke90Tje7VS0',
-      description: 'hoc react'
-    },
-    {
-      id: 2,
-      title: ' Bài 2:hoc vuejs',
-      url: 'https://www.youtube.com/watch?v=x7l0JX68XyA&list=PL_-VfJajZj0U9nEXa4qyfB4U5ZIYCMPlz&index=44',
-      description: 'hoc vuejs'
-    }
-    ]
-  });
-  const [curVideo,setCurVideo] = useState(courseDetails.videoList[0].url)
-  console
+     
+    const [CourseDetails, setCourseDetails] = useState({
+        
+        List: [
+            {
+                id: 1,
+                url: 'https://www.youtube.com/embed/uXWycyeTeCs' // URL video thay vì tên
+            }, 
+            {
+                id: 2,
+                url: 'https://www.youtube.com/embed/anotherVideoId' // URL video thay vì tên
+            },
+            {
+                id: 3,
+                url: 'https://www.youtube.com/embed/yetAnotherVideoId' // URL video thay vì tên
+            },
+            {
+              id: 4,
+              url: 'https://www.youtube.com/embed/yetAnotherVideoId' // URL video thay vì tên
+          },
+          {
+            id: 5,
+            url: 'https://www.youtube.com/embed/yetAnotherVideoId' // URL video thay vì tên
+        } 
+        ]
+    });
 
-  // useEffect(() => {
-  //   // Thay đổi URL này theo API của bạn
-  //   const apiUrl = `https://my-api.com/courses/${courseName}`;
+    const [selectedUrl, setSelectedUrl] = useState('')
+    const [loadingIframe, setLoadingIframe] = useState(true)
 
-  //   axios.get(apiUrl)
-  //     .then(response => {
-  //       setCourseDetails(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error("Could not fetch course details:", error);
-  //     });
-  // }, [courseName]);  // Chạy lại useEffect mỗi khi courseName thay đổi
+    const handleClick = (id) => {
+        const video = CourseDetails.List.find(video => video.id === id);
+        if (video) {
+            setSelectedUrl(video.url);
+            setLoadingIframe(true); // Bắt đầu hiển thị loading indicator
+        }
+    };
 
-  // if (!courseDetails) {
-  //   return <div>Loading course details...</div>;
-  // }
+    return (
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <button style={{ padding: '10px 15px', marginBottom: '10px' }} onClick={() => handleClick(1)}>Week 0</button>
+                <button style={{ padding: '10px 15px', marginBottom: '10px' }} onClick={() => handleClick(2)}>Week 1</button>
+                <button style={{ padding: '10px 15px', marginBottom: '10px' }} onClick={() => handleClick(3)}>Week 3</button>
+                <button style={{ padding: '10px 15px', marginBottom: '10px' }} onClick={() => handleClick(4)}>Week 4</button>
+                <button style={{ padding: '10px 15px', marginBottom: '10px' }} onClick={() => handleClick(5)}>Week 5</button>
 
-  return (
-    <div>
-      <div className="bg-[#29303b] w-full" id="navbar-course">
-        <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">{courseDetails.name}</h1>
-      </div>
-      <ul className = " bg-slate-500 w-[12%]"  id="listVideo">
-        {courseDetails.videoList.map((video) =>
-        {
-            return (
-              <li key={video.id} className=' bg-white' onClick={()=>{setCurVideo(video.url)}}>
-                <h2>{video.title}</h2>
-                <p className="">{video.description}</p>
-              </li>
-            )
-          }
-  )}
-      <button onClick></button>
-      </ul>
-      <div id="video-khoa-hoc">
-        <p>{curVideo}</p>
-      </div>
-     {/* Hiển thị thêm thông tin chi tiết khóa học nếu cần */}
-    </div>
-  );
+            </div>
+            {selectedUrl && (
+                <iframe
+                    src={selectedUrl}
+                    onLoad={() => setLoadingIframe(false)}
+                    style={{ width: '300px', height: '315px', marginLeft: '20px' }}
+                    title="Video Player"
+                ></iframe>
+            )}
+        </div>
+    );
 }
 
 export default CourseDetails;
