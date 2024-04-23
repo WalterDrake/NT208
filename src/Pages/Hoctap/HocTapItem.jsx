@@ -2,9 +2,12 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
+
 const HocTapItem = ({ HocTap, Tinhtrang }) => { // tạo props với object
   //console.log(Tinhtrang) để debug
   if (Tinhtrang == 2 || Tinhtrang == HocTap.tinhtrang) // cái này hơi dư nếu nhma nếu anh em hiểu thì xóa nha
+ // cái này hơi dư nếu nhma nếu anh em hiểu thì xóa nha
+
   {
     return (
       // các thuộc tính nào khác nhau ở từng item muốn render thì qua bên mảng kia thêm nha
