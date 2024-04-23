@@ -83,18 +83,21 @@ main {
 /* #content .item-list h2 {
   margin-bottom: 10px;
 } */
-/* body .item-list div {
-  margin-bottom: 30px;
-}  */
+
 aside {
-  background-color: #f2d8ca;
-  height: 760px;
+  background-color: white;
+  width: 270px;
+  height: 763px;
   margin-top: 30px;
-  width: 276px;
+  font-size: 20px;
+  border-top-right-radius: 1.88rem;
+  border-bottom-right-radius: 1.88rem;
   
 }
 
-
+body {
+  background: black;
+}
 
 header {
   background: white;
@@ -120,6 +123,7 @@ main {
   max-width: 1200px;  
   padding: 5px;
   width:calc(100% - 18.5rem);
+  margin-top: 1.5rem;
 }
 /* content {
   position: fixed;
@@ -133,11 +137,10 @@ main {
 } */
 
 footer {
-  background: none;
+  
   
   font-weight: bold;
   height: 260px;
-
   bottom: 0;
   left: 0;
   width: 100%;

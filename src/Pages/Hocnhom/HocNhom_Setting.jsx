@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 function HocNhomItem() {
-  function HandleSettingClick() {}
+  function HandleSettingClick() { }
   return (
     <div>
       <FontAwesomeIcon icon={faGear} />

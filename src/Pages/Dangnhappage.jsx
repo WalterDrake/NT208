@@ -24,7 +24,7 @@ const Dangnhappage = () => {
                                 <div className='text-sm mr-10'>
                                     <p ><input type="checkbox" />Nhớ tài khoản của tôi</p>
                                 </div>
-                                <button> <a href='#' className='bg-[#0077FF] hover:scale-110 mt-6 rounded-lg text-white px-4 py-1 inline-block font-semibold hover:bg-[#2e7bd9] hover:text-white'>Đăng nhập</a></button>
+                                <button> <a href='/Khoahocpage' className='bg-[#0077FF] hover:scale-110 mt-6 rounded-lg text-white px-4 py-1 inline-block font-semibold hover:bg-[#2e7bd9] hover:text-white'>Đăng nhập</a></button>
                                 <p className='text-sm mt-4'><a href='#'>Quên mật khẩu?</a></p>
                             </form>
                         </div>

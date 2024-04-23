@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import config from "../../config/page";
 const Hocnhom = () => {
   return (
-    <div className="mb-6 rounded hover:shadow hover:bg-[#F0F7FF] py-2 ">
+    <div className="mb-6 w-[145px] rounded hover:shadow hover:bg-[#F0F7FF] py-2 ">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

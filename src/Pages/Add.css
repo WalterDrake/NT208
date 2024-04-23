@@ -12,7 +12,7 @@
 }
 .container {
   flex-wrap: wrap;
-  background-color: rgba(240, 247, 255, 1);
+  //background-color: rgba(240, 247, 255, 1);
 }
 .item {
   max-width: 700px;
