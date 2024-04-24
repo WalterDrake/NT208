@@ -1,7 +1,12 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState ,createContext} from "react";
 import axios from "axios";
+import { Grid } from "@mui/material";
 
+import KhoahocDetailVideo from "./KhoahocDetailItem/KhoahocDetailVideo";
+import KhoahocDetailList from "./KhoahocDetailItem/KhoahocDetailList";
+
+export const CurrentVideoContext = createContext();
 function CourseDetails() {
   const { courseName } = useParams();
   const [courseDetails, setCourseDetails] = useState({
@@ -22,7 +27,6 @@ function CourseDetails() {
     ]
   });
   const [curVideo,setCurVideo] = useState(courseDetails.videoList[0].url)
-  console
 
   // useEffect(() => {
   //   // Thay đổi URL này theo API của bạn
@@ -42,28 +46,17 @@ function CourseDetails() {
   // }
 
   return (
-    <div>
+    <CurrentVideoContext.Provider value={{curVideo,setCurVideo,courseDetails, setCourseDetails}}>
       <div className="bg-[#29303b] w-full" id="navbar-course">
         <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">{courseDetails.name}</h1>
       </div>
-      <ul className = " bg-slate-500 w-[12%]"  id="listVideo">
-        {courseDetails.videoList.map((video) =>
-        {
-            return (
-              <li key={video.id} className=' bg-white' onClick={()=>{setCurVideo(video.url)}}>
-                <h2>{video.title}</h2>
-                <p className="">{video.description}</p>
-              </li>
-            )
-          }
-  )}
-      <button onClick></button>
-      </ul>
+      <Grid item xs={12}>
+      <KhoahocDetailList/>
+      </Grid>
       <div id="video-khoa-hoc">
-        <p>{curVideo}</p>
+        <KhoahocDetailVideo  />
       </div>
-     {/* Hiển thị thêm thông tin chi tiết khóa học nếu cần */}
-    </div>
+    </CurrentVideoContext.Provider>
   );
 }
 
