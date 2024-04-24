@@ -13,12 +13,8 @@ UITeCo là một trang web học tập trực tuyến dành cho sinh viên và g
 **Đăng nhập**
 ![Login](https://github.com/WalterDrake/NT208/assets/87658807/8b1e0a51-82bf-47a3-8733-5f875a8fa19f)
 
-**Đăng ký**
-![Sign Up2](https://github.com/WalterDrake/NT208/assets/87658807/26d85593-a42f-4468-9988-f5ca10d77859)
-
-- **Mô tả:** Dành riêng cho uit nên sẽ cố định định dạng email đk tài khoản (.uit.edu.vn). Ở phần đăng ký sẽ có mục chọn thân phận (Giảng viên/ Sinh viên), ở mỗi thân phận sẽ có một vài chức năng khác nhau.
+- **Mô tả:** Dành riêng cho uit nên sẽ cố định định dạng email đăng nhập tài khoản (.uit.edu.vn). 
 - **Chức năng:**
-   + Tạo tài khoản
    + Đăng nhập	
    + Reset mật khẩu	
    + Ghi nhớ đăng nhập	
