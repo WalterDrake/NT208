@@ -15,13 +15,13 @@ function CourseDetails() {
     videoList: [{
       id: 1,
       title: ' Bài 1:hoc react',
-      url: 'https://www.youtube.com/watch?v=Ke90Tje7VS0',
+      url: 'https://www.youtube.com/embed/TLVK0iTDev0?si=8Ld1xnfpQxnNBvBO',
       description: 'hoc react'
     },
     {
       id: 2,
       title: ' Bài 2:hoc vuejs',
-      url: 'https://www.youtube.com/watch?v=x7l0JX68XyA&list=PL_-VfJajZj0U9nEXa4qyfB4U5ZIYCMPlz&index=44',
+      url: 'https://www.youtube.com/embed/9vaLkYElidg?si=Imdocb1vyUPRH_UU',
       description: 'hoc vuejs'
     }
     ]
