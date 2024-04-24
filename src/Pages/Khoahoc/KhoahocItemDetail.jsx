@@ -1,64 +1,42 @@
-import { useState } from 'react'
+// CourseDetails.js
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
+import VideoList from './KhoahocListVideo.jsx';
+import VideoPlayer from './KhoahocVideo.jsx';
+
 
 function CourseDetails() {
-     
-    const [CourseDetails, setCourseDetails] = useState({
-        
-        List: [
-            {
-                id: 1,
-                url: 'https://www.youtube.com/embed/uXWycyeTeCs' // URL video thay vì tên
-            }, 
-            {
-                id: 2,
-                url: 'https://www.youtube.com/embed/anotherVideoId' // URL video thay vì tên
-            },
-            {
-                id: 3,
-                url: 'https://www.youtube.com/embed/yetAnotherVideoId' // URL video thay vì tên
-            },
-            {
-              id: 4,
-              url: 'https://www.youtube.com/embed/yetAnotherVideoId' // URL video thay vì tên
-          },
-          {
-            id: 5,
-            url: 'https://www.youtube.com/embed/yetAnotherVideoId' // URL video thay vì tên
-        } 
-        ]
-    });
+ const { courseName } = useParams();
+ const [courseDetails, setCourseDetails] = useState({
+    name: 'hocReact',
+    description: 'hoc react tren web',
+    videoList: [
+      {
+        id: 1,
+        title: ' Bài 1:hoc react',
+        url: 'https://www.youtube.com/watch?v=CVaEWBFpxhc',
+        description: 'hoc react',
+      },
+      {
+        id: 2,
+        title: ' Bài 2:hoc vuejs',
+        url: 'https://www.youtube.com/watch?v=x7l0JX68XyA&list=PL_-VfJajZj0U9nEXa4qyfB4U5ZIYCMPlz&index=44',
+        description: 'hoc vuejs',
+      },
+    ],
+ });
+ const [curVideo, setCurVideo] = useState(courseDetails.videoList[0].url);
 
-    const [selectedUrl, setSelectedUrl] = useState('')
-    const [loadingIframe, setLoadingIframe] = useState(true)
-
-    const handleClick = (id) => {
-        const video = CourseDetails.List.find(video => video.id === id);
-        if (video) {
-            setSelectedUrl(video.url);
-            setLoadingIframe(true); // Bắt đầu hiển thị loading indicator
-        }
-    };
-
-    return (
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <button style={{ padding: '10px 15px', marginBottom: '10px' }} onClick={() => handleClick(1)}>Week 0</button>
-                <button style={{ padding: '10px 15px', marginBottom: '10px' }} onClick={() => handleClick(2)}>Week 1</button>
-                <button style={{ padding: '10px 15px', marginBottom: '10px' }} onClick={() => handleClick(3)}>Week 3</button>
-                <button style={{ padding: '10px 15px', marginBottom: '10px' }} onClick={() => handleClick(4)}>Week 4</button>
-                <button style={{ padding: '10px 15px', marginBottom: '10px' }} onClick={() => handleClick(5)}>Week 5</button>
-
-            </div>
-            {selectedUrl && (
-                <iframe
-                    src={selectedUrl}
-                    onLoad={() => setLoadingIframe(false)}
-                    style={{ width: '300px', height: '315px', marginLeft: '20px' }}
-                    title="Video Player"
-                ></iframe>
-            )}
-        </div>
-    );
+ return (
+    <div>
+      <div className="bg-[#29303b] w-full" id="navbar-course">
+        <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">{courseDetails.name}</h1>
+      </div>
+      <VideoList videoList={courseDetails.videoList} setCurVideo={setCurVideo} />
+      <VideoPlayer curVideo={curVideo} />
+    </div>
+ );
 }
 
 export default CourseDetails;
