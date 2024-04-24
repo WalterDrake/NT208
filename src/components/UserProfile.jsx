@@ -128,10 +128,7 @@ export const UserProfile = () => {
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
                     <MenuItem onClick={handleClose}>
-                        <Avatar /> Hồ sơ
-                    </MenuItem>
-                    <MenuItem onClick={handleClose}>
-                        <Avatar /> Tài khoản của tôi
+                        <Avatar alt="Thùy Trang" src="./src/assets/Avt.jpg" /> Tài khoản của tôi
                     </MenuItem>
                     <Divider />
                     <MenuItem onClick={handleClose}>
