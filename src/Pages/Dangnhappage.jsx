@@ -28,7 +28,7 @@ const Dangnhappage = () => {
                     <div className='md:w-4/5 p-6'>
                         <div className=' py-8'>
                             <img className='px-24 ' src="./src/assets/LogoUIT.svg" alt="logiUIT" />
-                            <button className='text-3xl mt-2 font-bold text-black mb-2 form-submit'>Đăng nhập</button>
+                            <h2 className='text-3xl mt-2 font-bold text-black mb-2'>Đăng nhập</h2>
                         </div>
                         <div>
                             <form className='flex flex-col gap-2 form-group' id='form-login'>
@@ -44,7 +44,7 @@ const Dangnhappage = () => {
                                 <div className='text-sm mr-10'>
                                     <p ><input type="checkbox" />Nhớ tài khoản của tôi</p>
                                 </div>
-                                <button> <a href='/Khoahocpage' className='bg-[#0077FF] hover:scale-110 mt-6 rounded-lg text-white px-4 py-1 inline-block font-semibold hover:bg-[#2e7bd9] hover:text-white'>Đăng nhập</a></button>
+                                <button className='form-submit'> <a href='/Khoahocpage' className='bg-[#0077FF] hover:scale-110 mt-6 rounded-lg text-white px-4 py-1 inline-block font-semibold hover:bg-[#2e7bd9] hover:text-white'>Đăng nhập</a></button>
                                 <p className='text-sm mt-4'><a href='#'>Quên mật khẩu?</a></p>
                             </form>
                         </div>
