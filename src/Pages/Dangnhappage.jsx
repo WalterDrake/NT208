@@ -18,6 +18,11 @@ const Dangnhappage = () => {
                 validator.isRequired('#password', 'Vui lòng nhập mật khẩu'),
                 validator.minLength('#password', 6),
             ],
+            onSubmit: function (data) {
+                console.log(data); // call api
+                
+
+            }
         });
     }, [])
 
@@ -33,7 +38,7 @@ const Dangnhappage = () => {
                         <div>
                             <form className='flex flex-col gap-2 form-group' id='form-login'>
                                 <div>
-                                    <input className='p-2 rounded-xl border' type="email" id='email' name="email" placeholder='Email' />
+                                    <input className='p-2 rounded-xl border' autoComplete='true' type="email" id='email' name="email" placeholder='Email' />
                                     <span className="form-message block  text-red-500"></span>
                                 </div>
                                 <div className='relative form-group'>
@@ -44,7 +49,7 @@ const Dangnhappage = () => {
                                 <div className='text-sm mr-10'>
                                     <p ><input type="checkbox" />Nhớ tài khoản của tôi</p>
                                 </div>
-                                <button className='form-submit'> <a href='/Khoahocpage' className='bg-[#0077FF] hover:scale-110 mt-6 rounded-lg text-white px-4 py-1 inline-block font-semibold hover:bg-[#2e7bd9] hover:text-white'>Đăng nhập</a></button>
+                                <button className='form-submit'> <p className='bg-[#0077FF] hover:scale-110 mt-6 rounded-lg text-white px-4 py-1 inline-block font-semibold hover:bg-[#2e7bd9] hover:text-white'>Đăng nhập</p></button>
                                 <p className='text-sm mt-4'><a href='#'>Quên mật khẩu?</a></p>
                             </form>
                         </div>
