@@ -3,7 +3,7 @@ import { HiMiniHome } from "react-icons/hi2";
 import { AiOutlineMessage } from "react-icons/ai";
 import { IoNotificationsOutline } from "react-icons/io5";
 import Badge from '@mui/material/Badge';
-
+import { Link } from "react-router-dom"
 import { UserProfile } from "./UserProfile";
 import Navbarmenu from "./Layout/NavBaritem/Navbarmenu";
 import Navbaritem from "./Layout/NavBaritem/Navbaritem";
@@ -30,13 +30,14 @@ const Navbar = () => {
           to={config.home}
           icon={<HiMiniHome className="w-10 h-10" />}
         />
-        <Navbaritem
-          to={config.tinnhan}
+        <Link to={`/Tinnhanpage/`}>
+          <Navbaritem
+            icon={<Badge color="error" badgeContent={7}>
+              <AiOutlineMessage className="w-10 h-10" />
+            </Badge>}
+          />
+        </Link>
 
-          icon={<Badge color="error" badgeContent={7}>
-            <AiOutlineMessage className="w-10 h-10" />
-          </Badge>}
-        />
         <Navbaritem
           to={config.thongbao}
           icon={<IoNotificationsOutline className="w-10 h-10" />}
