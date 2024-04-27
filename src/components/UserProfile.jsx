@@ -13,6 +13,8 @@ import Tooltip from '@mui/material/Tooltip'
 import PersonAdd from '@mui/icons-material/PersonAdd'
 import Settings from '@mui/icons-material/Settings'
 import Logout from '@mui/icons-material/Logout'
+import config from '../config/routes'
+import Dangxuat from './Sidebar/Dangxuat'
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -126,10 +128,7 @@ export const UserProfile = () => {
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
                     <MenuItem onClick={handleClose}>
-                        <Avatar /> Hồ sơ
-                    </MenuItem>
-                    <MenuItem onClick={handleClose}>
-                        <Avatar /> Tài khoản của tôi
+                        <Avatar alt="Thùy Trang" src="./src/assets/Avt.jpg" /> Tài khoản của tôi
                     </MenuItem>
                     <Divider />
                     <MenuItem onClick={handleClose}>
@@ -138,8 +137,9 @@ export const UserProfile = () => {
                         </ListItemIcon>
                         Cài đặt
                     </MenuItem>
-                    <MenuItem onClick={handleClose}>
+                    <MenuItem onClick={handleClose} title={<Dangxuat />} to={config.dangxuat} >
                         <ListItemIcon>
+
                             <Logout fontSize="small" />
                         </ListItemIcon>
                         Đăng xuất

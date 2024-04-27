@@ -10,16 +10,18 @@ import Dangxuat from "./Sidebar/Dangxuat";
 
 const Sidebar = () => {
     return (
-        <div className=" bg-white px-20 py-48 rounded-r-lg inset-y-10">
-            <Menu>
-                <Menuitem title={<Khoahoc />} to={config.khoahoc} />
-                <Menuitem title={<Hocnhom />} to={config.hocnhom} />
-                <Menuitem title={<Hoctap />} to={config.hoctap} />
-                <Menuitem title={<Diendan />} to={config.diendan} />
-                <Menuitem title={<Dangxuat />} to={config.dangxuat} />
+        <aside>
+            <div className=" flex px-16 rounded-r-lg inset-y-20">
+                <Menu>
+                    <Menuitem title={<Khoahoc />} to={config.khoahoc} />
+                    <Menuitem title={<Hocnhom />} to={config.hocnhom} />
+                    <Menuitem title={<Hoctap />} to={config.hoctap} />
+                    <Menuitem title={<Diendan />} to={config.diendan} />
+                    <Menuitem title={<Dangxuat />} to={config.dangxuat} />
 
-            </Menu>
-        </div>
+                </Menu>
+            </div>
+        </aside>
     );
 };
 

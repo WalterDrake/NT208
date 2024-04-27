@@ -62,8 +62,8 @@ const HocNhompage = () => {
   };
 
   return (
-    <div className="bg-white ">
-      <div className="relative ml-[200px] ">
+    <div>
+      <div className="relative ml-[1rem] ">
         <h1 className="text-3xl mb-5 ml-2 font-bold">Học nhóm</h1>
         <button className="end-3 float-right">
           <HocNhom_Setting />

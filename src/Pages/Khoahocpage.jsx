@@ -83,6 +83,7 @@ const Khoahocpage = () => {
   }
 
   return (
+
     <div className=" dimension ">
       <div className="relative ml-[1rem]">
         <h1 className="text-3xl mb-5 ml-2 font-bold">Khóa học</h1>
@@ -111,6 +112,7 @@ const Khoahocpage = () => {
         </div>
       </div>
     </div>
+
   )
 }
 
