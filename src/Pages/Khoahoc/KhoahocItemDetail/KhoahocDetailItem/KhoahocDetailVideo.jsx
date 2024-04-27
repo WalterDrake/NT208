@@ -7,8 +7,8 @@ export default function KhoahocDetailVideo() {
   console
   return (
     <div>
-      <iframe width="560" 
-      height="315" 
+      <iframe width="660" 
+      height="400" 
       src={curVideo}
       title="YouTube video player" 
       frameBorder="0" 
@@ -17,7 +17,7 @@ export default function KhoahocDetailVideo() {
       clipboard-write; 
       encrypted-media; gyroscope; picture-in-picture; web-share" 
       referrerPolicy="strict-origin-when-cross-origin" 
-      allowF  ullScreen>
+      allowFullScreen>
 
       </iframe>
     </div>
