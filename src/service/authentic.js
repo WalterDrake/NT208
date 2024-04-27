@@ -6,10 +6,7 @@ export const login = async (email, password) => {
         password
     }
     try {
-        const response = await httpRequest.post('/auth/login', data,{
-            params: {
-            }
-        });
+        const response = await httpRequest.post(`http://localhost:8017/api/users/StudentLogin/${email}/${password}`, )
         return response.data;
     }
     catch (error) {

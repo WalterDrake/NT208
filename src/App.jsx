@@ -2,16 +2,17 @@ import "./App.css"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { publicRoutes, privateRoutes } from "./Routes"
 import DefaultLayout from "./components/Layout/DefaultLayout"
-import { useContext } from "react"
+import { createContext,useState } from "react"
 
-import { UserContext } from "./state/state"
 import Dangnhappage from "./Pages/Dangnhappage"
 
+
+export const UserContext = createContext()
+
 function App() {
-  const user=null;
-  const a = useContext(UserContext)
-  console.log(a)
+  const [user,setUser] = useState (null)
   return (
+    <UserContext.Provider value={{user,setUser}}> 
     <Router className="h-screen bg-[#F0F7FF]">
       <Routes>
         {publicRoutes.map((route, index) => {  // là các page không đăng nhập vẫn vô đc
@@ -60,6 +61,7 @@ function App() {
         })}
       </Routes>
     </Router>
+    </UserContext.Provider>
   )
 }
 

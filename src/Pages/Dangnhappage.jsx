@@ -1,12 +1,13 @@
 import React, { useEffect ,useContext} from 'react'
 import loginImg from '../assets/BackgroundLogin.svg'
 import { FaRegEyeSlash } from "react-icons/fa6"
-import axios from 'axios'
 
 import validator from '../hook/validate'
 import * as serivce from '../service/authentic'
 
+import { UserContext } from '../App'
 const Dangnhappage = () => {
+    const {user,setUser} = useContext(UserContext)
     useEffect(() => {
 
         validator({
@@ -16,19 +17,24 @@ const Dangnhappage = () => {
             styleInvalid: 'border-red-500' ,
             rules: [
                 validator.isRequired('#email', 'Vui lòng nhập email'),
-                validator.isEmail('#email', 'Email không hợp lệ'),
+                // validator.isEmail('#email', 'Email không hợp lệ'),
                 validator.isRequired('#password', 'Vui lòng nhập mật khẩu'),
                 validator.minLength('#password', 6),
             ],
             onSubmit: function (data) {
-                console.log(data);
                 serivce.login(data.email, data.password)
                 .then(res => {
-                    console.log(res);
+                    console.log('oke r cu')
+                    setUser(res)
                 })
                 .catch(err => {
-                    console.log(err);
-                    console.log(setUser)
+                    console.log('loi r cu',err);
+                    // setUser(
+                    //     {
+                    //         name: 'Nguyen Van A',
+                    //         email: 'nguyenvietthang010@gmail.com'
+                    //     }
+                    // )
                 })
             }
         });
