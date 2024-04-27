@@ -31,7 +31,11 @@ function CourseDetails() {
       },
     ],
   });
+<<<<<<< HEAD
   const [curVideo, setCurVideo] = useState(courseDetails.videoList[0].url);
+=======
+  const [curVideo, setCurVideo] = useState(courseDetails.videoList[0].url)
+>>>>>>> cca0291311c30c2dcfc8d8f81e916c4dd6b554f5
 
   const [comments, setComments] = useState([]);
 
@@ -40,14 +44,20 @@ function CourseDetails() {
   };
 
   return (
+<<<<<<< HEAD
     <CurrentVideoContext.Provider
       value={{ curVideo, setCurVideo, courseDetails, setCourseDetails }}
     >
+=======
+
+    <CurrentVideoContext.Provider value={{ curVideo, setCurVideo, courseDetails, setCourseDetails }}>
+>>>>>>> cca0291311c30c2dcfc8d8f81e916c4dd6b554f5
       <div className="bg-[#29303b] w-full" id="navbar-course">
         <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">
           {courseDetails.name}
         </h1>
       </div>
+<<<<<<< HEAD
       <div className="flex flex-col md:flex-row">
         <div className="w-full md:w-1/3 mt-4">
           <KhoahocDetailList />
@@ -62,8 +72,21 @@ function CourseDetails() {
           </div>
         </div>
         
+=======
+      <div className="flex gap-5">
+        <Grid item xs={5}>
+          <KhoahocDetailList />
+        </Grid>
+
+        <div id="video-khoa-hoc">
+
+          <KhoahocDetailVideo />
+
+        </div>
+>>>>>>> cca0291311c30c2dcfc8d8f81e916c4dd6b554f5
       </div>
-    </CurrentVideoContext.Provider>
+    </CurrentVideoContext.Provider >
+
   );
 }
 
