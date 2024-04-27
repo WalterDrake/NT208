@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState ,createContext} from "react";
+import { useEffect, useState, createContext } from "react";
 import axios from "axios";
 import { Grid } from "@mui/material";
 
@@ -26,7 +26,7 @@ function CourseDetails() {
     }
     ]
   });
-  const [curVideo,setCurVideo] = useState(courseDetails.videoList[0].url)
+  const [curVideo, setCurVideo] = useState(courseDetails.videoList[0].url)
 
   // useEffect(() => {
   //   // Thay đổi URL này theo API của bạn
@@ -46,17 +46,24 @@ function CourseDetails() {
   // }
 
   return (
-    <CurrentVideoContext.Provider value={{curVideo,setCurVideo,courseDetails, setCourseDetails}}>
+
+    <CurrentVideoContext.Provider value={{ curVideo, setCurVideo, courseDetails, setCourseDetails }}>
       <div className="bg-[#29303b] w-full" id="navbar-course">
         <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">{courseDetails.name}</h1>
       </div>
-      <Grid item xs={12}>
-      <KhoahocDetailList/>
-      </Grid>
-      <div id="video-khoa-hoc">
-        <KhoahocDetailVideo  />
+      <div className="flex gap-5">
+        <Grid item xs={5}>
+          <KhoahocDetailList />
+        </Grid>
+
+        <div id="video-khoa-hoc">
+
+          <KhoahocDetailVideo />
+
+        </div>
       </div>
-    </CurrentVideoContext.Provider>
+    </CurrentVideoContext.Provider >
+
   );
 }
 
