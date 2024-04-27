@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect ,useContext} from 'react'
 import loginImg from '../assets/BackgroundLogin.svg'
 import { FaRegEyeSlash } from "react-icons/fa6"
 
 import validator from '../hook/validate'
+import * as serivce from '../service/authentic'
 
+import { UserContext } from '../App'
 const Dangnhappage = () => {
+    const {user,setUser} = useContext(UserContext)
     useEffect(() => {
-        
+
         validator({
             form: '#form-login',
             formGroup: '.form-group',
@@ -14,10 +17,26 @@ const Dangnhappage = () => {
             styleInvalid: 'border-red-500' ,
             rules: [
                 validator.isRequired('#email', 'Vui lòng nhập email'),
-                validator.isEmail('#email', 'Email không hợp lệ'),
+                // validator.isEmail('#email', 'Email không hợp lệ'),
                 validator.isRequired('#password', 'Vui lòng nhập mật khẩu'),
                 validator.minLength('#password', 6),
             ],
+            onSubmit: function (data) {
+                serivce.login(data.email, data.password)
+                .then(res => {
+                    console.log('oke r cu')
+                    setUser(res)
+                })
+                .catch(err => {
+                    console.log('loi r cu',err);
+                    // setUser(
+                    //     {
+                    //         name: 'Nguyen Van A',
+                    //         email: 'nguyenvietthang010@gmail.com'
+                    //     }
+                    // )
+                })
+            }
         });
     }, [])
 
@@ -28,12 +47,12 @@ const Dangnhappage = () => {
                     <div className='md:w-4/5 p-6'>
                         <div className=' py-8'>
                             <img className='px-24 ' src="./src/assets/LogoUIT.svg" alt="logiUIT" />
-                            <button className='text-3xl mt-2 font-bold text-black mb-2 form-submit'>Đăng nhập</button>
+                            <h2 className='text-3xl mt-2 font-bold text-black mb-2'>Đăng nhập</h2>
                         </div>
                         <div>
                             <form className='flex flex-col gap-2 form-group' id='form-login'>
                                 <div>
-                                    <input className='p-2 rounded-xl border' type="email" id='email' name="email" placeholder='Email' />
+                                    <input className='p-2 rounded-xl border' autoComplete='true' type="email" id='email' name="email" placeholder='Email' />
                                     <span className="form-message block  text-red-500"></span>
                                 </div>
                                 <div className='relative form-group'>
@@ -44,7 +63,7 @@ const Dangnhappage = () => {
                                 <div className='text-sm mr-10'>
                                     <p ><input type="checkbox" />Nhớ tài khoản của tôi</p>
                                 </div>
-                                <button> <a href='/Khoahocpage' className='bg-[#0077FF] hover:scale-110 mt-6 rounded-lg text-white px-4 py-1 inline-block font-semibold hover:bg-[#2e7bd9] hover:text-white'>Đăng nhập</a></button>
+                                <button className='form-submit'> <p className='bg-[#0077FF] hover:scale-110 mt-6 rounded-lg text-white px-4 py-1 inline-block font-semibold hover:bg-[#2e7bd9] hover:text-white'>Đăng nhập</p></button>
                                 <p className='text-sm mt-4'><a href='#'>Quên mật khẩu?</a></p>
                             </form>
                         </div>
