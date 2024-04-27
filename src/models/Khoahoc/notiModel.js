@@ -7,8 +7,8 @@ const NOTI_COLLECTION_NAME = "notifications";
 const NOTI_COLLECTION_SCHEMA = Joi.object({
   title: Joi.string().required().min(3).max(50).trim().strict(),
   description: Joi.string().required().min(3).max(255).trim().strict(),
-  deadline: Joi.date().greater("now").iso(),
-  listSaves: Joi.array()
+  deadline: Joi.date().greater("now").iso().required(),
+  listNguoinop: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
@@ -45,11 +45,12 @@ const findOneById = async (notiId) => {
   }
 };
 
-const getDetails = async (id) => {
+const getDetails = async () => {
   try {
     const result = await GET_DB()
       .collection(NOTI_COLLECTION_NAME)
-      .findOne({ _id: new ObjectId(id) });
+      .find()
+      .toArray();
 
     return result;
   } catch (error) {

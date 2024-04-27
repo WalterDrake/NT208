@@ -50,7 +50,7 @@ const findOneById = async (couseId) => {
 };
 
 // Lấy ra danh sách toàn bộ khóa học.
-const getDetails = async (id) => {
+const getDetails = async () => {
   try {
     const result = await GET_DB()
       .collection(COURSE_COLLECTION_NAME)

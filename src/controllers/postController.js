@@ -14,7 +14,7 @@ const createNew = async (req, res, next) => {
     // console.log('req.cookies: ', req.cookies)
     // console.log('req.jwtDecoded: ', req.jwtDecoded)
     // Điều hướng dữ liệu sang tầng Service
-    const createdpost = await postModel.createNew(req.body);
+    const createdpost = await postService.createNew(req.body);
 
     // Có kết quả thì trả về phía Client
     res.status(StatusCodes.CREATED).json(createdpost);
@@ -36,7 +36,7 @@ const getDetails = async (req, res, next) => {
 const updatePost = async (req, res, next) => {
   try {
     const itemId = req.params.id;
-    const updatedItem = await postService.updateVideo(itemId, req.body);
+    const updatedItem = await postService.updatePost(itemId, req.body);
 
     res.status(StatusCodes.OK).json(updatedItem);
   } catch (error) {

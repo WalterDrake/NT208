@@ -9,6 +9,10 @@ import { itemRoute } from "./itemRoute";
 import { videoRoute } from "./videoRoute";
 import { postRoute } from "./postRoute";
 import { notiRoute } from "./notiRoute";
+import { baitapRoute } from "./baitapRoute";
+import { studyRoute } from "./studyRoute";
+import { cboxRoute } from "./commentBoxRoute";
+import { commentRoute } from "./commentRoute";
 
 const Router = express.Router();
 
@@ -32,5 +36,9 @@ Router.use("/items", itemRoute);
 Router.use("/videos", videoRoute);
 Router.use("/posts", postRoute);
 Router.use("/notis", notiRoute);
+Router.use("/baitaps", baitapRoute);
+Router.use("/studies", studyRoute);
+Router.use("/cboxs", cboxRoute);
+Router.use("/comments", commentRoute);
 
 export const APIs = Router;

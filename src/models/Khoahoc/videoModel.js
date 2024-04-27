@@ -8,6 +8,9 @@ const VIDEO_COLLECTION_SCHEMA = Joi.object({
   title: Joi.string().required().min(3).max(50).trim().strict(),
   description: Joi.string().required().min(3).max(255).trim().strict(),
   linkvideo: Joi.string().required().trim().strict(),
+  commentBox: Joi.string()
+    .pattern(OBJECT_ID_RULE)
+    .message(OBJECT_ID_RULE_MESSAGE),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
 });
 
@@ -42,11 +45,12 @@ const findOneById = async (videoId) => {
   }
 };
 
-const getDetails = async (id) => {
+const getDetails = async () => {
   try {
     const result = await GET_DB()
       .collection(COURSE_COLLECTION_NAME)
-      .findOne({ _id: new ObjectId(id) });
+      .find()
+      .toArray();
 
     return result;
   } catch (error) {

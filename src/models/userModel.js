@@ -21,9 +21,15 @@ const USER_COLLECTION_SCHEMA = Joi.object().keys({
   password: Joi.string().required().pattern(TEXT_RULE).trim().strict(),
   salt: Joi.string().trim().strict().default(""),
   role: Joi.string().required().trim().strict(),
-  course: Joi.array().items(courseModel).default([]),
-  study: Joi.array().items(studyModel).default([]),
-  group: Joi.array().items(groupModel).default([]),
+  course: Joi.array()
+    .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
+    .default([]),
+  study: Joi.array()
+    .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
+    .default([]),
+  group: Joi.array()
+    .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
+    .default([]),
   description: Joi.string().trim().strict(),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
 });

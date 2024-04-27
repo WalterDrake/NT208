@@ -23,7 +23,7 @@ const createNew = async (data) => {
   try {
     const validData = await validateBeforeCreate(data);
     const createdPost = await GET_DB()
-      .collection(COURSE_COLLECTION_NAME)
+      .collection(POST_COLLECTION_NAME)
       .insertOne(validData);
     return createdPost;
   } catch (error) {
@@ -42,11 +42,12 @@ const findOneById = async (postId) => {
   }
 };
 
-const getDetails = async (id) => {
+const getDetails = async () => {
   try {
     const result = await GET_DB()
-      .collection(COURSE_COLLECTION_NAME)
-      .findOne({ _id: new ObjectId(id) });
+      .collection(POST_COLLECTION_NAME)
+      .find()
+      .toArray();
 
     return result;
   } catch (error) {
@@ -54,7 +55,7 @@ const getDetails = async (id) => {
   }
 };
 
-const updateItem = async (postId, updateData) => {
+const updatePost = async (postId, updateData) => {
   try {
     // Lọc những field mà chúng ta không cho phép cập nhật linh tinh
     Object.keys(updateData).forEach((fieldName) => {
@@ -64,7 +65,7 @@ const updateItem = async (postId, updateData) => {
     });
 
     const result = await GET_DB()
-      .collection(BOARD_COLLECTION_NAME)
+      .collection(POST_COLLECTION_NAME)
       .findOneAndUpdate(
         { _id: new ObjectId(postId) },
         { $set: updateData },
@@ -82,5 +83,5 @@ export const postModel = {
   createNew,
   findOneById,
   getDetails,
-  updateItem,
+  updatePost,
 };

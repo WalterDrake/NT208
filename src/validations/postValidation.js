@@ -22,7 +22,7 @@ const createNew = async (req, res, next) => {
   }
 };
 
-const updateVideo = async (req, res, next) => {
+const updatePost = async (req, res, next) => {
   // Lưu ý không dùng hàm required() trong trường hợp Update
   const correctCondition = Joi.object({
     title: Joi.string().required().min(3).max(50).trim().strict(),
@@ -47,5 +47,5 @@ const updateVideo = async (req, res, next) => {
 };
 export const postValidation = {
   createNew,
-  updateVideo,
+  updatePost,
 };

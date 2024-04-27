@@ -31,7 +31,7 @@ const createNew = async (data) => {
   try {
     const validData = await validateBeforeCreate(data);
     const createdBoard = await GET_DB()
-      .collection(COURSE_COLLECTION_NAME)
+      .collection(ITEM_COLLECTION_NAME)
       .insertOne(validData);
     return createdBoard;
   } catch (error) {
@@ -42,7 +42,7 @@ const createNew = async (data) => {
 const findOneById = async (itemId) => {
   try {
     const result = await GET_DB()
-      .collection(COURSE_COLLECTION_NAME)
+      .collection(ITEM_COLLECTION_NAME)
       .findOne({ _id: new ObjectId(itemId) });
     return result;
   } catch (error) {
@@ -50,7 +50,7 @@ const findOneById = async (itemId) => {
   }
 };
 
-const getDetails = async (id) => {
+const getDetails = async () => {
   try {
     const result = await GET_DB()
       .collection(ITEM_COLLECTION_NAME)

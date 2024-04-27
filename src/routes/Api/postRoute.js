@@ -13,7 +13,7 @@ Router.route("/")
 
 Router.route("/:id")
   .get(postController.getDetails)
-  .put(postValidation.updateVideo, postController.updatePost);
+  .put(postValidation.updatePost, postController.updatePost);
 
 // API hỗ trợ việc di chuyển card giữa các column khác nhau trong một board
 

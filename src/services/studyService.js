@@ -4,6 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import { cloneDeep } from "lodash";
 import { ObjectId } from "mongodb";
 import { postModel } from "~/models/Khoahoc/postModel";
+import { studyModel } from "~/models/Monhoc/studyModel";
 
 const createNew = async (reqBody) => {
   try {
@@ -11,9 +12,9 @@ const createNew = async (reqBody) => {
       ...reqBody,
     };
 
-    const createditem = await postModel.createNew(newItem);
+    const createditem = await studyModel.createNew(newItem);
 
-    const getNewitem = await postModel.findOneById(createditem.insertedId);
+    const getNewitem = await studyModel.findOneById(createditem.insertedId);
     // Trả kết quả về, trong Service luôn phải có return
     return getNewitem;
   } catch (error) {
@@ -21,11 +22,11 @@ const createNew = async (reqBody) => {
   }
 };
 
-const getDetails = async (itemId) => {
+const getDetailsAll = async () => {
   try {
-    const item = await postModel.getDetails(new ObjectId(itemId));
+    const item = await studyModel.getDetails();
     if (!item) {
-      throw new ApiError(StatusCodes.NOT_FOUND, "Post not found!");
+      throw new ApiError(StatusCodes.NOT_FOUND, "Study not found!");
     }
     const resItem = cloneDeep(item);
     return resItem;
@@ -33,13 +34,13 @@ const getDetails = async (itemId) => {
     throw error;
   }
 };
-const updatePost = async (postId, reqBody) => {
+const updateStudy = async (postId, reqBody) => {
   try {
     const updateData = {
       ...reqBody,
       updatedAt: Date.now(),
     };
-    const updatedItem = await postModel.update(postId, updateData);
+    const updatedItem = await studyModel.updateStudy(postId, updateData);
 
     return updatedItem;
   } catch (error) {
@@ -47,8 +48,8 @@ const updatePost = async (postId, reqBody) => {
   }
 };
 
-export const postService = {
+export const studyService = {
   createNew,
-  getDetails,
-  updatePost,
+  getDetailsAll,
+  updateStudy,
 };

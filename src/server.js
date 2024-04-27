@@ -20,7 +20,7 @@ const START_SERVER = () => {
   app.use(cors(corsOptions));
 
   app.use(express.json());
-
+  /// QUAN TÂM CÁI NÀY
   app.use("/api", APIs);
 
   // Middleware xử lý lỗi tập trung

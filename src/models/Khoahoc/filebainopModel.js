@@ -3,9 +3,11 @@ import { ObjectId } from "mongodb";
 import { GET_DB } from "~/config/mongodb";
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from "~/utils/validators";
 
-const COURSE_COLLECTION_NAME = "courses";
-const COURSE_COLLECTION_SCHEMA = Joi.object({
-  nguoinop: Joi.string().required(),
+const BAITAP_COLLECTION_NAME = "baitap";
+const BAITAP_COLLECTION_SCHEMA = Joi.object({
+  nguoinop: Joi.string()
+    .pattern(OBJECT_ID_RULE)
+    .message(OBJECT_ID_RULE_MESSAGE),
   linkpdf: Joi.string().required(),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
 });
@@ -13,7 +15,7 @@ const COURSE_COLLECTION_SCHEMA = Joi.object({
 const INVALID_UPDATE_FIELDS = ["_id", "createdAt"];
 
 const validateBeforeCreate = async (data) => {
-  return await COURSE_COLLECTION_SCHEMA.validateAsync(data, {
+  return await BAITAP_COLLECTION_SCHEMA.validateAsync(data, {
     abortEarly: false,
   });
 };
@@ -21,30 +23,30 @@ const validateBeforeCreate = async (data) => {
 const createNew = async (data) => {
   try {
     const validData = await validateBeforeCreate(data);
-    const createdBoard = await GET_DB()
-      .collection(COURSE_COLLECTION_NAME)
+    const createdBaitap = await GET_DB()
+      .collection(BAITAP_COLLECTION_NAME)
       .insertOne(validData);
-    return createdBoard;
+    return createdBaitap;
   } catch (error) {
     throw new Error(error);
   }
 };
 
-const findOneById = async (boardId) => {
+const findOneById = async (btId) => {
   try {
     const result = await GET_DB()
-      .collection(COURSE_COLLECTION_NAME)
-      .findOne({ _id: new ObjectId(boardId) });
+      .collection(BAITAP_COLLECTION_NAME)
+      .findOne({ _id: new ObjectId(btId) });
     return result;
   } catch (error) {
     throw new Error(error);
   }
 };
 
-const getDetails = async (id) => {
+const getDetails = async () => {
   try {
     const result = await GET_DB()
-      .collection(COURSE_COLLECTION_NAME)
+      .collection(BAITAP_COLLECTION_NAME)
       .find()
       .toArray();
 
@@ -54,9 +56,9 @@ const getDetails = async (id) => {
   }
 };
 
-export const courseModel = {
-  COURSE_COLLECTION_NAME,
-  COURSE_COLLECTION_SCHEMA,
+export const baitapModel = {
+  BAITAP_COLLECTION_NAME,
+  BAITAP_COLLECTION_SCHEMA,
   createNew,
   findOneById,
   getDetails,
