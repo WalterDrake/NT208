@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect ,useContext} from 'react'
 import loginImg from '../assets/BackgroundLogin.svg'
 import { FaRegEyeSlash } from "react-icons/fa6"
+import axios from 'axios'
 
 import validator from '../hook/validate'
+import * as serivce from '../service/authentic'
 
 const Dangnhappage = () => {
     useEffect(() => {
-        
+
         validator({
             form: '#form-login',
             formGroup: '.form-group',
@@ -19,9 +21,15 @@ const Dangnhappage = () => {
                 validator.minLength('#password', 6),
             ],
             onSubmit: function (data) {
-                console.log(data); // call api
-                
-
+                console.log(data);
+                serivce.login(data.email, data.password)
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err);
+                    console.log(setUser)
+                })
             }
         });
     }, [])
