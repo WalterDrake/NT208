@@ -5,7 +5,7 @@ const routes = {
   khoahoc: "/Khoahocpage",
   hoctap: "/Hoctappage",
   hocnhom: "/Hocnhompage",
-  dangxuat: "/Dangnhappage",
+  dangxuat: "/Login",
   profile: "/Profile",
   thongbao: "/Thongbao",
   tinnhan: "/Tinnhan",
