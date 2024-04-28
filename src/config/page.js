@@ -4,7 +4,7 @@ const routes = {
   khoahocpage: "/DienDan",
   hoctappage: "/Hoctappage",
   hocnhompage: "/Hocnhompage",
-  dangnhappage: "/Dangnhappage",
+  dangnhappage: "/Login",
   profilepage: "/Profilepage",
   thongbaopage: "/Thongbaopage",
   tinnhanpage: "/Tinnhanpage",

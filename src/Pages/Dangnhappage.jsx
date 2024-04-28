@@ -1,15 +1,17 @@
 import React, { useEffect ,useContext} from 'react'
-import loginImg from '../assets/BackgroundLogin.svg'
 import { FaRegEyeSlash } from "react-icons/fa6"
+import { useNavigate, useLocation } from 'react-router-dom'
+import loginImg from '../assets/BackgroundLogin.svg'
 
 import validator from '../hook/validate'
 import * as serivce from '../service/authentic'
 
 import { UserContext } from '../App'
 const Dangnhappage = () => {
-    const {user,setUser} = useContext(UserContext)
+    const {setUser} = useContext(UserContext)
+    const navigate = useNavigate()
+    const location = useLocation()
     useEffect(() => {
-
         validator({
             form: '#form-login',
             formGroup: '.form-group',
@@ -26,6 +28,14 @@ const Dangnhappage = () => {
                 .then(res => {
                     console.log('oke r cu')
                     setUser(res)
+                    if(location.pathname === '/Login') {
+                        navigate('/');
+                    } else {
+                        navigate(location.pathname)
+                    }
+                    // nếu path là dangnhappage thì chuyển hướng sang trang chủ
+                    // nếu path là trang khác thì chuyển hướng sang trang đó
+                    
                 })
                 .catch(err => {
                     console.log('loi r cu',err);
@@ -35,6 +45,7 @@ const Dangnhappage = () => {
                     //         email: 'nguyenvietthang010@gmail.com'
                     //     }
                     // )
+                    alert('mat khau khong chính xác')
                 })
             }
         });
