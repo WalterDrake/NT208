@@ -1,4 +1,4 @@
-import httpRequest from "../utils/httpRequest";
+import * as httpRequest from "../utils/httpRequest";
 
 export const login = async (email, password) => {
     const data = {
@@ -6,10 +6,19 @@ export const login = async (email, password) => {
         password
     }
     try {
-        const response = await httpRequest.post(`http://localhost:8017/api/users/StudentLogin/${email}/${password}`,)
-        return response.data;
+
+        // const response = await httpRequest.post(`users/StudentLogin/`, data,{
+        //     params:{
+        //         email,
+        //         password
+        //     }
+        // })
+        const response = await httpRequest.post(`users/StudentLogin/${email}/${password}`)
+        console.log('response', response)
+        return response
+
     }
     catch (error) {
-        return error.response.data;
+        throw error.response
     }
 }

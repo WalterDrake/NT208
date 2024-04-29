@@ -14,5 +14,14 @@ const post = async (url, data, config) => {
     return response.data;
 }
 
-export {get , post}
-export default httpRequest;
+const put = async (url, data, config) => {
+    const response = await httpRequest.put(url, data, config);
+    return response.data;
+}
+
+const remove = async (url, config) => {
+    const response = await httpRequest.delete(url, config);
+    return response.data;
+}
+
+export { get, post, put, remove };
