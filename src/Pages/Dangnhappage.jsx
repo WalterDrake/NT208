@@ -28,6 +28,7 @@ const Dangnhappage = () => {
                 .then(res => {
                     console.log('oke r cu')
                     setUser(res)
+                    console.log('user',res)
                     if(location.pathname === '/Login') {
                         navigate('/');
                     } else {

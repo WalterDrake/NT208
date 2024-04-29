@@ -5,9 +5,12 @@ import { Grid } from "@mui/material";
 
 import KhoahocDetailVideo from "./KhoahocDetailItem/KhoahocDetailVideo";
 import KhoahocDetailList from "./KhoahocDetailItem/KhoahocDetailList";
+import { useContext } from "react";
+import { UserContext } from "../../../App";
 
 export const CurrentVideoContext = createContext();
 function CourseDetails() {
+  const {user} = useContext(UserContext);
   const { courseName } = useParams();
   const [courseDetails, setCourseDetails] = useState({
     name: 'hocReact',
@@ -28,22 +31,6 @@ function CourseDetails() {
   });
   const [curVideo, setCurVideo] = useState(courseDetails.videoList[0].url)
 
-  // useEffect(() => {
-  //   // Thay đổi URL này theo API của bạn
-  //   const apiUrl = `https://my-api.com/courses/${courseName}`;
-
-  //   axios.get(apiUrl)
-  //     .then(response => {
-  //       setCourseDetails(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error("Could not fetch course details:", error);
-  //     });
-  // }, [courseName]);  // Chạy lại useEffect mỗi khi courseName thay đổi
-
-  // if (!courseDetails) {
-  //   return <div>Loading course details...</div>;
-  // }
 
   return (
 
