@@ -5,7 +5,7 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import Badge from '@mui/material/Badge';
 import { Link } from "react-router-dom";
 
-import  routes from "../config/routes";
+import routes from "../config/routes";
 
 import { UserProfile } from "./UserProfile";
 import Navbarmenu from "./Layout/NavBaritem/Navbarmenu";
@@ -16,7 +16,7 @@ import { Search as SearchHeader } from "./NavBar/Search"
 const Navbar = () => {
   return (
     <nav className=" items-center flex z-50 p-26 ">
-      <Link to = {routes.home}  >
+      <Link to={routes.home}  >
         <img
           className="ml-[4rem] mt-[1rem] "
           src="./src/assets/LogoUIT.svg"
@@ -33,13 +33,14 @@ const Navbar = () => {
           to={config.home}
           icon={<HiMiniHome className="w-10 h-10" />}
         />
-        <Link to={`/Tinnhanpage/`}>
-          <Navbaritem
-            icon={<Badge color="error" badgeContent={7}>
-              <AiOutlineMessage className="w-10 h-10" />
-            </Badge>}
-          />
-        </Link>
+
+        <Navbaritem
+          to={config.tinnhan}
+          icon={<Badge color="error" badgeContent={7}>
+            <AiOutlineMessage className="w-10 h-10" />
+          </Badge>}
+        />
+
 
         <Navbaritem
           to={config.thongbao}

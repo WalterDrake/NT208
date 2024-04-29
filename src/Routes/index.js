@@ -12,6 +12,7 @@ import Home from "../components/NavBar/Home";
 import KhoahocitemDetail from "../Pages/Khoahoc/KhoahocItemDetail/KhoahocItemDetail"
 import DangnhapLayout from "../components/Layout/DangnhapLayout"
 import KhoahocitemDetailLayout from "../components/Layout/KhoahocitemDetailLayout"
+import TinnhanLayout from "../components/Layout/TinnhanLayout";
 
 
 const publicRoutes = [
@@ -28,7 +29,7 @@ const privateRoutes = [
   { path: routesConfig.hoctap, component: Hoctappage },
   { path: routesConfig.profile, component: Profilepage },
   { path: routesConfig.thongbao, component: Thongbaopage },
-  { path: routesConfig.tinnhan, component: Tinnhanpage },
+  { path: routesConfig.tinnhan, component: Tinnhanpage, layout: TinnhanLayout },
   { path: routesConfig.khoahocitem, component: KhoahocitemDetail, layout: KhoahocitemDetailLayout },
 ]
 // Phải đăng nhập mới vào được
