@@ -9,6 +9,8 @@ const routes = {
   profile: "/Profile",
   thongbao: "/Thongbao",
   tinnhan: "/Tinnhan",
-  khoahocitem: "/Khoahocpage/:courseName"
+  khoahocitem: "/Khoahocpage/:courseID",
+  hocnhomitem: "/Hocnhompage/:groupID",
+  diendanitem: "/Diendanpage/:forumID",
 }
 export default routes

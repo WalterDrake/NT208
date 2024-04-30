@@ -13,6 +13,8 @@ import KhoahocitemDetail from "../Pages/Khoahoc/KhoahocItemDetail/KhoahocItemDet
 import DangnhapLayout from "../components/Layout/DangnhapLayout"
 import KhoahocitemDetailLayout from "../components/Layout/KhoahocitemDetailLayout"
 import TinnhanLayout from "../components/Layout/TinnhanLayout";
+import HocnhomDetail from "../Pages/Hocnhom/HocNhomDetail/HocNhomDetail";
+import HocnhomDetailLayout from "../components/Layout/HocnhomDetailLayout";
 
 
 const publicRoutes = [
@@ -31,6 +33,7 @@ const privateRoutes = [
   { path: routesConfig.thongbao, component: Thongbaopage },
   { path: routesConfig.tinnhan, component: Tinnhanpage, layout: TinnhanLayout },
   { path: routesConfig.khoahocitem, component: KhoahocitemDetail, layout: KhoahocitemDetailLayout },
+  { path: routesConfig.hocnhomitem, component: HocnhomDetail, layout: HocnhomDetailLayout },
 ]
 // Phải đăng nhập mới vào được
 export { publicRoutes, privateRoutes };

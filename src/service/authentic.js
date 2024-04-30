@@ -14,7 +14,7 @@ export const login = async (email, password) => {
         //     }
         // })
         const response = await httpRequest.post(`users/StudentLogin/${email}/${password}`)
-        console.log('response', response)
+        // console.log('response', response)
         return response
 
     }

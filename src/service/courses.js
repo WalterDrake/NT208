@@ -9,6 +9,14 @@ export const getCourses = async () => {
     }
 }
 
+export const getCourse = async (id) => {
+    try {
+        const response = await httpRequest.get(`/users/Khoahoc/${id}`)
+        return response.data
+    } catch (error) {
+        throw error.response.data
+    }
+}
 export const getCoursesStudying = async (id) => {
     const data = id ;
     try {
