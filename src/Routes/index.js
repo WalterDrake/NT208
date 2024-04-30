@@ -13,11 +13,14 @@ import KhoahocitemDetail from "../Pages/Khoahoc/KhoahocItemDetail/KhoahocItemDet
 import DangnhapLayout from "../components/Layout/DangnhapLayout"
 import KhoahocitemDetailLayout from "../components/Layout/KhoahocitemDetailLayout"
 import TinnhanLayout from "../components/Layout/TinnhanLayout";
+import StudentHomePage from "../Pages/Schoolweb/student/StudentHomePage";
+import StudentDashboard from "../Pages/Schoolweb/student/StudentDashboard";
 
 
 const publicRoutes = [
 
   { path: routesConfig.dangxuat, component: Dangnhappage, layout: DangnhapLayout },
+
 ];
 
 //Không cần đăng nhập vẫn vào được
@@ -31,6 +34,8 @@ const privateRoutes = [
   { path: routesConfig.thongbao, component: Thongbaopage },
   { path: routesConfig.tinnhan, component: Tinnhanpage, layout: TinnhanLayout },
   { path: routesConfig.khoahocitem, component: KhoahocitemDetail, layout: KhoahocitemDetailLayout },
+  { path: routesConfig.schoolweb, component: StudentDashboard, layout: DangnhapLayout }
+
 ]
 // Phải đăng nhập mới vào được
 export { publicRoutes, privateRoutes };

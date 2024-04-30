@@ -9,6 +9,7 @@ const routes = {
   profile: "/Profile",
   thongbao: "/Thongbao",
   tinnhan: "/Tinnhan",
-  khoahocitem: "/Khoahocpage/:courseName"
+  khoahocitem: "/Khoahocpage/:courseName",
+  schoolweb: "/Student/dashboard"
 }
 export default routes
