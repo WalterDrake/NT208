@@ -104,7 +104,7 @@ const HocNhompage = () => {
             </li>
           </ul>
         </div>
-        <div >
+        <div className="flex justify-center">
             {openAddGroup && <GroupActions.CreateGroup />}
             {openJoinGroup && <GroupActions.JoinGroup />}
         </div>
