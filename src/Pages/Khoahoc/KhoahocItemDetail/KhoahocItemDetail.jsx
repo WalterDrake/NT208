@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, createContext } from "react";
-import axios from "axios";
 import { Grid } from "@mui/material";
 
 import KhoahocDetailVideo from "./KhoahocDetailItem/KhoahocDetailVideo";
@@ -13,7 +12,6 @@ import * as videos  from '../../../service/videos'
 
 export const CurrentVideoContext = createContext();
 function CourseDetails() {
-  const {user} = useContext(UserContext);
   const { courseID } = useParams();
   const [courseDetails, setCourseDetails] = useState({
     id: 1,
@@ -33,25 +31,26 @@ function CourseDetails() {
     }
     ]
   });
-  // useEffect((user) => {
-  //   courses.getCourse(courseID)
-  //     .then(res => {
-  //       console.log('res', res)
-  //       setCourseDetails(res)
-  //     })
-  //     .catch(err => {
-  //       console.log('err', err)
-  //     })
-      // videos.getVideos(courseDetails.id)
-      // .then(res => {
-      //   console.log('res', res) // trả ra danh sach các video
-      //   courseDetails.videoList = res
-      // })
-      // .catch(err => {
-      //   console.log('err', err)
-      // })
+  useEffect(() => {
+    document.title = courseDetails.name
+    courses.getCourse(courseID)
+      .then(res => {
+        console.log('res', res)
+        setCourseDetails(res)
+      })
+      .catch(err => {
+        console.log('err', err)
+      })
+      videos.getVideos(courseDetails.id)
+      .then(res => {
+        console.log('res', res) // trả ra danh sach các video
+        courseDetails.videoList = res
+      })
+      .catch(err => {
+        console.log('err', err)
+      })
     
-  // } ,[courseName])
+  } ,[courseID])
   const [curVideo, setCurVideo] = useState(courseDetails?.videoList[0].url)
 
 

@@ -12,5 +12,6 @@ const routes = {
   khoahocitem: "/Khoahocpage/:courseID",
   hocnhomitem: "/Hocnhompage/:groupID",
   diendanitem: "/Diendanpage/:forumID",
+  hoctapitem: "/Hoctappage/:learnID",
 }
 export default routes

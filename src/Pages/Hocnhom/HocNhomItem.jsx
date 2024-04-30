@@ -1,11 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from "react"
+import { Link } from "react-router-dom"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 const HocNhomItem = ({ HocNhom }) => { // tạo props với object
-    return (
-      <Link to = {`/Hocnhompage/${HocNhom.id}`}>
+  return (
+    <Link to={`/Hocnhompage/${HocNhom.id}`}>
       <div className=" ml-4  frame rounded-md bg-white wrap">
 
         <img src={HocNhom.image}
@@ -19,8 +19,8 @@ const HocNhomItem = ({ HocNhom }) => { // tạo props với object
           </span> {HocNhom.siso}</p>
         </div>
       </div>
-      </Link>
-    )
+    </Link>
+  )
 }
 // tạo componentHocNhomItem với props ten, giaovien, siso và trả về 1 div chứa title, giáo viên và sĩ số
 export default HocNhomItem;

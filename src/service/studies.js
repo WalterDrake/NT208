@@ -1,4 +1,4 @@
-import httpRequests from '../utils/httpRequests';
+import * as httpRequests from '../utils/httpRequest';
 // lấy danh sách các lớp học
 export const getStudies = async (id_user) => {
     try {

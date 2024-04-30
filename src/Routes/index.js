@@ -14,15 +14,13 @@ import DangnhapLayout from "../components/Layout/DangnhapLayout"
 import KhoahocitemDetailLayout from "../components/Layout/KhoahocitemDetailLayout"
 import TinnhanLayout from "../components/Layout/TinnhanLayout";
 import HocnhomDetail from "../Pages/Hocnhom/HocNhomDetail/HocNhomDetail";
-import HocnhomDetailLayout from "../components/Layout/HocnhomDetailLayout";
-
+import HocTapDetails from "../Pages/Hoctap/HocTapDetails";
 
 const publicRoutes = [
-
   { path: routesConfig.dangxuat, component: Dangnhappage, layout: DangnhapLayout },
 ];
 
-//Không cần đăng nhập vẫn vào được
+//Không cần đăng nhập vẫn vào đượcl
 const privateRoutes = [
   { path: routesConfig.diendan, component: Diendanpages },
   { path: routesConfig.home, component: Home },
@@ -31,9 +29,10 @@ const privateRoutes = [
   { path: routesConfig.hoctap, component: Hoctappage },
   { path: routesConfig.profile, component: Profilepage },
   { path: routesConfig.thongbao, component: Thongbaopage },
+  { path: routesConfig.hoctapitem, component: HocTapDetails,layout: KhoahocitemDetailLayout},
   { path: routesConfig.tinnhan, component: Tinnhanpage, layout: TinnhanLayout },
   { path: routesConfig.khoahocitem, component: KhoahocitemDetail, layout: KhoahocitemDetailLayout },
-  { path: routesConfig.hocnhomitem, component: HocnhomDetail, layout: HocnhomDetailLayout },
+  { path: routesConfig.hocnhomitem, component: HocnhomDetail, layout: KhoahocitemDetailLayout },
 ]
 // Phải đăng nhập mới vào được
 export { publicRoutes, privateRoutes };
