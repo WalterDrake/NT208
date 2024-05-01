@@ -23,7 +23,7 @@ const publicRoutes = [
 //Không cần đăng nhập vẫn vào đượcl
 const privateRoutes = [
   { path: routesConfig.diendan, component: Diendanpages },
-  { path: routesConfig.home, component: Home },
+  { path: routesConfig.home, component: Home, },
   { path: routesConfig.hocnhom, component: Hocnhompage },
   { path: routesConfig.khoahoc, component: Khoahocpage },
   { path: routesConfig.hoctap, component: Hoctappage },

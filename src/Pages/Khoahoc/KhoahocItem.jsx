@@ -3,10 +3,10 @@ import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-const KhoahocItem = ({ KhoaHoc }) => {
+const KhoahocItem = ({ KhoaHoc, className }) => {
   return (
     <Link to={`/Khoahocpage/${KhoaHoc.id}`}>
-      <div className=" ml-4 frame rounded-md bg-white wrap">
+      <div className= {`ml-4 frame rounded-md bg-white wrap ${className}`}>
         <img
           src={KhoaHoc.image}
           className="mt-4 ml-2 rounded-md frame"
