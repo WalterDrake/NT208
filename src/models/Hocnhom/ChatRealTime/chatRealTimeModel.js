@@ -2,7 +2,7 @@ import Joi from 'joi'
 import { ObjectId } from 'mongodb'
 import { GET_DB } from '~/config/mongodb'
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
-import { teamBoxModel } from '~/models/Hocnhom/teamboxModel'
+
 
 // Define Collection (Name & Schema)
 const CHATREALTIME_COLLECTION_NAME = 'chatrealtimes'
