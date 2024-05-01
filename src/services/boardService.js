@@ -1,13 +1,13 @@
 /* eslint-disable no-useless-catch */
 
 import { slugify } from '~/utils/formatters'
-import { boardModel } from '~/models/boardModel'
+import { boardModel } from '~/models/Hocnhom/ToDoList/boardModel'
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
 import { cloneDeep } from 'lodash'
-import { columnModel } from '~/models/columnModel'
-import { cardModel } from '~/models/cardModel'
-import { todoListModel } from '~/models/toDoListModel'
+import { columnModel } from '~/models/Hocnhom/ToDoList/columnModel'
+import { cardModel } from '~/models/Hocnhom/ToDoList/cardModel'
+import { todoListModel } from '~/models/Hocnhom/ToDoList/toDoListModel'
 
 const createNew = async (reqBody) => {
   try {
@@ -112,3 +112,4 @@ export const boardService = {
   moveCardToDifferentColumn,
   deleteBoard
 }
+

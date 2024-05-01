@@ -1,4 +1,3 @@
-
 import express from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { boardRoute } from './boardRoute'
@@ -8,14 +7,27 @@ import { todoListRoute } from './todoListRoute'
 import { postRoute } from './postRoute'
 import { messageModelRoute } from './messageModelRoute'
 import { chatRealTimeRoute } from './chatRealTimeRoute'
+import { videoRealTimeRoute } from './videoRealTimeRoute'
+import { groupRoute } from './groupRoute'
+import { teamBoxRoute } from './teamBoxRoute'
+import { userRoute } from './userRoute'
+import { courseRoute } from './courseRoute'
+import { itemRoute } from './itemRoute'
+import { videoRoute } from './videoRoute'
+import { notiRoute } from './notiRoute'
+import { baitapRoute } from './baitapRoute'
+import { studyRoute } from './studyRoute'
+import { cboxRoute } from './commentBoxRoute'
+import { commentRoute } from './commentRoute'
 
 const Router = express.Router()
 // Check APIs /status
 Router.get('/status', (req, res) => {
   res.status(StatusCodes.OK).json({ message: 'APIs are ready to use.' })
 })
-
-// Boards APIs
+Router.use('/courses', courseRoute)
+Router.use('/users', userRoute)
+/** Board APIs */
 Router.use('/boards', boardRoute)
 // Cards APIs
 Router.use('/cards', cardRoute)
@@ -23,15 +35,22 @@ Router.use('/cards', cardRoute)
 Router.use('/columns', columnRoute)
 // TodoList APIs
 Router.use('/todolists', todoListRoute)
-// // TeamBox APIs
-// Router.use('/teambox', teamBoxRoute)
+// TeamBox APIs
+Router.use('/teambox', teamBoxRoute)
 // ChatRealTime APIs
 Router.use('/chatrealtime', chatRealTimeRoute)
 // MessageModel APIs
 Router.use('/messagemodels', messageModelRoute)
+// VideoRealTime APIs
+Router.use('/videorealtime', videoRealTimeRoute)
+// Group APIs
+Router.use('/group', groupRoute)
 // Post APIs
 Router.use('/posts', postRoute)
-// // VideoRealTime APIs
-// Router.use('/videorealtime', videoRealTimeRoute)
+Router.use('/notis', notiRoute)
+Router.use('/baitaps', baitapRoute)
+Router.use('/studies', studyRoute)
+Router.use('/cboxs', cboxRoute)
+Router.use('/comments', commentRoute)
 
 export const APIs = Router

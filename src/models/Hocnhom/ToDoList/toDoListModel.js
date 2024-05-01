@@ -8,8 +8,8 @@ const TODOLIST_COLLECTION_NAME = 'todoLists'
 const TODOLIST_COLLECTION_SCHEMA = Joi.object({
   boardList: Joi.array().items(
     Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE)
-  ).default([])
-
+  ).default([]),
+  teamBoxId: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE).required()
 })
 
 const validateBeforeCreate = async (data) =>

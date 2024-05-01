@@ -1,11 +1,11 @@
 /* eslint-disable no-useless-catch */
-import { todoListModel } from '~/models/toDoListModel'
+import { todoListModel } from '~/models/Hocnhom/ToDoList/toDoListModel'
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
-import { columnModel } from '~/models/columnModel'
-import { cardModel } from '~/models/cardModel'
-import { boardModel } from '~/models/boardModel'
-
+import { columnModel } from '~/models/Hocnhom/ToDoList/columnModel'
+import { cardModel } from '~/models/Hocnhom/ToDoList/cardModel'
+import { boardModel } from '~/models/Hocnhom/ToDoList/boardModel'
+import { teamBoxModel } from '~/models/Hocnhom/teamboxModel'
 
 const createNew = async (reqBody) => {
   // eslint-disable-next-line no-useless-catch
@@ -20,6 +20,7 @@ const createNew = async (reqBody) => {
     // Get record board after calling (optional)
     const getNewBoardList = await todoListModel.findOneById(createdBoardList.insertedId)
 
+    await teamBoxModel.updateTodoListId(getNewBoardList.teamBoxId, getNewBoardList._id)
     // Return result; note: have to return in Service
     return getNewBoardList
   } catch (error) { throw error }

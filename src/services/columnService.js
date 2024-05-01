@@ -1,10 +1,10 @@
 /* eslint-disable no-useless-catch */
 
-import { columnModel } from '~/models/columnModel'
+import { columnModel } from '~/models/Hocnhom/ToDoList/columnModel'
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
-import { boardModel } from '~/models/boardModel'
-import { cardModel } from '~/models/cardModel'
+import { boardModel } from '~/models/Hocnhom/ToDoList/boardModel'
+import { cardModel } from '~/models/Hocnhom/ToDoList/cardModel'
 
 const createNew = async (reqBody) => {
   try {
@@ -64,8 +64,10 @@ const deleteItem = async (columnId) => {
   } catch (error) { throw error }
 }
 
+
 export const columnService = {
   createNew,
   update,
   deleteItem
 }
+

@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-catch */
 
-import { cardModel } from '~/models/cardModel'
-import { columnModel } from '~/models/columnModel'
+import { cardModel } from '~/models/Hocnhom/ToDoList/cardModel'
+import { columnModel } from '~/models/Hocnhom/ToDoList/columnModel'
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
 
@@ -46,3 +46,4 @@ export const cardService = {
   createNew,
   deleteCard
 }
+

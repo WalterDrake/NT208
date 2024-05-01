@@ -1,11 +1,7 @@
-/**
- * Updated by trungquandev.com's author on August 17 2023
- * YouTube: https://youtube.com/@trungquandev
- * "A bit of fragrance clings to the hand that gives flowers!"
- */
 import 'dotenv/config'
 
 // Assign process.env variable to env
+
 export const env = {
   MONGODB_URI: process.env.MONGODB_URI,
   DATABASE_NAME: process.env.DATABASE_NAME,
@@ -15,3 +11,4 @@ export const env = {
 
   BUILD_MODE: process.env.BUILD_MODE
 }
+

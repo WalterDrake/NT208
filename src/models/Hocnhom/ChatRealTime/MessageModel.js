@@ -7,10 +7,11 @@ import { GET_DB } from '~/config/mongodb'
 const MESSAGE_COLLECTION_NAME = 'messageModel'
 const MESSAGE_COLLECTION_SCHEMA = Joi.object({
   senderId: Joi.string().required().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE).required(),
-  message: Joi.string().required().min(3).trim().strict().required()
+  message: Joi.string().required().min(3).trim().strict().required(),
+  chatRealTimeId: Joi.string().required().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE).required()
 })
 
-const INVALID_UPDATE_FIELDS = ['_id', 'senderId']
+const INVALID_UPDATE_FIELDS = ['_id', 'senderId', 'chatRealTimeId']
 
 const validateBeforeCreate = async (data) =>
 {
@@ -41,7 +42,7 @@ const findOneById = async (id) => {
   }
 }
 
-const update = async (postId, updateData) => {
+const update = async (messageId, updateData) => {
   try {
     // Filter field before updating
     Object.keys(updateData).forEach(fieldName => {
@@ -51,7 +52,7 @@ const update = async (postId, updateData) => {
     })
 
     const result = await GET_DB().collection(MESSAGE_COLLECTION_NAME).findOneAndUpdate(
-      { _id: new ObjectId(postId) },
+      { _id: new ObjectId(messageId) },
       { $set: updateData },
       { returnDocument: 'after' } // returns the updated document.
     )

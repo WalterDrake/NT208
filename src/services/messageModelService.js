@@ -1,7 +1,8 @@
 /* eslint-disable no-useless-catch */
-import { messageModel } from '~/models/messageModel'
+import { messageModel } from '~/models/Hocnhom/ChatRealTime/messageModel'
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
+import { chatRealTimeModel } from '~/models/Hocnhom/ChatRealTime/chatRealTimeModel'
 
 
 const createNew = async (reqBody) => {
@@ -13,7 +14,8 @@ const createNew = async (reqBody) => {
     }
     // Call model layer to save record into database
     const createdMessage = await messageModel.createNew(newMessage)
-
+    // push to Chat list
+    await chatRealTimeModel.pushChatList(createdMessage)
     // Get record board after calling (optional)
     const getNewMessage = await messageModel.findOneById(createdMessage.insertedId)
 
@@ -41,6 +43,7 @@ const deleteMessage = async (messageId) => {
       throw new ApiError(StatusCodes.NOT_FOUND, 'Message not found!')
     }
 
+    await chatRealTimeModel.pullChatList(targetMessage)
     await messageModel.deleteOneById(messageId)
 
     return { deleteResult: 'Message deleted successfully!' }

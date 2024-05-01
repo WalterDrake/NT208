@@ -2,7 +2,7 @@ import Joi from 'joi'
 import { ObjectId } from 'mongodb'
 import { GET_DB } from '~/config/mongodb'
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
-
+import { teamBoxModel } from '~/models/Hocnhom/teamboxModel'
 
 // Define Collection (Name & Schema)
 const CHATREALTIME_COLLECTION_NAME = 'chatrealtimes'
@@ -12,7 +12,8 @@ const CHATREALTIME_COLLECTION_SCHEMA = Joi.object({
   ).default([]),
   conversationMem: Joi.array().items(
     Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE)
-  ).default([])
+  ).default([]),
+  teamBoxId: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE).required()
 })
 
 const validateBeforeCreate = async (data) =>
@@ -42,8 +43,8 @@ const findOneById = async (id) => {
 const pushMemList = async (id) => {
   try {
     const result = await GET_DB().collection(CHATREALTIME_COLLECTION_NAME).findOneAndUpdate(
-      { _id: new ObjectId(id) },
-      { $push: { conversationMem: new ObjectId() } },
+      { _id: new ObjectId(teamBoxModel.chatRealTimeId) },
+      { $push: { conversationMem: new ObjectId(id) } },
       { returnDocument: 'after' }
     )
     return result
@@ -53,8 +54,8 @@ const pushMemList = async (id) => {
 const pullMemList = async (id) => {
   try {
     const result = await GET_DB().collection(CHATREALTIME_COLLECTION_NAME).findOneAndUpdate(
-      { _id: new ObjectId() },
-      { $pull: { conversationMem: new ObjectId() } },
+      { _id: new ObjectId(teamBoxModel.chatRealTimeId) },
+      { $pull: { conversationMem: new ObjectId(id) } },
       { returnDocument: 'after' }
     )
     return result

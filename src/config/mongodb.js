@@ -32,3 +32,4 @@ export const GET_DB = () =>
 export const CLOSE_DB = async () => {
   await mongoClienInstance.close()
 }
+

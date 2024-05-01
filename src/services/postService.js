@@ -1,55 +1,56 @@
 /* eslint-disable no-useless-catch */
-import { postModel } from '~/models/postModel'
+import { slugify } from '~/utils/formatters'
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
-
+import { cloneDeep } from 'lodash'
+import { ObjectId } from 'mongodb'
+import { postModel } from '~/models/Khoahoc/postModel'
 
 const createNew = async (reqBody) => {
-  // eslint-disable-next-line no-useless-catch
   try {
-    // Handle data according to each project
-    const newPost = {
+    const newItem = {
       ...reqBody
     }
-    // Call model layer to save record into database
-    const createdPost = await postModel.createNew(newPost)
 
-    // Get record board after calling (optional)
-    const getNewPost = await postModel.findOneById(createdPost.insertedId)
+    const createditem = await postModel.createNew(newItem)
 
-    // Return result; note: have to return in Service
-    return getNewPost
-  } catch (error) { throw error }
+    const getNewitem = await postModel.findOneById(createditem.insertedId)
+    // Trả kết quả về, trong Service luôn phải có return
+    return getNewitem
+  } catch (error) {
+    throw error
+  }
 }
 
-const update = async (postId, reqBody) => {
+const getDetails = async (itemId) => {
   try {
-    const updateData = {
-      ...reqBody
-    }
-    const updatedPost = await postModel.update(postId, updateData)
-
-    return updatedPost
-  } catch (error) { throw error }
-}
-
-const deletePost = async (postId) => {
-  try {
-    const targetPost = await postModel.findOneById(postId)
-
-    if (!targetPost) {
+    const item = await postModel.getDetails(new ObjectId(itemId))
+    if (!item) {
       throw new ApiError(StatusCodes.NOT_FOUND, 'Post not found!')
     }
+    const resItem = cloneDeep(item)
+    return resItem
+  } catch (error) {
+    throw error
+  }
+}
+const updatePost = async (postId, reqBody) => {
+  try {
+    const updateData = {
+      ...reqBody,
+      updatedAt: Date.now()
+    }
+    const updatedItem = await postModel.update(postId, updateData)
 
-    await postModel.deleteOneById(postId)
-
-    return { deleteResult: 'Post deleted successfully!' }
-  } catch (error) { throw error }
+    return updatedItem
+  } catch (error) {
+    throw error
+  }
 }
 
-export const postService =
-{
+export const postService = {
   createNew,
-  update,
-  deletePost
+  getDetails,
+  updatePost
 }
+

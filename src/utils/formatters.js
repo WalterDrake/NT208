@@ -1,7 +1,4 @@
-/**
- * Simple method to Convert a String to Slug
- * Các bạn có thể tham khảo thêm kiến thức liên quan ở đây: https://byby.dev/js-slugify-string
- */
+// Simple method to Convert a String to Slug
 export const slugify = (val) => {
   if (!val) return ''
   return String(val)
@@ -14,3 +11,4 @@ export const slugify = (val) => {
     .replace(/\s+/g, '-') // replace spaces with hyphens
     .replace(/-+/g, '-') // remove consecutive hyphens
 }
+
