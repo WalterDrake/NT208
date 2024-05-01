@@ -66,9 +66,26 @@ const update = async (groupId, updateData) => {
   } catch (error) { throw new Error(error) }
 }
 
+const updateTeamBoxId = async (id, teamBoxId) =>
+{
+  try {
+    const result = await GET_DB().collection(GROUP_COLLECTION_NAME).findOneAndUpdate(
+      { _id: new ObjectId(id) },
+      { $set: {
+        teamBoxId: teamBoxId
+      } },
+      { returnDocument: 'after' } // returns the updated document.
+    )
+    return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
 export const groupModel = {
   GROUP_COLLECTION_NAME,
   createNew,
   findOneById,
-  update
+  update,
+  updateTeamBoxId
 }

@@ -40,10 +40,10 @@ const findOneById = async (id) => {
   }
 }
 
-const pushMemList = async (id) => {
+const pushMemList = async (id, chatRealTimeId) => {
   try {
     const result = await GET_DB().collection(CHATREALTIME_COLLECTION_NAME).findOneAndUpdate(
-      { _id: new ObjectId(teamBoxModel.chatRealTimeId) },
+      { _id: new ObjectId(chatRealTimeId) },
       { $push: { conversationMem: new ObjectId(id) } },
       { returnDocument: 'after' }
     )
@@ -51,10 +51,10 @@ const pushMemList = async (id) => {
   } catch (error) { throw new Error(error) }
 }
 
-const pullMemList = async (id) => {
+const pullMemList = async (id, chatRealTimeId) => {
   try {
     const result = await GET_DB().collection(CHATREALTIME_COLLECTION_NAME).findOneAndUpdate(
-      { _id: new ObjectId(teamBoxModel.chatRealTimeId) },
+      { _id: new ObjectId(chatRealTimeId) },
       { $pull: { conversationMem: new ObjectId(id) } },
       { returnDocument: 'after' }
     )

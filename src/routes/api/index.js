@@ -36,15 +36,15 @@ Router.use('/columns', columnRoute)
 // TodoList APIs
 Router.use('/todolists', todoListRoute)
 // TeamBox APIs
-Router.use('/teambox', teamBoxRoute)
+Router.use('/teamboxs', teamBoxRoute)
 // ChatRealTime APIs
-Router.use('/chatrealtime', chatRealTimeRoute)
+Router.use('/chatrealtimes', chatRealTimeRoute)
 // MessageModel APIs
 Router.use('/messagemodels', messageModelRoute)
 // VideoRealTime APIs
-Router.use('/videorealtime', videoRealTimeRoute)
+Router.use('/videorealtimes', videoRealTimeRoute)
 // Group APIs
-Router.use('/group', groupRoute)
+Router.use('/groups', groupRoute)
 // Post APIs
 Router.use('/posts', postRoute)
 Router.use('/notis', notiRoute)

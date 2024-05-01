@@ -7,7 +7,8 @@ const createNew = async (req, res, next) => {
   const correctCondition = Joi.object({
     boardList: Joi.array().items(
       Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE)
-    )
+    ),
+    teamBoxId: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE).required()
   })
   try {
     // Set abortEarly: false in case many error validation return all case

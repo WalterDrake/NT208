@@ -21,7 +21,12 @@ const createNew = async (data) =>
 {
   try {
     const validData = await validateBeforeCreate(data)
-    const createMessage = await GET_DB().collection(TEAMBOX_COLLECTION_NAME).insertOne(validData)
+    const newTeamBoxtoAdd =
+    {
+      ...validData,
+      groupId: new ObjectId(validData.groupId)
+    }
+    const createMessage = await GET_DB().collection(TEAMBOX_COLLECTION_NAME).insertOne(newTeamBoxtoAdd)
     return createMessage
   } catch (error) {throw new Error(error)}
 }

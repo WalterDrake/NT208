@@ -21,7 +21,12 @@ const createNew = async (data) =>
 {
   try {
     const validData = await validateBeforeCreate(data)
-    const createdBoardList = await GET_DB().collection(TODOLIST_COLLECTION_NAME).insertOne(validData)
+    const newtodoListToAdd =
+    {
+      ...validData,
+      teamBoxId: new ObjectId(validData.teamBoxId)
+    }
+    const createdBoardList = await GET_DB().collection(TODOLIST_COLLECTION_NAME).insertOne(newtodoListToAdd)
     return createdBoardList
   } catch (error) {throw new Error(error)}
 }

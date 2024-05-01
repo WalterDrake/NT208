@@ -1,3 +1,4 @@
+import { groupModel } from '~/models/Hocnhom/groupModel'
 import { teamBoxModel } from '~/models/Hocnhom/teamboxModel'
 
 const createNew = async (reqBody) => {
@@ -13,6 +14,7 @@ const createNew = async (reqBody) => {
     // Get chat list after calling (optional)
     const getNewTeamBox = await teamBoxModel.findOneById(createdTeamBox.insertedId)
 
+    await groupModel.updateTeamBoxId(getNewTeamBox.groupId,getNewTeamBox._id)
     // Return result; note: have to return in Service
     return getNewTeamBox
   } catch (error) { throw error }

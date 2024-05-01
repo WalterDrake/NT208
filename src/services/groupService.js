@@ -27,19 +27,26 @@ const update = async (groupId, reqBody) => {
     }
     const updatedGroup = await groupModel.update(groupId, updateData)
 
-    const group = await groupModel.findOneById(groupId)
-    const teamBoxId = await teamBoxModel.findOneById(group.teamBoxModel)
+    const teamBoxId = await teamBoxModel.findOneById(updatedGroup.teamBoxId)
     const chatRealTimeId = await chatRealTimeModel.findOneById(teamBoxId.chatRealTimeId)
-
     if (chatRealTimeId)
     {
       const conversationMems = chatRealTimeId.conversationMem
-      const groupListMems = group.listMem
-
+      const groupListMems = updatedGroup.listMem
       for (const conversationMem of conversationMems) {
         if (!groupListMems.includes(conversationMem))
         {
-          await chatRealTimeModel.pullMemList(conversationMem)
+          await chatRealTimeModel.pullMemList(conversationMem, chatRealTimeId._id)
+        }
+      }
+      if (groupListMems.length != chatRealTimeId.conversationMem.length)
+      {
+        for (const groupListMem of groupListMems)
+        {
+          if (!chatRealTimeId.conversationMem.includes(groupListMem))
+          {
+            await chatRealTimeModel.pushMemList(groupListMem, chatRealTimeId._id)
+          }
         }
       }
     }

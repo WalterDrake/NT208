@@ -19,6 +19,7 @@ const createNew = async (reqBody) => {
     // Get record board after calling (optional)
     const getNewMessage = await messageModel.findOneById(createdMessage.insertedId)
 
+    await chatRealTimeModel.pushChatList(getNewMessage)
     // Return result; note: have to return in Service
     return getNewMessage
   } catch (error) { throw error }

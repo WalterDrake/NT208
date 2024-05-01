@@ -16,9 +16,12 @@ const createNew = async (reqBody) => {
     const getNewChat = await chatRealTimeModel.findOneById(createdChat.insertedId)
 
     const memListIds = groupModel.listMem
-    for (const memListId of memListIds)
+    if (memListIds)
     {
-      await chatRealTimeModel.pushMemList(memListId)
+      for (const memListId of memListIds)
+      {
+        await chatRealTimeModel.pushMemList(memListId)
+      }
     }
 
     await teamBoxModel.updateChatRealTimeId(getNewChat.teamBoxId, getNewChat._id)

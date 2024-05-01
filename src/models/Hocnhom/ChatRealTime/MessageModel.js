@@ -25,7 +25,8 @@ const createNew = async (data) =>
     const newMessagetoAdd =
     {
       ...validData,
-      senderId: new ObjectId(validData.senderId)
+      senderId: new ObjectId(validData.senderId),
+      chatRealTimeId: new ObjectId(validData.chatRealTimeId)
     }
     const createMessage = await GET_DB().collection(MESSAGE_COLLECTION_NAME).insertOne(newMessagetoAdd)
     return createMessage

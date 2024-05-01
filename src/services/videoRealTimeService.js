@@ -19,6 +19,6 @@ const createNew = async (reqBody) => {
     return getNewVideo
   } catch (error) { throw error }
 }
-export const chatRealTimeService ={
+export const videoRealTimeService ={
   createNew
 }
