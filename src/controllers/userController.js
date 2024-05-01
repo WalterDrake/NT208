@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import { userService } from "../services/userService";
-import { userModel } from "~/models/userModel";
+import { userModel } from "~/models/studentModel";
 import { ObjectId } from "mongodb";
 
 //-Đăng ký Sinh viên

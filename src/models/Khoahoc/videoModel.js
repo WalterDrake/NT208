@@ -17,7 +17,7 @@ const VIDEO_COLLECTION_SCHEMA = Joi.object({
 const INVALID_UPDATE_FIELDS = ["_id", "createdAt"];
 
 const validateBeforeCreate = async (data) => {
-  return await COURSE_COLLECTION_SCHEMA.validateAsync(data, {
+  return await VIDEO_COLLECTION_SCHEMA.validateAsync(data, {
     abortEarly: false,
   });
 };
@@ -26,7 +26,7 @@ const createNew = async (data) => {
   try {
     const validData = await validateBeforeCreate(data);
     const createdvideo = await GET_DB()
-      .collection(COURSE_COLLECTION_NAME)
+      .collection(VIDEO_COLLECTION_NAME)
       .insertOne(validData);
     return createdvideo;
   } catch (error) {
@@ -37,7 +37,7 @@ const createNew = async (data) => {
 const findOneById = async (videoId) => {
   try {
     const result = await GET_DB()
-      .collection(COURSE_COLLECTION_NAME)
+      .collection(VIDEO_COLLECTION_NAME)
       .findOne({ _id: new ObjectId(videoId) });
     return result;
   } catch (error) {
@@ -48,7 +48,7 @@ const findOneById = async (videoId) => {
 const getDetails = async () => {
   try {
     const result = await GET_DB()
-      .collection(COURSE_COLLECTION_NAME)
+      .collection(VIDEO_COLLECTION_NAME)
       .find()
       .toArray();
 
@@ -68,7 +68,7 @@ const updateVideo = async (videoId, updateData) => {
     });
 
     const result = await GET_DB()
-      .collection(USER_COLLECTION_NAME)
+      .collection(VIDEO_COLLECTION_NAME)
       .findOneAndUpdate(
         { _id: new ObjectId(videoId) },
         { $set: updateData },

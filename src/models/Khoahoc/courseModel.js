@@ -2,18 +2,22 @@ import Joi from "joi";
 import { ObjectId } from "mongodb";
 import { GET_DB } from "~/config/mongodb";
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from "~/utils/validators";
-import { userModel } from "../userModel";
+import { userModel } from "../studentModel";
 
 const COURSE_COLLECTION_NAME = "courses";
 
 const COURSE_COLLECTION_SCHEMA = Joi.object({
   title: Joi.string().required().min(3).max(50).trim().strict(), //yêu cầu
   description: Joi.string().required().min(3).max(255).trim().strict(), // yêu cầu
-  linkimgae: Joi.string().default(""),
+  linkimage: Joi.string().default(""),
   memberof: Joi.number().default(0),
   owner: Joi.string()
     .pattern(OBJECT_ID_RULE)
-    .message({ OBJECT_ID_RULE_MESSAGE }),
+    .message({ OBJECT_ID_RULE_MESSAGE })
+    .required(),
+  listitem: Joi.array()
+    .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
+    .default([]),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
 });
 
@@ -38,6 +42,7 @@ const createNew = async (data) => {
   }
 };
 
+//Ho tro tim kiem tren cai thanh cong cu
 const findOneById = async (couseId) => {
   try {
     const result = await GET_DB()
@@ -49,8 +54,22 @@ const findOneById = async (couseId) => {
   }
 };
 
+const findOne = async (course) => {
+  try {
+    const result = await GET_DB()
+      .collection(COURSE_COLLECTION_NAME)
+      .findOne({
+        coursename: course.coursename,
+        owner: new ObjectId(course.owner),
+      });
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 // Lấy ra danh sách toàn bộ khóa học.
-const getDetails = async () => {
+const getDetailsAll = async () => {
   try {
     const result = await GET_DB()
       .collection(COURSE_COLLECTION_NAME)
@@ -63,6 +82,42 @@ const getDetails = async () => {
   }
 };
 
+const getDetailsAllbyTeacher = async (ids) => {
+  try {
+    const result = await GET_DB()
+      .collection(COURSE_COLLECTION_NAME)
+      .find({ owner: new ObjectId(ids) })
+      .toArray();
+
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const findByIdAndDelete = async (ids) => {
+  try {
+    const result = await GET_DB()
+      .collection(COURSE_COLLECTION_NAME)
+      .findByIdAndDelete({ _id: new ObjectId(ids) });
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const deleteMany = async (ids) => {
+  try {
+    const result = await GET_DB()
+      .collection(COURSE_COLLECTION_NAME)
+      .findMany({ owner: new ObjectId(ids) });
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+//danh cho giao vien va admin
 const updateCourse = async (courseId, updateData) => {
   try {
     // Lọc những field mà chúng ta không cho phép cập nhật linh tinh
@@ -89,8 +144,13 @@ const updateCourse = async (courseId, updateData) => {
 export const courseModel = {
   COURSE_COLLECTION_NAME,
   COURSE_COLLECTION_SCHEMA,
-  createNew,
-  findOneById,
-  getDetails,
-  updateCourse,
+  createNew, // không tham số
+  findOneById, // có id course
+  getDetailsAll, // lấy hết
+  updateCourse, // có id course
+
+  findOne, // truyền vào cả id course và id owner
+  getDetailsAllbyTeacher, // Cái này là trả về thẳng cái mảng luôn thay vì ta phải query từ các id
+  findByIdAndDelete, // Tìm và xóa lập tức 1 khóa học
+  deleteMany,
 };

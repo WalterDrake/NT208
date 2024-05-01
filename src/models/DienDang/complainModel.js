@@ -13,24 +13,19 @@ import { courseModel } from "./Khoahoc/courseModel";
 import { studyModel } from "./Monhoc/studyModel";
 import { groupModel } from "./Hocnhom/groupModel";
 
-const USER_COLLECTION_NAME = "users";
-const USER_COLLECTION_SCHEMA = Joi.object().keys({
+const COMPLAIN_COLLECTION_NAME = "complain";
+const COMPLAIN_COLLECTION_SCHEMA = Joi.object().keys({
   //email thi nen loc tu FE nhung o day se loc lai
-  email: Joi.string().required().email().pattern(EMAIL_RULE).trim().strict(),
-  username: Joi.string().required().pattern(TEXT_RULE).trim().strict(),
-  password: Joi.string().required().pattern(TEXT_RULE).trim().strict(),
-  salt: Joi.string().trim().strict().default(""),
-  role: Joi.string().required().trim().strict(),
-  course: Joi.array()
-    .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
-    .default([]),
-  study: Joi.array()
-    .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
-    .default([]),
-  group: Joi.array()
-    .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
-    .default([]),
-  description: Joi.string().trim().strict(),
+  user: Joi.string()
+    .pattern(OBJECT_ID_RULE)
+    .message(OBJECT_ID_RULE_MESSAGE)
+    .required(),
+  date: Joi.date().timestamp("javascript").required(),
+  complain: Joi.string().trim().required(),
+  school: Joi.string()
+    .pattern(OBJECT_ID_RULE)
+    .message(OBJECT_ID_RULE_MESSAGE)
+    .required(),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
 });
 
@@ -167,9 +162,9 @@ const getIds = async (mssv) => {
   }
 };
 
-export const userModel = {
-  USER_COLLECTION_NAME,
-  USER_COLLECTION_SCHEMA,
+export const complainModel = {
+  COMPLAIN_COLLECTION_NAME,
+  COMPLAIN_COLLECTION_SCHEMA,
   createNew,
   findOneById,
   update,

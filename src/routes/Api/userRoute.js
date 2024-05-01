@@ -1,6 +1,7 @@
 import express from "express";
+import { courseController } from "~/controllers/courseController";
 import { userController } from "~/controllers/userController";
-import { userModel } from "~/models/userModel";
+import { userModel } from "~/models/studentModel";
 import { userService } from "~/services/userService";
 import { userValidation } from "~/validations/userValidation";
 
@@ -18,9 +19,10 @@ Router.route("/")
 //--Chức năng đăng nhập kiểm tra
 Router.route("/StudentReg").post(userController.createNew);
 Router.route("/StudentLogin/:email/:password").post(userController.checkExist);
+Router.route("/StudentLogin//:password").post(userController.checkExist);
 
 //--Ấn vào KHÓA HỌC
-Router.route("/Khoahoc").get(userController.createNew);
+Router.route("/Khoahoc").get(courseController.getDetailsAllbyTeacher);
 Router.route("/Khoahoc/Studying").get(userController.createNew);
 Router.route("/Khoahoc/Done").get(userController.createNew);
 

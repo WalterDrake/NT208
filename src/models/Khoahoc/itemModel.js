@@ -7,6 +7,7 @@ const ITEM_COLLECTION_NAME = "items";
 const ITEM_COLLECTION_SCHEMA = Joi.object({
   title: Joi.string().required().min(3).max(50).trim().strict(),
   description: Joi.string().required().min(3).max(255).trim().strict(),
+  courseCode: Joi.string().required().min(3).max(255).trim().strict(),
   listVideoids: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
@@ -16,6 +17,9 @@ const ITEM_COLLECTION_SCHEMA = Joi.object({
   listNotids: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
+  school: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
+  teacher: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
+  course: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
 });
 
@@ -63,6 +67,17 @@ const getDetails = async () => {
   }
 };
 
+const deleteManyCourse = async (ids) => {
+  try {
+    const result = await GET_DB()
+      .collection(ITEM_COLLECTION_NAME)
+      .deleteMany({ coursename: new ObjectId(ids) });
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 const updateItem = async (itemId, updateData) => {
   try {
     // Lọc những field mà chúng ta không cho phép cập nhật linh tinh
@@ -92,4 +107,5 @@ export const itemModel = {
   findOneById,
   getDetails,
   updateItem,
+  deleteManyCourse,
 };

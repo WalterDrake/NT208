@@ -3,53 +3,49 @@ import ApiError from "~/utils/ApiError";
 import { StatusCodes } from "http-status-codes";
 import { cloneDeep } from "lodash";
 import { courseModel } from "~/models/Khoahoc/courseModel";
+import { userService } from "./userService";
 
-const createNew = async (reqBody) => {
+const getDetails = async (courseId) => {
   try {
-    // Xử lý logic dữ liệu tùy đặc thù dự án
-    const newCourse = {
-      ...reqBody,
-    };
-    const createCourse = await courseModel.createNew(newCourse);
-    // Kiem tra lien tức khắc xem coi oke chưa
-    const getnewCourse = await courseModel.findOneById(createCourse.insertedId);
-
-    // Làm thêm các xử lý logic khác với các Collection khác tùy đặc thù dự án...vv
-    // Bắn email, notification về cho admin khi có 1 cái board mới được tạo...vv
-
-    // Trả kết quả về, trong Service luôn phải có return
-    return getnewCourse;
+    const course = await courseModel.findOneById(courseId);
+    if (!course) {
+      throw new ApiError(StatusCodes.NOT_FOUND, "Course not found!");
+    }
+    return course;
   } catch (error) {
     throw error;
   }
 };
 
-const getDetails = async (boardId) => {
+const getDetailsAll = async () => {
   try {
-    const board = await boardModel.getDetails(boardId);
-    if (!board) {
-      throw new ApiError(StatusCodes.NOT_FOUND, "Board not found!");
+    const course = await courseModel.getDetailsAll();
+    if (!course) {
+      throw new ApiError(StatusCodes.NOT_FOUND, "Course not found!");
     }
+    return course;
+  } catch (error) {
+    throw error;
+  }
+};
 
-    // B1: Deep Clone board ra một cái mới để xử lý, không ảnh hưởng tới board ban đầu, tùy mục đích về sau mà có cần clone deep hay không. (video 63 sẽ giải thích)
-    // https://www.javascripttutorial.net/javascript-primitive-vs-reference-values/
-    const resBoard = cloneDeep(board);
-
-    // B2: Đưa card về đúng column của nó
-    resBoard.columns.forEach((column) => {
-      // Cách dùng .equals này là bởi vì chúng ta hiểu ObjectId trong MongoDB có support method .equals
-      column.cards = resBoard.cards.filter((card) =>
-        card.columnId.equals(column._id)
+const createNew = async (req, res, next) => {
+  try {
+    const newItem = {
+      ...req.body,
+    };
+    const existcourse = await courseModel.findOne(newItem);
+    if (existcourse) {
+      res
+        .status(StatusCodes.FAILED_DEPENDENCY)
+        .send({ message: "Course is already" });
+    } else {
+      const createdcourse = await courseModel.createNew(newItem);
+      const getNewcourse = await courseModel.findOneById(
+        createdcourse.insertedId
       );
-
-      // // Cách khác đơn giản là convert ObjectId về string bằng hàm toString() của JavaScript
-      // column.cards = resBoard.cards.filter(card => card.columnId.toString() === column._id.toString())
-    });
-
-    // B3: Xóa mảng cards khỏi board ban đầu
-    delete resBoard.cards;
-
-    return resBoard;
+      res.status(StatusCodes.OK).json(getNewcourse);
+    }
   } catch (error) {
     throw error;
   }
@@ -69,32 +65,20 @@ const updateCourse = async (courseId, reqBody) => {
   }
 };
 
-const moveCardToDifferentColumn = async (reqBody) => {
+// Lay lop tu Id cua Student
+const getCoursebyUser = async (userId) => {
   try {
-    // B1: Cập nhật mảng cardOrderIds của Column ban đầu chứa nó (Hiểu bản chất là xóa cái _id của Card ra khỏi mảng)
-    await columnModel.update(reqBody.prevColumnId, {
-      cardOrderIds: reqBody.prevCardOrderIds,
-      updatedAt: Date.now(),
-    });
-    // B2: Cập nhật mảng cardOrderIds của Column tiếp theo (Hiểu bản chất là thêm _id của Card vào mảng)
-    await columnModel.update(reqBody.nextColumnId, {
-      cardOrderIds: reqBody.nextCardOrderIds,
-      updatedAt: Date.now(),
-    });
-    // B3: Cập nhật lại trường columnId mới của cái Card đã kéo
-    await cardModel.update(reqBody.currentCardId, {
-      columnId: reqBody.nextColumnId,
-    });
-
-    return { updateResult: "Successfully!" };
+    const user = await userService.getDetails(userId);
+    return user.course;
   } catch (error) {
     throw error;
   }
 };
 
 export const courseService = {
-  createNew,
   getDetails,
   updateCourse,
-  moveCardToDifferentColumn,
+  getDetailsAll,
+  createNew,
+  getCoursebyUser,
 };
