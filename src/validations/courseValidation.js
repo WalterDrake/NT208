@@ -5,26 +5,17 @@ import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from "~/utils/validators";
 
 const createNew = async (req, res, next) => {
   const correctCondition = Joi.object({
-    title: Joi.string().required().min(3).max(50).trim().strict().messages({
-      "any.required": "Title is required (trungquandev)",
-      "string.empty": "Title is not allowed to be empty (trungquandev)",
-      "string.min":
-        "Title length must be at least 3 characters long (trungquandev)",
-      "string.max":
-        "Title length must be less than or equal to 5 characters long (trungquandev)",
-      "string.trim":
-        "Title must not have leading or trailing whitespace (trungquandev)",
-    }),
+    title: Joi.string().required().min(3).max(50).trim().strict(),
     description: Joi.string().required().min(3).max(255).trim().strict(),
-
-    /**
-     * Tips: Thay vì gọi lần lượt tất cả type của board để cho vào hàm valid() thì có thể viết gọn lại bằng Object.values() kết hợp Spread Operator của JS. Cụ thể: .valid(...Object.values(BOARD_TYPES))
-     * Làm như trên thì sau này dù các bạn có thêm hay sửa gì vào cái BOARD_TYPES trong file constants thì ở những chỗ dùng Joi trong Model hay Validation cũng không cần phải đụng vào nữa. Tối ưu gọn gàng luôn.
-     */
-    // type: Joi.string().valid(BOARD_TYPES.PUBLIC, BOARD_TYPES.PRIVATE).required(),
-    type: Joi.string()
-      .required()
-      .valid(...Object.values(BOARD_TYPES)),
+    linkimgae: Joi.string().trim(),
+    owner: Joi.string()
+      .pattern(OBJECT_ID_RULE)
+      .message({ OBJECT_ID_RULE_MESSAGE }),
+    listitem: Joi.array()
+      .items(
+        Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE)
+      )
+      .default([]),
   });
 
   try {
@@ -44,7 +35,15 @@ const updateCourse = async (req, res, next) => {
   const correctCondition = Joi.object({
     title: Joi.string().required().min(3).max(50).trim().strict(), //yêu cầu
     description: Joi.string().required().min(3).max(255).trim().strict(), // yêu cầu
-    linkimgae: Joi.string().default("")
+    linkimgae: Joi.string().default(""),
+    owner: Joi.string()
+      .pattern(OBJECT_ID_RULE)
+      .message({ OBJECT_ID_RULE_MESSAGE }),
+    listitem: Joi.array()
+      .items(
+        Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE)
+      )
+      .default([]),
   });
 
   try {
@@ -60,46 +59,7 @@ const updateCourse = async (req, res, next) => {
   }
 };
 
-const moveCardToDifferentColumn = async (req, res, next) => {
-  const correctCondition = Joi.object({
-    currentCardId: Joi.string()
-      .required()
-      .pattern(OBJECT_ID_RULE)
-      .message(OBJECT_ID_RULE_MESSAGE),
-
-    prevColumnId: Joi.string()
-      .required()
-      .pattern(OBJECT_ID_RULE)
-      .message(OBJECT_ID_RULE_MESSAGE),
-    prevCardOrderIds: Joi.array()
-      .required()
-      .items(
-        Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE)
-      ),
-
-    nextColumnId: Joi.string()
-      .required()
-      .pattern(OBJECT_ID_RULE)
-      .message(OBJECT_ID_RULE_MESSAGE),
-    nextCardOrderIds: Joi.array()
-      .required()
-      .items(
-        Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE)
-      ),
-  });
-
-  try {
-    await correctCondition.validateAsync(req.body, { abortEarly: false });
-    next();
-  } catch (error) {
-    next(
-      new ApiError(StatusCodes.UNPROCESSABLE_ENTITY, new Error(error).message)
-    );
-  }
-};
-
 export const courseValidation = {
   createNew,
   updateCourse,
-  moveCardToDifferentColumn,
 };

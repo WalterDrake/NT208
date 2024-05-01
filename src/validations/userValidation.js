@@ -37,8 +37,14 @@ const createNew = async (req, res, next) => {
         "string.password": "Du kho nha",
       }),
     role: Joi.string().required().trim().strict().message({
-      "string.role": "Nhap vai tro vao ",
+      "string.role": "Nhap vai tro vao",
     }),
+
+    course: Joi.array()
+      .items(
+        Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE)
+      )
+      .default([]),
   });
 
   try {

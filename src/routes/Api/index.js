@@ -13,6 +13,7 @@ import { baitapRoute } from "./baitapRoute";
 import { studyRoute } from "./studyRoute";
 import { cboxRoute } from "./commentBoxRoute";
 import { commentRoute } from "./commentRoute";
+import { adminRoute } from "./adminRoute";
 
 const Router = express.Router();
 
@@ -20,18 +21,20 @@ const Router = express.Router();
 Router.get("/status", (req, res) => {
   res.status(StatusCodes.OK).json({ message: "APIs V1 are ready to use." });
 });
-Router.use("/courses", courseRoute);
-Router.use("/users", userRoute);
+
+//////////////////////////////
+
 /** Board APIs */
-Router.use("/boards", boardRoute);
 
 /** Column APIs */
-Router.use("/columns", columnRoute);
 
 /** Cards APIs */
 Router.use("/cards", cardRoute);
-
-//API liên quan đến Item (CHương học)
+Router.use("/boards", boardRoute);
+Router.use("/courses", courseRoute);
+Router.use("/users", userRoute);
+Router.use("/columns", columnRoute);
+Router.use("/admins", adminRoute);
 Router.use("/items", itemRoute);
 Router.use("/videos", videoRoute);
 Router.use("/posts", postRoute);
