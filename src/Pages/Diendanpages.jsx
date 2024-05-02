@@ -4,6 +4,8 @@ import Button from '@mui/material/Button'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import CropOriginalIcon from '@mui/icons-material/CropOriginal'
 import VideoList from "./Dropdown/VideoList"
+import { Link } from "react-router-dom"
+import config from '../config/routes'
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -20,7 +22,9 @@ const VisuallyHiddenInput = styled('input')({
 const Diendanpages = () => {
   return (
     <div className="ml-2">
-      <Button variant="contained" className="bg-black mr-2 rounded-full">Hello world</Button>
+      <Link to="/Student/dashboard">
+        <Button variant="contained" className="bg-black mr-2 rounded-full" >Hello world</Button>
+      </Link>
       <Button
         component="label"
         role={undefined}
@@ -33,7 +37,7 @@ const Diendanpages = () => {
       </Button>
       <CropOriginalIcon className="text-pink-300" />
       <VideoList />
-    </div>
+    </div >
   )
 }
 
