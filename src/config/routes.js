@@ -9,6 +9,7 @@ const routes = {
   profile: "/Profile",
   thongbao: "/Thongbao",
   tinnhan: "/Tinnhan",
+  schoolweb: "/Student/dashboard"
   khoahocitem: "/Khoahocpage/:courseID",
   hocnhomitem: "/Hocnhompage/:groupID",
   diendanitem: "/Diendanpage/:forumID",
