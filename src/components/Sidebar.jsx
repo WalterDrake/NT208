@@ -12,6 +12,7 @@ import { SlSocialDribbble } from "react-icons/sl";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { TbSchool } from "react-icons/tb"
 import { LiaSchoolSolid } from "react-icons/lia";
+import { Link } from "react-router-dom";
 
 
 const Sidebar = () => {
@@ -66,7 +67,7 @@ const Sidebar = () => {
               ${MenuItem.gap ? "mt-9" : "mt-2"} ${index === 0 && "bg-light-white"}
                             `}
                     >
-                        {MenuItem.icon}
+                        <Link to={MenuItem.to}>{MenuItem.icon}</Link>
                         {/* <img src={`./src/assets/${Menu.src}.png`} /> */}
                         <span className={`${!open && "hidden"} origin-left duration-200`}>
                             <Menuitem title={MenuItem.title} to={MenuItem.to} />

@@ -69,6 +69,7 @@ layout {
 main {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 }
 /* #content {
   margin-right: 20px;
@@ -119,8 +120,7 @@ main {
   text-align: left;
   overflow: auto;
   margin-left: 1rem;
-  margin-right: 0;
-  max-width: 1200px;  
+  margin-right: 0px;  
   padding: 5px;
   margin-top: 1.5rem;
 }

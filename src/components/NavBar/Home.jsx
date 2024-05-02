@@ -109,7 +109,7 @@ export default function Home() {
       )
   }, [])
   return (
-    <Grid container spacing={6} style={{ overflowY: "visible", height:'auto',minHeight: "100vh" }}>
+    <Grid container className='w-full' spacing={6} style={{ overflowY: "visible", height:'auto',minHeight: "100vh" }}>
       <Grid item xs={9} >
         <div className='min-h-[12rem] h-auto bg-gradient-to-r from-blue-500 to-blue-200 bg-opacity-50 rounded-lg'
           id='home-hello-box bg-[]'>
