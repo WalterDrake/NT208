@@ -2,8 +2,8 @@ import * as httpRequest from "../utils/httpRequest";
 
 export const getForums = async () => {
     try {
-        const response = await httpRequest.get('/forums/')
-        return
+        const response = await httpRequest.get('/posts/')
+        return response.data
     }
     catch (error) {
         throw error.response
@@ -12,7 +12,7 @@ export const getForums = async () => {
 
 export const getForum = async (idForum) => { // co id forum lay thong tin forum
     try {
-        const response = await httpRequest.get(`/forums/${id}`)
+        const response = await httpRequest.get(`/posts/${idForum}`)
         return response.data
     }
     catch (error) {
@@ -22,7 +22,7 @@ export const getForum = async (idForum) => { // co id forum lay thong tin forum
 
 export const addForum = async (data) => {
     try {
-        const response = await httpRequest.post('/forums/', data)
+        const response = await httpRequest.post('/posts/', data)
         return response.data
     }
     catch (error) {
@@ -30,9 +30,9 @@ export const addForum = async (data) => {
     }
 }
 
-export const updateForum = async (id, data) => {
+export const updateForum = async (idUser, data) => { // truyen vo id user cap cai post
     try {
-        const response = await httpRequest.put(`/forums/${id}`, data)
+        const response = await httpRequest.put(`/posts/${idUser}`, data)
         return response.data
     }
     catch (error) {
@@ -42,7 +42,7 @@ export const updateForum = async (id, data) => {
 
 export const deleteForum = async (id) => {
     try {
-        const response = await httpRequest.delete(`/forums/${id}`)
+        const response = await httpRequest.delete(`/posts/${id}`)
         return response.data
     }
     catch (error) {
