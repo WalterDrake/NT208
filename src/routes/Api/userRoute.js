@@ -10,11 +10,13 @@ const Router = express.Router();
 Router.route("/").get((req, res) => {
   res.json({ message: "GET: API get list " });
 });
+
 //==============================
 // STUDENT - CHỨC NĂNG //
 //==============================
 //---Đăng nhập- Đăng xuất
 //--Chức năng đăng nhập kiểm tra
+
 Router.route("/StudentReg").post(userController.createNew);
 Router.route("/StudentLogin/:email/:password").post(userController.checkExist);
 Router.route("/StudentLogin//:password").post(userController.checkExist);

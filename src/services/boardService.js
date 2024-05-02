@@ -1,107 +1,115 @@
-import { slugify } from "~/utils/formatters";
-import { boardModel } from "~/models/Hocnhom/TrelloTask/boardModel";
-import { columnModel } from "~/models/Hocnhom/TrelloTask/columnModel";
-import { cardModel } from "~/models/Hocnhom/TrelloTask/cardModel";
+/* eslint-disable no-useless-catch */
 
-import ApiError from "~/utils/ApiError";
-import { StatusCodes } from "http-status-codes";
-import { cloneDeep } from "lodash";
+import { slugify } from '~/utils/formatters'
+import { boardModel } from '~/models/Hocnhom/ToDoList/boardModel'
+import ApiError from '~/utils/ApiError'
+import { StatusCodes } from 'http-status-codes'
+import { cloneDeep } from 'lodash'
+import { columnModel } from '~/models/Hocnhom/ToDoList/columnModel'
+import { cardModel } from '~/models/Hocnhom/ToDoList/cardModel'
+import { todoListModel } from '~/models/Hocnhom/ToDoList/toDoListModel'
 
 const createNew = async (reqBody) => {
   try {
-    // Xử lý logic dữ liệu tùy đặc thù dự án
+    // Handle data according to each project
     const newBoard = {
       ...reqBody,
-      slug: slugify(reqBody.title),
-    };
+      slug: slugify(reqBody.title)
+    }
+    // Call model layer to save record into database
+    const createdBoard = await boardModel.createNew(newBoard)
 
-    // Gọi tới tầng Model để xử lý lưu bản ghi newBoard vào trong Database
-    const createdBoard = await boardModel.createNew(newBoard);
+    // Get record board after calling (optional)
+    const getNewBoard = await boardModel.findOneById(createdBoard.insertedId)
 
-    // Lấy bản ghi board sau khi gọi (tùy mục đích dự án mà có cần bước này hay không)
-    const getNewBoard = await boardModel.findOneById(createdBoard.insertedId);
-
-    // Làm thêm các xử lý logic khác với các Collection khác tùy đặc thù dự án...vv
-    // Bắn email, notification về cho admin khi có 1 cái board mới được tạo...vv
-
-    // Trả kết quả về, trong Service luôn phải có return
-    return getNewBoard;
-  } catch (error) {
-    throw error;
-  }
-};
+    if (getNewBoard)
+    {
+      await todoListModel.pushBoardList(getNewBoard)
+    }
+    // Return result; note: have to return in Service
+    return getNewBoard
+  } catch (error) { throw error }
+}
 
 const getDetails = async (boardId) => {
   try {
-    const board = await boardModel.getDetails(boardId);
+    const board = await boardModel.getDetails(boardId)
     if (!board) {
-      throw new ApiError(StatusCodes.NOT_FOUND, "Board not found!");
+      throw new ApiError(StatusCodes.NOT_FOUND, 'Board not found!')
     }
 
-    // B1: Deep Clone board ra một cái mới để xử lý, không ảnh hưởng tới board ban đầu, tùy mục đích về sau mà có cần clone deep hay không. (video 63 sẽ giải thích)
-    // https://www.javascripttutorial.net/javascript-primitive-vs-reference-values/
-    const resBoard = cloneDeep(board);
+    // Deep Clone board create a new same board from board, dont affect to old board
+    const resBoard = cloneDeep(board)
 
-    // B2: Đưa card về đúng column của nó
-    resBoard.columns.forEach((column) => {
-      // Cách dùng .equals này là bởi vì chúng ta hiểu ObjectId trong MongoDB có support method .equals
-      column.cards = resBoard.cards.filter((card) =>
-        card.columnId.equals(column._id)
-      );
+    // B2: give card to correct its column
+    resBoard.columns.forEach(column => {
+      column.cards = resBoard.cards.filter(card => card.columnId.equals(column._id))
+    })
 
-      // // Cách khác đơn giản là convert ObjectId về string bằng hàm toString() của JavaScript
-      // column.cards = resBoard.cards.filter(card => card.columnId.toString() === column._id.toString())
-    });
+    // B3: Delete cards from resboard
+    delete resBoard.cards
 
-    // B3: Xóa mảng cards khỏi board ban đầu
-    delete resBoard.cards;
-
-    return resBoard;
-  } catch (error) {
-    throw error;
-  }
-};
+    return resBoard
+  } catch (error) { throw error }
+}
 
 const update = async (boardId, reqBody) => {
   try {
     const updateData = {
       ...reqBody,
-      updatedAt: Date.now(),
-    };
-    const updatedBoard = await boardModel.update(boardId, updateData);
+      updatedAt: Date.now()
+    }
+    const updatedBoard = await boardModel.update(boardId, updateData)
 
-    return updatedBoard;
-  } catch (error) {
-    throw error;
-  }
-};
+    return updatedBoard
+  } catch (error) { throw error }
+}
 
 const moveCardToDifferentColumn = async (reqBody) => {
   try {
-    // B1: Cập nhật mảng cardOrderIds của Column ban đầu chứa nó (Hiểu bản chất là xóa cái _id của Card ra khỏi mảng)
+    // B1: Update array listCard of Column storage it (Hiểu bản chất là xóa cái _id của Card ra khỏi mảng)
     await columnModel.update(reqBody.prevColumnId, {
-      cardOrderIds: reqBody.prevCardOrderIds,
-      updatedAt: Date.now(),
-    });
-    // B2: Cập nhật mảng cardOrderIds của Column tiếp theo (Hiểu bản chất là thêm _id của Card vào mảng)
+      listCard: reqBody.prevListCard,
+      updatedAt: Date.now()
+    })
+    // B2: Update array listCard of new Column storage it (Hiểu bản chất là thêm _id của Card vào mảng)
     await columnModel.update(reqBody.nextColumnId, {
-      cardOrderIds: reqBody.nextCardOrderIds,
-      updatedAt: Date.now(),
-    });
-    // B3: Cập nhật lại trường columnId mới của cái Card đã kéo
+      listCard: reqBody.nextListCard,
+      updatedAt: Date.now()
+    })
+    // B3: Update new comlumnId field of card is draged
     await cardModel.update(reqBody.currentCardId, {
-      columnId: reqBody.nextColumnId,
-    });
+      columnId: reqBody.nextColumnId
+    })
 
-    return { updateResult: "Successfully!" };
-  } catch (error) {
-    throw error;
-  }
-};
+    return { updateResult: 'Successfully!' }
+  } catch (error) { throw error }
+}
+
+const deleteBoard = async (boardId) => {
+  try {
+    const targetBoard = await boardModel.findOneById(boardId)
+
+    if (!targetBoard) {
+      throw new ApiError(StatusCodes.NOT_FOUND, 'Board not found!')
+    }
+    const columnIds = targetBoard.listColumn
+    for (const columnId of columnIds)
+    {
+      await cardModel.deleteManyByColumnId(columnId)
+    }
+    await columnModel.deleteManyByBoardId(boardId)
+    await boardModel.deleteOneById(boardId)
+
+    return { deleteResult: 'Board deleted successfully!' }
+  } catch (error) { throw error }
+}
 
 export const boardService = {
   createNew,
   getDetails,
   update,
   moveCardToDifferentColumn,
-};
+  deleteBoard
+}
+

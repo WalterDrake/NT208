@@ -8,17 +8,13 @@ import {
   TEXT_RULE,
 } from "~/utils/validators";
 import bcrypt from "bcryptjs";
-import { userService } from "~/services/userService";
-import { courseModel } from "./Khoahoc/courseModel";
-import { studyModel } from "./Monhoc/studyModel";
-import { groupModel } from "./Hocnhom/groupModel";
 
 const TEACHER_COLLECTION_NAME = "teachers";
 const TEACHER_COLLECTION_SCHEMA = Joi.object().keys({
-  //email thi nen loc tu FE nhung o day se loc lai
   email: Joi.string().required().email().pattern(EMAIL_RULE).trim().strict(),
   username: Joi.string().required().pattern(TEXT_RULE).trim().strict(),
   password: Joi.string().required().pattern(TEXT_RULE).trim().strict(),
+
   salt: Joi.string().trim().strict().default(""),
   role: Joi.string().required().trim().default("Teacher"),
   admin: Joi.string()
@@ -135,7 +131,6 @@ const checkExist = async (email, password) => {
       .findOne({ email: email });
 
     if (emailex != null) {
-      console.log(emailex.password);
       let hash = bcrypt.hashSync(password, emailex.salt);
       if (hash == emailex.password) {
         return emailex;

@@ -11,6 +11,7 @@ import { json } from "express";
 const StudentRegister = async (req, res, next) => {
   try {
     const createdUser = await userService.createNew(req.body);
+
     if (createdUser == null) {
       res.status(StatusCodes.BAD_REQUEST).json("Đã tồn tại");
       return;

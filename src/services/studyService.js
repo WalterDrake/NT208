@@ -1,55 +1,53 @@
-import { slugify } from "~/utils/formatters";
-import ApiError from "~/utils/ApiError";
-import { StatusCodes } from "http-status-codes";
-import { cloneDeep } from "lodash";
-import { ObjectId } from "mongodb";
-import { postModel } from "~/models/Khoahoc/postModel";
-import { studyModel } from "~/models/Monhoc/studyModel";
+/* eslint-disable no-useless-catch */
+import ApiError from '~/utils/ApiError'
+import { StatusCodes } from 'http-status-codes'
+import { cloneDeep } from 'lodash'
+import { studyModel } from '~/models/Monhoc/studyModel'
 
 const createNew = async (reqBody) => {
   try {
     const newItem = {
-      ...reqBody,
-    };
+      ...reqBody
+    }
 
-    const createditem = await studyModel.createNew(newItem);
+    const createditem = await studyModel.createNew(newItem)
 
-    const getNewitem = await studyModel.findOneById(createditem.insertedId);
+    const getNewitem = await studyModel.findOneById(createditem.insertedId)
     // Trả kết quả về, trong Service luôn phải có return
-    return getNewitem;
+    return getNewitem
   } catch (error) {
-    throw error;
+    throw error
   }
-};
+}
 
 const getDetailsAll = async () => {
   try {
-    const item = await studyModel.getDetails();
+    const item = await studyModel.getDetails()
     if (!item) {
-      throw new ApiError(StatusCodes.NOT_FOUND, "Study not found!");
+      throw new ApiError(StatusCodes.NOT_FOUND, 'Study not found!')
     }
-    const resItem = cloneDeep(item);
-    return resItem;
+    const resItem = cloneDeep(item)
+    return resItem
   } catch (error) {
-    throw error;
+    throw error
   }
-};
+}
 const updateStudy = async (postId, reqBody) => {
   try {
     const updateData = {
       ...reqBody,
-      updatedAt: Date.now(),
-    };
-    const updatedItem = await studyModel.updateStudy(postId, updateData);
+      updatedAt: Date.now()
+    }
+    const updatedItem = await studyModel.updateStudy(postId, updateData)
 
-    return updatedItem;
+    return updatedItem
   } catch (error) {
-    throw error;
+    throw error
   }
-};
+}
 
 export const studyService = {
   createNew,
   getDetailsAll,
-  updateStudy,
-};
+  updateStudy
+}

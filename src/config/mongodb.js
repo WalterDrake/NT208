@@ -1,24 +1,35 @@
-import { MongoClient, ServerApiVersion } from "mongodb";
-import { env } from "~/config/environment";
+import { env } from '~/config/environment'
+import { MongoClient, ServerApiVersion } from 'mongodb'
 
-let WebDatabaseInstance = null;
+let UITecoDataBaseInstance = null
 
-// Khởi tạo một đối tượng mongoClientInstance để connect tới MongoDB
-const mongoClientInstance = new MongoClient(env.MONGODB_URI);
+// Create instance to conect to MongoDB
+const mongoClienInstance = new MongoClient(env.MONGODB_URI, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true
+  }
+})
 
-// Kết nối tới Database
+// Connect to DataBase
 export const CONNECT_DB = async () => {
-  // Gọi kết nối tới MongoDB Atlas với URI đã khai báo trong thân của mongoClientInstance
-  await mongoClientInstance.connect();
+  // Call to MongoDB with URI is declared
+  await mongoClienInstance.connect()
 
-  WebDatabaseInstance = mongoClientInstance.db(env.DATABASE_NAME);
-};
+  // Connect successfully, get name of database and assign to variable
+  UITecoDataBaseInstance = mongoClienInstance.db(env.DATABASE_NAME)
+}
 
+// Export to variable
+export const GET_DB = () =>
+{
+  if (!UITecoDataBaseInstance) throw new Error ('Must connect to Database')
+  return UITecoDataBaseInstance
+}
+
+// Close connect to server
 export const CLOSE_DB = async () => {
-  await mongoClientInstance.close();
-};
+  await mongoClienInstance.close()
+}
 
-export const GET_DB = () => {
-  if (!WebDatabaseInstance) throw new Error("Must connect to Database first!");
-  return WebDatabaseInstance;
-};

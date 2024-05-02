@@ -12,9 +12,9 @@ const VIDEO_COLLECTION_SCHEMA = Joi.object({
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE),
   item: Joi.string()
-  .pattern(OBJECT_ID_RULE)
-  .message({ OBJECT_ID_RULE_MESSAGE })
-  .required(),
+    .pattern(OBJECT_ID_RULE)
+    .message({ OBJECT_ID_RULE_MESSAGE })
+    .required(),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
 });
 

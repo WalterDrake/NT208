@@ -1,73 +1,73 @@
-import { columnModel } from "~/models/Hocnhom/TrelloTask/columnModel";
-import { boardModel } from "~/models/Hocnhom/TrelloTask/boardModel";
-import { cardModel } from "~/models/Hocnhom/TrelloTask/cardModel";
-import { StatusCodes } from "http-status-codes";
-import ApiError from "~/utils/ApiError";
+/* eslint-disable no-useless-catch */
+
+import { columnModel } from '~/models/Hocnhom/ToDoList/columnModel'
+import ApiError from '~/utils/ApiError'
+import { StatusCodes } from 'http-status-codes'
+import { boardModel } from '~/models/Hocnhom/ToDoList/boardModel'
+import { cardModel } from '~/models/Hocnhom/ToDoList/cardModel'
 
 const createNew = async (reqBody) => {
   try {
-    // Xử lý logic dữ liệu tùy đặc thù dự án
+    // Handle data according to each project
     const newColumn = {
-      ...reqBody,
-    };
-    const createdColumn = await columnModel.createNew(newColumn);
-    const getNewColumn = await columnModel.findOneById(
-      createdColumn.insertedId
-    );
+      ...reqBody
+    }
+    // Call model layer to save record into database
+    const createdColumn = await columnModel.createNew(newColumn)
+
+    // Get record board after calling (optional)
+    const getNewColumn = await columnModel.findOneById(createdColumn.insertedId)
 
     if (getNewColumn) {
       // Xử lý cấu trúc data ở đây trước khi trả dữ liệu về
-      getNewColumn.cards = [];
+      getNewColumn.card = []
 
-      // Cập nhật mảng columnOrderIds trong collection boards
-      await boardModel.pushColumnOrderIds(getNewColumn);
+      // Update array listColumn in collection boards
+      await boardModel.pushListColumn(getNewColumn)
     }
 
-    return getNewColumn;
-  } catch (error) {
-    throw error;
-  }
-};
+    // Return result; note: have to return in Service
+    return getNewColumn
+  } catch (error) { throw error }
+}
 
 const update = async (columnId, reqBody) => {
   try {
     const updateData = {
       ...reqBody,
-      updatedAt: Date.now(),
-    };
-    const updatedColumn = await columnModel.update(columnId, updateData);
+      updatedAt: Date.now()
+    }
+    const updatedColumn = await columnModel.update(columnId, updateData)
 
-    return updatedColumn;
-  } catch (error) {
-    throw error;
-  }
-};
+    return updatedColumn
+  } catch (error) { throw error }
+}
 
 const deleteItem = async (columnId) => {
   try {
-    const targetColumn = await columnModel.findOneById(columnId);
+    const targetColumn = await columnModel.findOneById(columnId)
 
     if (!targetColumn) {
-      throw new ApiError(StatusCodes.NOT_FOUND, "Column not found!");
+      throw new ApiError(StatusCodes.NOT_FOUND, 'Column not found!')
     }
 
-    // Xóa Column
-    await columnModel.deleteOneById(columnId);
+    // delete Column
+    await columnModel.deleteOneById(columnId)
 
-    // Xóa toàn bộ Cards thuộc cái Column trên
-    await cardModel.deleteManyByColumnId(columnId);
+    // delete all Cards of its Column
+    await cardModel.deleteManyByColumnId(columnId)
 
-    // Xoá columnId trong mảng columnOrderIds của cái Board chứa nó
-    await boardModel.pullColumnOrderIds(targetColumn);
+    // delete columnId in listColumn of its Board
+    await boardModel.pullListColumn(targetColumn)
 
-    return { deleteResult: "Column and its Cards deleted successfully!" };
-  } catch (error) {
-    throw error;
-  }
-};
+    return { deleteResult: 'Column and its Cards deleted successfully!' }
+  } catch (error) { throw error }
+}
+
 
 export const columnService = {
   createNew,
   update,
-  deleteItem,
-};
+  deleteItem
+}
+
