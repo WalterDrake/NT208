@@ -69,6 +69,7 @@ layout {
 main {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 }
 /* #content {
   margin-right: 20px;
@@ -84,7 +85,7 @@ main {
   margin-bottom: 10px;
 } */
 
-aside {
+/* aside {
   background-color: white;
   width: 270px;
   height: 763px;
@@ -93,7 +94,7 @@ aside {
   border-top-right-radius: 1.88rem;
   border-bottom-right-radius: 1.88rem;
   
-}
+} */
 
 body {
   background: black;
@@ -119,10 +120,8 @@ main {
   text-align: left;
   overflow: auto;
   margin-left: 1rem;
-  margin-right: 0;
-  max-width: 1200px;  
+  margin-right: 0px;  
   padding: 5px;
-  width:calc(100% - 18.5rem);
   margin-top: 1.5rem;
 }
 /* content {

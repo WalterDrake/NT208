@@ -5,6 +5,7 @@ import "./Add.css"
 import { FaHeadphonesAlt } from "react-icons/fa"
 const HocTap = [
   {
+    id : 1,
     image: "src\\assets\\HocTap_img\\Quantri.png",
     ten: "Quản trị mạng và hệ thống",
     giaovien: "Bùi Thanh Bình",
@@ -14,6 +15,7 @@ const HocTap = [
   },
 
   {
+    id : 2,
     image: "src\\assets\\HocTap_img\\HDH.png",
     ten: "Hệ điều hành",
     giaovien: "Đoàn Duy",
@@ -23,6 +25,7 @@ const HocTap = [
   },
 
   {
+    id : 3,
     image: "src\\assets\\HocTap_img\\Truyen.png",
     ten: "Truyền dữ liệu",
     giaovien: "Nguyễn Tấn Hoàng Phước",
@@ -32,6 +35,7 @@ const HocTap = [
   },
 
   {
+    id : 4,
     image: "src\\assets\\HocTap_img\\Laptrinh.png",
     ten: "Lập trình mạng căn bản",
     giaovien: "Đặng Lê Bảo Chương",

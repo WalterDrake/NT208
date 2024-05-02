@@ -1,18 +1,24 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, createContext } from "react";
-import axios from "axios";
 import { Grid } from "@mui/material";
+
 
 import KhoahocDetailVideo from "./KhoahocDetailItem/KhoahocDetailVideo";
 import KhoahocDetailList from "./KhoahocDetailItem/KhoahocDetailList";
 import { useContext } from "react";
 import { UserContext } from "../../../App";
+import * as courses from '../../../service/courses'
+import * as videos  from '../../../service/videos'
+import {AddDealine,AddVideo,AddDocument} from '../../../components/teacherAction/courseAction'
+
 
 export const CurrentVideoContext = createContext();
 function CourseDetails() {
-  const {user} = useContext(UserContext);
-  const { courseName } = useParams();
+  const {user} = useContext(UserContext)
+  const { courseID } = useParams();
+  console.log(user)
   const [courseDetails, setCourseDetails] = useState({
+    id: 1,
     name: 'hocReact',
     description: 'hoc react tren web',
     videoList: [{
@@ -29,7 +35,27 @@ function CourseDetails() {
     }
     ]
   });
-  const [curVideo, setCurVideo] = useState(courseDetails.videoList[0].url)
+  useEffect(() => {
+    document.title = courseDetails.name
+    courses.getCourse(courseID)
+      .then(res => {
+        console.log('res', res)
+        setCourseDetails(res)
+      })
+      .catch(err => {
+        console.log('err', err)
+      })
+      videos.getVideos(courseDetails.id)
+      .then(res => {
+        console.log('res', res) // trả ra danh sach các video
+        courseDetails.videoList = res
+      })
+      .catch(err => {
+        console.log('err', err)
+      })
+    
+  } ,[courseID])
+  const [curVideo, setCurVideo] = useState(courseDetails?.videoList[0].url)
 
 
   return (
@@ -44,11 +70,21 @@ function CourseDetails() {
         </Grid>
 
         <div id="video-khoa-hoc">
-
           <KhoahocDetailVideo />
-
         </div>
       </div>
+      <div id='teacher-action'>
+      {
+          (user.role === 'teacher')  ?
+       (
+      <>
+        <AddVideo courseID={courseID}/>
+        <AddDocument courseID={courseID}/>
+        <AddDealine courseID={courseID}/>
+      </>
+       ):<></>}
+      </div>
+
     </CurrentVideoContext.Provider >
 
   );
