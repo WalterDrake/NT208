@@ -1,9 +1,10 @@
 import React from 'react'
 import { useContext } from 'react'
-import { CurrentVideoContext } from '../../../../Pages/Khoahoc/KhoahocItemDetail/KhoahocItemDetail'
+import { CurrentVideoContext } from '../../Pages/Hoctap/HocTapDetails'
 
-export default function KhoahocDetailVideo() {
+export default function HocTapDetailVideo() {
   const {curVideo} = useContext(CurrentVideoContext)
+  console
   return (
     <div>
       <iframe width="560" 
@@ -16,7 +17,7 @@ export default function KhoahocDetailVideo() {
       clipboard-write; 
       encrypted-media; gyroscope; picture-in-picture; web-share" 
       referrerPolicy="strict-origin-when-cross-origin" 
-      allowFullScreen>
+      allowF  ullScreen>
 
       </iframe>
     </div>

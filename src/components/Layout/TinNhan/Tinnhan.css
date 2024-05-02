@@ -1,42 +1,5 @@
-.effect:hover {
-  background-color: rgba(217, 217, 217, 1);
-  height: auto;
-  width: auto;
-  border-radius: 30px;
-  text-align: center;
-}
-.frame {
-  width: 192px;
-  height: 264.87px;
-  box-shadow: 1.5px 4px 6px rgba(0, 0, 0, 0.3);
-}
-.container {
-  flex-wrap: wrap;
-  //background-color: rgba(240, 247, 255, 1);
-}
-.item {
-  max-width: 700px;
-}
-@media (max-width: 768px) {
-  .item {
-    max-width: 100%;
-  }
-}
-.dimension {
-  width: 120%;
-}
-.framebutton {
-  margin-left: 1rem;
-  height: 30px;
-  width: 230px;
-  background-color: white;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.373);
-  font-weight: bold;
-  border-radius: 13.58px;
-}
-
 body {
-  background-color: white;
+  background-image: url('#');
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;

@@ -5,20 +5,18 @@ import Footer from "../Footer/Footer";
 
 const DefaultLayout = ({ children }) => {
   return (
-    <div className="bg-blue-100">
+    <div className="flex flex-col min-h-screen bg-blue-100">
       <header>
         <Navbar />
       </header>
       <div style={{ paddingTop: "100px", display: "flex" }}>
-        <aside>
-          <Sidebar />
-        </aside>
+        <Sidebar />
         <main>{children}</main>
       </div>
       <footer>
         <Footer />
       </footer>
-    </div>
+    </div >
   );
 };
 
