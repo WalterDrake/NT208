@@ -73,6 +73,7 @@ const Sidebar = () => {
                                 <Menuitem title={MenuItem.title} to={MenuItem.to} />
                             </span>
                         </div>
+
                     </li>
                 ))}
             </ul>

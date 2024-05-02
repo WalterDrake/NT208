@@ -8,7 +8,7 @@ export const getVideos = async () => {
         throw error.response.data
     }
 } // lấy danh sách video từ api
-export const getVideo = async (id) => {
+export const getVideo = async (id) => { // id lớp học
     try {
         const response = await httpRequest.get(`/video/${id}`)
         return response.data
@@ -17,9 +17,9 @@ export const getVideo = async (id) => {
     }
 }
 
-export const addVideo = async (data) => {
+export const addVideo = async (courseID,data) => { // id lớp hoc
     try {
-        const response = await httpRequest.post('/video/', data)
+        const response = await httpRequest.post(`/video/${courseID}`, data)
         return response.data
     } catch (error) {
         throw error.response.data
