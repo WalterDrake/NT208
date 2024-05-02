@@ -6,7 +6,11 @@ export default {
   ],
   important: "#root",
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'custom-gradient': 'linear-gradient(2.88deg, rgba(38, 135, 246, 0.5) 1.08%, rgba(177, 207, 242, 0.5) 100.93%)',
+      }
+    }
   },
   plugins: [],
   variants: {

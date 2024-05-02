@@ -103,16 +103,15 @@ validator.isRequired = function (id,Message) { // id của element cần rule v�
     }
 }
 
-validator.isEmail = function (id,Message) {
+validator.isEmail = function (id, Message) {
     return {
-        selector : id ,
-        text : function (value) {
-            var regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+        selector: id,
+        text: function (value) {
+            var regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z.]{2,}$/;
             return regex.test(value) ? undefined : Message;
         }
     }
 }
-
 validator.minLength = function (id, length)
 {
     return {
@@ -130,6 +129,19 @@ validator.isConfirmed = function (id, id2,Message)
         text : function (value, formElement) {
             var value2 = formElement.querySelector(id2).value;
             return value === value2 ? undefined : Message;
+        }
+    }
+}
+
+validator.isEmail1 = function (id, Message) {
+    return {
+        selector: id,
+        text: function (value) {
+            if (value.trim() === '') {
+                return undefined;
+            }
+            var regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z.]{2,}$/;
+            return regex.test(value) ? undefined : Message;
         }
     }
 }

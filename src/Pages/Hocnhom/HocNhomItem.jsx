@@ -1,13 +1,11 @@
-import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from "react"
+import { Link } from "react-router-dom"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
-const HocNhomItem = ({ HocNhom, Tinhtrang }) => { // tạo props với object
-  //console.log(Tinhtrang) để debug
-  if (Tinhtrang == 2 || Tinhtrang == HocNhom.tinhtrang) // cái này hơi dư nếu nhma nếu anh em hiểu thì xóa nha
-  {
-    return (
-      // các thuộc tính nào khác nhau ở từng item muốn render thì qua bên mảng kia thêm nha
+const HocNhomItem = ({ HocNhom }) => { // tạo props với object
+  return (
+    <Link to={`/Hocnhompage/${HocNhom.id}`}>
       <div className=" ml-4  frame rounded-md bg-white wrap">
 
         <img src={HocNhom.image}
@@ -21,8 +19,8 @@ const HocNhomItem = ({ HocNhom, Tinhtrang }) => { // tạo props với object
           </span> {HocNhom.siso}</p>
         </div>
       </div>
-    );
-  }
-};
+    </Link>
+  )
+}
 // tạo componentHocNhomItem với props ten, giaovien, siso và trả về 1 div chứa title, giáo viên và sĩ số
 export default HocNhomItem;

@@ -1,15 +1,20 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState ,createContext} from "react";
-import axios from "axios";
+import { useEffect, useState, createContext } from "react";
 import { Grid } from "@mui/material";
 
 import KhoahocDetailVideo from "./KhoahocDetailItem/KhoahocDetailVideo";
 import KhoahocDetailList from "./KhoahocDetailItem/KhoahocDetailList";
+import { useContext } from "react";
+import { UserContext } from "../../../App";
+import * as courses from '../../../service/courses'
+import * as videos  from '../../../service/videos'
+
 
 export const CurrentVideoContext = createContext();
 function CourseDetails() {
-  const { courseName } = useParams();
+  const { courseID } = useParams();
   const [courseDetails, setCourseDetails] = useState({
+    id: 1,
     name: 'hocReact',
     description: 'hoc react tren web',
     videoList: [{
@@ -26,37 +31,48 @@ function CourseDetails() {
     }
     ]
   });
-  const [curVideo,setCurVideo] = useState(courseDetails.videoList[0].url)
+  useEffect(() => {
+    document.title = courseDetails.name
+    courses.getCourse(courseID)
+      .then(res => {
+        console.log('res', res)
+        setCourseDetails(res)
+      })
+      .catch(err => {
+        console.log('err', err)
+      })
+      videos.getVideos(courseDetails.id)
+      .then(res => {
+        console.log('res', res) // trả ra danh sach các video
+        courseDetails.videoList = res
+      })
+      .catch(err => {
+        console.log('err', err)
+      })
+    
+  } ,[courseID])
+  const [curVideo, setCurVideo] = useState(courseDetails?.videoList[0].url)
 
-  // useEffect(() => {
-  //   // Thay đổi URL này theo API của bạn
-  //   const apiUrl = `https://my-api.com/courses/${courseName}`;
-
-  //   axios.get(apiUrl)
-  //     .then(response => {
-  //       setCourseDetails(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error("Could not fetch course details:", error);
-  //     });
-  // }, [courseName]);  // Chạy lại useEffect mỗi khi courseName thay đổi
-
-  // if (!courseDetails) {
-  //   return <div>Loading course details...</div>;
-  // }
 
   return (
-    <CurrentVideoContext.Provider value={{curVideo,setCurVideo,courseDetails, setCourseDetails}}>
+
+    <CurrentVideoContext.Provider value={{ curVideo, setCurVideo, courseDetails, setCourseDetails }}>
       <div className="bg-[#29303b] w-full" id="navbar-course">
         <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">{courseDetails.name}</h1>
       </div>
-      <Grid item xs={12}>
-      <KhoahocDetailList/>
-      </Grid>
-      <div id="video-khoa-hoc">
-        <KhoahocDetailVideo  />
+      <div className="flex gap-5">
+        <Grid item xs={5}>
+          <KhoahocDetailList />
+        </Grid>
+
+        <div id="video-khoa-hoc">
+
+          <KhoahocDetailVideo />
+
+        </div>
       </div>
-    </CurrentVideoContext.Provider>
+    </CurrentVideoContext.Provider >
+
   );
 }
 
