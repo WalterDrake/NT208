@@ -154,7 +154,7 @@ export const courseModel = {
   findOneById, // có id course
   getDetailsAll, // lấy hết
   updateCourse, // có id course
-
+  
   findOne, // truyền vào cả id course và id owner
   getDetailsAllbyTeacher, // Cái này là trả về thẳng cái mảng luôn thay vì ta phải query từ các id
   findIdAndDelete, // Tìm và xóa lập tức 1 khóa học

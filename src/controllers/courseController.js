@@ -7,7 +7,7 @@ import { studentModel } from "~/models/studentModel";
 import { itemModel } from "~/models/Khoahoc/itemModel";
 import { teacherModel } from "~/models/teacherModel";
 import { GET_DB } from "~/config/mongodb";
-import { ObjectId } from "mongodb";
+import { ExplainVerbosity, ObjectId } from "mongodb";
 
 // Tao khoa hoc by Teacher
 const createNewCoursebyAdmin = async (req, res, next) => {
@@ -93,7 +93,7 @@ const getSclassStudents = async (req, res) => {
 };
 
 //Lay danh sach lop hoc cua 1 sinh vien
-const getCourseByStudentid = async (req, res) => {
+const getListCoursesofStudentid = async (req, res) => {
   try {
     var students = await studentModel.findOneById(req.params.id);
     var listcourse = [];
@@ -128,13 +128,175 @@ const deleteCoursebyAdmin = async (req, res, next) => {
   }
 };
 
-const getStudentsFromCourse = async (req, res, next) => {
+const getListStudentofCoures = async (req, res, next) => {
   try {
     // truyen vao id khoa hoc
     const studentList = await GET_DB()
       .collection(studentModel.USER_COLLECTION_NAME)
       .findMany({ course: { $in: req.params.id } });
     return studentList;
+  } catch (error) {
+    next(error);
+  }
+};
+
+const pushStudentIntoCourse = async (req, res, next) => {
+  try {
+    // truyen vao id khoa hoc va id cua hoc sinh
+    const student = await studentModel.findOneById(req.params.idstudent);
+    if (!student) {
+      return res
+        .status(StatusCodes.FAILED_DEPENDENCY)
+        .send({ message: " Khong tim thay sinh vien" });
+    }
+    const pushStudent = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .updateOne(
+        { _id: ObjectId(req.params.idstudent) }, // Điều kiện tìm kiếm tài liệu
+        {
+          $push: {
+            course: req.params.idcourse,
+            examResult: {
+              coursename: req.params.idcourse,
+              markObtain: 0,
+              hoanthanh: false,
+            },
+            attendace: {
+              coursename: req.params.idcourse,
+            },
+          },
+        } // Thêm giá trị vào trường mảng
+      );
+
+    return studentList;
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getListCourseStudentDone = async (req, res, next) => {
+  try {
+    //truyen vao id hoc sinh
+    // Luu y lai cai them 1 hoc sinh vao 1 khoa hoc nha
+    const listcourse = await courseController.getListCoursesofStudentid(
+      req,
+      res
+    );
+    const donecourse = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .find({
+        examResult: { coursename: { $in: listcourse }, hoanthanh: true },
+      })
+      .toArray();
+    return res.status(StatusCodes.OK).json(donecourse);
+  } catch (error) {
+    next(error);
+  }
+};
+const chamdiemchoStudent = async (req, res, next) => {
+  try {
+    //truyen vao id hoc sinh va id mon hoc va diem so
+    const student = await studentModel.findOneById(req.params.idstudent);
+    if (!student) {
+      return res
+        .status(StatusCodes.FAILED_DEPENDENCY)
+        .send({ message: "Khong tim thay hoc sinh" });
+    }
+    const updateMark = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .updateOne(
+        {
+          _id: new ObjectId(req.params.idstudent),
+          course: req.params.idcourse,
+        },
+        {
+          $set: {
+            examResult: {
+              coursename: req.params.idcourse,
+              markObtain: req.params.diemso,
+              hoanthanh: true,
+            },
+          },
+        }
+      );
+    return res.status(StatusCodes.OK).json(updateMark);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getOneCoursebyTeacher = async (req, res, next) => {
+  try {
+    // truyen vao id khoa hoc va id teacher
+    const course = await GET_DB()
+      .collection(courseModel.COURSE_COLLECTION_NAME)
+      .find({
+        _id: new ObjectId(req.params.idcourse),
+        owner: req.params.idteacher,
+      });
+    if (!course) {
+      return res
+        .status(StatusCodes.FAILED_DEPENDENCY)
+        .send({ message: "Khong ton tai yeu cau" });
+    }
+    const courseone = courseModel.findOneById(req.params.idcourse);
+    return res.status(StatusCodes.OK).json(courseone);
+  } catch (error) {
+    next(error);
+  }
+};
+const getMarkOfCourse = async (req, res, next) => {
+  try {
+    // truyen vao id khoa hoc va id hoc sinh
+    const getmark = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .findOne({
+        _id: new ObjectId(req.params.idstudent),
+        "examResult.coursename": req.params.idcourse,
+      });
+
+    if (getmark) {
+      const markExam = getmark.examResult.find(
+        (result) => result.coursename === req.params.idcourse
+      );
+
+      if (markExam) {
+        const diemso = markExam.markObtain;
+        return res.json({ diemso: diemso });
+      } else {
+        return res.json({ diemso: null });
+      }
+    } else {
+      return res.json({ diemso: null });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+const deleteStudentFromCourse = async (req, res, next) => {
+  try {
+    // truyen vao id khoa hoc va id hoc sinh
+    const student = await studentModel.findOneById(req.params.idstudent);
+    if (!student) {
+      return res
+        .status(StatusCodes.FAILED_DEPENDENCY)
+        .send({ message: "Khong tim thay sinh vien" });
+    }
+    const deletecourse = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .updateOne(
+        {
+          _id: new ObjectId(req.params.idstudent),
+          course: { $in: [req.params.idcourse] },
+        },
+        {
+          $pull: {
+            course: req.params.idcourse,
+            examResult: { coursename: req.params.idcourse },
+          },
+        }
+      );
+    return res.status(StatusCodes.OK).json(deletecourse);
   } catch (error) {
     next(error);
   }
@@ -169,16 +331,20 @@ export const courseController = {
   //Danh cho admin
   createNewCoursebyAdmin,
   getDetailsCourseAllbyAdmin,
-  deleteCoursebyAdmin,
-  deleteCoursesbyAdmin,
+  deleteCoursebyAdmin, // xoa 1 khoa hoc
+  deleteCoursesbyAdmin, // xoa nhieu khoa hoc
   updateCourseByAdmin,
+  pushStudentIntoCourse, // dua 1 hoc sinh vao khoa hoc
+  deleteStudentFromCourse, // xoa 1 sinh vien ra khoi khoa hoc
 
   //Danh cho teacher
   getOneCoursebyTeacher,
   getListStudentofCoures,
   getListCourseofTeacher,
-  getStudentsFromCourse,
+  chamdiemchoStudent,
 
   //Ham xuat phat tu hoc sinh
-  getCourseByStudentid,
+  getListCoursesofStudentid,
+  getListCourseStudentDone,
+  getMarkOfCourse,
 };

@@ -16,7 +16,7 @@ const TEACHER_COLLECTION_SCHEMA = Joi.object().keys({
   password: Joi.string().required().pattern(TEXT_RULE).trim().strict(),
 
   salt: Joi.string().trim().strict().default(""),
-  role: Joi.string().required().trim().default("Teacher"),
+  role: Joi.string().required().trim().default("teacher"),
   admin: Joi.string()
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
