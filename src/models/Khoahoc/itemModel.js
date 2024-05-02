@@ -17,7 +17,6 @@ const ITEM_COLLECTION_SCHEMA = Joi.object({
   listNotids: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
-  school: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
   teacher: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
   course: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
@@ -71,7 +70,7 @@ const deleteManyCourse = async (ids) => {
   try {
     const result = await GET_DB()
       .collection(ITEM_COLLECTION_NAME)
-      .deleteMany({ coursename: new ObjectId(ids) });
+      .deleteMany({ course: ids });
     return result;
   } catch (error) {
     throw new Error(error);

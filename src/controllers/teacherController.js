@@ -151,22 +151,16 @@ const deletedOneStudentFromCourse = async (req, res, next) => {
   }
 };
 
-export const userController = {
+export const teacherController = {
   //Danh cho Admin
-  getDetailsAllbyAdmin,
-  getIds,
-  deleteStudent,
-  deletedStudentFromCourse,
 
-  //Ham danh cho teacher
-  studentAttendance, // -------------
-  deletedOneStudentFromCourse,
+  // Ham danh Teacher
+  TeacherRegister,
+  getTeacherDetails,
+  TeacherLogin,
 
-  // Ham danh cho sinh vien
-  StudentRegister,
-  getStudentDetails,
-  StudentLogin,
-  updateStudent,
+  //Ham lien quan
+  updateCourse,
 
   //Lien quan den teacher,admin
 };

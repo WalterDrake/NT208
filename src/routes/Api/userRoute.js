@@ -7,11 +7,9 @@ import { userValidation } from "~/validations/userValidation";
 
 const Router = express.Router();
 
-Router.route("/")
-  .get((req, res) => {
-    res.json({ message: "GET: API get list " });
-  })
-  .post(userValidation.createNew, userController.createNew);
+Router.route("/").get((req, res) => {
+  res.json({ message: "GET: API get list " });
+});
 //==============================
 // STUDENT - CHỨC NĂNG //
 //==============================

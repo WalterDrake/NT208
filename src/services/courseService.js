@@ -35,6 +35,7 @@ const createNew = async (req, res, next) => {
       ...req.body,
     };
     const existcourse = await courseModel.findOne(newItem);
+    console.log(existcourse);
     if (existcourse) {
       res
         .status(StatusCodes.FAILED_DEPENDENCY)

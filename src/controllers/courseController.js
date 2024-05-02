@@ -7,18 +7,19 @@ import { studentModel } from "~/models/studentModel";
 import { itemModel } from "~/models/Khoahoc/itemModel";
 import { teacherModel } from "~/models/teacherModel";
 import { GET_DB } from "~/config/mongodb";
+import { ObjectId } from "mongodb";
 
 // Tao khoa hoc by Teacher
-const createNewbyTeacher = async (req, res, next) => {
+const createNewCoursebyAdmin = async (req, res, next) => {
   try {
-    const createdItem = await courseService.createNew(req.body);
+    const createdItem = await courseService.createNew(req, res, next);
   } catch (error) {
     next(error);
   }
 };
 
 // Lay danh sach lop hoc Do giao vien mo lop
-const getDetailsAllbyTeacher = async (req, res, next) => {
+const getDetailsCourseAllbyAdmin = async (req, res, next) => {
   try {
     const coures = await courseModel.getDetailsAllbyTeacher(req.params.id);
     if (coures.length > 0) {
@@ -31,8 +32,17 @@ const getDetailsAllbyTeacher = async (req, res, next) => {
   }
 };
 
+const getDetailsCourseAll = async (req, res, next) => {
+  try {
+    const courselist = await courseModel.getDetailsAll();
+    res.status(StatusCodes.OK).json(courselist);
+  } catch (error) {
+    next(error);
+  }
+};
+
 // Update thong tin khoa hoc
-const updateCourseByTeacher = async (req, res, next) => {
+const updateCourseByAdmin = async (req, res, next) => {
   try {
     const courseId = req.params.id;
     const updatedCourse = await courseService.updateCourse(courseId, req.body);
@@ -44,11 +54,24 @@ const updateCourseByTeacher = async (req, res, next) => {
 };
 
 // Lay khoa hoc tu chinh Id cua no, thong tin khoa hoc
-const getDetailsCourse = async (req, res, next) => {
+const getDetailsCoursebyTeacher = async (req, res, next) => {
   try {
     const courseId = req.params.id;
     const course = await courseService.getDetails(courseId);
     res.status(StatusCodes.OK).json(course);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getListCourseofTeacher = async (req, res, next) => {
+  try {
+    const listcourse = await GET_DB()
+      .collection(courseModel.COURSE_COLLECTION_NAME)
+      .find({
+        owner: req.params.id, // id giao vien
+      });
+    res.status(StatusCodes.OK).json(listcourse);
   } catch (error) {
     next(error);
   }
@@ -60,10 +83,7 @@ const getSclassStudents = async (req, res) => {
   try {
     var students = await studentModel.findCourse(req.params.id);
     if (students.length > 0) {
-      let modifiedStudents = students.map((student) => {
-        return { ...student._doc, password: undefined };
-      });
-      res.send(modifiedStudents);
+      res.status(StatusCodes.OK).json(students);
     } else {
       res.send({ message: "No students found" });
     }
@@ -72,28 +92,56 @@ const getSclassStudents = async (req, res) => {
   }
 };
 
+//Lay danh sach lop hoc cua 1 sinh vien
+const getCourseByStudentid = async (req, res) => {
+  try {
+    var students = await studentModel.findOneById(req.params.id);
+    var listcourse = [];
+    students.course.array.forEach((element) => {
+      var tmp = courseModel.findOneById(element);
+      listcourse.push(tmp);
+    });
+    res.status(StatusCodes.OK).json(listcourse);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
 // Thuc hien xao 1 lop va loai bo id cua lop do trong hoc sinh
-const deleteSclass = async (req, res) => {
+const deleteCoursebyAdmin = async (req, res, next) => {
   try {
     // Kiem tra coi co ton tai khong
     const deletedClass = await courseModel.findOneById(req.params.id);
+    console.log(deletedClass);
     if (!deletedClass) {
       return res.send({ message: "Class not found" });
     }
     // Lưu ý cái bự mà xóa thì toàn bộ cái nhỏ bị xóa dùng deleteMany
-    // Cái nhỏ xóa thì sẽ xóa cái đó ra khỏi cái bự là được .
+    // Cái nhỏ xóa thì sẽ xóa cái đó ra khỏi cái bự là được . updateMany
     const deletedStudents = await studentModel.deletedCourse(req.params.id);
     const deletedSubjects = await itemModel.deleteManyCourse(req.params.id);
     const deletedTeachers = await teacherModel.deleteCourse(req.params.id);
-    const deletedClasss = await courseModel.findByIdAndDelete(req.params.id);
-    res.send(deletedClass);
+    const deletedClasss = await courseModel.findIdAndDelete(req.params.id);
+    res.status(StatusCodes.OK).send({ message: "Da xoa thanh cong" });
   } catch (error) {
-    res.status(500).json(error);
+    next(error);
+  }
+};
+
+const getStudentsFromCourse = async (req, res, next) => {
+  try {
+    // truyen vao id khoa hoc
+    const studentList = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .findMany({ course: { $in: req.params.id } });
+    return studentList;
+  } catch (error) {
+    next(error);
   }
 };
 
 // Xoa tat cac cac lop ma do teacher tao
-const deleteSclasses = async (req, res) => {
+const deleteCoursesbyAdmin = async (req, res) => {
   try {
     const teacher = await teacherModel.findOneById(req.params.id);
     if (teacher.teachCourse.length == 0) {
@@ -118,11 +166,19 @@ const deleteSclasses = async (req, res) => {
 };
 
 export const courseController = {
-  updateCourseByTeacher,
-  createNewbyTeacher,
-  getDetailsAllbyTeacher,
-  getDetailsCourse,
-  getSclassStudents,
-  deleteSclass,
-  deleteSclasses,
+  //Danh cho admin
+  createNewCoursebyAdmin,
+  getDetailsCourseAllbyAdmin,
+  deleteCoursebyAdmin,
+  deleteCoursesbyAdmin,
+  updateCourseByAdmin,
+
+  //Danh cho teacher
+  getOneCoursebyTeacher,
+  getListStudentofCoures,
+  getListCourseofTeacher,
+  getStudentsFromCourse,
+
+  //Ham xuat phat tu hoc sinh
+  getCourseByStudentid,
 };

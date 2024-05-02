@@ -21,7 +21,7 @@ const TEACHER_COLLECTION_SCHEMA = Joi.object().keys({
   password: Joi.string().required().pattern(TEXT_RULE).trim().strict(),
   salt: Joi.string().trim().strict().default(""),
   role: Joi.string().required().trim().default("Teacher"),
-  school: Joi.string()
+  admin: Joi.string()
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
     .required(),
@@ -29,11 +29,11 @@ const TEACHER_COLLECTION_SCHEMA = Joi.object().keys({
   teachCourse: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
-  attendance: [
-    { date: Joi.date().timestamp("javascript").required() },
-    { presentCount: Joi.string().trim() },
-    { absentCount: Joi.string().trim() },
-  ],
+  attendance: Joi.Object({
+    date: Joi.date().iso().greater(Joi.ref("start")).required(),
+    presentCount: Joi.string().trim(),
+    absentCount: Joi.string().trim(),
+  }),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
 });
 
@@ -120,8 +120,8 @@ const deleteCourse = async (ids) => {
     const result = await GET_DB()
       .collection(TEACHER_COLLECTION_NAME)
       .updateMany(
-        { teachCourse: { $in: new ObjectId(ids) } },
-        { $pull: { teachCourse: { $in: new ObjectId(ids) } } }
+        { teachCourse: { $in: [ids] } },
+        { $pull: { teachCourse: { $in: [ids] } } }
       );
     return result;
   } catch (error) {

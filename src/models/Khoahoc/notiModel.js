@@ -11,6 +11,10 @@ const NOTI_COLLECTION_SCHEMA = Joi.object({
   listNguoinop: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
+  item: Joi.string()
+    .pattern(OBJECT_ID_RULE)
+    .message({ OBJECT_ID_RULE_MESSAGE })
+    .required(),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
 });
 

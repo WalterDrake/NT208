@@ -20,18 +20,16 @@ const USER_COLLECTION_SCHEMA = Joi.object().keys({
   username: Joi.string().required().pattern(TEXT_RULE).trim().strict(),
   password: Joi.string().required().pattern(TEXT_RULE).trim().strict(),
   salt: Joi.string().trim().strict().default(""),
-  role: Joi.string().required().trim().default("Sinh Vien"),
+  role: Joi.string().trim().default("Sinh Vien"),
   course: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
-  examResult: [
-    {
-      coursename: Joi.string()
-        .pattern(OBJECT_ID_RULE)
-        .message(OBJECT_ID_RULE_MESSAGE),
-    },
-    { markObtain: Joi.number() },
-  ],
+  examResult: Joi.object({
+    coursename: Joi.string()
+      .pattern(OBJECT_ID_RULE)
+      .message(OBJECT_ID_RULE_MESSAGE),
+    markObtain: Joi.number(),
+  }),
   attendance: Joi.object({
     date: Joi.date().iso().greater(Joi.ref("start")).required(),
     status: Joi.string().trim().valid("Present", "Absent").required(),
@@ -46,7 +44,7 @@ const USER_COLLECTION_SCHEMA = Joi.object().keys({
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
   description: Joi.string().trim().strict(),
-  school: Joi.string()
+  admin: Joi.string()
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
     .required(),
@@ -132,7 +130,6 @@ const findCourse = async (ids) => {
     throw new Error(error);
   }
 };
-
 const deleteManyCourse = async (ids) => {
   try {
     const result = await GET_DB()
@@ -159,14 +156,26 @@ const deletedCourse = async (ids) => {
     const existstudent = await GET_DB()
       .collection(USER_COLLECTION_NAME)
       .updateMany(
-        { course: { $in: new ObjectId(ids) } },
-        { $pull: { course: { $in: new ObjectId(ids) } } }
+        { course: { $in: [ids] } },
+        { $pull: { course: { $in: [ids] } } }
       );
-    return result;
+    return existstudent;
   } catch (error) {
     throw new Error(error);
   }
 };
+
+const deletedStudents = async (ids) => {
+  try {
+    const deleted = await GET_DB()
+      .collection(USER_COLLECTION_NAME)
+      .deleteOne({ _id: new Object(ids) });
+    return deleted;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 const checkExist = async (email, password) => {
   try {
     const emailex = await GET_DB()
@@ -247,6 +256,9 @@ export const studentModel = {
 
   //deleteCourse
   deletedCourse,
+  deletedStudents,
+
+  // 2 ham nay chua xac dinh nha
   deleteManyCourse,
   deleteManyTeacher,
 };

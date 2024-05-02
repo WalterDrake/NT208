@@ -7,13 +7,8 @@ import {
   EMAIL_RULE,
   TEXT_RULE,
 } from "~/utils/validators";
-import bcrypt from "bcryptjs";
-import { userService } from "~/services/userService";
-import { courseModel } from "./Khoahoc/courseModel";
-import { studyModel } from "./Monhoc/studyModel";
-import { groupModel } from "./Hocnhom/groupModel";
 
-const NOTICE_COLLECTION_NAME = "complain";
+const NOTICE_COLLECTION_NAME = "notice";
 const NOTICE_COLLECTION_SCHEMA = Joi.object().keys({
   //email thi nen loc tu FE nhung o day se loc lai
   title: Joi.string().trim().required(),
@@ -29,33 +24,18 @@ const NOTICE_COLLECTION_SCHEMA = Joi.object().keys({
 const INVALID_UPDATE_FIELDS = ["_id", "createdAt"];
 
 const validateBeforeCreate = async (data) => {
-  return await USER_COLLECTION_SCHEMA.validateAsync(data, {
+  return await NOTICE_COLLECTION_SCHEMA.validateAsync(data, {
     abortEarly: false,
   });
 };
 
 const createNew = async (data) => {
   try {
-    const existingStudent = await GET_DB()
-      .collection(USER_COLLECTION_NAME)
-      .findOne({
-        email: data.email,
-      });
-
-    if (existingStudent) {
-      return null;
-    } else {
-      const validData = await validateBeforeCreate(data);
-      let salt = bcrypt.genSaltSync(10);
-      let hashPassword = bcrypt.hashSync(data.password, salt);
-      validData.salt = salt;
-      validData.password = hashPassword;
-
-      const createdUser = await GET_DB()
-        .collection(USER_COLLECTION_NAME)
-        .insertOne(validData);
-      return createdUser;
-    }
+    const validData = await validateBeforeCreate(data);
+    const createdUser = await GET_DB()
+      .collection(NOTICE_COLLECTION_NAME)
+      .insertOne(validData);
+    return createdUser;
   } catch (error) {
     throw new Error(error);
   }
@@ -64,7 +44,7 @@ const createNew = async (data) => {
 const findOneById = async (ids) => {
   try {
     const result = await GET_DB()
-      .collection(USER_COLLECTION_NAME)
+      .collection(NOTICE_COLLECTION_NAME)
       .findOne({ _id: new ObjectId(ids) });
     return result;
   } catch (error) {
@@ -74,7 +54,7 @@ const findOneById = async (ids) => {
 const getDetails = async (id) => {
   try {
     const result = await GET_DB()
-      .collection(USER_COLLECTION_NAME)
+      .collection(NOTICE_COLLECTION_NAME)
       .findOne({ _id: new ObjectId(id) });
     return result;
   } catch (error) {
@@ -85,74 +65,9 @@ const getDetails = async (id) => {
 const getDetailsAll = async () => {
   try {
     const result = await GET_DB()
-      .collection(USER_COLLECTION_NAME)
+      .collection(NOTICE_COLLECTION_NAME)
       .find()
       .toArray();
-    return result;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
-const checkExist = async (email, password) => {
-  try {
-    const emailex = await GET_DB()
-      .collection(USER_COLLECTION_NAME)
-      .findOne({ email: email });
-
-    if (emailex != null) {
-      console.log(emailex.password);
-      let hash = bcrypt.hashSync(password, emailex.salt);
-      if (hash == emailex.password) {
-        return emailex;
-      } else {
-        return null;
-      }
-    }
-    return null;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
-const update = async (userId, updateData) => {
-  try {
-    // Lọc những field mà chúng ta không cho phép cập nhật linh tinh
-    Object.keys(updateData).forEach((fieldName) => {
-      if (INVALID_UPDATE_FIELDS.includes(fieldName)) {
-        delete updateData[fieldName];
-      }
-    });
-
-    const result = await GET_DB()
-      .collection(USER_COLLECTION_NAME)
-      .findOneAndUpdate(
-        { _id: new ObjectId(userId) },
-        { $set: updateData },
-        { returnDocument: "after" } // sẽ trả về kết quả mới sau khi cập nhật
-      );
-    return result;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
-const getIds = async (mssv) => {
-  try {
-    // Hôm nay tạm thời giống hệt hàm findOneById - và sẽ update phần aggregate tiếp ở những video tới
-    // const result = await GET_DB().collection(BOARD_COLLECTION_NAME).findOne({ _id: new ObjectId(id) })
-    const string = mssv + "@gm.uit.edu.vn";
-    const result = await GET_DB()
-      .collection(USER_COLLECTION_NAME)
-      .aggregate([
-        {
-          $match: {
-            email: string,
-          },
-        },
-      ])
-      .toArray();
-
     return result;
   } catch (error) {
     throw new Error(error);
@@ -164,9 +79,6 @@ export const noticeModel = {
   NOTICE_COLLECTION_SCHEMA,
   createNew,
   findOneById,
-  update,
   getDetails,
   getDetailsAll,
-  getIds,
-  checkExist,
 };

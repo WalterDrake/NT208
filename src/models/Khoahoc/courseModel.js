@@ -11,6 +11,7 @@ const COURSE_COLLECTION_SCHEMA = Joi.object({
   description: Joi.string().required().min(3).max(255).trim().strict(), // yêu cầu
   linkimage: Joi.string().default(""),
   memberof: Joi.number().default(0),
+  //Nay la do admin tao
   owner: Joi.string()
     .pattern(OBJECT_ID_RULE)
     .message({ OBJECT_ID_RULE_MESSAGE })
@@ -18,6 +19,10 @@ const COURSE_COLLECTION_SCHEMA = Joi.object({
   listitem: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
+  admin: Joi.string()
+    .pattern(OBJECT_ID_RULE)
+    .message({ OBJECT_ID_RULE_MESSAGE })
+    .required(),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
 });
 
@@ -56,12 +61,10 @@ const findOneById = async (couseId) => {
 
 const findOne = async (course) => {
   try {
-    const result = await GET_DB()
-      .collection(COURSE_COLLECTION_NAME)
-      .findOne({
-        coursename: course.coursename,
-        owner: new ObjectId(course.owner),
-      });
+    const result = await GET_DB().collection(COURSE_COLLECTION_NAME).findOne({
+      title: course.title,
+      owner: course.owner,
+    });
     return result;
   } catch (error) {
     throw new Error(error);
@@ -95,11 +98,11 @@ const getDetailsAllbyTeacher = async (ids) => {
   }
 };
 
-const findByIdAndDelete = async (ids) => {
+const findIdAndDelete = async (ids) => {
   try {
     const result = await GET_DB()
       .collection(COURSE_COLLECTION_NAME)
-      .findByIdAndDelete({ _id: new ObjectId(ids) });
+      .deleteOne({ _id: new ObjectId(ids) });
     return result;
   } catch (error) {
     throw new Error(error);
@@ -151,6 +154,6 @@ export const courseModel = {
 
   findOne, // truyền vào cả id course và id owner
   getDetailsAllbyTeacher, // Cái này là trả về thẳng cái mảng luôn thay vì ta phải query từ các id
-  findByIdAndDelete, // Tìm và xóa lập tức 1 khóa học
+  findIdAndDelete, // Tìm và xóa lập tức 1 khóa học
   deleteMany,
 };

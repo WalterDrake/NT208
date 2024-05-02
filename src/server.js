@@ -11,7 +11,7 @@ import { corsOptions } from "~/config/cors";
 import exitHook from "async-exit-hook";
 import { CONNECT_DB, CLOSE_DB } from "~/config/mongodb";
 import { env } from "~/config/environment";
-import { APIs } from "~/routes/Api";
+import { APIs } from "~/routes/api";
 import { errorHandlingMiddleware } from "~/middlewares/errorHandlingMiddleware";
 
 const START_SERVER = () => {
