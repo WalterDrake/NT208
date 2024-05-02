@@ -10,11 +10,14 @@ import Thongbaopage from "../Pages/Thongbaopage";
 import Tinnhanpage from "../Pages/Tinnhanpage";
 import Home from "../components/NavBar/Home";
 import KhoahocitemDetail from "../Pages/Khoahoc/KhoahocItemDetail/KhoahocItemDetail"
+
 import DangnhapLayout from "../components/Layout/DangnhapLayout"
+
 import KhoahocitemDetailLayout from "../components/Layout/KhoahocitemDetailLayout"
 import TinnhanLayout from "../components/Layout/TinnhanLayout";
 import HocnhomDetail from "../Pages/Hocnhom/HocNhomDetail/HocNhomDetail";
 import HocTapDetails from "../Pages/Hoctap/HocTapDetails";
+
 
 const publicRoutes = [
   { path: routesConfig.dangxuat, component: Dangnhappage, layout: DangnhapLayout },

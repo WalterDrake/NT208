@@ -9,16 +9,14 @@ const DefaultLayout = ({ children }) => {
       <header>
         <Navbar />
       </header>
-      <div style={{ flex: 1, paddingTop: "100px", display: "flex" }}>
-        <aside>
-          <Sidebar />
-        </aside>
+      <div style={{ paddingTop: "100px", display: "flex" }}>
+        <Sidebar />
         <main>{children}</main>
       </div>
       <footer>
         <Footer />
       </footer>
-    </div>
+    </div >
   );
 };
 
