@@ -5,12 +5,18 @@ import DefaultLayout from "./components/Layout/DefaultLayout"
 import { createContext,useState } from "react"
 
 import Dangnhappage from "./Pages/Dangnhappage"
+const testUser ={
+  id:1,
+  username:"admin",
+  email:"22521339@gm.uit.edu.vn",
+  password:"123456",
+  role:'teacher',
+}
 
-
-export const UserContext = createContext()
+export const UserContext = createContext(testUser)
 
 function App() {
-  const [user,setUser] = useState (null)
+  const [user,setUser] = useState (testUser)
   return (
     <UserContext.Provider value={{user,setUser}}> 
     <Router className="h-screen bg-[#F0F7FF]">
