@@ -23,8 +23,19 @@ const update = async (req, res, next) => {
     res.status(StatusCodes.OK).json(updatedGroup)
   } catch (error) { next(error) }
 }
+
+const getAll = async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const getAllGroup = await groupService.getAll(userId)
+
+    res.status(StatusCodes.OK).json(getAllGroup)
+  } catch (error) { next(error) }
+}
+
 export const groupController = {
   createNew,
-  update
+  update,
+  getAll
 }
 

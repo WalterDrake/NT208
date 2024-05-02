@@ -55,7 +55,13 @@ const update = async (groupId, reqBody) => {
   } catch (error) { throw error }
 }
 
+const getAll = async(userID) => {
+  const getAllGroup = await groupModel.getAll(userID)
+  return getAllGroup
+}
+
 export const groupService ={
   createNew,
-  update
+  update,
+  getAll
 }
