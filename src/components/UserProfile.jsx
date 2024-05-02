@@ -15,7 +15,8 @@ import Settings from '@mui/icons-material/Settings'
 import Logout from '@mui/icons-material/Logout'
 import config from '../config/routes'
 import Dangxuat from './Sidebar/Dangxuat'
-
+import { UserContext } from '../App'
+import { Link } from 'react-router-dom'
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
         backgroundColor: '#44b700',
@@ -54,10 +55,16 @@ const SmallAvatar = styled(Avatar)(({ theme }) => ({
 export const UserProfile = () => {
     const [anchorEl, setAnchorEl] = React.useState(null)
     const open = Boolean(anchorEl)
+    const { setUser } = React.useContext(UserContext)
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
     }
     const handleClose = () => {
+        setAnchorEl(null)
+    }
+    const handleDangXuat = () => {
+        setUser(null)
+        console.log('Da dang xuat')
         setAnchorEl(null)
     }
     return (
@@ -127,8 +134,10 @@ export const UserProfile = () => {
                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
-                    <MenuItem onClick={handleClose}>
-                        <Avatar alt="Thùy Trang" src="./src/assets/Avt.jpg" /> Tài khoản của tôi
+                    <MenuItem onClick={handleClose} to ={config.profile}>
+                        <Link to={config.profile}>
+                            <Avatar alt="Thùy Trang" src="./src/assets/Avt.jpg" /> Tài khoản của tôi
+                        </Link>
                     </MenuItem>
                     <Divider />
                     <MenuItem onClick={handleClose}>
@@ -137,7 +146,7 @@ export const UserProfile = () => {
                         </ListItemIcon>
                         Cài đặt
                     </MenuItem>
-                    <MenuItem onClick={handleClose} title={<Dangxuat />} to={config.dangxuat} >
+                    <MenuItem onClick={handleDangXuat} title={<Dangxuat />} to={config.dangxuat} >
                         <ListItemIcon>
 
                             <Logout fontSize="small" />

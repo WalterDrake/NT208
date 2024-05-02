@@ -1,10 +1,13 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import KhoahocItem from "./Khoahoc/KhoahocItem"
 //import { Link, Route } from "react-router-dom"
 import "./Add.css"
+import useUser from "../hook/useUser"
+import * as courses from '../service/courses' 
 
-const khoahoc = [
+const initkhoahocs = [
   {
+    id:1,
     image: 'src\\assets\\KhoaHoc_img\\WannaGame.jpg',
     ten: 'WannaGame',
     mota: 'Chuỗi training CTF do CLB Wanna.W1n tổ chức',
@@ -13,6 +16,7 @@ const khoahoc = [
   },
 
   {
+    id:2,
     image: "src\\assets\\KhoaHoc_img\\AWS.jpg",
     ten: "AWS Cloud Training",
     mota: "Khoa Mạng máy tính và Truyền thông",
@@ -21,6 +25,7 @@ const khoahoc = [
   },
 
   {
+    id:3,
     image: "src\\assets\\KhoaHoc_img\\TDL.png",
     ten: "Truyền dữ liệu",
     mota: "Khoa Mạng máy tính và Truyền thông dữ liệu",
@@ -30,6 +35,7 @@ const khoahoc = [
 
 
   {
+    id:4,
     image: "src\\assets\\KhoaHoc_img\\dotNET.png",
     ten: "Lập trình mạng căn bản",
     mota: "Khoa Mạng máy tính và Truyền thông",
@@ -40,6 +46,7 @@ const khoahoc = [
 
 
   {
+    id:5,
     image: "src\\assets\\KhoaHoc_img\\KNTT.jpg",
     ten: "Training Kỹ năng thông tin",
     mota: "Do Thư viện Trường Đại học Công nghệ Thông tin tổ chức",
@@ -49,6 +56,7 @@ const khoahoc = [
 
 
   {
+    id:6,
     image: "src\\assets\\KhoaHoc_img\\WebProgramming.png",
     ten: "Lập trình Web",
     mota: "Khoa Mạng máy tính và Truyền thông",
@@ -58,6 +66,7 @@ const khoahoc = [
 
 
   {
+    id:7,
     image: "src\\assets\\KhoaHoc_img\\Vidieukhien.png",
     ten: "Vi xử lý - Vi điều khiển",
     mota: "Khoa Kỹ thuật máy tính",
@@ -67,6 +76,7 @@ const khoahoc = [
 
 
   {
+    id:8,
     image: "src\\assets\\KhoaHoc_img\\cryptology.jpg",
     ten: "Mật mã học",
     mota: "Khoa Mạng máy tính và Truyền thông",
@@ -76,8 +86,21 @@ const khoahoc = [
 ]
 
 const Khoahocpage = () => {
+  const [khoahoc,setKhoahoc] = useState(initkhoahocs)
+  const {user} = useUser()
+  console.log(user.course)
+  useEffect(() => {
+    courses.getCourses()
+      .then((res) => {
+          setKhoahoc(res)
+      })
+      .catch((res)=>
+      {
+        console.log(res)
+        alert('hien khong the lay cac khoa hoc')
+      })
+  })
   const [filter, setFilter] = useState(2); // Default filter: all (2)
-
   const handleFilterChange = (value) => {
     setFilter(value)
   }

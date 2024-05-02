@@ -3,11 +3,10 @@ import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-const KhoahocItem = ({ KhoaHoc, Tinhtrang }) => {
-  const courseName = KhoaHoc.ten.replace(/\s/g, "-");  // Thay thế khoảng trắng bằng dấu gạch ngang
+const KhoahocItem = ({ KhoaHoc, className }) => {
   return (
-    <Link to={`/Khoahocpage/${courseName}`}>
-      <div className=" ml-4 frame rounded-md bg-white wrap">
+    <Link to={`/Khoahocpage/${KhoaHoc.id}`}>
+      <div className= {`ml-4 frame rounded-md bg-white wrap ${className}`}>
         <img
           src={KhoaHoc.image}
           className="mt-4 ml-2 rounded-md frame"
