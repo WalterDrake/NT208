@@ -10,15 +10,15 @@ const DefaultLayout = ({ children }) => {
         <Navbar />
       </header>
       <div style={{ paddingTop: "100px", display: "flex" }}>
-        <aside>
-          <Sidebar />
-        </aside>
+
+        <Sidebar />
+
         <main>{children}</main>
       </div>
       <footer>
         <Footer />
       </footer>
-    </div>
+    </div >
   );
 };
 
