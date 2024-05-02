@@ -1,5 +1,6 @@
 import { MultiChatSocket, MultiChatWindow, useMultiChatLogic } from 'react-chat-engine-advanced'
 import React from 'react'
+//import SideBarSmall from '../components/Sidebar/SideBarSmall'
 
 const Tinnhanpage = (props) => {
   const chatProps = useMultiChatLogic(
@@ -13,6 +14,7 @@ const Tinnhanpage = (props) => {
       <MultiChatWindow className="bg-pink-200" {...chatProps} style={{ height: '100%' }} />
     </div>
   )
+
 }
 export default Tinnhanpage
 
