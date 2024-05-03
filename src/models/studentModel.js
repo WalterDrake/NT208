@@ -8,11 +8,6 @@ import {
   TEXT_RULE,
 } from "~/utils/validators";
 import bcrypt from "bcryptjs";
-import { userService } from "~/services/userService";
-import { courseModel } from "./Khoahoc/courseModel";
-import { studyModel } from "./Monhoc/studyModel";
-import { groupModel } from "./Hocnhom/groupModel";
-
 const USER_COLLECTION_NAME = "users";
 const USER_COLLECTION_SCHEMA = Joi.object().keys({
   //email thi nen loc tu FE nhung o day se loc lai

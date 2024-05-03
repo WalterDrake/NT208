@@ -25,11 +25,6 @@ const TEACHER_COLLECTION_SCHEMA = Joi.object().keys({
   teachCourse: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
-  attendance: Joi.Object({
-    date: Joi.date().iso().greater(Joi.ref("start")).required(),
-    presentCount: Joi.string().trim(),
-    absentCount: Joi.string().trim(),
-  }),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
 });
 

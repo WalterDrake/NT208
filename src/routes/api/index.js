@@ -48,7 +48,7 @@ Router.use("/groups", groupRoute);
 Router.use("/posts", postRoute);
 
 // Course APIs
-Router.use("/course", courseRoute);
+Router.use("/courses", courseRoute);
 // Baitap APIs
 Router.use("/baitaps", baitapRoute);
 // Item APIs
@@ -59,8 +59,9 @@ Router.use("/posts", postRoute);
 Router.use("/notis", notiRoute);
 // Videos APIs
 Router.use("/videos", videoRoute);
-
+// cbox APIs
 Router.use("/cboxs", cboxRoute);
+// comment APIs
 Router.use("/comments", commentRoute);
 
 export const APIs = Router;

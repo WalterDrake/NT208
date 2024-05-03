@@ -10,7 +10,7 @@ Router.route("/").get((req, res) => {
 });
 
 Router.route("/GetAllVideo").get(videoController.getDetailsAllVideos);
-Router.route("/UpdateVideo/:id").update(videoController.updateVideosOfItem); // truyen id va update
+Router.route("/UpdateVideo/:id").put(videoController.updateVideosOfItem); // truyen id va update
 Router.route("/DeleteVideo/:id").delete(videoController.deleteVideoOfItem); // truyen id video
 Router.route("/DeleteCommentBox/:id").delete(
   videoController.deleteOneCommentBox

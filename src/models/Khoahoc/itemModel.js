@@ -117,14 +117,10 @@ const getListItemOfCourse = async (idCourse) => {
 };
 const deleteItemOfCourse = async (idItem) => {
   try {
-    // truyen vao ten khoa hoc va ten item
-    const course = await GET_DB()
-      .collection(courseModel.COURSE_COLLECTION_NAME)
-      .findOne({ listitem: { $in: idItem } });
 
     if (!course) {
       //Goi toi ham xoa 1 Item trong Course
-      const deletedCourse = await courseController.deleteOneItem(idItem);
+      const deletedCourse = await courseController.deleteOneItem(idItem); // duyet
       // Goi toi ham xoa 1 video dung vong lap de xoa list video
       const videos = await GET_DB()
         .collection(videoModel.VIDEO_COLLECTION_NAME)
@@ -134,7 +130,7 @@ const deleteItemOfCourse = async (idItem) => {
         .toArray();
 
       for (const video of videos) {
-        await videoModel.deleteOneVideo(video._id);
+        await videoModel.deleteVideoOfItem(video._id);
       }
 
       // Goi toi ham xoa 1 video dung vong lap de xoa list video
@@ -146,7 +142,7 @@ const deleteItemOfCourse = async (idItem) => {
         .toArray();
 
       for (const noti of deletenoti) {
-        await notiModel.deleteOneNoti(noti._id);
+        await notiModel.deleteNotiOfItem(noti._id);
       }
       // Goi toi ham xoa 1 video dung vong lap de xoa list video
       const deletepost = await GET_DB()
@@ -157,7 +153,7 @@ const deleteItemOfCourse = async (idItem) => {
         .toArray();
 
       for (const post of deletepost) {
-        await postModel.deleteOnePost(post._id);
+        await postModel.deletePostOfItem(post._id);
       }
 
       const deleteCourse = await GET_DB()

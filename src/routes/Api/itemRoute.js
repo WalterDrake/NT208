@@ -11,7 +11,7 @@ Router.route("/").get((req, res) => {
 Router.route("/GetAllItem").get(itemController.getDetailAllItem);
 Router.route("/Teacher/Item")
   .post(itemController.createItemOfCourse) // truyen data
-  .update(itemController.updateDataItemOfCourse); // truyen data
+  .put(itemController.updateDataItemOfCourse); // truyen data
 Router.route("/Teacher/Item/:id").delete(itemController.deleteItemOfCourse); // truyen id item
 Router.route("/Teacher/Item/deleteVideo/:id").delete(
   itemController.deleteOneVideo

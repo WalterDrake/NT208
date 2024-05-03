@@ -66,6 +66,7 @@ const getDetailsCoursebyTeacher = async (req, res, next) => {
 
 const getListCourseofTeacher = async (req, res, next) => {
   try {
+    // truyen vao id giao vien
     const listcourse = await GET_DB()
       .collection(courseModel.COURSE_COLLECTION_NAME)
       .find({
@@ -95,13 +96,25 @@ const getSclassStudents = async (req, res) => {
 //Lay danh sach lop hoc cua 1 sinh vien
 const getListCoursesofStudentid = async (req, res) => {
   try {
-    var students = await studentModel.findOneById(req.params.id);
-    var listcourse = [];
-    students.course.array.forEach((element) => {
-      var tmp = courseModel.findOneById(element);
-      listcourse.push(tmp);
-    });
-    res.status(StatusCodes.OK).json(listcourse);
+    // truyen vao id hocsinh
+    const lsitcourseofstudent = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .aggregate([
+        {
+          $match: {
+            _id: ObjectId(req.params.id), // Thay "student_id" bằng ID của student cần lọc
+          },
+        },
+        {
+          $lookup: {
+            from: courseModel.COURSE_COLLECTION_NAME,
+            localField: "course",
+            foreignField: "_id",
+            as: "courses",
+          },
+        },
+      ]);
+    res.status(StatusCodes.OK).json(lsitcourseofstudent);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -119,8 +132,7 @@ const deleteCoursebyAdmin = async (req, res, next) => {
     // Lưu ý cái bự mà xóa thì toàn bộ cái nhỏ bị xóa dùng deleteMany
     // Cái nhỏ xóa thì sẽ xóa cái đó ra khỏi cái bự là được . updateMany
     const deletedStudents = await studentModel.deletedOneCourse(req.params.id);
-
-    //Truyen vao 1 mang
+    //Xoa list item
     const deletedSubjects = await itemModel.deleteItemOfCourse(req.params.id);
     const deletedTeachers = await teacherModel.deleteOneCourse(req.params.id);
     const deletedClasss = await courseModel.findIdAndDelete(req.params.id);
@@ -180,14 +192,10 @@ const pushStudentIntoCourse = async (req, res, next) => {
               markObtain: 0,
               hoanthanh: false,
             },
-            attendace: {
-              coursename: req.params.idcourse,
-            },
           },
-        } // Thêm giá trị vào trường mảng
+        }
       );
-
-    return studentList;
+    return pushStudent;
   } catch (error) {
     next(error);
   }
@@ -196,15 +204,13 @@ const pushStudentIntoCourse = async (req, res, next) => {
 const getListCourseStudentDone = async (req, res, next) => {
   try {
     //truyen vao id hoc sinh
-    // Luu y lai cai them 1 hoc sinh vao 1 khoa hoc nha
-    const listcourse = await courseController.getListCoursesofStudentid(
-      req,
-      res
-    );
+  
+    const listcourse = await getListCoursesofStudentid(req, res, next);
     const donecourse = await GET_DB()
       .collection(studentModel.USER_COLLECTION_NAME)
       .find({
-        examResult: { coursename: { $in: listcourse }, hoanthanh: true },
+        "examResult.coursename": { $in: listcourse.courses },
+        "examResult.hoanthanh": true,
       })
       .toArray();
     return res.status(StatusCodes.OK).json(donecourse);
@@ -348,23 +354,23 @@ const deleteCoursesbyAdmin = async (req, res) => {
 
 export const courseController = {
   //Danh cho admin
-  createNewCoursebyAdmin,
-  getDetailsCourseAllbyAdmin,
-  deleteCoursebyAdmin, // xoa 1 khoa hoc
-  deleteCoursesbyAdmin, // xoa nhieu khoa hoc
-  updateCourseByAdmin,
-  pushStudentIntoCourse, // dua 1 hoc sinh vao khoa hoc
-  deleteStudentFromCourse, // xoa 1 sinh vien ra khoi khoa hoc
+  createNewCoursebyAdmin, // truyen vao data
+  getDetailsCourseAllbyAdmin, // khong truyen
+  deleteCoursebyAdmin, // truyen vao id course
+  deleteCoursesbyAdmin, // truyen vao id giao vien - xoa toan bo khoa hoc giao vien
+  updateCourseByAdmin, // truyen vao id course
+  pushStudentIntoCourse, // idstudent va idcourse
+  deleteStudentFromCourse, // truyen idStudent va idcourse
 
   //Danh cho teacher
-  getOneCoursebyTeacher,
-  getListStudentofCoures,
-  getListCourseofTeacher,
-  chamdiemchoStudent,
-  deleteOneItem,
+  getOneCoursebyTeacher, // truyen vao idcourse va idteacher: lay thong tin 1 khoa hoc cua gv
+  getListStudentofCoures, // truyen vao id khoa hoc
+  getListCourseofTeacher, // truyen vao id giao vien
+  chamdiemchoStudent, // truyen vao id hoc sinh, id mon hoc va diem so
+  deleteOneItem, // truyen voa id item
 
   //Ham xuat phat tu hoc sinh
-  getListCoursesofStudentid,
-  getListCourseStudentDone,
-  getMarkOfCourse,
+  getListCoursesofStudentid, // truyen vao id hoc sinh
+  getListCourseStudentDone, // truyen vao id hoc sinh
+  getMarkOfCourse, // truyen vao id hoc sinh va id khoa hoc
 };
