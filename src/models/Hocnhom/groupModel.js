@@ -2,7 +2,7 @@ import Joi from 'joi'
 import { ObjectId } from 'mongodb'
 import { GET_DB } from '~/config/mongodb'
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
-import { userModel } from '~/models/userModel'
+import { USER_COLLECTION_NAME, userModel } from '~/models/userModel'
 
 const GROUP_COLLECTION_NAME = 'groups'
 const GROUP_COLLECTION_SCHEMA = Joi.object({
