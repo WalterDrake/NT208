@@ -146,7 +146,7 @@ const deleteManyTeacher = async (ids) => {
   }
 };
 
-const deletedCourse = async (ids) => {
+const deletedOneCourse = async (ids) => {
   try {
     const existstudent = await GET_DB()
       .collection(USER_COLLECTION_NAME)
@@ -250,7 +250,7 @@ export const studentModel = {
   findCourse,
 
   //deleteCourse
-  deletedCourse,
+  deletedOneCourse,
   deletedStudents,
 
   // 2 ham nay chua xac dinh nha

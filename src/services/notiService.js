@@ -6,50 +6,55 @@ import { ObjectId } from "mongodb";
 import { postModel } from "~/models/Khoahoc/postModel";
 import { notiModel } from "~/models/Khoahoc/notiModel";
 
-const createNew = async (reqBody) => {
+const createNewNotiOfItem = async (reqBody) => {
   try {
     const newItem = {
       ...reqBody,
     };
 
-    const createditem = await notiModel.createNew(newItem);
+    const createditem = await notiModel.createNewNotiOfItem(newItem);
 
     const getNewitem = await notiModel.findOneById(createditem.insertedId);
-    // Trả kết quả về, trong Service luôn phải có return
     return getNewitem;
   } catch (error) {
     throw error;
   }
 };
 
-const getDetails = async (itemId) => {
+const getDetailsAllVideos = async () => {
   try {
-    const item = await notiModel.getDetails(new ObjectId(itemId));
-    if (!item) {
-      throw new ApiError(StatusCodes.NOT_FOUND, "NOTI not found!");
-    }
-    const resItem = cloneDeep(item);
-    return resItem;
+    const item = await notiModel.getDetailsAllVideos();
+
+    return item;
   } catch (error) {
     throw error;
   }
 };
-const updateNoti = async (postId, reqBody) => {
+const deleteNotiOfItem = async (idNotis) => {
   try {
-    const updateData = {
-      ...reqBody,
-      updatedAt: Date.now(),
-    };
-    const updatedItem = await notiModel.updateNoti(postId, updateData);
-
-    return updatedItem;
+    const deletenoti = await notiModel.deleteNotiOfItem(idNotis);
+    return deletenoti;
   } catch (error) {
     throw error;
   }
 };
 
+const getListNotiOfItem = async (idItem) => {
+  try {
+    const getlist = await notiModel.getListNotiOfItem(idItem);
+    return getlist;
+  } catch (error) {
+    throw error;
+  }
+};
 export const notiService = {
-  createNew,
-  getDetails,
-  updateNoti,
+  // Danh cho Admin
+  getDetailsAllVideos, //
+
+  // Danh cho Teacher
+  createNewNotiOfItem, // truyen data
+  deleteNotiOfItem, // truyen id noti
+
+  // Danh cho hoc sinh
+  getListNotiOfItem, // truyen id item
 };

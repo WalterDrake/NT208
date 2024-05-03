@@ -118,9 +118,11 @@ const deleteCoursebyAdmin = async (req, res, next) => {
     }
     // Lưu ý cái bự mà xóa thì toàn bộ cái nhỏ bị xóa dùng deleteMany
     // Cái nhỏ xóa thì sẽ xóa cái đó ra khỏi cái bự là được . updateMany
-    const deletedStudents = await studentModel.deletedCourse(req.params.id);
-    const deletedSubjects = await itemModel.deleteManyCourse(req.params.id);
-    const deletedTeachers = await teacherModel.deleteCourse(req.params.id);
+    const deletedStudents = await studentModel.deletedOneCourse(req.params.id);
+
+    //Truyen vao 1 mang
+    const deletedSubjects = await itemModel.deleteItemOfCourse(req.params.id);
+    const deletedTeachers = await teacherModel.deleteOneCourse(req.params.id);
     const deletedClasss = await courseModel.findIdAndDelete(req.params.id);
     res.status(StatusCodes.OK).send({ message: "Da xoa thanh cong" });
   } catch (error) {
@@ -135,6 +137,23 @@ const getListStudentofCoures = async (req, res, next) => {
       .collection(studentModel.USER_COLLECTION_NAME)
       .findMany({ course: { $in: req.params.id } });
     return studentList;
+  } catch (error) {
+    next(error);
+  }
+};
+const deleteOneItem = async (idItem) => {
+  try {
+    // truyen vao id item
+    const deletedItem = await GET_DB()
+      .collection(courseModel.COURSE_COLLECTION_NAME)
+      .updateOne(
+        {
+          listitem: { $in: idItem },
+        },
+        {
+          $pull: { listitem: { $in: idItem } },
+        }
+      );
   } catch (error) {
     next(error);
   }
@@ -342,6 +361,7 @@ export const courseController = {
   getListStudentofCoures,
   getListCourseofTeacher,
   chamdiemchoStudent,
+  deleteOneItem,
 
   //Ham xuat phat tu hoc sinh
   getListCoursesofStudentid,

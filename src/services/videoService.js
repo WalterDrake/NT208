@@ -5,13 +5,13 @@ import { cloneDeep } from "lodash";
 import { ObjectId } from "mongodb";
 import { videoModel } from "~/models/Khoahoc/videoModel";
 
-const createNew = async (reqBody) => {
+const createNewVideosOfItem = async (reqBody) => {
   try {
     const newItem = {
       ...reqBody,
     };
 
-    const createdvideo = await videoModel.createNew(newItem);
+    const createdvideo = await videoModel.createNewVideosOfItem(newItem);
 
     const getNewivideo = await videoModel.findOneById(createdvideo.insertedId);
     // Trả kết quả về, trong Service luôn phải có return
@@ -21,34 +21,69 @@ const createNew = async (reqBody) => {
   }
 };
 
-const getDetails = async (itemId) => {
+const getDetailsAllVideos = async () => {
   try {
-    const item = await videoModel.getDetails(new ObjectId(itemId));
-    if (!item) {
-      throw new ApiError(StatusCodes.NOT_FOUND, "Videos not found!");
-    }
-    const resItem = cloneDeep(item);
-    return resItem;
+    const item = await videoModel.getDetailsAllVideos();
+    return item;
   } catch (error) {
     throw error;
   }
 };
-const updateVideo = async (itemId, reqBody) => {
+const updateVideosOfItem = async (videoitem, reqBody) => {
   try {
     const updateData = {
       ...reqBody,
       updatedAt: Date.now(),
     };
-    const updatedItem = await videoModel.updateVideo(itemId, updateData);
+    const updatedItem = await videoModel.updateVideosOfItem(
+      videoitem,
+      updateData
+    );
 
     return updatedItem;
   } catch (error) {
     throw error;
   }
 };
+const deleteVideoOfItem = async (videoid) => {
+  try {
+    const deleteVideo = await videoModel.deleteVideoOfItem(videoid);
 
+    return deleteVideo;
+  } catch (error) {
+    throw error;
+  }
+};
+const deleteOneCommentBox = async (idcbox) => {
+  try {
+    const deletecbox = await videoModel.deleteOneCommentBox(idcbox);
+
+    return deletecbox;
+  } catch (error) {
+    throw error;
+  }
+};
+const getListVideoOfItem = async (idItem) => {
+  try {
+    const getlist = await videoModel.getListVideoOfItem(idItem);
+
+    return getlist;
+  } catch (error) {
+    throw error;
+  }
+};
 export const videoService = {
-  createNew,
-  getDetails,
-  updateVideo,
+  // Danh cho Admin
+  getDetailsAllVideos, //
+
+  // Danh cho Teacher
+  createNewVideosOfItem, // truyen data
+  updateVideosOfItem, // truyen video id va upadte data
+  deleteVideoOfItem, // truyen id video
+
+  //Phuc vu cho cai nho
+  deleteOneCommentBox, // turyen id cBox
+
+  // Danh cho hoc sinh
+  getListVideoOfItem, // tuyen id Item
 };

@@ -111,7 +111,7 @@ const deleteMany = async (ids) => {
   }
 };
 
-const deleteCourse = async (ids) => {
+const deleteOneCourse = async (ids) => {
   try {
     const result = await GET_DB()
       .collection(TEACHER_COLLECTION_NAME)
@@ -199,5 +199,5 @@ export const teacherModel = {
   getIds,
   checkExist,
   deleteMany,
-  deleteCourse,
+  deleteOneCourse,
 };
