@@ -40,9 +40,8 @@ const privateRoutes = [
   { path: routesConfig.hoctapitem, component: HocTapDetails,layout: KhoahocitemDetailLayout},
   { path: routesConfig.tinnhan, component: Tinnhanpage, layout: TinnhanLayout },
   { path: routesConfig.khoahocitem, component: KhoahocitemDetail, layout: KhoahocitemDetailLayout },
-  { path: routesConfig.schoolweb, component: StudentDashboard, layout: DangnhapLayout }
+  { path: routesConfig.schoolweb, component: StudentDashboard, layout: DangnhapLayout },
   { path: routesConfig.hocnhomitem, component: HocnhomDetail, layout: KhoahocitemDetailLayout },
-
 ]
 // Phải đăng nhập mới vào được
 export { publicRoutes, privateRoutes };
