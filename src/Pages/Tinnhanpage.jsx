@@ -2,12 +2,13 @@ import { MultiChatSocket, MultiChatWindow, useMultiChatLogic } from 'react-chat-
 import React from 'react'
 //import SideBarSmall from '../components/Sidebar/SideBarSmall'
 
-const Tinnhanpage = (props) => {
+const Tinnhanpage = ({user}) => {
   const chatProps = useMultiChatLogic(
     '86b7bb63-3690-4564-a0a5-76aec25b8ca4',
-    props.user.username,
-    props.user.secret
+    user.username,
+    user.secret
   )
+  console.log('chatProps', chatProps)
   return (
     <div className="h-screen">
       <MultiChatSocket {...chatProps} />

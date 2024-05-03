@@ -6,6 +6,7 @@ import CropOriginalIcon from '@mui/icons-material/CropOriginal'
 import VideoList from "./Dropdown/VideoList"
 import { Link } from "react-router-dom"
 import config from '../config/routes'
+import PostList from "../components/Forum/PostList"
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -21,7 +22,7 @@ const VisuallyHiddenInput = styled('input')({
 
 const Diendanpages = () => {
   return (
-    <div className="ml-2">
+    <div className="ml-2 bg-[#f0f7ff] w-full">
       <Link to="/Student/dashboard">
         <Button variant="contained" className="bg-black mr-2 rounded-full" >Hello world</Button>
       </Link>
@@ -36,7 +37,8 @@ const Diendanpages = () => {
         <VisuallyHiddenInput type="file" />
       </Button>
       <CropOriginalIcon className="text-pink-300" />
-      <VideoList />
+      {/* <VideoList /> */}
+      <PostList />
     </div >
   )
 }

@@ -1,4 +1,7 @@
 import { useRef, useState } from "react";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+
 import validator from "../../hook/validate";
 
 export const CreateGroup = () => {
@@ -27,9 +30,14 @@ export const CreateGroup = () => {
     setMemeberInput('')
     memberInputRef.current.focus()
   }
-
+  const removeMember = (e,index) => {
+    e.preventDefault()
+    const newMemberList = [...memberList]
+    newMemberList.splice(index,1)
+    setMemeberList(newMemberList)
+  }
   return (
-    <form id='add-group-form' className="m-0 bg-stone-400 min-h-24 max-w-[20rem]">
+    <form id='add-group-form' className="m-0 bg-stone-400 min-h-24 w-auto">
       <div className="form-group">
         <label htmlFor="group-name">Tên nhóm: </label>
         <input type="text" placeholder="Tên nhóm" name="group-name" id='add-group-name' className="border-black border-2"/>
@@ -46,10 +54,16 @@ export const CreateGroup = () => {
       <div className="form-group">
         <label htmlFor="add-member">Thêm thành viên: </label>
         <input name="add-member" id='add-group-member' ref={memberInputRef} value={memberInput} onChange={ (e) =>setMemeberInput(e.target.value)} type='text' placeholder="mssv" className="border-black border-2" />
+        <span><button onClick={addMemeber}><PersonAddIcon/></button></span>
         <div className="form-message text-red-700 flex justify-center"></div>
-        <button onClick={addMemeber}>Thêm</button>
         <ul>
-          {memberList.map((member,index) => <li key={index}>{member}</li>)}
+          {memberList.map((member,index) => {
+            return (
+            <li key={index} id={`memberList-${index}`}>
+            <p>{member} <button onClick={(e) => removeMember(e,index)}><PersonRemoveIcon/></button></p>            
+            </li>
+          )}
+          )}
         </ul>
       </div>
       <br></br>
