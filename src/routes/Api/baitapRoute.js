@@ -1,20 +1,21 @@
-import express from 'express'
-import { StatusCodes } from 'http-status-codes'
-import { baitapController } from '~/controllers/baitapController'
-import { baitapValidation } from '~/validations/baitapValidation'
+import express from "express";
+import { StatusCodes } from "http-status-codes";
+import { baitapController } from "~/controllers/baitapController";
+import { baitapValidation } from "~/validations/baitapValidation";
 
-const Router = express.Router()
+const Router = express.Router();
 
-Router.route('/')
-  .get((req, res) => {
-    res.status(StatusCodes.OK).json({ message: 'GET: API get list Baitap' })
-  })
-  .post(baitapValidation.createNew, baitapController.createNew)
+Router.route("/").get((req, res) => {
+  res.status(StatusCodes.OK).json({ message: "GET: API get list Baitap" });
+});
 
-Router.route('/:id')
-  .get(baitapController.getDetails)
-  .put(baitapValidation.updateBaitap, baitapController.updateBaitap)
+// Danh cho admin
+Router.route("/GetAllBaitap").get(baitapController.getDetailsAllBaiTap);
 
-// API hỗ trợ việc di chuyển card giữa các column khác nhau trong một board
+//Danh cho teacher
+Router.route("/GetDanhSach/:idNoti").get(baitapController.getListPostOfNoti);
 
-export const baitapRoute = Router
+//Danh cho sinh vien
+Router.route("/CreateBainop").post(baitapController.createNewBaiTapOfNoti);
+
+export const baitapRoute = Router;

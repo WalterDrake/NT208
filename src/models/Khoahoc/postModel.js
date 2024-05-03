@@ -1,7 +1,9 @@
 import Joi from "joi";
+import { isDate } from "lodash";
 import { ObjectId } from "mongodb";
 import { GET_DB } from "~/config/mongodb";
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from "~/utils/validators";
+import { itemModel } from "./itemModel";
 
 const POST_COLLECTION_NAME = "posts";
 const POST_COLLECTION_SCHEMA = Joi.object({
@@ -24,7 +26,7 @@ const validateBeforeCreate = async (data) => {
   });
 };
 
-const createNew = async (data) => {
+const createNewPostOfItem = async (data) => {
   try {
     const validData = await validateBeforeCreate(data);
     const createdPost = await GET_DB()
@@ -47,7 +49,7 @@ const findOneById = async (postId) => {
   }
 };
 
-const getDetails = async () => {
+const getDetailsAllPost = async () => {
   try {
     const result = await GET_DB()
       .collection(POST_COLLECTION_NAME)
@@ -59,8 +61,35 @@ const getDetails = async () => {
     throw new Error(error);
   }
 };
+const deletePostOfItem = async (idPost) => {
+  try {
+    const deletePost = await GET_DB()
+      .collection(postModel.POST_COLLECTION_NAME)
+      .deleteOne({
+        _id: new ObjectId(idPost),
+      });
+    const deleteItem = await itemModel.deleteOnePost(idPost);
 
-const updatePost = async (postId, updateData) => {
+    return true;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const getListPostOfItem = async (idItem) => {
+  try {
+    const listpost = await GET_DB()
+      .collection(postModel.POST_COLLECTION_NAME)
+      .findMany({
+        item: idItem,
+      })
+      .toArray();
+    return listpost;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+const updatePostOfItem = async (postId, updateData) => {
   try {
     // Lọc những field mà chúng ta không cho phép cập nhật linh tinh
     Object.keys(updateData).forEach((fieldName) => {
@@ -85,8 +114,15 @@ const updatePost = async (postId, updateData) => {
 export const postModel = {
   POST_COLLECTION_NAME,
   POST_COLLECTION_SCHEMA,
-  createNew,
   findOneById,
-  getDetails,
-  updatePost,
+  // Danh cho Admin
+  getDetailsAllPost,
+
+  // Danh cho Teacher
+  createNewPostOfItem, // truyen data
+  updatePostOfItem, //  truyen post id va updateData
+  deletePostOfItem, // truyen id Post
+
+  // Danh cho hoc sinh
+  getListPostOfItem, // truyen id Item
 };

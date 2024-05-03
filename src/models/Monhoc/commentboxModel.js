@@ -9,6 +9,10 @@ const COMMENTBOX_COLLECTION_SCHEMA = Joi.object({
   listcomment: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
+  video: Joi.string()
+    .pattern(OBJECT_ID_RULE)
+    .message(OBJECT_ID_RULE_MESSAGE)
+    .default([]),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
 });
 

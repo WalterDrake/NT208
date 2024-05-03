@@ -2,47 +2,97 @@ import { StatusCodes } from "http-status-codes";
 import { boardService } from "~/services/boardService";
 import { itemService } from "~/services/itemService";
 
-const createNew = async (req, res, next) => {
+const createItemOfCourse = async (req, res, next) => {
   try {
-    // console.log('req.body: ', req.body)
-    // console.log('req.query: ', req.query)
-    // console.log('req.params: ', req.params)
-    // console.log('req.files: ', req.files)
-    // console.log('req.cookies: ', req.cookies)
-    // console.log('req.jwtDecoded: ', req.jwtDecoded)
-
     // Điều hướng dữ liệu sang tầng Service
-    const createdItem = await itemService.createNew(req.body);
-
-    // Có kết quả thì trả về phía Client
+    const createdItem = await itemService.createItemOfCourse(req.body);
     res.status(StatusCodes.CREATED).json(createdItem);
   } catch (error) {
     next(error);
   }
 };
 
-const getDetails = async (req, res, next) => {
+const getDetailAllItem = async (req, res, next) => {
   try {
-    const itemId = req.params.id;
-    const item = await itemService.getDetails(itemId);
+    const item = await itemService.getDetailAllItem();
     res.status(StatusCodes.OK).json(item);
   } catch (error) {
     next(error);
   }
 };
 
-const updateItem = async (req, res, next) => {
+const updateDataItemOfCourse = async (req, res, next) => {
   try {
     const itemId = req.params.id;
     const updatedItem = await itemService.updateItem(itemId, req.body);
-
     res.status(StatusCodes.OK).json(updatedItem);
   } catch (error) {
     next(error);
   }
 };
+
+const deleteItemOfCourse = async (req, res, next) => {
+  try {
+    const itemId = req.params.id;
+    const deletedItem = await itemService.deleteItemOfCourse(itemId);
+    res.status(StatusCodes.OK).json(deletedItem);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteOneVideo = async (req, res, next) => {
+  try {
+    const itemvideo = req.params.id;
+    const deletedvideo = await itemService.deleteOneVideo(itemvideo);
+    res.status(StatusCodes.OK).json(deletedvideo);
+  } catch (error) {
+    next(error);
+  }
+};
+const deleteOneNoti = async (req, res, next) => {
+  try {
+    const itemnoti = req.params.id;
+    const deletednoti = await itemService.deleteOneNoti(itemnoti);
+    res.status(StatusCodes.OK).json(deletednoti);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteOnePost = async (req, res, next) => {
+  try {
+    const itempost = req.params.id;
+    const deletedpost = await itemService.deleteOnePost(itempost);
+    res.status(StatusCodes.OK).json(deletedpost);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getListItemOfCourse = async (req, res, next) => {
+  try {
+    const idcourse = req.params.id;
+    const listcourse = await itemService.getListItemOfCourse(idcourse);
+    res.status(StatusCodes.OK).json(listcourse);
+  } catch (error) {
+    next(error);
+  }
+};
 export const itemController = {
-  createNew,
-  getDetails,
-  updateItem,
+  //Danh cho Admin
+  getDetailAllItem, // Lay het danh sach Item trong database
+
+  //Danh cho Teacher
+  createItemOfCourse, // truyen data
+  updateDataItemOfCourse, // id item va update data
+  deleteItemOfCourse, //id item
+
+  // Phuc vu xoa cai nho
+  deleteOneVideo, // idVideo
+  deleteOnePost, // id post
+  deleteOneNoti, // id Noti
+
+  //Danh cho Student
+  getListItemOfCourse, //id course
 };

@@ -1,56 +1,75 @@
 /* eslint-disable no-useless-catch */
-import { slugify } from '~/utils/formatters'
-import ApiError from '~/utils/ApiError'
-import { StatusCodes } from 'http-status-codes'
-import { cloneDeep } from 'lodash'
-import { ObjectId } from 'mongodb'
-import { postModel } from '~/models/Khoahoc/postModel'
+import { slugify } from "~/utils/formatters";
+import ApiError from "~/utils/ApiError";
+import { StatusCodes } from "http-status-codes";
+import { cloneDeep } from "lodash";
+import { ObjectId } from "mongodb";
+import { postModel } from "~/models/Khoahoc/postModel";
 
-const createNew = async (reqBody) => {
+const createNewPostOfItem = async (reqBody) => {
   try {
     const newItem = {
-      ...reqBody
-    }
+      ...reqBody,
+    };
 
-    const createditem = await postModel.createNew(newItem)
+    const createdpost = await postModel.createNewPostOfItem(newItem);
 
-    const getNewitem = await postModel.findOneById(createditem.insertedId)
+    const getNewitem = await postModel.findOneById(createdpost.insertedId);
     // Trả kết quả về, trong Service luôn phải có return
-    return getNewitem
+    return getNewitem;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
-const getDetails = async (itemId) => {
+const getDetailsAllPost = async () => {
   try {
-    const item = await postModel.getDetails(new ObjectId(itemId))
-    if (!item) {
-      throw new ApiError(StatusCodes.NOT_FOUND, 'Post not found!')
-    }
-    const resItem = cloneDeep(item)
-    return resItem
+    const item = await postModel.getDetailsAllPost();
+    return item;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
-const updatePost = async (postId, reqBody) => {
+};
+const updatePostOfItem = async (postId, reqBody) => {
   try {
     const updateData = {
       ...reqBody,
-      updatedAt: Date.now()
-    }
-    const updatedItem = await postModel.update(postId, updateData)
+      updatedAt: Date.now(),
+    };
+    const updatedItem = await postModel.updatePostOfItem(postId, updateData);
 
-    return updatedItem
+    return updatedItem;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
+
+const deletePostOfItem = async (postId) => {
+  try {
+    const deletepost = await postModel.deletePostOfItem(postId);
+    return deletepost;
+  } catch (error) {
+    throw error;
+  }
+};
+const getListPostOfItem = async (iditem) => {
+  try {
+    const getlistpost = await postModel.getListPostOfItem(iditem);
+    return getlistpost;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const postService = {
-  createNew,
-  getDetails,
-  updatePost
-}
+  // Danh cho Admin
+  getDetailsAllPost,
 
+  // Danh cho Teacher
+  createNewPostOfItem, // truyen data
+  updatePostOfItem, //  truyen post id va updateData
+  deletePostOfItem, // truyen id Post
+
+  // Danh cho hoc sinh
+  getListPostOfItem, // truyen id Item
+};

@@ -61,18 +61,4 @@ export const adminController = {
   getAdminDetails,
   adminLogIn,
 
-  //Admin tac dong den Student
-
-  //Admin tac dong den Teacher
-  getTeacherByAdmin,
-  deleteTeacher,
-  deleteTeacherFromCourse,
-
-  // Admin tac dong den Course
-  createNewCoursebyAdmin,
-  getDetailsCourseAllbyaAdmin,
-  deleteCoursebyAdmin,
-  deleteCoursesbyAdmin,
-  updateCourseByAdmin,
-  getDetailsCoursesOfTeacherbyAdmin,
 };

@@ -7,7 +7,7 @@ import { studentModel } from "~/models/studentModel";
 import { itemModel } from "~/models/Khoahoc/itemModel";
 import { teacherModel } from "~/models/teacherModel";
 import { GET_DB } from "~/config/mongodb";
-import { ObjectId } from "mongodb";
+import { ExplainVerbosity, ObjectId } from "mongodb";
 
 // Tao khoa hoc by Teacher
 const createNewCoursebyAdmin = async (req, res, next) => {
@@ -66,6 +66,7 @@ const getDetailsCoursebyTeacher = async (req, res, next) => {
 
 const getListCourseofTeacher = async (req, res, next) => {
   try {
+    // truyen vao id giao vien
     const listcourse = await GET_DB()
       .collection(courseModel.COURSE_COLLECTION_NAME)
       .find({
@@ -93,15 +94,27 @@ const getSclassStudents = async (req, res) => {
 };
 
 //Lay danh sach lop hoc cua 1 sinh vien
-const getCourseByStudentid = async (req, res) => {
+const getListCoursesofStudentid = async (req, res) => {
   try {
-    var students = await studentModel.findOneById(req.params.id);
-    var listcourse = [];
-    students.course.array.forEach((element) => {
-      var tmp = courseModel.findOneById(element);
-      listcourse.push(tmp);
-    });
-    res.status(StatusCodes.OK).json(listcourse);
+    // truyen vao id hocsinh
+    const lsitcourseofstudent = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .aggregate([
+        {
+          $match: {
+            _id: ObjectId(req.params.id), // Thay "student_id" bằng ID của student cần lọc
+          },
+        },
+        {
+          $lookup: {
+            from: courseModel.COURSE_COLLECTION_NAME,
+            localField: "course",
+            foreignField: "_id",
+            as: "courses",
+          },
+        },
+      ]);
+    res.status(StatusCodes.OK).json(lsitcourseofstudent);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -118,9 +131,10 @@ const deleteCoursebyAdmin = async (req, res, next) => {
     }
     // Lưu ý cái bự mà xóa thì toàn bộ cái nhỏ bị xóa dùng deleteMany
     // Cái nhỏ xóa thì sẽ xóa cái đó ra khỏi cái bự là được . updateMany
-    const deletedStudents = await studentModel.deletedCourse(req.params.id);
-    const deletedSubjects = await itemModel.deleteManyCourse(req.params.id);
-    const deletedTeachers = await teacherModel.deleteCourse(req.params.id);
+    const deletedStudents = await studentModel.deletedOneCourse(req.params.id);
+    //Xoa list item
+    const deletedSubjects = await itemModel.deleteItemOfCourse(req.params.id);
+    const deletedTeachers = await teacherModel.deleteOneCourse(req.params.id);
     const deletedClasss = await courseModel.findIdAndDelete(req.params.id);
     res.status(StatusCodes.OK).send({ message: "Da xoa thanh cong" });
   } catch (error) {
@@ -128,13 +142,186 @@ const deleteCoursebyAdmin = async (req, res, next) => {
   }
 };
 
-const getStudentsFromCourse = async (req, res, next) => {
+const getListStudentofCoures = async (req, res, next) => {
   try {
     // truyen vao id khoa hoc
     const studentList = await GET_DB()
       .collection(studentModel.USER_COLLECTION_NAME)
       .findMany({ course: { $in: req.params.id } });
     return studentList;
+  } catch (error) {
+    next(error);
+  }
+};
+const deleteOneItem = async (idItem) => {
+  try {
+    // truyen vao id item
+    const deletedItem = await GET_DB()
+      .collection(courseModel.COURSE_COLLECTION_NAME)
+      .updateOne(
+        {
+          listitem: { $in: idItem },
+        },
+        {
+          $pull: { listitem: { $in: idItem } },
+        }
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
+const pushStudentIntoCourse = async (req, res, next) => {
+  try {
+    // truyen vao id khoa hoc va id cua hoc sinh
+    const student = await studentModel.findOneById(req.params.idstudent);
+    if (!student) {
+      return res
+        .status(StatusCodes.FAILED_DEPENDENCY)
+        .send({ message: " Khong tim thay sinh vien" });
+    }
+    const pushStudent = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .updateOne(
+        { _id: ObjectId(req.params.idstudent) }, // Điều kiện tìm kiếm tài liệu
+        {
+          $push: {
+            course: req.params.idcourse,
+            examResult: {
+              coursename: req.params.idcourse,
+              markObtain: 0,
+              hoanthanh: false,
+            },
+          },
+        }
+      );
+    return pushStudent;
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getListCourseStudentDone = async (req, res, next) => {
+  try {
+    //truyen vao id hoc sinh
+  
+    const listcourse = await getListCoursesofStudentid(req, res, next);
+    const donecourse = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .find({
+        "examResult.coursename": { $in: listcourse.courses },
+        "examResult.hoanthanh": true,
+      })
+      .toArray();
+    return res.status(StatusCodes.OK).json(donecourse);
+  } catch (error) {
+    next(error);
+  }
+};
+const chamdiemchoStudent = async (req, res, next) => {
+  try {
+    //truyen vao id hoc sinh va id mon hoc va diem so
+    const student = await studentModel.findOneById(req.params.idstudent);
+    if (!student) {
+      return res
+        .status(StatusCodes.FAILED_DEPENDENCY)
+        .send({ message: "Khong tim thay hoc sinh" });
+    }
+    const updateMark = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .updateOne(
+        {
+          _id: new ObjectId(req.params.idstudent),
+          course: req.params.idcourse,
+        },
+        {
+          $set: {
+            examResult: {
+              coursename: req.params.idcourse,
+              markObtain: req.params.diemso,
+              hoanthanh: true,
+            },
+          },
+        }
+      );
+    return res.status(StatusCodes.OK).json(updateMark);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getOneCoursebyTeacher = async (req, res, next) => {
+  try {
+    // truyen vao id khoa hoc va id teacher
+    const course = await GET_DB()
+      .collection(courseModel.COURSE_COLLECTION_NAME)
+      .find({
+        _id: new ObjectId(req.params.idcourse),
+        owner: req.params.idteacher,
+      });
+    if (!course) {
+      return res
+        .status(StatusCodes.FAILED_DEPENDENCY)
+        .send({ message: "Khong ton tai yeu cau" });
+    }
+    const courseone = courseModel.findOneById(req.params.idcourse);
+    return res.status(StatusCodes.OK).json(courseone);
+  } catch (error) {
+    next(error);
+  }
+};
+const getMarkOfCourse = async (req, res, next) => {
+  try {
+    // truyen vao id khoa hoc va id hoc sinh
+    const getmark = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .findOne({
+        _id: new ObjectId(req.params.idstudent),
+        "examResult.coursename": req.params.idcourse,
+      });
+
+    if (getmark) {
+      const markExam = getmark.examResult.find(
+        (result) => result.coursename === req.params.idcourse
+      );
+
+      if (markExam) {
+        const diemso = markExam.markObtain;
+        return res.json({ diemso: diemso });
+      } else {
+        return res.json({ diemso: null });
+      }
+    } else {
+      return res.json({ diemso: null });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+const deleteStudentFromCourse = async (req, res, next) => {
+  try {
+    // truyen vao id khoa hoc va id hoc sinh
+    const student = await studentModel.findOneById(req.params.idstudent);
+    if (!student) {
+      return res
+        .status(StatusCodes.FAILED_DEPENDENCY)
+        .send({ message: "Khong tim thay sinh vien" });
+    }
+    const deletecourse = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .updateOne(
+        {
+          _id: new ObjectId(req.params.idstudent),
+          course: { $in: [req.params.idcourse] },
+        },
+        {
+          $pull: {
+            course: req.params.idcourse,
+            examResult: { coursename: req.params.idcourse },
+          },
+        }
+      );
+    return res.status(StatusCodes.OK).json(deletecourse);
   } catch (error) {
     next(error);
   }
@@ -167,18 +354,23 @@ const deleteCoursesbyAdmin = async (req, res) => {
 
 export const courseController = {
   //Danh cho admin
-  createNewCoursebyAdmin,
-  getDetailsCourseAllbyAdmin,
-  deleteCoursebyAdmin,
-  deleteCoursesbyAdmin,
-  updateCourseByAdmin,
+  createNewCoursebyAdmin, // truyen vao data
+  getDetailsCourseAllbyAdmin, // khong truyen
+  deleteCoursebyAdmin, // truyen vao id course
+  deleteCoursesbyAdmin, // truyen vao id giao vien - xoa toan bo khoa hoc giao vien
+  updateCourseByAdmin, // truyen vao id course
+  pushStudentIntoCourse, // idstudent va idcourse
+  deleteStudentFromCourse, // truyen idStudent va idcourse
 
   //Danh cho teacher
-  getOneCoursebyTeacher,
-  getListStudentofCoures,
-  getListCourseofTeacher,
-  getStudentsFromCourse,
+  getOneCoursebyTeacher, // truyen vao idcourse va idteacher: lay thong tin 1 khoa hoc cua gv
+  getListStudentofCoures, // truyen vao id khoa hoc
+  getListCourseofTeacher, // truyen vao id giao vien
+  chamdiemchoStudent, // truyen vao id hoc sinh, id mon hoc va diem so
+  deleteOneItem, // truyen voa id item
 
   //Ham xuat phat tu hoc sinh
-  getCourseByStudentid,
+  getListCoursesofStudentid, // truyen vao id hoc sinh
+  getListCourseStudentDone, // truyen vao id hoc sinh
+  getMarkOfCourse, // truyen vao id hoc sinh va id khoa hoc
 };

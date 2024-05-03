@@ -8,11 +8,6 @@ import {
   TEXT_RULE,
 } from "~/utils/validators";
 import bcrypt from "bcryptjs";
-import { userService } from "~/services/userService";
-import { courseModel } from "./Khoahoc/courseModel";
-import { studyModel } from "./Monhoc/studyModel";
-import { groupModel } from "./Hocnhom/groupModel";
-
 const USER_COLLECTION_NAME = "users";
 const USER_COLLECTION_SCHEMA = Joi.object().keys({
   //email thi nen loc tu FE nhung o day se loc lai
@@ -20,22 +15,17 @@ const USER_COLLECTION_SCHEMA = Joi.object().keys({
   username: Joi.string().required().pattern(TEXT_RULE).trim().strict(),
   password: Joi.string().required().pattern(TEXT_RULE).trim().strict(),
   salt: Joi.string().trim().strict().default(""),
-  role: Joi.string().trim().default("Sinh Vien"),
+  role: Joi.string().trim().default("student"),
   course: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
   examResult: Joi.object({
     coursename: Joi.string()
       .pattern(OBJECT_ID_RULE)
-      .message(OBJECT_ID_RULE_MESSAGE),
-    markObtain: Joi.number(),
-  }),
-  attendance: Joi.object({
-    date: Joi.date().iso().greater(Joi.ref("start")).required(),
-    status: Joi.string().trim().valid("Present", "Absent").required(),
-    coursename: Joi.string()
-      .pattern(OBJECT_ID_RULE)
-      .message(OBJECT_ID_RULE_MESSAGE),
+      .message(OBJECT_ID_RULE_MESSAGE)
+      .required(),
+    markObtain: Joi.number().required(),
+    hoanthanh: Joi.boolean().required(),
   }),
   study: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
@@ -151,7 +141,7 @@ const deleteManyTeacher = async (ids) => {
   }
 };
 
-const deletedCourse = async (ids) => {
+const deletedOneCourse = async (ids) => {
   try {
     const existstudent = await GET_DB()
       .collection(USER_COLLECTION_NAME)
@@ -255,7 +245,7 @@ export const studentModel = {
   findCourse,
 
   //deleteCourse
-  deletedCourse,
+  deletedOneCourse,
   deletedStudents,
 
   // 2 ham nay chua xac dinh nha

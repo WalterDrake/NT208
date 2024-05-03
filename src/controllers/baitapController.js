@@ -7,17 +7,9 @@ import { itemService } from "~/services/itemService";
 import { postService } from "~/services/postService";
 import { videoService } from "~/services/videoService";
 
-const createNew = async (req, res, next) => {
+const createNewBaiTapOfNoti = async (req, res, next) => {
   try {
-    // console.log('req.body: ', req.body)
-    // console.log('req.query: ', req.query)
-    // console.log('req.params: ', req.params)
-    // console.log('req.files: ', req.files)
-    // console.log('req.cookies: ', req.cookies)
-    // console.log('req.jwtDecoded: ', req.jwtDecoded)
-    // Điều hướng dữ liệu sang tầng Service
-    const createdbaitap = await baitapService.createNew(req.body);
-
+    const createdbaitap = await baitapService.createNewBaiTapOfNoti(req.body);
     // Có kết quả thì trả về phía Client
     res.status(StatusCodes.CREATED).json(createdbaitap);
   } catch (error) {
@@ -25,28 +17,32 @@ const createNew = async (req, res, next) => {
   }
 };
 
-const getDetails = async (req, res, next) => {
+const getDetailsAllBaiTap = async (req, res, next) => {
   try {
-    const itemId = req.params.id;
-    const item = await baitapService.getDetails(itemId);
+    const item = await baitapService.getDetailsAllBaiTap();
     res.status(StatusCodes.OK).json(item);
   } catch (error) {
     next(error);
   }
 };
 
-const updateBaitap = async (req, res, next) => {
+const getListPostOfNoti = async (req, res, next) => {
   try {
-    const itemId = req.params.id;
-    const updatedItem = await baitapService.updateBaitap(itemId, req.body);
-
-    res.status(StatusCodes.OK).json(updatedItem);
+    // truyen vao id cua Noti
+    const item = await baitapService.getListPostOfNoti(req.prams.idNoti);
+    res.status(StatusCodes.OK).json(item);
   } catch (error) {
     next(error);
   }
 };
+
 export const baitapController = {
-  createNew,
-  getDetails,
-  updateBaitap,
+  // Danh cho Admin
+  getDetailsAllBaiTap,
+
+  // Danh cho Teacher
+  getListPostOfNoti,
+
+  // Danh cho hoc sinh
+  createNewBaiTapOfNoti,
 };
