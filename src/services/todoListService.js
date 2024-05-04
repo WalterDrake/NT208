@@ -21,7 +21,7 @@ const createNew = async (reqBody) => {
     const getNewBoardList = await todoListModel.findOneById(createdBoardList.insertedId)
 
     await teamBoxModel.updateTodoListId(getNewBoardList.teamBoxId, getNewBoardList._id)
-    // Return result; note: have to return in Service
+    // Return result note: have to return in Service
     return getNewBoardList
   } catch (error) { throw error }
 }

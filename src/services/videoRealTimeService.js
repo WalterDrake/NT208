@@ -15,7 +15,7 @@ const createNew = async (reqBody) => {
     const getNewVideo = await videoRealTimeModel.findOneById(createdVideo.insertedId)
 
     await teamBoxModel.updateVideoRealTimeId(getNewVideo.teamBoxId, getNewVideo._id)
-    // Return result; note: have to return in Service
+    // Return result note: have to return in Service
     return getNewVideo
   } catch (error) { throw error }
 }

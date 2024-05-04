@@ -11,11 +11,13 @@ Router.route('/')
 
 Router.route('/:id')
   .put(groupController.update)
-Router.route('/:id/getAll')
+Router.route('/:id/getall')
   .get(groupController.getAll)
-// Router.route('/:id/getClass')
-//   .get(groupController.getClass)
-// Router.route('/:id/getPrivate')
-//   .get(groupController.getPrivate)
+Router.route('/:id/getpublic')
+  .get(groupController.getGroupOwnByTeacher)
+Router.route('/:id/getprivate')
+  .get(groupController.getPrivate)
+Router.route('/:id/join')
+  .get(groupController.joinGroup)
 
 export const groupRoute = Router

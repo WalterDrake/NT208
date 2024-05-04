@@ -7,7 +7,7 @@ const createNew = async (req, res, next) => {
   const correctCondition = Joi.object({
     title: Joi.string().required().min(3).max(50).trim().strict(),
     description: Joi.string().required().min(3).max(255).trim().strict(),
-    linkpdf: Joi.string().required().trim().strict(),
+    linkpdf: Joi.string().required().trim().strict()
   })
 
   try {
@@ -27,7 +27,7 @@ const updatePost = async (req, res, next) => {
   const correctCondition = Joi.object({
     title: Joi.string().required().min(3).max(50).trim().strict(),
     description: Joi.string().required().min(3).max(255).trim().strict(),
-    linkpdf: Joi.string().required(),
+    linkpdf: Joi.string().required()
   })
 
   try {
@@ -35,7 +35,7 @@ const updatePost = async (req, res, next) => {
     // Đối với trường hợp update, cho phép Unknown để không cần đẩy một số field lên
     await correctCondition.validateAsync(req.body, {
       abortEarly: false,
-      allowUnknown: true,
+      allowUnknown: true
     })
 
     next()
@@ -47,5 +47,5 @@ const updatePost = async (req, res, next) => {
 }
 export const postValidation = {
   createNew,
-  updatePost,
+  updatePost
 }
