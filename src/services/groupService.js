@@ -12,7 +12,7 @@ const createNew = async (reqBody) => {
     }
     // Call model layer to save record into database
     const createdGroup = await groupModel.createNew(newGroup)
-
+    await groupModel.pushToListMem(createdGroup.insertedId, newGroup.owner)
     // Get record board after calling (optional)
     const getNewGroup = await groupModel.findOneById(createdGroup.insertedId)
 
