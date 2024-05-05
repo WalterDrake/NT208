@@ -50,7 +50,7 @@ const Dangnhappage = () => {
                     alert('mat khau khong chính xác')
                 })
             }
-        });
+        })
     }, [])
 
     return (

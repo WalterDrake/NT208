@@ -122,7 +122,7 @@ export default function Home() {
               <p className='bg-blue-500 text-white rounded-lg p-1 hover:bg-blue-800 '><Link to={routes.khoahoc}>Xem thêm</Link></p>
             </div>
           </div>
-          <div className='content min-h-[20rem] h-auto bg-custom-gradient rounded-lg mt-10 md:flex flex-wrap'>
+          <div className='content min-h-[20rem]  h-auto w-auto bg-custom-gradient rounded-lg mt-10 flex flex-col md:flex-row md:flex-wrap'>
             {courseData.map((course, index) => {
               if (index < 4) {
                 return <KhoahocItem KhoaHoc={course} key={course.id} />

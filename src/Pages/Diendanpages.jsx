@@ -1,12 +1,12 @@
-import React from "react"
+import React, { useState } from "react"
 import { styled } from '@mui/material/styles'
 import Button from '@mui/material/Button'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import CropOriginalIcon from '@mui/icons-material/CropOriginal'
-import VideoList from "./Dropdown/VideoList"
 import { Link } from "react-router-dom"
 import config from '../config/routes'
 import PostList from "../components/Forum/PostList"
+import CreatePost from '../components/Forum/CreatePost'
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -21,22 +21,33 @@ const VisuallyHiddenInput = styled('input')({
 })
 
 const Diendanpages = () => {
+  const [showCreatePost, setShowCreatePost] = useState(false)
+
+  const handleCreatePost = () => {
+    setShowCreatePost(!showCreatePost)
+  }
   return (
     <div className="ml-2 bg-[#f0f7ff] w-full">
-      <Link to="/Student/dashboard">
-        <Button variant="contained" className="bg-black mr-2 rounded-full" >Hello world</Button>
-      </Link>
-      <Button
-        component="label"
-        role={undefined}
-        variant="contained"
-        tabIndex={-1}
-        startIcon={<CloudUploadIcon />}
-      >
-        Upload file
-        <VisuallyHiddenInput type="file" />
-      </Button>
-      <CropOriginalIcon className="text-pink-300" />
+      <div className="w-full flex-col md:flex-row flex justify-between">
+        <div className="flex flex-col md:flex-row m-4">
+          <Link to="/Student/dashboard">
+            <Button variant="contained" className="bg-black mr-2 rounded-full">Hello world</Button>
+          </Link>
+          <Button
+            component="label"
+            role={undefined}
+            variant="contained"
+            tabIndex={-1}
+            startIcon={<CloudUploadIcon />}
+          >
+            Upload file
+            <VisuallyHiddenInput type="file" />
+          </Button>
+          <CropOriginalIcon className="text-pink-300" />
+        </div>
+        <Button variant="contained" onClick={handleCreatePost} className="p-2 ml-2 md:ml-4">Create Post</Button>
+      </div>
+      {showCreatePost && <CreatePost />}
       {/* <VideoList /> */}
       <PostList />
     </div >
