@@ -10,6 +10,11 @@ const createNew = async (reqBody) => {
     const newGroup = {
       ...reqBody
     }
+    const checkCodeId = await groupModel.findOneByCode(newGroup.code)
+    if (checkCodeId)
+    {
+      return { Error : 'Same code' }
+    }
     // Call model layer to save record into database
     const createdGroup = await groupModel.createNew(newGroup)
     await groupModel.pushToListMem(createdGroup.insertedId, newGroup.owner)

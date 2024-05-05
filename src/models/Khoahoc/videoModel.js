@@ -1,11 +1,11 @@
-import Joi from "joi"
-import { ObjectId } from "mongodb"
-import { GET_DB } from "~/config/mongodb"
-import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from "~/utils/validators"
-import { itemModel } from "./itemModel"
-import { cboxModel } from "../Monhoc/commentboxModel"
+import Joi from 'joi'
+import { ObjectId } from 'mongodb'
+import { GET_DB } from '~/config/mongodb'
+import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
+import { itemModel } from './itemModel'
+import { cboxModel } from '../Monhoc/commentboxModel'
 
-const VIDEO_COLLECTION_NAME = "videos"
+const VIDEO_COLLECTION_NAME = 'videos'
 const VIDEO_COLLECTION_SCHEMA = Joi.object({
   title: Joi.string().required().min(3).max(50).trim().strict(),
   description: Joi.string().required().min(3).max(255).trim().strict(),
@@ -17,14 +17,14 @@ const VIDEO_COLLECTION_SCHEMA = Joi.object({
     .pattern(OBJECT_ID_RULE)
     .message({ OBJECT_ID_RULE_MESSAGE })
     .required(),
-  createdAt: Joi.date().timestamp("javascript").default(Date.now),
+  createdAt: Joi.date().timestamp('javascript').default(Date.now)
 })
 
-const INVALID_UPDATE_FIELDS = ["_id", "createdAt"]
+const INVALID_UPDATE_FIELDS = ['_id', 'createdAt']
 
 const validateBeforeCreate = async (data) => {
   return await VIDEO_COLLECTION_SCHEMA.validateAsync(data, {
-    abortEarly: false,
+    abortEarly: false
   })
 }
 
@@ -117,7 +117,7 @@ const updateVideosOfItem = async (videoId, updateData) => {
       .findOneAndUpdate(
         { _id: new ObjectId(videoId) },
         { $set: updateData },
-        { returnDocument: "after" } // sẽ trả về kết quả mới sau khi cập nhật
+        { returnDocument: 'after' } // sẽ trả về kết quả mới sau khi cập nhật
       )
     return result
   } catch (error) {

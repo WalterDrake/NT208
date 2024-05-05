@@ -25,14 +25,14 @@ const ITEM_COLLECTION_SCHEMA = Joi.object({
     .default([]),
   teacher: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
   course: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
-  createdAt: Joi.date().timestamp('javascript').default(Date.now),
+  createdAt: Joi.date().timestamp('javascript').default(Date.now)
 })
 
 const INVALID_UPDATE_FIELDS = ['_id', 'createdAt']
 
 const validateBeforeCreate = async (data) => {
   return await ITEM_COLLECTION_SCHEMA.validateAsync(data, {
-    abortEarly: false,
+    abortEarly: false
   })
 }
 
@@ -107,7 +107,7 @@ const getListItemOfCourse = async (idCourse) => {
     const result = await GET_DB()
       .collection(itemController.ITEM_COLLECTION_NAME)
       .findMany({
-        course: idCourse,
+        course: idCourse
       })
       .toArray()
     return result
@@ -125,7 +125,7 @@ const deleteItemOfCourse = async (idItem) => {
       const videos = await GET_DB()
         .collection(videoModel.VIDEO_COLLECTION_NAME)
         .find({
-          item: idItem,
+          item: idItem
         })
         .toArray()
 
@@ -137,7 +137,7 @@ const deleteItemOfCourse = async (idItem) => {
       const deletenoti = await GET_DB()
         .collection(notiModel.NOTI_COLLECTION_NAME)
         .find({
-          item: idItem,
+          item: idItem
         })
         .toArray()
 
@@ -148,7 +148,7 @@ const deleteItemOfCourse = async (idItem) => {
       const deletepost = await GET_DB()
         .collection(postModel.POST_COLLECTION_NAME)
         .find({
-          item: idItem,
+          item: idItem
         })
         .toArray()
 
@@ -159,7 +159,7 @@ const deleteItemOfCourse = async (idItem) => {
       const deleteCourse = await GET_DB()
         .collection(itemModel.ITEM_COLLECTION_NAME)
         .deleteOne({
-          _id: new ObjectId(idItem),
+          _id: new ObjectId(idItem)
         })
       return true
     }
@@ -218,5 +218,5 @@ export const itemModel = {
   deleteOneNoti, // id Noti
 
   //Danh cho Student
-  getListItemOfCourse, //id course
+  getListItemOfCourse //id course
 }

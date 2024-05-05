@@ -1,23 +1,22 @@
-import { slugify } from '~/utils/formatters'
+/* eslint-disable no-useless-catch */
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
 import { cloneDeep } from 'lodash'
 import { ObjectId } from 'mongodb'
-import { postModel } from '~/models/Khoahoc/postModel'
-import { cboxModel } from '~/models/Monhoc/commentboxModel'
 import { commentModel } from '~/models/Monhoc/commentModel'
-
+import { cboxModel } from '~/models/Monhoc/commentboxModel'
 const createNew = async (reqBody) => {
   try {
-    const newItem = {
-      ...reqBody,
+    const newComment = {
+      ...reqBody
     }
 
-    const createditem = await commentModel.createNew(newItem)
+    const createdComment = await commentModel.createNew(newComment)
+    await cboxModel.pushToListComment(newComment.commentBoxId, createdComment.insertedId)
 
-    const getNewitem = await commentModel.findOneById(createditem.insertedId)
+    const getNewComment = await commentModel.findOneById(createdComment.insertedId)
     // Trả kết quả về, trong Service luôn phải có return
-    return getNewitem
+    return getNewComment
   } catch (error) {
     throw error
   }
@@ -38,5 +37,5 @@ const findOneById = async (itemId) => {
 
 export const commentService = {
   createNew,
-  findOneById,
+  findOneById
 }

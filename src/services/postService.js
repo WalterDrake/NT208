@@ -1,19 +1,19 @@
 /* eslint-disable no-useless-catch */
-import { slugify } from '~/utils/formatters'
-import ApiError from '~/utils/ApiError'
-import { StatusCodes } from 'http-status-codes'
-import { cloneDeep } from 'lodash'
-import { ObjectId } from 'mongodb'
+
 import { postModel } from '~/models/Khoahoc/postModel'
+import { studyModel } from '~/models/Monhoc/studyModel'
 
 const createNewPostOfItem = async (reqBody) => {
   try {
     const newItem = {
-      ...reqBody,
+      ...reqBody
     }
 
     const createdpost = await postModel.createNewPostOfItem(newItem)
-
+    if (newItem.studyId)
+    {
+      await studyModel.pushToListPost(newItem.studyId, createdpost.insertedId)
+    }
     const getNewitem = await postModel.findOneById(createdpost.insertedId)
     // Trả kết quả về, trong Service luôn phải có return
     return getNewitem
@@ -34,7 +34,7 @@ const updatePostOfItem = async (postId, reqBody) => {
   try {
     const updateData = {
       ...reqBody,
-      updatedAt: Date.now(),
+      updatedAt: Date.now()
     }
     const updatedItem = await postModel.updatePostOfItem(postId, updateData)
 
@@ -71,5 +71,5 @@ export const postService = {
   deletePostOfItem, // truyen id Post
 
   // Danh cho hoc sinh
-  getListPostOfItem, // truyen id Item
+  getListPostOfItem // truyen id Item
 }

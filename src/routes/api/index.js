@@ -43,8 +43,6 @@ Router.use('/messagemodels', messageModelRoute)
 Router.use('/videorealtimes', videoRealTimeRoute)
 // Group APIs
 Router.use('/groups', groupRoute)
-// Post APIs
-Router.use('/posts', postRoute)
 
 // Course APIs
 Router.use('/courses', courseRoute)
@@ -62,5 +60,8 @@ Router.use('/videos', videoRoute)
 Router.use('/cboxs', cboxRoute)
 // comment APIs
 Router.use('/comments', commentRoute)
+
+// Study APIs
+Router.use('/studies', studyRoute)
 
 export const APIs = Router

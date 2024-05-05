@@ -13,8 +13,7 @@ const POST_COLLECTION_SCHEMA = Joi.object({
 
   item: Joi.string()
     .pattern(OBJECT_ID_RULE)
-    .message({ OBJECT_ID_RULE_MESSAGE })
-    .required(),
+    .message({ OBJECT_ID_RULE_MESSAGE }),
   createdAt: Joi.date().timestamp('javascript').default(Date.now)
 })
 

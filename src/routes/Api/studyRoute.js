@@ -11,16 +11,15 @@ Router.route('/')
   })
   .post(studyValidation.createNew, studyController.createNew)
 
-Router.route('/:id')
-  .get(studyController.getDetailsAll)
+Router.route('/getall')
+  .get(studyController.getAll)
+
+Router.route('/:id') //id of study
+  .get(studyController.getDetails)
   .put(studyValidation.updateStudy, studyController.updateStudy)
 
-Router.route('/getAll')
-  .get(studyController.getDetailsAll)
 
-// Router.route('/tatca')
-//   .get(studyController.getAll)
-// Router.route('/danghoc')
+// Router.route('/learning')
 //   .get(studyController.getLearning)
 // Router.route('/hoanthanh')
 //   .get(studyController.getFinished)

@@ -242,6 +242,7 @@ const findOneByCode = async (codeId) => {
   catch (error) { throw new Error(error)}
 }
 
+
 export const groupModel = {
   GROUP_COLLECTION_NAME,
   createNew,

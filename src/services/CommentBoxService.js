@@ -1,19 +1,23 @@
-import { slugify } from '~/utils/formatters'
+/* eslint-disable no-useless-catch */
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
 import { cloneDeep } from 'lodash'
 import { ObjectId } from 'mongodb'
 import { postModel } from '~/models/Khoahoc/postModel'
 import { cboxModel } from '~/models/Monhoc/commentboxModel'
+import { studyModel } from '~/models/Monhoc/studyModel'
 
 const createNew = async (reqBody) => {
   try {
     const newItem = {
-      ...reqBody,
+      ...reqBody
     }
 
     const createditem = await cboxModel.createNew(newItem)
-
+    if (newItem.studyId)
+    {
+      await studyModel.updateCommentBoxId(newItem.studyId, createditem.insertedId)
+    }
     const getNewitem = await cboxModel.findOneById(createditem.insertedId)
     // Trả kết quả về, trong Service luôn phải có return
     return getNewitem
@@ -50,5 +54,5 @@ const findOneById = async (itemId) => {
 export const cboxService = {
   createNew,
   getDetails,
-  findOneById,
+  findOneById
 }

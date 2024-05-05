@@ -16,7 +16,7 @@ const createNew = async (req, res, next) => {
 const getDetailsAll = async (req, res, next) => {
   try {
     const itemId = req.params.id
-    const item = await studyService.getDetailsAll(itemId)
+    const item = await studyService.getDetail(itemId)
     res.status(StatusCodes.OK).json(item)
   } catch (error) {
     next(error)
@@ -33,8 +33,19 @@ const updateStudy = async (req, res, next) => {
     next(error)
   }
 }
+
+const getAll = async (req, res, next) => {
+  try {
+    const studies = await studyService.getAll()
+    res.status(StatusCodes.OK).json(studies)
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const studyController = {
   createNew,
   getDetailsAll,
-  updateStudy
+  updateStudy,
+  getAll
 }
