@@ -1,11 +1,21 @@
 import React, { useState } from "react"
 import HoctapItem from "./Hoctap/HocTapItem"
-import { Link, Route, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import "./Add.css"
 import { FaHeadphonesAlt } from "react-icons/fa"
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+
+import useUser from "../hook/useUser"
+import CreateCourse from "../components/Form/CreateCourse";
+
+
 const HocTap = [
   {
-    id : 1,
+    id: 1,
     image: "src\\assets\\HocTap_img\\Quantri.png",
     ten: "Quản trị mạng và hệ thống",
     giaovien: "Bùi Thanh Bình",
@@ -15,7 +25,7 @@ const HocTap = [
   },
 
   {
-    id : 2,
+    id: 2,
     image: "src\\assets\\HocTap_img\\HDH.png",
     ten: "Hệ điều hành",
     giaovien: "Đoàn Duy",
@@ -25,7 +35,7 @@ const HocTap = [
   },
 
   {
-    id : 3,
+    id: 3,
     image: "src\\assets\\HocTap_img\\Truyen.png",
     ten: "Truyền dữ liệu",
     giaovien: "Nguyễn Tấn Hoàng Phước",
@@ -35,7 +45,7 @@ const HocTap = [
   },
 
   {
-    id : 4,
+    id: 4,
     image: "src\\assets\\HocTap_img\\Laptrinh.png",
     ten: "Lập trình mạng căn bản",
     giaovien: "Đặng Lê Bảo Chương",
@@ -44,14 +54,20 @@ const HocTap = [
     tinhtrang: 1
   }
 ]
-
 const Hoctappage = () => {
+  const { user } = useUser()
   const [filter, setFilter] = useState(2); // Default filter: all (2)  sài hook nha ae
+  const [showFormCreateCourse, setShowFormCreateCourse] = useState(false)
+  const handleCloseFromCreate = () => {
+    setShowFormCreateCourse(false)
+  }
+  const handleOpenFromCreate = () => {
+    setShowFormCreateCourse(true)
+  }
 
   const handleFilterChange = (value) => {
     setFilter(value);
   }
-
   return (
     <div>
 
@@ -78,7 +94,16 @@ const Hoctappage = () => {
             Hoàn thành
           </li>
         </ul>
-
+        <Button onClick={handleOpenFromCreate}>Create Study</Button>
+        <Dialog open={showFormCreateCourse} onClose={handleCloseFromCreate} fullWidth={true} maxWidth='md'>
+          <DialogTitle>Create Study</DialogTitle>
+          <DialogContent>
+            <CreateCourse  user={user} isCourse={false} isStudy={true} />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseFromCreate}>Cancel</Button>
+          </DialogActions>
+        </Dialog>
         <div className=" container flex">
           {HocTap.filter(
             (item) => filter === 2 || item.tinhtrang === filter
