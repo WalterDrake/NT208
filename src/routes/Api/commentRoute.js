@@ -1,12 +1,7 @@
 import express from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { cboxController } from '~/controllers/commentBoxController'
 import { commentController } from '~/controllers/commentController'
-import { postController } from '~/controllers/postController'
-import { cboxModel } from '~/models/Monhoc/commentboxModel'
-import { cboxValidation } from '~/validations/commentBoxValidation'
 import { commentValidation } from '~/validations/commentValidation'
-import { postValidation } from '~/validations/postValidation'
 
 const Router = express.Router()
 
@@ -16,7 +11,10 @@ Router.route('/')
   })
   .post(commentValidation.createNew, commentController.createNew)
 
-Router.route('/:id').get(commentController.findOneById)
+Router.route('/:id')
+  .get(commentController.findOneById)
+  .put(commentController.update)
+  .delete(commentController.deleteMessage)
 
 // API hỗ trợ việc di chuyển card giữa các column khác nhau trong một board
 

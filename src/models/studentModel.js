@@ -1,4 +1,4 @@
-import Joi, { required } from 'joi'
+import Joi from 'joi'
 import { ObjectId } from 'mongodb'
 import { GET_DB } from '~/config/mongodb'
 import {
@@ -173,7 +173,6 @@ const checkExist = async (email, password) => {
       .findOne({ email: email })
 
     if (emailex != null) {
-      console.log(emailex.password)
       let hash = bcrypt.hashSync(password, emailex.salt)
       if (hash == emailex.password) {
         return emailex
@@ -242,6 +241,17 @@ const pushToGroup = async (getGroup, userId) => {
   } catch (error) { throw new Error(error) }
 }
 
+const pushToStudy = async (studyId, userId) => {
+  try {
+    const result = await GET_DB().collection(USER_COLLECTION_NAME).findOneAndUpdate(
+      { _id: new ObjectId(userId) },
+      { $push: { study: new ObjectId(studyId) } },
+      { returnDocument: 'after' }
+    )
+    return result
+  } catch (error) { throw new Error(error) }
+}
+
 // ở trong 1 class xây dựng những cái hàm tương tác với từng field như thêm sửa xóa cập nhật
 export const studentModel = {
   USER_COLLECTION_NAME,
@@ -256,6 +266,7 @@ export const studentModel = {
   checkExist,
   findCourse,
   pushToGroup,
+  pushToStudy,
 
   //deleteCourse
   deletedOneCourse,

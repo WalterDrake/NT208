@@ -13,10 +13,10 @@ const createNew = async (req, res, next) => {
   }
 }
 
-const getDetailsAll = async (req, res, next) => {
+const getDetails = async (req, res, next) => {
   try {
     const itemId = req.params.id
-    const item = await studyService.getDetail(itemId)
+    const item = await studyService.getDetails(itemId)
     res.status(StatusCodes.OK).json(item)
   } catch (error) {
     next(error)
@@ -43,9 +43,31 @@ const getAll = async (req, res, next) => {
   }
 }
 
+const joining = async (req, res, next) => {
+  try {
+    const itemId = req.params.id
+    const item = await studyService.joining(itemId, req.body)
+    res.status(StatusCodes.OK).json(item)
+  } catch (error) {
+    next(error)
+  }
+}
+
+const getLearning = async (req, res, next) => {
+  try {
+    const studentId = req.params.id
+    const item = await studyService.getStudyLearning(studentId)
+    res.status(StatusCodes.OK).json(item)
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const studyController = {
   createNew,
-  getDetailsAll,
+  getDetails,
   updateStudy,
-  getAll
+  getAll,
+  joining,
+  getLearning
 }

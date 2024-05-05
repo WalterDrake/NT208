@@ -5,11 +5,14 @@ import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
 
 const createNew = async (req, res, next) => {
   const correctCondition = Joi.object({
-    ownercomment: Joi.string()
+    owner: Joi.string()
       .pattern(OBJECT_ID_RULE)
       .message(OBJECT_ID_RULE_MESSAGE)
       .required(),
-    datatext: Joi.string().trim().required()
+    message: Joi.string().trim().required(),
+    cBoxId : Joi.string()
+      .pattern(OBJECT_ID_RULE)
+      .message(OBJECT_ID_RULE_MESSAGE).required()
   })
 
   try {

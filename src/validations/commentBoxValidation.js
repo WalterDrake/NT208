@@ -9,7 +9,8 @@ const createNew = async (req, res, next) => {
       .items(
         Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE)
       )
-      .default([])
+      .default([]),
+    studyId : Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE)
   })
 
   try {

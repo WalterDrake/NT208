@@ -14,13 +14,14 @@ Router.route('/')
 Router.route('/getall')
   .get(studyController.getAll)
 
-Router.route('/:id') //id of study
+Router.route('/:id') //Id of study
   .get(studyController.getDetails)
   .put(studyValidation.updateStudy, studyController.updateStudy)
 
-
-// Router.route('/learning')
-//   .get(studyController.getLearning)
+Router.route('/:id/joining') // Id of study
+  .get(studyController.joining)
+Router.route('/:id/getstudylearning') // Id of student
+  .get(studyController.getLearning)
 // Router.route('/hoanthanh')
 //   .get(studyController.getFinished)
 

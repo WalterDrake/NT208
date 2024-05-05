@@ -10,9 +10,8 @@ const createNew = async (reqBody) => {
     const newComment = {
       ...reqBody
     }
-
     const createdComment = await commentModel.createNew(newComment)
-    await cboxModel.pushToListComment(newComment.commentBoxId, createdComment.insertedId)
+    await cboxModel.pushToListComment(newComment.cBoxId, createdComment.insertedId)
 
     const getNewComment = await commentModel.findOneById(createdComment.insertedId)
     // Trả kết quả về, trong Service luôn phải có return
@@ -35,7 +34,35 @@ const findOneById = async (itemId) => {
   }
 }
 
+const update = async (commentId, reqBody) => {
+  try {
+    const updateData = {
+      ...reqBody
+    }
+    const updatedMessage = await commentModel.update(commentId, updateData)
+
+    return updatedMessage
+  } catch (error) { throw error }
+}
+
+const deleteMessage = async (commentId) => {
+  try {
+    const targetMessage = await commentModel.findOneById(commentId)
+
+    if (!targetMessage) {
+      throw new ApiError(StatusCodes.NOT_FOUND, 'Message not found!')
+    }
+
+    await cboxModel.pullToListComment(targetMessage)
+    await commentModel.deleteOneById(commentId)
+
+    return { deleteResult: 'Message deleted successfully!' }
+  } catch (error) { throw error }
+}
+
 export const commentService = {
   createNew,
-  findOneById
+  findOneById,
+  update,
+  deleteMessage
 }

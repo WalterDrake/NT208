@@ -2,8 +2,9 @@ import Joi from 'joi'
 import { ObjectId } from 'mongodb'
 import { GET_DB } from '~/config/mongodb'
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
-import { COMMENTBOX_COLLECTION_NAME } from '~/models/Monhoc/commentboxModel'
+import { cboxModel } from '~/models/Monhoc/commentboxModel'
 import { postModel } from '../Khoahoc/postModel'
+import { studentModel } from '~/models/studentModel'
 // Define Collection (Name & Schema)
 const STUDY_COLLECTION_NAME = 'studies'
 const STUDY_COLLECTION_SCHEMA = Joi.object({
@@ -73,13 +74,13 @@ const getDetails = async (studyId) => {
         {
           $lookup: {
             from: postModel.POST_COLLECTION_NAME,
-            localField: '_id',
-            foreignField: 'listPost',
+            localField: 'listPost',
+            foreignField: '_id',
             as: 'PostInfo'
           }
         }
-      ])
-    return result
+      ]).toArray()
+    return result[0] || null
   } catch (error) {
     throw new Error(error)
   }
@@ -121,7 +122,7 @@ const pushToListPost = async (getStudyId, postId) => {
 const updateCommentBoxId = async (id, commentBoxId) =>
 {
   try {
-    const result = await GET_DB().collection(COMMENTBOX_COLLECTION_NAME).findOneAndUpdate(
+    const result = await GET_DB().collection(cboxModel.COMMENTBOX_COLLECTION_NAME).findOneAndUpdate(
       { _id: new ObjectId(id) },
       { $set: {
         commentBoxId: commentBoxId
@@ -153,6 +154,32 @@ const getAll = async () => {
   }
 }
 
+const getStudyLearning = async (userId) => {
+  try {
+    const result = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .aggregate([
+        {
+          $match: {
+            _id: new ObjectId(userId)
+          }
+        },
+        {
+          $lookup: {
+            from: studyModel.STUDY_COLLECTION_NAME,
+            localField: 'study',
+            foreignField: '_id',
+            as: 'groupInfo'
+          }
+        }
+      ])
+      .toArray()
+    return result[0].groupInfo || null
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
 export const studyModel = {
   STUDY_COLLECTION_NAME,
   STUDY_COLLECTION_SCHEMA,
@@ -162,5 +189,6 @@ export const studyModel = {
   updateStudy,
   pushToListPost,
   updateCommentBoxId,
-  getAll
+  getAll,
+  getStudyLearning
 }

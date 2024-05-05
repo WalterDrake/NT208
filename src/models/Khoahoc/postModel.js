@@ -9,12 +9,15 @@ const POST_COLLECTION_NAME = 'posts'
 const POST_COLLECTION_SCHEMA = Joi.object({
   title: Joi.string().required().min(3).max(50).trim().strict(),
   description: Joi.string().required().min(3).max(255).trim().strict(),
-  linkpdf: Joi.string().required().trim().strict(),
+  linkPDF: Joi.string().required().trim().strict(),
 
   item: Joi.string()
     .pattern(OBJECT_ID_RULE)
     .message({ OBJECT_ID_RULE_MESSAGE }),
-  createdAt: Joi.date().timestamp('javascript').default(Date.now)
+  createdAt: Joi.date().timestamp('javascript').default(Date.now),
+  studyId : Joi.string()
+    .pattern(OBJECT_ID_RULE)
+    .message({ OBJECT_ID_RULE_MESSAGE })
 })
 
 const INVALID_UPDATE_FIELDS = ['_id', 'createdAt']
@@ -28,9 +31,13 @@ const validateBeforeCreate = async (data) => {
 const createNewPostOfItem = async (data) => {
   try {
     const validData = await validateBeforeCreate(data)
+    const newDataToAdd = {
+      ...validData,
+      studyId : new ObjectId(validData.studyId)
+    }
     const createdPost = await GET_DB()
       .collection(POST_COLLECTION_NAME)
-      .insertOne(validData)
+      .insertOne(newDataToAdd)
     return createdPost
   } catch (error) {
     throw new Error(error)

@@ -2,6 +2,8 @@
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
 import { studyModel } from '~/models/Monhoc/studyModel'
+import { join } from 'lodash'
+import { studentModel } from '~/models/studentModel'
 
 const createNew = async (reqBody) => {
   try {
@@ -45,13 +47,25 @@ const updateStudy = async (postId, reqBody) => {
 }
 
 const getAll = async() => {
-  const getAllGroup = await studyModel.getAll()
-  return getAllGroup
+  const getAllStudy = await studyModel.getAll()
+  return getAllStudy
+}
+
+const joining = async(studyId, reqBody) => {
+  const getStudy = await studentModel.pushToStudy(studyId, reqBody.userId)
+  return getStudy
+}
+
+const getStudyLearning = async(studentId) => {
+  const getStudy = await studyModel.getStudyLearning(studentId)
+  return getStudy
 }
 
 export const studyService = {
   createNew,
   getDetails,
   updateStudy,
-  getAll
+  getAll,
+  joining,
+  getStudyLearning
 }
