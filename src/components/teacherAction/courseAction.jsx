@@ -26,22 +26,22 @@ export function AddVideo({ courseID }) {
         form: '#add-group-form',
         formGroup: '.form-group',
         errorMessage: '.form-message',
-        styleInvalid: 'border-red-500' ,
+        styleInvalid: 'border-red-500',
         rules: [
-          validator.isRequired('#add-video-name', 'nhập trường này'),
-          validator.isRequired('#add-video-desrciption', 'Vui lòng nhập mô tả'),
-          validator.isRequired('#add-video-title', 'Vui lòng nhập mô tả'),
-      ],
+            validator.isRequired('#add-video-name', 'nhập trường này'),
+            validator.isRequired('#add-video-desrciption', 'Vui lòng nhập mô tả'),
+            validator.isRequired('#add-video-title', 'Vui lòng nhập mô tả'),
+        ],
         onSubmit: function (data) {
-          console.log('from data: ',data);
+            console.log('from data: ', data);
         }
-      }
-      )
+    }
+    )
     const [showForm, setShowForm] = useState(false);
     const [videoLink, setVideoLink] = useState('');
 
     const handleAddVideo = () => {
-        setShowForm(true);
+        setShowForm(pre => !pre);
     };
 
     const handleChange = (event) => {
@@ -93,17 +93,17 @@ export function AddVideo({ courseID }) {
                     </div>
                     <br></br>
                     <div className="form-group border-spacing-3 border-black border-2 w-full">
-                        <input type='text' name='add-video-title' placeholder="tiêu đề" id='add-video-title' className="border-black border-2 w-full"/>
+                        <input type='text' name='add-video-title' placeholder="tiêu đề" id='add-video-title' className="border-black border-2 w-full" />
                         <div className="form-message text-red-700 flex justify-center"></div>
                     </div>
                     <br></br>
                     <div className="form-group border-spacing-3 border-black border-2 w-full">
-                        <input type='text'name='add-video-desrciption' placeholder="mô tả" id='add-video-desrciption' className="border-black border-2 w-full"></input>
+                        <input type='text' name='add-video-desrciption' placeholder="mô tả" id='add-video-desrciption' className="border-black border-2 w-full"></input>
                         <div className="form-message text-red-700 flex justify-center"></div>
                     </div>
                     <br></br>
                     <div className="w-full flex justify-center">
-                        <button type="submit" className="bg-blue-500 hover:bg-blue-700 rounded-lg p-1">Submit</button>
+                        <input type="submit" className="bg-blue-500 hover:bg-blue-700 rounded-lg p-1"></input>
                     </div>
                 </form>
             )}

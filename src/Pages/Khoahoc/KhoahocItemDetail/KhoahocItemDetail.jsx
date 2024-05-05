@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, createContext } from "react";
 import { Grid } from "@mui/material";
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 
-
+import AddStudentForm from "../../../components/Form/AddStudentForm";
 import KhoahocDetailVideo from "./KhoahocDetailItem/KhoahocDetailVideo";
 import KhoahocDetailList from "./KhoahocDetailItem/KhoahocDetailList";
 import { useContext } from "react";
@@ -14,6 +15,10 @@ import {AddDealine,AddVideo,AddDocument} from '../../../components/teacherAction
 
 export const CurrentVideoContext = createContext();
 function CourseDetails() {
+  const [showFormAddStudent, setShowFormAddStudent] = useState(false) 
+  const handleAddStudent = () => {
+    setShowFormAddStudent(!showFormAddStudent)
+  }
   const {user} = useContext(UserContext)
   const { courseID } = useParams();
   console.log(user)
@@ -61,9 +66,17 @@ function CourseDetails() {
   return (
 
     <CurrentVideoContext.Provider value={{ curVideo, setCurVideo, courseDetails, setCourseDetails }}>
-      <div className="bg-[#29303b] w-full" id="navbar-course">
-        <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">{courseDetails.name}</h1>
+      <div className="bg-[#29303b] w-full flex justify-between" id="navbar-course">
+      <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">{courseDetails.name}</h1>
+      <div className='teacher-action'>
+      {
+        (user.role === 'teacher')  ?
+        (
+         <div className="text-white mr-5 p-4" onClick={handleAddStudent}><PersonAddAltIcon/> Student</div>
+       ):<></>}
       </div>
+      </div>
+      {showFormAddStudent && <AddStudentForm idAdd={courseID} isCourse={true} />}
       <div className="flex gap-5">
         <Grid item xs={5}>
           <KhoahocDetailList />

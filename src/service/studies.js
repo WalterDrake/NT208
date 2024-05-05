@@ -1,3 +1,4 @@
+import { add } from 'lodash';
 import * as httpRequests from '../utils/httpRequest';
 // lấy danh sách các lớp học
 export const getStudies = async (id_user) => {
@@ -54,7 +55,14 @@ export const getStudyMembers = async (id_study) => {
     }
 }
 
-
+export const addStudent = async (id_study, data) => {
+    try {
+        const response = await httpRequests.post(`studies/${id_study}/members`, data);
+        return response;
+    } catch (error) {
+        throw error.response;
+    }
+}
 // Router.route("/")
 //   .get((req, res) => {
 //     res.status(StatusCodes.OK).json({ message: "GET: API get list Study" });

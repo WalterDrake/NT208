@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import HoctapItem from "./Hoctap/HocTapItem"
-import { Link, Route } from "react-router-dom"
+import { Link, Route, useParams } from "react-router-dom"
 import "./Add.css"
 import { FaHeadphonesAlt } from "react-icons/fa"
 const HocTap = [

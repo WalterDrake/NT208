@@ -1,15 +1,23 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState, createContext } from "react";
-import { Grid } from "@mui/material";
+import { useParams } from "react-router-dom"
+import { useEffect, useState, createContext } from "react"
+import { Grid } from "@mui/material"
 
-import HocTapDetailVideo from "./HocTapDetailVideo";
-import HocTapDetailList from "./HocTapDetailList";
+import HocTapDetailVideo from "./HocTapDetailVideo"
+import HocTapDetailList from "./HocTapDetailList"
 import * as studies from "../../service/studies"
+import useUser from '../../hook/useUser'
+import {AddDealine,AddDocument,AddVideo} from "../../components/teacherAction/courseAction"
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt'
+import AddStudentForm from "../../components/Form/AddStudentForm"  
 
-
-export const CurrentVideoContext = createContext();
+export const CurrentVideoContext = createContext()
 function HocTapDetails() {
-  const {StudyID } = useParams();
+  const [showFormAddStudent, setShowFormAddStudent] = useState(false) 
+  const handleAddStudent = () => {
+    setShowFormAddStudent(!showFormAddStudent)
+  }
+  const {user} = useUser()
+  const {StudyID } = useParams()
   const [studyDetails, setstudyDetails] = useState({
     id: 1,
     name: 'hocReact',
@@ -27,7 +35,7 @@ function HocTapDetails() {
       description: 'hoc vuejs'
     }
     ]
-  });
+  })
   // useEffect(() => {
   //   studies.getStudy(StudyID)
   //     .then(res => {
@@ -42,30 +50,46 @@ function HocTapDetails() {
   //       console.log('res', res) // trả ra danh sach các video
   //       studyDetails.videoList = res
   //     })
-  // }, [StudyID]);
+  // }, [StudyID])
   const [curVideo, setCurVideo] = useState(studyDetails?.videoList[0].url)
 
 
   return (
 
     <CurrentVideoContext.Provider value={{ curVideo, setCurVideo,studyDetails, setstudyDetails }}>
-      <div className="bg-[#29303b] w-full" id="navbar-course">
-        <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">{studyDetails.name}</h1>
+      <div className="bg-[#29303b] w-full flex justify-between" id="navbar-study">
+        <h1 className="h-[50px] ml-5 text-[#fff] text-[1.2rem] items-cpenter bg-[#29303b] flex relative ">{studyDetails.name}</h1>
+      <div className='teacher-action'>
+      {
+        (user.role === 'teacher')  ?
+        (
+         <div className="text-white mr-5 p-4" onClick={handleAddStudent}><PersonAddAltIcon/> Student</div>
+       ):<></>}
       </div>
+      </div>
+      {showFormAddStudent && <AddStudentForm idAdd={StudyID} isStudy={true} />}
       <div className="flex gap-5">
-        <Grid item xs={5}>
+        <Grid item xs={4}>
           <HocTapDetailList />
         </Grid>
-
         <div id="video-khoa-hoc">
-
           <HocTapDetailVideo />
-
         </div>
+      </div>
+      <div className='teacher-action'>
+      {
+          (user.role === 'teacher')  ?
+       (
+      <>
+        <AddVideo courseID={StudyID}/>
+        <AddDocument courseID={StudyID}/>
+        <AddDealine courseID={StudyID}/>
+      </>
+       ):<></>}
       </div>
     </CurrentVideoContext.Provider >
 
-  );
+  )
 }
 
-export default HocTapDetails;
+export default HocTapDetails

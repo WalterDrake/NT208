@@ -36,3 +36,12 @@ export const getCoursesDone = async (id) => {
         throw error.response.data
     }
 }
+
+export const addStudent = async (id, data) => {
+    try {
+        const response = await httpRequest.post(`/users/Khoahoc/${id}/students`, data)
+        return response.data
+    } catch (error) {
+        throw error.response.data
+    }
+}   
