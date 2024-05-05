@@ -13,11 +13,7 @@ const COMMENTBOX_COLLECTION_SCHEMA = Joi.object({
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
     .default([]),
-  createdAt: Joi.date().timestamp('javascript').default(Date.now),
-  studyId : Joi.string()
-    .pattern(OBJECT_ID_RULE)
-    .message(OBJECT_ID_RULE_MESSAGE)
-    .required()
+  createdAt: Joi.date().timestamp('javascript').default(Date.now)
 })
 
 const validateBeforeCreate = async (data) => {
