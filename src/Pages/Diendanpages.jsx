@@ -4,9 +4,11 @@ import Button from '@mui/material/Button'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import CropOriginalIcon from '@mui/icons-material/CropOriginal'
 import { Link } from "react-router-dom"
+
 import config from '../config/routes'
 import PostList from "../components/Forum/PostList"
 import CreatePost from '../components/Forum/CreatePost'
+
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',

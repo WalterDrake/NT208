@@ -38,6 +38,11 @@ export default function PostList() {
             comment: 2,
         }
     ])
+    useEffect(() => {
+        forum.getForums()
+        .then( res => setPosts(res))
+        .catch(err => console.log(err))
+    }, [])
   return (
     <ul>
         {posts.map(post => (
