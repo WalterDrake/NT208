@@ -77,7 +77,7 @@ const HocNhompage = () => {
     <div>
       <div className="relative ml-[1rem] ">
         <h1 className="text-3xl mb-5 ml-2 font-bold">Học nhóm</h1>
-        <div className="end-3 float-right">
+        <div className="end-3 md:float-right">
           <ShowFormAddGroupContext.Provider value={{openAddGroup, setOpenAddGroup,openJoinGroup, setOpenJoinGroup}}><HocNhom_Setting /></ShowFormAddGroupContext.Provider>
         </div>
         <div className="flex justify-between">

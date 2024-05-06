@@ -42,7 +42,10 @@ export default function PostItem({ post }) {
           <div className='flex justify-between'>
             <div className='text-sm font-bold mt-4 mb-2 bg-white shadow py-[2px] w-20 text-center rounded-md'>hoi dap</div>
             <div className='relative'>
-              <Tooltip title={<More className=" bg-blue-500 w-auto text-white" myEvent={{handleDelete}}/>}  open={open} onClick={handleTooltipClick}>
+              <Tooltip 
+                title={<More className=" bg-blue-500 w-auto text-white" myEvent={{handleDelete}}/>}  
+                open={open} onClick={handleTooltipClick}
+                disableInteractive={false}>
                 <MoreVertIcon />
               </Tooltip>
             </div>

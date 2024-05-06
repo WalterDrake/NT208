@@ -2,7 +2,7 @@ import * as courses from "../../service/courses"
 import * as studies from "../../service/studies"
 import validator from "../../hook/validate"
 import { useEffect, useState } from "react"
-export default function CreateCourse({ user, isCourse, isStudy }) {
+export  function CreateCourse({ user, isCourse, isStudy }) {
     useEffect(() => {
         validator({
             form: '#create-course',

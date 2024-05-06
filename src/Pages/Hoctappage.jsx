@@ -3,14 +3,9 @@ import HoctapItem from "./Hoctap/HocTapItem"
 import { useParams } from "react-router-dom"
 import "./Add.css"
 import { FaHeadphonesAlt } from "react-icons/fa"
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 
 import useUser from "../hook/useUser"
-import CreateCourse from "../components/Form/CreateCourse";
+import { CreateCourse } from "../components/teacherAction/courseAction"
 
 
 const HocTap = [
@@ -57,13 +52,6 @@ const HocTap = [
 const Hoctappage = () => {
   const { user } = useUser()
   const [filter, setFilter] = useState(2); // Default filter: all (2)  sài hook nha ae
-  const [showFormCreateCourse, setShowFormCreateCourse] = useState(false)
-  const handleCloseFromCreate = () => {
-    setShowFormCreateCourse(false)
-  }
-  const handleOpenFromCreate = () => {
-    setShowFormCreateCourse(true)
-  }
 
   const handleFilterChange = (value) => {
     setFilter(value);
@@ -94,16 +82,8 @@ const Hoctappage = () => {
             Hoàn thành
           </li>
         </ul>
-        <Button onClick={handleOpenFromCreate}>Create Study</Button>
-        <Dialog open={showFormCreateCourse} onClose={handleCloseFromCreate} fullWidth={true} maxWidth='md'>
-          <DialogTitle>Create Study</DialogTitle>
-          <DialogContent>
-            <CreateCourse  user={user} isCourse={false} isStudy={true} />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseFromCreate}>Cancel</Button>
-          </DialogActions>
-        </Dialog>
+        {(user.role === "teacher") ? <CreateCourse isCourse={flase} isStudy={true} user={user}/> : null}
+
         <div className=" container flex">
           {HocTap.filter(
             (item) => filter === 2 || item.tinhtrang === filter

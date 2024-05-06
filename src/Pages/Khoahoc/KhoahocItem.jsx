@@ -6,7 +6,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 const KhoahocItem = ({ KhoaHoc, className }) => {
   return (
     <Link to={`/Khoahocpage/${KhoaHoc.id}`}>
-      <div className= {`ml-4 frame rounded-md bg-white wrap ${className}`}>
+      <div className= {`md:ml-4 frame rounded-md bg-white wrap ${className}`}>
         <img
           src={KhoaHoc.image}
           className="mt-4 ml-2 rounded-md frame"

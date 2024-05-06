@@ -110,8 +110,8 @@ export default function Home() {
   }, [])
   return (
     <Grid container className='w-full' spacing={6} style={{ overflowY: "visible", height:'auto',minHeight: "100vh" }}>
-      <Grid item xs={9} >
-        <div className='min-h-[12rem] h-auto bg-gradient-to-r from-blue-500 to-blue-200 bg-opacity-50 rounded-lg'
+      <Grid item xs={12} md={9}  className='min-w[12.5rem]'>
+        <div className='min-h-[12rem] min-w-[12.5rem] h-auto bg-gradient-to-r from-blue-500 to-blue-200 bg-opacity-50 rounded-lg'
           id='home-hello-box bg-[]'>
           <h1 className='text-3xl text-white font-bold align-middle '>Chào mừng đến với trang web học tập</h1>
         </div>
@@ -146,8 +146,8 @@ export default function Home() {
           </div>
         </div>
       </Grid>
-      <Grid item xs={3}>
-        <Paper>Item 2</Paper>
+      <Grid item xs={0} md={3} className='md:visible hidden'>
+        <Paper className=''>Item 2</Paper>
       </Grid>
     </Grid>
   );

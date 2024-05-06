@@ -40,6 +40,7 @@ const Diendanpages = () => {
             role={undefined}
             variant="contained"
             tabIndex={-1}
+            className="w-auto"
             startIcon={<CloudUploadIcon />}
           >
             Upload file
@@ -47,9 +48,9 @@ const Diendanpages = () => {
           </Button>
           <CropOriginalIcon className="text-pink-300" />
         </div>
-        <Button variant="contained" onClick={handleCreatePost} className="p-2 ml-2 md:ml-4">Create Post</Button>
+        <Button variant="contained" onClick={handleCreatePost} className="p-2 mr-2 md:mr-8 w-auto max-h-10   ">Create Post</Button>
       </div>
-      {showCreatePost && <CreatePost />}
+      <div className="flex justify-center">{showCreatePost && <CreatePost />}</div>
       {/* <VideoList /> */}
       <PostList />
     </div >

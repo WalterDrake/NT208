@@ -2,7 +2,12 @@ import { useState } from "react";
 import Button from "@mui/material/Button"
 import { styled } from '@mui/material/styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 
+import * as CreateCourseForm from "../Form/CreateCourse";
 
 import validator from "../../hook/validate";
 import * as videos from '../../service/videos'
@@ -142,4 +147,27 @@ export function AddDealine() {
     return (
         <Button variant="contained" className="hover:bg-red-300 hover">thêm deadline</Button>
     )
+}
+
+export const CreateCourse = ({ user, isCourse, isStudy }) => {
+    const [showFormCreateCourse, setShowFormCreateCourse] = useState(false)
+    const handleCloseFromCreate = () => {
+      setShowFormCreateCourse(false)
+    }
+    const handleOpenFromCreate = () => {
+      setShowFormCreateCourse(true)
+    }
+  return(
+    <>
+        <Button onClick={handleOpenFromCreate}>Create Study</Button>
+        <Dialog open={showFormCreateCourse} onClose={handleCloseFromCreate} fullWidth={true} maxWidth='md'>
+            <DialogTitle>Create Study</DialogTitle>
+            <DialogContent>
+                <CreateCourseForm.CreateCourse user={user} isCourse={isCourse} isStudy={isStudy} />
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleCloseFromCreate}>Cancel</Button>
+            </DialogActions>
+        </Dialog>
+    </>)
 }

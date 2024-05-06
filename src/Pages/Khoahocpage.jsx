@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react"
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 
 import KhoahocItem from "./Khoahoc/KhoahocItem"
-import CreateCourse from "../components/Form/CreateCourse";
 //import { Link, Route } from "react-router-dom"
 import "./Add.css"
 import useUser from "../hook/useUser"
@@ -95,7 +89,6 @@ const initkhoahocs = [
 const Khoahocpage = () => {
   const [khoahoc,setKhoahoc] = useState(initkhoahocs)
   const {user} = useUser()
-  const [showFormCreateCourse, setShowFormCreateCourse] = useState(false)
   useEffect(() => {
     courses.getCourses()
       .then((res) => {
@@ -107,12 +100,6 @@ const Khoahocpage = () => {
         alert('hien khong the lay cac khoa hoc')
       })
   },[])
-  const handleCloseFromCreate = () => { 
-    setShowFormCreateCourse(false)
-  }
-  const handleOpenFromCreate = () => { 
-    setShowFormCreateCourse(true)
-  }
   const [filter, setFilter] = useState(2); // Default filter: all (2)
   const handleFilterChange = (value) => {
     setFilter(value)
@@ -135,17 +122,7 @@ const Khoahocpage = () => {
             Hoàn thành
           </li>
         </ul>
-        <Button onClick={handleOpenFromCreate}>Create Course</Button>
-        <Dialog open={showFormCreateCourse} onClose={handleCloseFromCreate}>
-        <DialogTitle>Create Course</DialogTitle>
-        <DialogContent>
-          <CreateCourse user={user} isCourse={true} isStudy={false} />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseFromCreate}>Cancel</Button>
-          <Button onClick={handleCloseFromCreate}>Create</Button>
-        </DialogActions>
-      </Dialog>
+        {(user.role ==='teacher') ? <CreateCourse isCourse={true} isStudy={flase} user={user}/> : null}
         <div className="container flex">
           {khoahoc
             .filter((item) => filter === 2 || item.tinhtrang === filter)

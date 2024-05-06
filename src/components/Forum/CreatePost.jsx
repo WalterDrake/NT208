@@ -27,7 +27,7 @@ export default function CreatePost() {
     }
 });
   return (
-    <form id="create-post" className='bg-[#cfe3d7] p-4'>
+    <form id="create-post" className='bg-[#cfe3d7] p-4 md:w-4/5 w-full rounded-3xl'>
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-base font-semibold leading-7 text-gray-900">Create Post</h2>
