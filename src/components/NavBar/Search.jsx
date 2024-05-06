@@ -1,6 +1,6 @@
 import {FaSearch} from "react-icons/fa";
 import { useEffect, useState, useRef } from 'react';
-import Tippy from '@tippyjs/react';
+import  Tooltip  from "@mui/material/Tooltip";
 import  useDebounce  from "../../hook/useDebounce";
 
 export  function Search() {

@@ -82,7 +82,7 @@ const Hoctappage = () => {
             Hoàn thành
           </li>
         </ul>
-        {(user.role === "teacher") ? <CreateCourse isCourse={flase} isStudy={true} user={user}/> : null}
+        {(user.role === "teacher") ? <CreateCourse isCourse={false} isStudy={true} user={user}/> : null}
 
         <div className=" container flex">
           {HocTap.filter(

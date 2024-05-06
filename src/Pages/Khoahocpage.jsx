@@ -122,7 +122,7 @@ const Khoahocpage = () => {
             Hoàn thành
           </li>
         </ul>
-        {(user.role ==='teacher') ? <CreateCourse isCourse={true} isStudy={flase} user={user}/> : null}
+        {(user.role ==='teacher') ? <CreateCourse isCourse={true} isStudy={false} user={user}/> : null}
         <div className="container flex">
           {khoahoc
             .filter((item) => filter === 2 || item.tinhtrang === filter)
