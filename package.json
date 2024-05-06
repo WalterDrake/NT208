@@ -28,6 +28,7 @@
     "dotenv": "^16.4.5",
     "lucide-react": "^0.376.0",
     "react": "^18.2.0",
+    "react-calendar": "^5.0.0",
     "react-chat-engine-advanced": "^0.1.28",
     "react-chat-engine-pretty": "^0.1.8",
     "react-countup": "^6.5.3",
