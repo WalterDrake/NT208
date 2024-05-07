@@ -45,7 +45,6 @@ Router.use('/messagemodels', messageModelRoute)
 Router.use('/videorealtimes', videoRealTimeRoute)
 // Group APIs
 Router.use('/groups', groupRoute)
-
 // Course APIs
 Router.use('/courses', courseRoute)
 // Baitap APIs
@@ -62,10 +61,10 @@ Router.use('/videos', videoRoute)
 Router.use('/cboxs', cboxRoute)
 // comment APIs
 Router.use('/comments', commentRoute)
-
-Router.use('/comlains', complainRoute)
-
-
+// complain APIs
+Router.use('/complains', complainRoute)
+// user APIs
+Router.use('/users', userRoute)
 // Study APIs
 Router.use('/studies', studyRoute)
 

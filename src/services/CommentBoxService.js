@@ -12,7 +12,6 @@ const createNew = async (reqBody) => {
     const newItem = {
       ...reqBody
     }
-
     const createditem = await cboxModel.createNew(newItem)
     if (newItem.studyId)
     {
@@ -51,8 +50,18 @@ const findOneById = async (itemId) => {
   }
 }
 
+const getComments = async (studyId) => {
+  try {
+    const item = await cboxModel.getComments(studyId)
+    return item
+  } catch (error) {
+    throw error
+  }
+}
+
 export const cboxService = {
   createNew,
   getDetails,
-  findOneById
+  findOneById,
+  getComments
 }

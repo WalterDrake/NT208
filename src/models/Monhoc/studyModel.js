@@ -122,7 +122,7 @@ const pushToListPost = async (getStudyId, postId) => {
 const updateCommentBoxId = async (id, commentBoxId) =>
 {
   try {
-    const result = await GET_DB().collection(cboxModel.COMMENTBOX_COLLECTION_NAME).findOneAndUpdate(
+    const result = await GET_DB().collection(studyModel.STUDY_COLLECTION_NAME).findOneAndUpdate(
       { _id: new ObjectId(id) },
       { $set: {
         commentBoxId: commentBoxId

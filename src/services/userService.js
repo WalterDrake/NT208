@@ -71,18 +71,41 @@ const checkExist = async (email, password) => {
     if (existStudent == null) {
       return null
     }
-
-    // Lấy bản ghi board sau khi gọi (tùy mục đích dự án mà có cần bước này hay không)
-    // Trả kết quả về, trong Service luôn phải có return
     return existStudent
   } catch (error) {
     throw error
   }
 }
 
+const changeOnline = async (userId) => {
+  try {
+    const status = await studentModel.changeOnline(userId)
+    return status
+  } catch (error) {
+    throw error
+  }
+}
+
+const changeOffline = async (userId) => {
+  try {
+    const status = await studentModel.changeOffline(userId)
+    return status
+  } catch (error) {
+    throw error
+  }
+}
+
+const getAllUserOnline = async() => {
+  const getAllStudy = await studentModel.getAllUserOnline()
+  return getAllStudy
+}
+
 export const userService = {
   createNew,
   getDetails,
   getDetailsAll,
-  checkExist
+  checkExist,
+  changeOnline,
+  changeOffline,
+  getAllUserOnline
 }

@@ -38,7 +38,8 @@ const USER_COLLECTION_SCHEMA = Joi.object().keys({
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
     .required(),
-  createdAt: Joi.date().timestamp('javascript').default(Date.now)
+  createdAt: Joi.date().timestamp('javascript').default(Date.now),
+  status: Joi.boolean().default(false)
 })
 
 const INVALID_UPDATE_FIELDS = ['_id', 'createdAt']
@@ -262,6 +263,59 @@ const findOneByEmail = async (email) => {
   catch (error) { throw new Error(error)}
 }
 
+const changeOnline= async (userId) => {
+  try {
+    const result = await GET_DB()
+      .collection(USER_COLLECTION_NAME)
+      .findOneAndUpdate(
+        { _id: new ObjectId(userId) },
+        { $set: {
+          status: true
+        } },
+        { returnDocument: 'after' } // sẽ trả về kết quả mới sau khi cập nhật
+      )
+    return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+const changeOffline= async (userId) => {
+  try {
+    const result = await GET_DB()
+      .collection(USER_COLLECTION_NAME)
+      .findOneAndUpdate(
+        { _id: new ObjectId(userId) },
+        { $set: {
+          status: false
+        } },
+        { returnDocument: 'after' } // sẽ trả về kết quả mới sau khi cập nhật
+      )
+    return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+const getAllUserOnline = async () => {
+  try {
+    const result = await GET_DB()
+      .collection(USER_COLLECTION_NAME)
+      .aggregate([
+        {
+          $match : {
+            status : true
+          }
+        }
+      ])
+      .toArray()
+    return result || null
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+
 // ở trong 1 class xây dựng những cái hàm tương tác với từng field như thêm sửa xóa cập nhật
 export const studentModel = {
   USER_COLLECTION_NAME,
@@ -278,6 +332,9 @@ export const studentModel = {
   pushToGroup,
   pushToStudy,
   findOneByEmail,
+  changeOnline,
+  changeOffline,
+  getAllUserOnline,
 
   //deleteCourse
   deletedOneCourse,

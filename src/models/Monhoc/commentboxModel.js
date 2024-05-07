@@ -2,6 +2,7 @@ import Joi from 'joi'
 import { ObjectId } from 'mongodb'
 import { GET_DB } from '~/config/mongodb'
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
+import { commentModel } from './commentModel'
 
 // Define Collection (Name & Schema)
 const COMMENTBOX_COLLECTION_NAME = 'commentboxs'
@@ -96,11 +97,38 @@ const pullToListComment= async (commentModel) => {
   } catch (error) { throw new Error(error) }
 }
 
+const getComments = async (studyId) => {
+  try {
+    const result = await GET_DB()
+      .collection(COMMENTBOX_COLLECTION_NAME)
+      .aggregate([
+        {
+          $match: {
+            studyId: new ObjectId(studyId)
+          }
+        },
+        {
+          $lookup: {
+            from: commentModel.COMMENT_COLLECTION_NAME,
+            localField: 'listComment',
+            foreignField: '_id',
+            as: 'Conversation'
+          }
+        }
+      ])
+      .toArray()
+    return result || null
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
 export const cboxModel = {
   COMMENTBOX_COLLECTION_NAME,
   createNew,
   findOneById,
   getDetails,
   pushToListComment,
-  pullToListComment
+  pullToListComment,
+  getComments
 }

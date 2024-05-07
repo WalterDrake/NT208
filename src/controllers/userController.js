@@ -2,9 +2,7 @@ import { StatusCodes } from 'http-status-codes'
 import { userService } from '../services/userService'
 import { studentModel, userModel } from '~/models/studentModel'
 import { ObjectId } from 'mongodb'
-import { GET_DB } from '~/config/mongodb'
-import { courseModel } from '~/models/Khoahoc/courseModel'
-import { json } from 'express'
+import bcrypt from 'bcryptjs'
 
 //-Đăng ký Sinh viên
 
@@ -26,7 +24,6 @@ const StudentRegister = async (req, res, next) => {
 const getStudentDetails = async (req, res, next) => {
   try {
     const userId = req.params.id
-    console.log(userId)
     const user = await userService.getDetails(new ObjectId(userId))
     res.status(StatusCodes.OK).json(user)
   } catch (error) {
@@ -59,6 +56,24 @@ const StudentLogin = async (req, res, next) => {
       req.params.email,
       req.params.password
     )
+    if (user)
+    {
+      await userService.changeOnline(user._id)
+    }
+    res.status(StatusCodes.OK).json(user)
+  } catch (error) {
+    next(error)
+  }
+}
+
+const StudentLogOut = async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const user = await userService.findOneById(userId)
+    if (user)
+    {
+      await userService.changeOffline(user._id)
+    }
     res.status(StatusCodes.OK).json(user)
   } catch (error) {
     next(error)
@@ -87,10 +102,19 @@ const updateStudent = async (req, res, next) => {
       const salt = await bcrypt.genSalt(10)
       const password = await bcrypt.hash(res.body.password, salt)
       const news = { ...req.body, password: password, salt: salt }
+      const student = await studentModel.update(req.params.id, news)
+      const students = await studentModel.findOneById(req.params.id)
+      res.status(StatusCodes.OK).json(students)
     }
-    const student = await studentModel.update(req.params.id, news)
-    const students = await studentModel.findOneById(req.params.id)
-    res.status(StatusCodes.OK).json(students)
+  } catch (error) {
+    next(error)
+  }
+}
+
+const getAllUserOnline = async (req, res, next) => {
+  try {
+    const getOnline = await userService.getAllUserOnline()
+    res.status(StatusCodes.OK).json(getOnline)
   } catch (error) {
     next(error)
   }
@@ -108,5 +132,7 @@ export const userController = {
   StudentRegister,
   getStudentDetails,
   StudentLogin,
-  updateStudent
+  updateStudent,
+  StudentLogOut,
+  getAllUserOnline
 }

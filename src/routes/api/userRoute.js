@@ -1,9 +1,5 @@
 import express from 'express'
-import { courseController } from '~/controllers/courseController'
 import { userController } from '~/controllers/userController'
-import { userModel } from '~/models/studentModel'
-import { userService } from '~/services/userService'
-import { userValidation } from '~/validations/userValidation'
 
 const Router = express.Router()
 
@@ -21,5 +17,9 @@ Router.route('/StudentReg').post(userController.StudentRegister)
 Router.route('/StudentLogin/:email/:password').post(
   userController.StudentLogin
 )
+Router.route('/StudentLogOut/:id')
+  .put(userController.StudentLogOut)
+Router.route('/getAlluserOnline')
+  .get(userController.getAllUserOnline)
 
 export const userRoute = Router

@@ -32,8 +32,19 @@ const findOneById = async (req, res, next) => {
   }
 }
 
+const getComments = async (req, res, next) => {
+  try {
+    const itemId = req.params.id
+    const item = await cboxService.getComments(itemId)
+    res.status(StatusCodes.OK).json(item)
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const cboxController = {
   createNew,
   getDetails,
-  findOneById
+  findOneById,
+  getComments
 }

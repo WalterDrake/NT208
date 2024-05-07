@@ -11,9 +11,8 @@ Router.route('/')
     res.status(StatusCodes.OK).json({ message: 'GET: API get list cBox' })
   })
   .post(cboxValidation.createNew, cboxController.createNew)
-
 Router.route('/:id').get(cboxController.findOneById)
-
 Router.route('/get/All').get(cboxController.getDetails)
-
+Router.route('/:id/getComments') //id of studyId
+  .get(cboxController.getComments)
 export const cboxRoute = Router
