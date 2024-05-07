@@ -11,7 +11,7 @@ const addGroup = async (ListMemberInit,groupData,owner) => {
             code: code,
             owner:owner._id,
         })
-        return res.data
+        return res
     } catch (error) {
         throw error
     }
