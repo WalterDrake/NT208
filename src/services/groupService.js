@@ -19,22 +19,21 @@ const createNew = async (reqBody) => {
     }
     // Call model layer to save record into database
     const createdGroup = await groupModel.createNew(newGroup)
-    await groupModel.pushToListMem(createdGroup.insertedId, newGroup.owner)
-
+    const getNewGroup = await groupModel.findOneById(createdGroup.insertedId)
+    await groupModel.pushToListMem(getNewGroup, newGroup.owner)
     for (const mem of mems)
     {
       const student = await studentModel.findOneByEmail(mem)
       if (student != null)
       {
-        await groupModel.pushToListMem(createdGroup.insertedId, student._id)
+        await groupModel.pushToListMem(getNewGroup, student._id)
       }
     }
 
     // Get record board after calling (optional)
-    const getNewGroup = await groupModel.findOneById(createdGroup.insertedId)
-
+    const getNewGroupAgain = await groupModel.findOneById(createdGroup.insertedId)
     // Return result; note: have to return in Service
-    return getNewGroup
+    return getNewGroupAgain
   } catch (error) { throw error }
 }
 

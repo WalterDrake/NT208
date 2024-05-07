@@ -15,6 +15,4 @@ Router.route('/UpdatePost/:id').post(postController.updatePostOfItem) // truyen 
 Router.route('/DeletePost/:id').delete(postController.deletePostOfItem) // truyen id post
 Router.route('/Getlist/:id').delete(postController.getListPostOfItem) // truyen id item
 
-// API hỗ trợ việc di chuyển card giữa các column khác nhau trong một board
-
 export const postRoute = Router

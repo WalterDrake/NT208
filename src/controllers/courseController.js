@@ -12,7 +12,14 @@ import { ExplainVerbosity, ObjectId } from 'mongodb'
 // Tao khoa hoc by Teacher
 const createNewCoursebyAdmin = async (req, res, next) => {
   try {
-    const createdItem = await courseService.createNew(req, res, next)
+    const findtest = await studentModel.findOneByEmail(req.body.owner)
+    console.log(findtest)
+    let modified = {
+      ...req.body,
+      owner: String(findtest._id)
+    }
+    console.log(modified)
+    const createdItem = await courseService.createNew(modified, res, next)
   } catch (error) {
     next(error)
   }
@@ -27,15 +34,6 @@ const getDetailsCourseAllbyAdmin = async (req, res, next) => {
     } else {
       res.json({}).send({ message: 'Khong co lop nao duoc tim thay' })
     }
-  } catch (error) {
-    next(error)
-  }
-}
-
-const getDetailsCourseAll = async (req, res, next) => {
-  try {
-    const courselist = await courseModel.getDetailsAll()
-    res.status(StatusCodes.OK).json(courselist)
   } catch (error) {
     next(error)
   }

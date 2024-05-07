@@ -30,19 +30,16 @@ const getDetailsAll = async () => {
   }
 }
 
-const createNew = async (req, res, next) => {
+const createNew = async (modified, res, next) => {
   try {
-    const newItem = {
-      ...req.body
-    }
-    const existcourse = await courseModel.findOne(newItem)
+    const existcourse = await courseModel.findOne(modified)
     console.log(existcourse)
     if (existcourse) {
       res
         .status(StatusCodes.FAILED_DEPENDENCY)
         .send({ message: 'Course is already' })
     } else {
-      const createdcourse = await courseModel.createNew(newItem)
+      const createdcourse = await courseModel.createNew(modified)
       const getNewcourse = await courseModel.findOneById(
         createdcourse.insertedId
       )

@@ -1,11 +1,11 @@
-import Joi, { required } from 'joi'
+import Joi from 'joi'
 import { ObjectId } from 'mongodb'
 import { GET_DB } from '~/config/mongodb'
 import {
   OBJECT_ID_RULE,
   OBJECT_ID_RULE_MESSAGE,
   EMAIL_RULE,
-  TEXT_RULE,
+  TEXT_RULE
 } from '~/utils/validators'
 import bcrypt from 'bcryptjs'
 
@@ -25,14 +25,14 @@ const TEACHER_COLLECTION_SCHEMA = Joi.object().keys({
   teachCourse: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
-  createdAt: Joi.date().timestamp('javascript').default(Date.now),
+  createdAt: Joi.date().timestamp('javascript').default(Date.now)
 })
 
 const INVALID_UPDATE_FIELDS = ['_id', 'createdAt']
 
 const validateBeforeCreate = async (data) => {
   return await USER_COLLECTION_SCHEMA.validateAsync(data, {
-    abortEarly: false,
+    abortEarly: false
   })
 }
 
@@ -41,7 +41,7 @@ const createNew = async (data) => {
     const existingStudent = await GET_DB()
       .collection(USER_COLLECTION_NAME)
       .findOne({
-        email: data.email,
+        email: data.email
       })
 
     if (existingStudent) {
@@ -171,13 +171,26 @@ const getIds = async (mssv) => {
       .aggregate([
         {
           $match: {
-            email: string,
-          },
-        },
+            email: string
+          }
+        }
       ])
       .toArray()
 
     return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+const findOneByEmail = async (email) => {
+  try {
+    const teacher = await GET_DB()
+      .collection(teacherModel.TEACHER_COLLECTION_NAME)
+      .findOne({
+        email: email
+      })
+    return teacher
   } catch (error) {
     throw new Error(error)
   }
@@ -195,4 +208,6 @@ export const teacherModel = {
   checkExist,
   deleteMany,
   deleteOneCourse,
+  findOneByEmail
 }
+

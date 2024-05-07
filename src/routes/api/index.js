@@ -10,6 +10,7 @@ import { chatRealTimeRoute } from './chatRealTimeRoute'
 import { videoRealTimeRoute } from './videoRealTimeRoute'
 import { groupRoute } from './groupRoute'
 import { teamBoxRoute } from './teamBoxRoute'
+import { userRoute } from './userRoute'
 import { courseRoute } from './courseRoute'
 import { notiRoute } from './notiRoute'
 import { baitapRoute } from './baitapRoute'
@@ -18,6 +19,7 @@ import { cboxRoute } from './commentBoxRoute'
 import { commentRoute } from './commentRoute'
 import { itemRoute } from './itemRoute'
 import { videoRoute } from './videoRoute'
+import { complainRoute } from './complainRoute'
 
 const Router = express.Router()
 // Check APIs /status
@@ -60,6 +62,9 @@ Router.use('/videos', videoRoute)
 Router.use('/cboxs', cboxRoute)
 // comment APIs
 Router.use('/comments', commentRoute)
+
+Router.use('/comlains', complainRoute)
+
 
 // Study APIs
 Router.use('/studies', studyRoute)
