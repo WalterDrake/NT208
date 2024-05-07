@@ -19,7 +19,6 @@ const createNew = async (reqBody) => {
     const createdGroup = await groupModel.createNew(newGroup)
     await groupModel.pushToListMem(createdGroup.insertedId, newGroup.owner)
     const mems = newGroup.listMem
-    console.log(mems)
     for (const mem of mems)
     {
       await groupModel.pushToListMem(createdGroup.insertedId, mem)
