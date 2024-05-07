@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import { slugify } from '~/utils/formatters'
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
@@ -32,7 +33,7 @@ const getDetailsAll = async () => {
 const createNew = async (req, res, next) => {
   try {
     const newItem = {
-      ...req.body,
+      ...req.body
     }
     const existcourse = await courseModel.findOne(newItem)
     console.log(existcourse)
@@ -56,7 +57,7 @@ const updateCourse = async (courseId, reqBody) => {
   try {
     const updateData = {
       ...reqBody,
-      updatedAt: Date.now(),
+      updatedAt: Date.now()
     }
     const updatedCourse = await courseModel.updateCourse(courseId, updateData)
 
@@ -81,5 +82,5 @@ export const courseService = {
   updateCourse,
   getDetailsAll,
   createNew,
-  getCoursebyUser,
+  getCoursebyUser
 }

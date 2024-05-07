@@ -252,6 +252,16 @@ const pushToStudy = async (studyId, userId) => {
   } catch (error) { throw new Error(error) }
 }
 
+const findOneByEmail = async (email) => {
+  try {
+    const result = await GET_DB().collection(USER_COLLECTION_NAME).find({
+      email : email
+    }).toArray()
+    return result.length > 0 ? result[0] : null
+  }
+  catch (error) { throw new Error(error)}
+}
+
 // ở trong 1 class xây dựng những cái hàm tương tác với từng field như thêm sửa xóa cập nhật
 export const studentModel = {
   USER_COLLECTION_NAME,
@@ -267,6 +277,7 @@ export const studentModel = {
   findCourse,
   pushToGroup,
   pushToStudy,
+  findOneByEmail,
 
   //deleteCourse
   deletedOneCourse,

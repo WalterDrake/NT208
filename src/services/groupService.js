@@ -6,7 +6,9 @@ import { studentModel } from '~/models/studentModel'
 
 const createNew = async (reqBody) => {
   try {
+    const mems = reqBody.listMem
     // Handle data according to each project
+    delete reqBody.listMem
     const newGroup = {
       ...reqBody
     }
@@ -18,11 +20,16 @@ const createNew = async (reqBody) => {
     // Call model layer to save record into database
     const createdGroup = await groupModel.createNew(newGroup)
     await groupModel.pushToListMem(createdGroup.insertedId, newGroup.owner)
-    const mems = newGroup.listMem
+
     for (const mem of mems)
     {
-      await groupModel.pushToListMem(createdGroup.insertedId, mem)
+      const student = await studentModel.findOneByEmail(mem)
+      if (student != null)
+      {
+        await groupModel.pushToListMem(createdGroup.insertedId, student._id)
+      }
     }
+
     // Get record board after calling (optional)
     const getNewGroup = await groupModel.findOneById(createdGroup.insertedId)
 
