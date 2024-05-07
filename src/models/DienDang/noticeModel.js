@@ -13,8 +13,7 @@ const NOTICE_COLLECTION_SCHEMA = Joi.object().keys({
   //email thi nen loc tu FE nhung o day se loc lai
   title: Joi.string().trim().required(),
   detail: Joi.string().trim().required(),
-  date: Joi.date().timestamp("javascript").required(),
-  school: Joi.string()
+  admin: Joi.string()
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
     .required(),

@@ -230,6 +230,19 @@ const getIds = async (mssv) => {
     throw new Error(error);
   }
 };
+const findOneByEmail = async (email) => {
+  try {
+    const test = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .findOne({
+        email: email,
+      });
+
+    return test;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 // ở trong 1 class xây dựng những cái hàm tương tác với từng field như thêm sửa xóa cập nhật
 export const studentModel = {
   USER_COLLECTION_NAME,
@@ -243,6 +256,7 @@ export const studentModel = {
   getIds,
   checkExist,
   findCourse,
+  findOneByEmail,
 
   //deleteCourse
   deletedOneCourse,

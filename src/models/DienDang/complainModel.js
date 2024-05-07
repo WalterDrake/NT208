@@ -7,6 +7,8 @@ import {
   EMAIL_RULE,
   TEXT_RULE,
 } from "~/utils/validators";
+import { courseModel } from "../Khoahoc/courseModel";
+import { response } from "express";
 
 const COMPLAIN_COLLECTION_NAME = "complain";
 const COMPLAIN_COLLECTION_SCHEMA = Joi.object().keys({
@@ -15,9 +17,8 @@ const COMPLAIN_COLLECTION_SCHEMA = Joi.object().keys({
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
     .required(),
-  date: Joi.date().iso().greater(Joi.ref("start")).required(),
   complain: Joi.string().trim().required(),
-  school: Joi.string()
+  owner: Joi.string()
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
     .required(),
@@ -76,12 +77,27 @@ const getDetailsAll = async () => {
     throw new Error(error);
   }
 };
+const findOnSearch = async (req, res, next) => {
+  try {
+    req.query.q;
+    const articles = await GET_DB()
+      .collection(courseModel.COURSE_COLLECTION_NAME)
+      .find({ title: { $regex: req.query.q, $options: "i" } })
+      .toArray();
+    return res.json(articles);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 
 export const complainModel = {
   COMPLAIN_COLLECTION_NAME,
   COMPLAIN_COLLECTION_SCHEMA,
-  createNew,
+
   findOneById,
-  getDetails,
+
+  //Danh cho Teacher va Hocsinh
+  createNew,
   getDetailsAll,
+  findOnSearch,
 };

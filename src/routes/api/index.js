@@ -19,6 +19,7 @@ import { cboxRoute } from "./commentBoxRoute";
 import { commentRoute } from "./commentRoute";
 import { itemRoute } from "./itemRoute";
 import { videoRoute } from "./videoRoute";
+import { complainRoute } from "./comlainRoute";
 
 const Router = express.Router();
 // Check APIs /status
@@ -63,5 +64,6 @@ Router.use("/videos", videoRoute);
 Router.use("/cboxs", cboxRoute);
 // comment APIs
 Router.use("/comments", commentRoute);
+Router.use("/comlains", complainRoute);
 
 export const APIs = Router;

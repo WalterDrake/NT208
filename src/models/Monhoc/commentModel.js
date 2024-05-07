@@ -33,7 +33,6 @@ const createNew = async (data) => {
     throw new Error(error);
   }
 };
-
 const findOneById = async (cboxId) => {
   try {
     const result = await GET_DB()

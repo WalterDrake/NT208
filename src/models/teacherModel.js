@@ -183,6 +183,19 @@ const getIds = async (mssv) => {
   }
 };
 
+const findOneByEmail = async (email) => {
+  try {
+    const teacher = await GET_DB()
+      .collection(teacherModel.TEACHER_COLLECTION_NAME)
+      .findOne({
+        email: email,
+      });
+    return teacher;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 export const teacherModel = {
   TEACHER_COLLECTION_NAME,
   TEACHER_COLLECTION_SCHEMA,
@@ -195,4 +208,5 @@ export const teacherModel = {
   checkExist,
   deleteMany,
   deleteOneCourse,
+  findOneByEmail,
 };
