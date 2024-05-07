@@ -3,7 +3,6 @@ import * as httpRequest from '../utils/httpRequest'
 
 const addGroup = async (ListMemberInit,groupData,owner) => {
     try {
-        console.log(owner)
         const { name , code } = groupData
         const res = await httpRequest.post('/groups', {
             listMem: ListMemberInit,
@@ -16,7 +15,17 @@ const addGroup = async (ListMemberInit,groupData,owner) => {
         throw error
     }
 }
+const getAllGroupByIdUser = async (id) =>
+{
+    try {
+        const response = await httpRequest.get(`groups/${id}/getall`)
+        return response
+    } catch (err) {
+        throw err
+    }
+}
 
 export {
-    addGroup
+    addGroup,
+    getAllGroupByIdUser
 }

@@ -19,7 +19,6 @@ export const CreateGroup = () => {
         validator.isEmail1('#add-group-member', 'Email không hợp lệ'),
       ],
       onSubmit: function (data) {
-        console.log(data);
         console.log('member: ', memberList)
         groups.addGroup(memberList, data, user)
           .then((res) => {

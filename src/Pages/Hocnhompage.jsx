@@ -1,75 +1,26 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import HocNhomItem from "./Hocnhom/HocNhomItem";
 import HocNhom_Setting from "./Hocnhom/HocNhom_Setting";
 import * as GroupActions from './Hocnhom/GroupActions'
+import * as groups from "../service/groups"
+import useUser from "../hook/useUser";
 
-const HocNhom = [
-  {
-    id:1,
-    image: "src\\assets\\HocNhom_img\\img_1.jpg",
-    ten: "10 điểm Lt Web",
-    siso: 6,
-    tinhtrang: 0,
-  },
 
-  {
-    id : 2,
-    image: "src\\assets\\HocNhom_img\\img_2.jpg",
-    ten: "Chúng ta của tương lai <3",
-    siso: 3,
-    tinhtrang: 0,
-  },
-
-  {
-    id: 3,
-    image: "src\\assets\\HocNhom_img\\img_3.jpg",
-    ten: "Học, học nữa, học mãi....",
-    siso: 7,
-    tinhtrang: 0,
-  },
-
-  {
-    id: 4,
-    image: "src\\assets\\HocNhom_img\\img_4.jpg",
-    ten: "Ăn ngủ cùng dl 💀",
-    siso: 10,
-    tinhtrang: 0,
-  },
-
-  {
-    id: 5,
-    image: "src\\assets\\HocNhom_img\\img_5.jpg",
-    ten: "Im coi, đừng để anh bực bội!",
-    siso: 6,
-    tinhtrang: 0,
-  },
-  { 
-    id: 6,
-    image: "src\\assets\\KhoaHoc_img\\WannaGame.jpg",
-    ten: "WannaGame",
-    mota: "Chuỗi training CTF do CLB Wanna.W1n tổ chức",
-    siso: 30,
-    tinhtrang: 1,
-  },
-
-  {
-    id: 7,
-    image: "src\\assets\\KhoaHoc_img\\AWS.jpg",
-    ten: "AWS Cloud Training",
-    mota: "Khoa Mạng máy tính và Truyền thông",
-    siso: 140,
-    tinhtrang: 1,
-  },
-];
 export const ShowFormAddGroupContext = createContext()
 
 const HocNhompage = () => {
-  const [filter, setFilter] = useState(2) // Default filter: all (2)  sài hook nha ae
-
-  const handleFilterChange = (value) => {
-    setFilter(value)
+   const {user} = useUser()
+  const [hocnhoms,setHocnhoms] = useState([])
+  useEffect(()=>{
+    groups.getAllGroupByIdUser(user._id)
+    .then((res) => {
+      setHocnhoms(res)
+    })
+    .catch ((err) => {
+      console.log('err get list group',err)
+    })
   }
-
+  ,[])
   const [openAddGroup, setOpenAddGroup] = useState(false);
   const [openJoinGroup, setOpenJoinGroup] = useState(false);
 
@@ -85,21 +36,15 @@ const HocNhompage = () => {
           {/* header của hocnhompage */}
           <ul className="flex mb-5">
             <li
-              className="m-2 font-bold effect "
-              onClick={() => handleFilterChange(2)}
-            >
+              className="m-2 font-bold effect " >
               Tất cả
             </li>
             <li
-              className="m-2 font-bold effect "
-              onClick={() => handleFilterChange(1)}
-            >
+              className="m-2 font-bold effect " >
               Lớp học
             </li>
             <li
-              className="m-2 font-bold effect"
-              onClick={() => handleFilterChange(0)}
-            >
+              className="m-2 font-bold effect" >
               Nhóm riêng tư
             </li>
           </ul>
@@ -109,11 +54,9 @@ const HocNhompage = () => {
             {openJoinGroup && <GroupActions.JoinGroup />}
         </div>
         <div className="container flex">
-          {HocNhom.filter(
-            (item) => filter === 2 || item.tinhtrang === filter
-          ).map((HocNhom, index) => (
+          { hocnhoms.map((HocNhom, index) => (
             <div key={index} className="item">
-              <HocNhomItem HocNhom={HocNhom} Tinhtrang={filter} />
+              <HocNhomItem HocNhom={HocNhom}  />
             </div>
           ))}
         </div>
