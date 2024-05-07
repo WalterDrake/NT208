@@ -19,12 +19,13 @@ export default function PostItem({ post }) {
   // const [showUpdate, setShowUpdate] = React.useState(false);
 
   const handleDelete = useCallback(() => {
+     console.log(post)
     forum.deleteForum(post._id)
       .then(() => {
         alert('Delete success')
       })
-      .catch(() => {
-        alert('Delete failed')
+      .catch((err) => {
+        console.log('delete',err)
       })
   }, [])
   const handleTooltipClick = () => {
@@ -42,7 +43,9 @@ export default function PostItem({ post }) {
             <div className='text-sm font-bold mt-4 mb-2 bg-white shadow py-[2px] w-20 text-center rounded-md'>hoi dap</div>
             <div className='relative'>
               <Tooltip
-                title={<More className=" bg-blue-500 w-auto text-white" myEvent={{ handleDelete }} />}
+                title={<ul>
+                  <li onClick={handleDelete}>delete</li>
+                </ul> }
                 open={open} onClick={handleTooltipClick}
                 disableInteractive={false}>
                 <MoreVertIcon />

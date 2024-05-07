@@ -42,11 +42,11 @@ export const updateForum = async (idUser, data) => { // truyen vo id user cap ca
 
 export const deleteForum = async (id) => {
     try {
-        const response = await httpRequest.remove(`/posts/DeletePost/:${id}`)
-        return response.data
+        const response = await httpRequest.remove(`/posts/DeletePost/${id}`)
+        return response
     }
     catch (error) {
-        throw error.response.data
+        throw error.response
     }
 }
 
