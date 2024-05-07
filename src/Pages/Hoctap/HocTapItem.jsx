@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const HocTapItem = ({ HocTap, Tinhtrang }) => { // tạo props với object
     return (
       // các thuộc tính nào khác nhau ở từng item muốn render thì qua bên mảng kia thêm nha
-    <Link to ={`/Hoctappage/${HocTap.id}`}>
+    <Link to ={`/Hoctappage/${HocTap._id}`}>
         <div className=" ml-4 frame rounded-md bg-white wrap">
           <img src={HocTap.image}
             className="mt-4 ml-2 rounded-md frame"

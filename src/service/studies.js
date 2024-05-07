@@ -1,10 +1,10 @@
-import { add } from 'lodash';
+
 import * as httpRequests from '../utils/httpRequest';
 // lấy danh sách các lớp học
 export const getStudies = async (id_user) => {
     try {
         const response = await httpRequests.get('/studies/', { params: { id_user } });
-        return response;
+        return Array(response);
     } catch (error) {
         throw error.response;
     }
@@ -19,8 +19,14 @@ export const getStudy = async (id_study) => { // id_study là id của lớp h�
     }
 }
 // tạo một lớp học mới
-export const createStudy = async (data) => {
+export const createStudy = async (owner,{title,descripton}) => {
     try {
+        const data = {
+            title,
+            descripton,
+            owner: owner._id,
+            admin: owner._id,
+        }
         const response = await httpRequests.post('/studies/', data);
         return response;
     } catch (error) {

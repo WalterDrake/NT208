@@ -17,14 +17,7 @@ import StudentDashboard from "./Pages/Schoolweb/student/StudentDashboard"
 export const UserContext = createContext(testUser)
 
 function App() {
-  const [user,setUser] = useState ( () =>{
-    let user = localStorage.getItem('UserUit')
-    if(user){
-      return JSON.parse(user)
-    }else{
-      return testUser
-    }
-  } )
+  const [user,setUser] = useState (null)
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Router className="h-screen bg-[#F0F7FF]">
@@ -74,10 +67,8 @@ function App() {
             )
           })}
           <Route path="/Student/dashboard" element={<StudentDashboard />}>
-
           </Route>
         </Routes>
-
       </Router>
     </UserContext.Provider>
   )

@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState, createContext } from "react";
 import { Grid } from "@mui/material";
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 
 import AddStudentForm from "../../../components/Form/AddStudentForm";
 import KhoahocDetailVideo from "./KhoahocDetailItem/KhoahocDetailVideo";
@@ -40,6 +41,10 @@ function CourseDetails() {
     }
     ]
   });
+  const [showFormStudent, setShowFormStudent] = useState(false)
+  const handleSeeStudent = () => {
+    setShowFormStudent(!showFormStudent)
+  }
   useEffect(() => {
     document.title = courseDetails.name
     courses.getCourse(courseID)
@@ -70,9 +75,13 @@ function CourseDetails() {
       <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">{courseDetails.name}</h1>
       <div className='teacher-action'>
       {
-        (user.role === 'teacher')  ?
+        (user.role === 'teacher' || user.role === 'admin')  ?
         (
-         <div className="text-white mr-5 p-4" onClick={handleAddStudent}><PersonAddAltIcon/> Student</div>
+         <div className="flex">
+          <button className="text-white mr-2 p-4" onClick={handleSeeStudent}><PersonSearchIcon/> Student</button>
+          <button className="text-white mr-5 p-4" onClick={handleAddStudent}><PersonAddAltIcon/> Student</button>
+         </div>
+        
        ):<></>}
       </div>
       </div>
@@ -88,7 +97,7 @@ function CourseDetails() {
       </div>
       <div id='teacher-action'>
       {
-          (user.role === 'teacher')  ?
+          (user.role === 'teacher' || user.role === 'admin')  ?
        (
       <>
         <AddVideo courseID={courseID}/>

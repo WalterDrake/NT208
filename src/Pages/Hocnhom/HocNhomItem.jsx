@@ -5,7 +5,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 const HocNhomItem = ({ HocNhom }) => { // tạo props với object
   return (
-    <Link to={`/Hocnhompage/${HocNhom.id}`}>
+    <Link to={`/Hocnhompage/${HocNhom._id}`}>
       <div className=" ml-4  frame rounded-md bg-white wrap">
 
         <img src={HocNhom.image}

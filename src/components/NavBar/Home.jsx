@@ -23,7 +23,7 @@ export default function Home() {
         console.log(error, 'khong lay duoc hoc tap')
       })
 
-    courses.getCourses().then((data) => {
+    courses.GetCourseAll().then((data) => {
       setCoursesData(data)
     })
       .catch((error) =>
@@ -126,7 +126,7 @@ export default function Home() {
           <div className='content min-h-[20rem]  h-auto w-auto bg-custom-gradient rounded-lg mt-10 flex flex-col md:flex-row md:flex-wrap'>
             {courseData.map((course, index) => {
               if (index < 4) {
-                return <KhoahocItem KhoaHoc={course} key={course.id} />
+                return <KhoahocItem KhoaHoc={course} key={index} />
               }
             })}
           </div>
@@ -141,7 +141,7 @@ export default function Home() {
           <div className='content min-h-[20rem] h-auto bg-custom-gradient rounded-lg mt-10 md:flex flex-wrap'>
             {courseData.map((course, index) => {
               if (index < 4) {
-                return <HocTapItem HocTap={course} key={course.id} />
+                return <HocTapItem HocTap={course} key={course._id} />
               }
             })}
           </div>

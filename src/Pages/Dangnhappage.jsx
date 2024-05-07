@@ -26,9 +26,9 @@ const Dangnhappage = () => {
             onSubmit: function (data) {
                 serivce.login(data.email, data.password)
                 .then(res => {
-                    console.log('oke r cu')
+                    console.log('res',res)
+                    res.role = 'teacher'
                     setUser(res)
-                    localStorage.setItem('UserUit', JSON.stringify(res))
                     // console.log('user',res)
                     if(location.pathname === '/Login') {
                         navigate('/');
@@ -51,6 +51,9 @@ const Dangnhappage = () => {
                 })
             }
         })
+            return () => {
+                
+            }
     }, [])
 
     return (

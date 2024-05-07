@@ -12,7 +12,7 @@ export  function CreateCourse({ user, isCourse, isStudy }) {
             rules: [
                 validator.isRequired('#title', 'Please enter the title'),
                 validator.isRequired('#description', 'Please enter the description'),
-                validator.isRequired('#avatar', 'Please choose the avatar'),
+                // validator.isRequired('#avatar', 'Please choose the avatar'),
             ],
             onSubmit: function (data) {
                 if (isCourse) {
@@ -48,7 +48,7 @@ export  function CreateCourse({ user, isCourse, isStudy }) {
                 <label htmlFor="avatar">Avatar: </label>
                 <div className="form-group">
                     <label htmlFor="avatar"></label>
-                    <input type="url" id="avatar"  name="avatar" required style={{width: '100%', height: '20px'}} onChange={(e) => setImage(e.target.value)}></input>
+                    <input type="url" id="avatar"  name="avatar" style={{width: '100%', height: '20px'}} onChange={(e) => setImage(e.target.value)}></input>
                     <div className="form-message" style={{color: "red"}}></div>
                 </div>
             </div>

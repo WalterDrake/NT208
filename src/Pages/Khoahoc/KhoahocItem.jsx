@@ -4,8 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const KhoahocItem = ({ KhoaHoc, className }) => {
+  if (!KhoaHoc) return null;
   return (
-    <Link to={`/Khoahocpage/${KhoaHoc.id}`}>
+    <Link to={`/Khoahocpage/${KhoaHoc._id}`}>
       <div className= {`md:ml-4 frame rounded-md bg-white wrap ${className}`}>
         <img
           src={KhoaHoc.image}

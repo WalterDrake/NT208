@@ -15,7 +15,7 @@ export const NavSidebarSmall = () => {
   //   where: {
   //     members: {
   //       some: {
-  //         profileId: profile.id
+  //         profileId: profile._id
   //       }
   //     }
   //   }

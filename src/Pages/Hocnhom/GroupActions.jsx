@@ -2,9 +2,12 @@ import { useRef, useState } from "react";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 
+import  useUser  from "../../hook/useUser";
+import * as groups from '../../service/groups'
 import validator from "../../hook/validate";
 
 export const CreateGroup = () => {
+  const {user} = useUser()
   validator({
     form: '#add-group-form',
     formGroup: '.form-group',
@@ -13,13 +16,18 @@ export const CreateGroup = () => {
     rules: [
       validator.isRequired('#add-group-name', 'nhập tên nhóm'),
       validator.isEmail1('#add-group-member', 'Email không hợp lệ'),
-      validator.isRequired('#add-group-desrciption', 'Vui lòng nhập mô tả'),
   ],
     onSubmit: function (data) {
       console.log(data);
       console.log('member: ',memberList)
-    }
-  }
+      groups.addGroup(memberList,data,user)
+      .then((res) => { 
+        console.log('tạo nhóm response',res)
+      })
+      .catch((error) => {
+        console.log('tạo nhóm err',error)
+    })
+  }}
   )
   const memberInputRef = useRef()
   const [memberInput,setMemeberInput] = useState('')
@@ -40,13 +48,19 @@ export const CreateGroup = () => {
     <form id='add-group-form' className="m-0 bg-stone-400 min-h-24 w-auto">
       <div className="form-group">
         <label htmlFor="group-name">Tên nhóm: </label>
-        <input type="text" placeholder="Tên nhóm" name="group-name" id='add-group-name' className="border-black border-2"/>
+        <input type="text" placeholder="Tên nhóm" name="name" id='add-group-name' className="border-black border-2"/>
+        <div className="form-message text-red-700 flex justify-center"></div>
+      </div>
+      <br></br>
+      <div className="form-group">
+        <label htmlFor="group-name">Mã code: </label>
+        <input type="text" placeholder="Tên nhóm" name="code" id='add-group-code' className="border-black border-2"/>
         <div className="form-message text-red-700 flex justify-center"></div>
       </div>
       <br></br>
       <div className="form-group">
         <label htmlFor="group-description">Mô tả: </label>
-        <input type="text" placeholder="Mô tả" id='add-group-desrciption' name="group-description" className="border-black border-2"/>
+        <input type="text" placeholder="Mô tả" id='add-group-desrciption' name="description" className="border-black border-2"/>
         <div className="form-message text-red-700 flex justify-center"></div>
        </div>
       <br></br>
