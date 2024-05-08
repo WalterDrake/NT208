@@ -24,7 +24,7 @@ const createItemOfCourse = async (reqBody) => {
 const getDetailAllItem = async () => {
   try {
     const item = await itemModel.getDetailAllItem();
-    return resItem;
+    return item;
   } catch (error) {
     throw error;
   }
