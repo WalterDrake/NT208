@@ -3,7 +3,6 @@ import  * as httpRequest from '../utils/httpRequest'
 export const GetCourseAll = async () => {
     try {
         const response = await httpRequest.get('/courses/GetCourseAll/')
-        console.log('response',response)
         return Array(response)
     } catch (error) {
         throw error.response
@@ -57,13 +56,14 @@ export const getCoursesDone = async (id) => {
     }
 }
 
-export const createCourse  = async (owner,{title,description}) => {
+export const createCourse  = async (admin,{title,description,owner,linkimage}) => {
     try {
         const data = {
             title,
             description,
-            admin: owner._id,
-            owner : owner._id,
+            admin: admin._id,
+            owner,
+            linkimage,
         }
         const response = await httpRequest.post('/courses/CreateCourse/', data)
         return response
