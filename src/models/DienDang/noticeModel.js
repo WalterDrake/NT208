@@ -7,6 +7,8 @@ import {
   EMAIL_RULE,
   TEXT_RULE,
 } from "~/utils/validators";
+import { eventModel } from "./eventNotiModel";
+import { studentModel } from "../studentModel";
 
 const NOTICE_COLLECTION_NAME = "notice";
 const NOTICE_COLLECTION_SCHEMA = Joi.object().keys({
@@ -34,6 +36,14 @@ const createNew = async (data) => {
     const createdUser = await GET_DB()
       .collection(NOTICE_COLLECTION_NAME)
       .insertOne(validData);
+    const tenevent = "THONG BAO DIEN DAN";
+    const liststudent = await studentModel.getDetailsAll();
+    const idList = liststudent.map((student) => student._id);
+    const createdEvent = await eventModel.createNew(
+      tenevent,
+      createdUser.insertedId,
+      idList
+    );
     return createdUser;
   } catch (error) {
     throw new Error(error);

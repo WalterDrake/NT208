@@ -11,17 +11,17 @@ import { courseModel } from "../Khoahoc/courseModel";
 import { response } from "express";
 import { cboxModel } from "../Monhoc/commentboxModel";
 
-const COMPLAIN_COLLECTION_NAME = "complain";
-const COMPLAIN_COLLECTION_SCHEMA = Joi.object().keys({
+const EVENT_COLLECTION_NAME = "events";
+const EVENT_COLLECTION_SCHEMA = Joi.object().keys({
   //email thi nen loc tu FE nhung o day se loc lai
-  user: Joi.string()
+  nameevent: Joi.string().trim().required(),
+  own: Joi.string()
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
+    .required(), // Thuoc ve su kien nao dang bai tap hay la dang dien dan
+  listimpact: Joi.array()
+    .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .required(),
-  complain: Joi.string().trim().required(), // noi dung
-  commenbox: Joi.string()
-    .pattern(OBJECT_ID_RULE)
-    .message(OBJECT_ID_RULE_MESSAGE),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
 });
 
@@ -32,14 +32,17 @@ const validateBeforeCreate = async (data) => {
     abortEarly: false,
   });
 };
-const createNew = async (data) => {
+const createNew = async (tenevent, idevent, listimpact) => {
   try {
+    const data = {
+      nameevent: tenevent,
+      own: idevent,
+      listimpact: listimpact,
+    };
     const validData = await validateBeforeCreate(data);
     const created = await GET_DB()
-      .collection(COMPLAIN_COLLECTION_NAME)
+      .collection(EVENT_COLLECTION_NAME)
       .insertOne(validData);
-    const createcommentbox = await cboxModel.createNew(created.insertedId);
-    created.commenbox = createcommentbox.insertedId;
     return created;
   } catch (error) {
     throw new Error(error);
@@ -49,7 +52,7 @@ const createNew = async (data) => {
 const findOneById = async (ids) => {
   try {
     const result = await GET_DB()
-      .collection(COMPLAIN_COLLECTION_NAME)
+      .collection(EVENT_COLLECTION_NAME)
       .findOne({ _id: new ObjectId(ids) });
     return result;
   } catch (error) {
@@ -60,7 +63,7 @@ const findOneById = async (ids) => {
 const getDetailsAll = async () => {
   try {
     const result = await GET_DB()
-      .collection(COMPLAIN_COLLECTION_NAME)
+      .collection(EVENT_COLLECTION_NAME)
       .find()
       .toArray();
     return result;
@@ -68,27 +71,14 @@ const getDetailsAll = async () => {
     throw new Error(error);
   }
 };
-const findOnSearch = async (req, res, next) => {
-  try {
-    req.query.q;
-    const articles = await GET_DB()
-      .collection(complainModel.COMPLAIN_COLLECTION_NAME)
-      .find({ title: { $regex: req.query.q, $options: "i" } })
-      .toArray();
-    return res.json(articles);
-  } catch (error) {
-    throw new Error(error);
-  }
-};
 
-export const complainModel = {
-  COMPLAIN_COLLECTION_NAME,
-  COMPLAIN_COLLECTION_SCHEMA,
+export const eventModel = {
+  EVENT_COLLECTION_NAME,
+  EVENT_COLLECTION_SCHEMA,
 
   findOneById,
 
   //Danh cho Teacher va Hocsinh
   createNew,
   getDetailsAll,
-  findOnSearch,
 };

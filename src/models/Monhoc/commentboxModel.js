@@ -12,7 +12,7 @@ const COMMENTBOX_COLLECTION_SCHEMA = Joi.object({
   video: Joi.string()
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
-    .default([]),
+    .required(),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
 });
 
@@ -26,7 +26,10 @@ const validateBeforeCreate = async (data) => {
 
 const createNew = async (data) => {
   try {
-    const validData = await validateBeforeCreate(data);
+    const datas = {
+      video: data,
+    };
+    const validData = await validateBeforeCreate(datas);
     const createdStudy = await GET_DB()
       .collection(COMMENTBOX_COLLECTION_NAME)
       .insertOne(validData);

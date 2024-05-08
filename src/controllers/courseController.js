@@ -268,6 +268,19 @@ const getOneCoursebyTeacher = async (req, res, next) => {
     next(error);
   }
 };
+
+const FindCourseOnSearch = async (req, res, next) => {
+  try {
+    // truyen vao cac key can tim kiem
+    const articles = await GET_DB()
+      .collection(courseModel.COURSE_COLLECTION_NAME)
+      .find({ title: { $regex: req.query.q, $options: "i" } })
+      .toArray();
+    return res.json(articles);
+  } catch (error) {
+    next(error);
+  }
+};
 const getMarkOfCourse = async (req, res, next) => {
   try {
     // truyen vao id khoa hoc va id hoc sinh
@@ -371,4 +384,5 @@ export const courseController = {
   getListCoursesofStudentid, // truyen vao id hoc sinh
   getListCourseStudentDone, // truyen vao id hoc sinh
   getMarkOfCourse, // truyen vao id hoc sinh va id khoa hoc
+  FindCourseOnSearch,
 };

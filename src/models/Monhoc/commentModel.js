@@ -11,9 +11,13 @@ const COMMENT_COLLECTION_SCHEMA = Joi.object({
     .message(OBJECT_ID_RULE_MESSAGE)
     .required(),
   datatext: Joi.string().trim().required(),
+  commentbox: Joi.string()
+    .pattern(OBJECT_ID_RULE)
+    .message(OBJECT_ID_RULE_MESSAGE)
+    .required(),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
 });
-
+// Commentbox chua listcomment va comment chua id cua commentbox
 const INVALID_UPDATE_FIELDS = ["_id", "createdAt"];
 
 const validateBeforeCreate = async (data) => {

@@ -4,6 +4,7 @@ import { GET_DB } from "~/config/mongodb";
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from "~/utils/validators";
 import { itemModel } from "./itemModel";
 import { cboxModel } from "../Monhoc/commentboxModel";
+import { commentModel } from "../Monhoc/commentModel";
 
 const VIDEO_COLLECTION_NAME = "videos";
 const VIDEO_COLLECTION_SCHEMA = Joi.object({
@@ -34,6 +35,8 @@ const createNewVideosOfItem = async (data) => {
     const createdvideo = await GET_DB()
       .collection(VIDEO_COLLECTION_NAME)
       .insertOne(validData);
+    const createcommentbox = await cboxModel.createNew(createdvideo.insertedId);
+    createdvideo.commentBox = createcommentbox.insertedId;
     return createdvideo;
   } catch (error) {
     throw new Error(error);
