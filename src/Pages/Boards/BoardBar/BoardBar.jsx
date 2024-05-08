@@ -10,7 +10,8 @@ import AvatarGroup from '@mui/material/AvatarGroup'
 import { Tooltip } from '@mui/material'
 import Button from '@mui/material/Button'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
-import { capitalizeFirstLetter } from '~/utils/formatters'
+import { capitalizeFirstLetter } from '../../../utils/formatters'
+
 
 const MENU_STYLES = {
   color: 'white',
@@ -169,4 +170,4 @@ function BoardBar({ board }) {
   )
 }
 
-export default BoardBar
+export default BoardBar;
