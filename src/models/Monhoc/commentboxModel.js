@@ -13,12 +13,13 @@ const COMMENTBOX_COLLECTION_SCHEMA = Joi.object({
   video: Joi.string()
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
-    .default([]),
-  createdAt: Joi.date().timestamp('javascript').default(Date.now),
-  studyId : Joi.string()
-    .pattern(OBJECT_ID_RULE)
-    .message({ OBJECT_ID_RULE_MESSAGE })
-})
+
+    .required(),
+  createdAt: Joi.date().timestamp("javascript").default(Date.now),
+});
+
+const INVALID_UPDATE_FIELDS = ["_id", "createdAt"];
+
 
 const validateBeforeCreate = async (data) => {
   return await COMMENTBOX_COLLECTION_SCHEMA.validateAsync(data, {
@@ -28,24 +29,15 @@ const validateBeforeCreate = async (data) => {
 
 const createNew = async (data) => {
   try {
-    const validData = await validateBeforeCreate(data)
-    if (validData.studyId)
-    {
-      const newDataToAdd = {
-        ...validData,
-        studyId : new ObjectId(validData.studyId)
-      }
-      const createdStudy = await GET_DB()
-        .collection(COMMENTBOX_COLLECTION_NAME)
-        .insertOne(newDataToAdd)
-      return createdStudy
-    }
-    else {
-      const createdStudy = await GET_DB()
-        .collection(COMMENTBOX_COLLECTION_NAME)
-        .insertOne(validData)
-      return createdStudy
-    }
+
+    const datas = {
+      video: data,
+    };
+    const validData = await validateBeforeCreate(datas);
+    const createdStudy = await GET_DB()
+      .collection(COMMENTBOX_COLLECTION_NAME)
+      .insertOne(validData);
+    return createdStudy;
   } catch (error) {
     throw new Error(error)
   }
@@ -86,7 +78,7 @@ const pushToListComment = async (commentBoxId, commentId) => {
   } catch (error) { throw new Error(error) }
 }
 
-const pullToListComment= async (commentModel) => {
+const pullToListComment = async (commentModel) => {
   try {
     const result = await GET_DB().collection(COMMENTBOX_COLLECTION_NAME).findOneAndUpdate(
       { _id: new ObjectId(commentModel.cboxId) },

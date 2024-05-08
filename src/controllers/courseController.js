@@ -28,12 +28,17 @@ const createNewCoursebyAdmin = async (req, res, next) => {
 // Lay danh sach lop hoc Do giao vien mo lop
 const getDetailsCourseAllbyAdmin = async (req, res, next) => {
   try {
+
     const coures = await courseModel.getDetailsAllbyTeacher(req.params.id)
     if (coures.length > 0) {
       res.status(StatusCodes.OK).json(coures)
     } else {
       res.json({}).send({ message: 'Khong co lop nao duoc tim thay' })
     }
+
+    const listcourse = await courseModel.getDetailsAll();
+    return res.status(StatusCodes.OK).json(listcourse);
+
   } catch (error) {
     next(error)
   }
@@ -267,7 +272,21 @@ const getOneCoursebyTeacher = async (req, res, next) => {
   } catch (error) {
     next(error)
   }
-}
+};
+
+const FindCourseOnSearch = async (req, res, next) => {
+  try {
+    // truyen vao cac key can tim kiem
+    const articles = await GET_DB()
+      .collection(courseModel.COURSE_COLLECTION_NAME)
+      .find({ title: { $regex: req.query.q, $options: "i" } })
+      .toArray();
+    return res.json(articles);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getMarkOfCourse = async (req, res, next) => {
   try {
     // truyen vao id khoa hoc va id hoc sinh
@@ -370,5 +389,7 @@ export const courseController = {
   //Ham xuat phat tu hoc sinh
   getListCoursesofStudentid, // truyen vao id hoc sinh
   getListCourseStudentDone, // truyen vao id hoc sinh
-  getMarkOfCourse // truyen vao id hoc sinh va id khoa hoc
-}
+  getMarkOfCourse, // truyen vao id hoc sinh va id khoa hoc
+  FindCourseOnSearch,
+};
+

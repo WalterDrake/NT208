@@ -6,9 +6,10 @@ import {
   OBJECT_ID_RULE_MESSAGE,
   EMAIL_RULE,
   TEXT_RULE,
-} from '~/utils/validators'
-import { courseModel } from '../Khoahoc/courseModel'
-import { response } from 'express'
+} from "~/utils/validators";
+import { courseModel } from "../Khoahoc/courseModel";
+import { response } from "express";
+import { cboxModel } from "../Monhoc/commentboxModel";
 
 const COMPLAIN_COLLECTION_NAME = 'complain'
 const COMPLAIN_COLLECTION_SCHEMA = Joi.object().keys({
@@ -17,28 +18,32 @@ const COMPLAIN_COLLECTION_SCHEMA = Joi.object().keys({
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
     .required(),
-  complain: Joi.string().trim().required(),
-  owner: Joi.string()
+  complain: Joi.string().trim().required(), // noi dung
+  commenbox: Joi.string()
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
     .required(),
   createdAt: Joi.date().timestamp('javascript').default(Date.now)
 })
 
+
 const INVALID_UPDATE_FIELDS = ['_id', 'createdAt']
 
 const validateBeforeCreate = async (data) => {
-  return await USER_COLLECTION_SCHEMA.validateAsync(data, {
-    abortEarly: false
-  })
-}
+
+  return await COMPLAIN_COLLECTION_SCHEMA.validateAsync(data, {
+    abortEarly: false,
+  });
+};
 const createNew = async (data) => {
   try {
     const validData = await validateBeforeCreate(data)
     const created = await GET_DB()
       .collection(COMPLAIN_COLLECTION_NAME)
-      .insertOne(validData)
-    return created
+      .insertOne(validData);
+    const createcommentbox = await cboxModel.createNew(created.insertedId);
+    created.commenbox = createcommentbox.insertedId;
+    return created;
   } catch (error) {
     throw new Error(error)
   }
@@ -81,10 +86,10 @@ const findOnSearch = async (req, res, next) => {
   try {
     req.query.q
     const articles = await GET_DB()
-      .collection(courseModel.COURSE_COLLECTION_NAME)
-      .find({ title: { $regex: req.query.q, $options: 'i' } })
-      .toArray()
-    return res.json(articles)
+      .collection(complainModel.COMPLAIN_COLLECTION_NAME)
+      .find({ title: { $regex: req.query.q, $options: "i" } })
+      .toArray();
+    return res.json(articles);
   } catch (error) {
     throw new Error(error)
   }

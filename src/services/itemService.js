@@ -23,8 +23,8 @@ const createItemOfCourse = async (reqBody) => {
 
 const getDetailAllItem = async () => {
   try {
-    const item = await itemModel.getDetailAllItem()
-    return resItem
+    const item = await itemModel.getDetailAllItem();
+    return item;
   } catch (error) {
     throw error
   }
