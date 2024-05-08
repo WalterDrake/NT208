@@ -20,7 +20,7 @@ import StudentDashboard from "../Pages/Schoolweb/student/StudentDashboard";
 
 import HocnhomDetail from "../Pages/Hocnhom/HocNhomDetail/HocNhomDetail";
 import HocTapDetails from "../Pages/Hoctap/HocTapDetails";
-import Board from '~/pages/Boards/_id'
+import Board from '../Pages/Boards/_id'
 
 
 const publicRoutes = [

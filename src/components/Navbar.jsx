@@ -35,7 +35,7 @@ const Navbar = () => {
         />
 
         <Navbaritem
-          to={config.home}
+          to={config.todolist}
           icon={<LuListTodo className="w-10 h-10" />}
         />
 
