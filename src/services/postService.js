@@ -1,65 +1,65 @@
 /* eslint-disable no-useless-catch */
-import { slugify } from "~/utils/formatters";
-import ApiError from "~/utils/ApiError";
-import { StatusCodes } from "http-status-codes";
-import { cloneDeep } from "lodash";
-import { ObjectId } from "mongodb";
-import { postModel } from "~/models/Khoahoc/postModel";
+
+import { postModel } from '~/models/Khoahoc/postModel'
+import { studyModel } from '~/models/Monhoc/studyModel'
 
 const createNewPostOfItem = async (reqBody) => {
   try {
     const newItem = {
-      ...reqBody,
-    };
+      ...reqBody
+    }
 
-    const createdpost = await postModel.createNewPostOfItem(newItem);
-
-    const getNewitem = await postModel.findOneById(createdpost.insertedId);
+    const createdpost = await postModel.createNewPostOfItem(newItem)
+    if (newItem.studyId)
+    {
+      await studyModel.pushToListPost(newItem.studyId, createdpost.insertedId)
+    }
+    const getNewitem = await postModel.findOneById(createdpost.insertedId)
     // Trả kết quả về, trong Service luôn phải có return
-    return getNewitem;
+    return getNewitem
   } catch (error) {
-    throw error;
+    throw error
   }
-};
+}
 
 const getDetailsAllPost = async () => {
   try {
-    const item = await postModel.getDetailsAllPost();
-    return item;
+    const item = await postModel.getDetailsAllPost()
+    return item
   } catch (error) {
-    throw error;
+    throw error
   }
-};
+}
 const updatePostOfItem = async (postId, reqBody) => {
   try {
     const updateData = {
       ...reqBody,
-      updatedAt: Date.now(),
-    };
-    const updatedItem = await postModel.updatePostOfItem(postId, updateData);
+      updatedAt: Date.now()
+    }
+    const updatedItem = await postModel.updatePostOfItem(postId, updateData)
 
-    return updatedItem;
+    return updatedItem
   } catch (error) {
-    throw error;
+    throw error
   }
-};
+}
 
 const deletePostOfItem = async (postId) => {
   try {
-    const deletepost = await postModel.deletePostOfItem(postId);
-    return deletepost;
+    const deletepost = await postModel.deletePostOfItem(postId)
+    return deletepost
   } catch (error) {
-    throw error;
+    throw error
   }
-};
+}
 const getListPostOfItem = async (iditem) => {
   try {
-    const getlistpost = await postModel.getListPostOfItem(iditem);
-    return getlistpost;
+    const getlistpost = await postModel.getListPostOfItem(iditem)
+    return getlistpost
   } catch (error) {
-    throw error;
+    throw error
   }
-};
+}
 
 export const postService = {
   // Danh cho Admin
@@ -71,5 +71,5 @@ export const postService = {
   deletePostOfItem, // truyen id Post
 
   // Danh cho hoc sinh
-  getListPostOfItem, // truyen id Item
-};
+  getListPostOfItem // truyen id Item
+}

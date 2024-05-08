@@ -1,61 +1,61 @@
-import { StatusCodes } from "http-status-codes";
-import { userService } from "../services/userService";
-import { studentModel, userModel } from "~/models/studentModel";
-import { ObjectId } from "mongodb";
-import { GET_DB } from "~/config/mongodb";
-import { courseModel } from "~/models/Khoahoc/courseModel";
-import { json } from "express";
+import { StatusCodes } from 'http-status-codes'
+import { userService } from '../services/userService'
+import { studentModel, userModel } from '~/models/studentModel'
+import { ObjectId } from 'mongodb'
+import { GET_DB } from '~/config/mongodb'
+import { courseModel } from '~/models/Khoahoc/courseModel'
+import { json } from 'express'
 
 const TeacherRegister = async (req, res, next) => {
   try {
-    const createdUser = await userService.createNew(req.body);
+    const createdUser = await userService.createNew(req.body)
     if (createdUser == null) {
-      res.status(StatusCodes.BAD_REQUEST).json("Đã tồn tại");
-      return;
+      res.status(StatusCodes.BAD_REQUEST).json('Đã tồn tại')
+      return
     }
     // Có kết quả thì trả về phía Client
-    res.status(StatusCodes.CREATED).json(createdUser);
+    res.status(StatusCodes.CREATED).json(createdUser)
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 
 const getTeacherDetails = async (req, res, next) => {
   try {
-    const userId = req.params.id;
-    console.log(userId);
-    const user = await userService.getDetails(new ObjectId(userId));
-    res.status(StatusCodes.OK).json(user);
+    const userId = req.params.id
+    console.log(userId)
+    const user = await userService.getDetails(new ObjectId(userId))
+    res.status(StatusCodes.OK).json(user)
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 
 const getIds = async (req, res, next) => {
   try {
-    const mssv = req.params.mssv;
-    const user = await userModel.getIds(mssv);
-    res.status(StatusCodes.OK).json(user);
+    const mssv = req.params.mssv
+    const user = await userModel.getIds(mssv)
+    res.status(StatusCodes.OK).json(user)
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 
 const TeacherLogin = async (req, res, next) => {
   try {
     const user = await userService.checkExist(
       req.params.email,
       req.params.password
-    );
-    res.status(StatusCodes.OK).json(user);
+    )
+    res.status(StatusCodes.OK).json(user)
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 
 export const teacherController = {
   TeacherRegister,
   getTeacherDetails,
   TeacherLogin,
-  getIds,
-};
+  getIds
+}

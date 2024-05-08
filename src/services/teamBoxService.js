@@ -15,7 +15,7 @@ const createNew = async (reqBody) => {
     const getNewTeamBox = await teamBoxModel.findOneById(createdTeamBox.insertedId)
 
     await groupModel.updateTeamBoxId(getNewTeamBox.groupId,getNewTeamBox._id)
-    // Return result; note: have to return in Service
+    // Return result note: have to return in Service
     return getNewTeamBox
   } catch (error) { throw error }
 }

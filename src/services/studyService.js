@@ -1,8 +1,9 @@
 /* eslint-disable no-useless-catch */
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
-import { cloneDeep } from 'lodash'
 import { studyModel } from '~/models/Monhoc/studyModel'
+import { join } from 'lodash'
+import { studentModel } from '~/models/studentModel'
 
 const createNew = async (reqBody) => {
   try {
@@ -20,14 +21,13 @@ const createNew = async (reqBody) => {
   }
 }
 
-const getDetailsAll = async () => {
+const getDetails = async (studyId) => {
   try {
-    const item = await studyModel.getDetails()
+    const item = await studyModel.getDetails(studyId)
     if (!item) {
       throw new ApiError(StatusCodes.NOT_FOUND, 'Study not found!')
     }
-    const resItem = cloneDeep(item)
-    return resItem
+    return item
   } catch (error) {
     throw error
   }
@@ -46,8 +46,26 @@ const updateStudy = async (postId, reqBody) => {
   }
 }
 
+const getAll = async() => {
+  const getAllStudy = await studyModel.getAll()
+  return getAllStudy
+}
+
+const joining = async(studyId, reqBody) => {
+  const getStudy = await studentModel.pushToStudy(studyId, reqBody.userId)
+  return getStudy
+}
+
+const getStudyLearning = async(studentId) => {
+  const getStudy = await studyModel.getStudyLearning(studentId)
+  return getStudy
+}
+
 export const studyService = {
   createNew,
-  getDetailsAll,
-  updateStudy
+  getDetails,
+  updateStudy,
+  getAll,
+  joining,
+  getStudyLearning
 }

@@ -11,17 +11,17 @@ Router.route('/')
   })
   .post(studyValidation.createNew, studyController.createNew)
 
-Router.route('/:id')
-  .get(studyController.getDetailsAll)
+Router.route('/getall')
+  .get(studyController.getAll)
+
+Router.route('/:id') //Id of study
+  .get(studyController.getDetails)
   .put(studyValidation.updateStudy, studyController.updateStudy)
 
-Router.route('/getAll')
-  .get(studyController.getDetailsAll)
-
-// Router.route('/tatca')
-//   .get(studyController.getAll)
-// Router.route('/danghoc')
-//   .get(studyController.getLearning)
+Router.route('/:id/joining') // Id of study
+  .get(studyController.joining)
+Router.route('/:id/getstudylearning') // Id of student
+  .get(studyController.getLearning)
 // Router.route('/hoanthanh')
 //   .get(studyController.getFinished)
 

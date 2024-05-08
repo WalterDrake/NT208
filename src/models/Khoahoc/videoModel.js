@@ -1,3 +1,4 @@
+
 import Joi from "joi";
 import { ObjectId } from "mongodb";
 import { GET_DB } from "~/config/mongodb";
@@ -6,7 +7,8 @@ import { itemModel } from "./itemModel";
 import { cboxModel } from "../Monhoc/commentboxModel";
 import { commentModel } from "../Monhoc/commentModel";
 
-const VIDEO_COLLECTION_NAME = "videos";
+
+const VIDEO_COLLECTION_NAME = 'videos'
 const VIDEO_COLLECTION_SCHEMA = Joi.object({
   title: Joi.string().required().min(3).max(50).trim().strict(),
   description: Joi.string().required().min(3).max(255).trim().strict(),
@@ -18,20 +20,20 @@ const VIDEO_COLLECTION_SCHEMA = Joi.object({
     .pattern(OBJECT_ID_RULE)
     .message({ OBJECT_ID_RULE_MESSAGE })
     .required(),
-  createdAt: Joi.date().timestamp("javascript").default(Date.now),
-});
+  createdAt: Joi.date().timestamp('javascript').default(Date.now)
+})
 
-const INVALID_UPDATE_FIELDS = ["_id", "createdAt"];
+const INVALID_UPDATE_FIELDS = ['_id', 'createdAt']
 
 const validateBeforeCreate = async (data) => {
   return await VIDEO_COLLECTION_SCHEMA.validateAsync(data, {
-    abortEarly: false,
-  });
-};
+    abortEarly: false
+  })
+}
 
 const createNewVideosOfItem = async (data) => {
   try {
-    const validData = await validateBeforeCreate(data);
+    const validData = await validateBeforeCreate(data)
     const createdvideo = await GET_DB()
       .collection(VIDEO_COLLECTION_NAME)
       .insertOne(validData);
@@ -39,31 +41,31 @@ const createNewVideosOfItem = async (data) => {
     createdvideo.commentBox = createcommentbox.insertedId;
     return createdvideo;
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error)
   }
-};
+}
 const getDetailsAllVideos = async () => {
   try {
     const result = await GET_DB()
       .collection(VIDEO_COLLECTION_NAME)
       .find()
-      .toArray();
+      .toArray()
 
-    return result;
+    return result
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error)
   }
-};
+}
 const findOneById = async (videoid) => {
   try {
     const result = await GET_DB()
       .collection(VIDEO_COLLECTION_NAME)
-      .findOne({ _id: new ObjectId(videoid) });
-    return result;
+      .findOne({ _id: new ObjectId(videoid) })
+    return result
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error)
   }
-};
+}
 const deleteOneCommentBox = async (idcBoxs) => {
   try {
     const result = await GET_DB()
@@ -71,27 +73,27 @@ const deleteOneCommentBox = async (idcBoxs) => {
       .updateMany(
         { commentBox: [idcBoxs] },
         { $pull: { commentBox: [idcBoxs] } }
-      );
-    return result;
+      )
+    return result
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error)
   }
-};
+}
 const deleteVideoOfItem = async (idVideos) => {
   try {
-    const deletedItem = await itemModel.deleteOneVideo(idVideos);
+    const deletedItem = await itemModel.deleteOneVideo(idVideos)
     // ham xoa commentbox
     const comment = await GET_DB()
       .collection(cboxModel.COMMENTBOX_COLLECTION_NAME)
       .findOne({
         video: idVideos,
-      });
-    const deleteCommentbox = await cboxModel.deleteOneCommentBox(comment._id);
-    return true;
+      })
+    const deleteCommentbox = await cboxModel.deleteOneCommentBox(comment._id)
+    return true
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error)
   }
-};
+}
 
 const getListVideoOfItem = async (idItems) => {
   try {
@@ -100,33 +102,33 @@ const getListVideoOfItem = async (idItems) => {
       .findMany({
         item: idItems,
       })
-      .toArray();
-    return result;
+      .toArray()
+    return result
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error)
   }
-};
+}
 const updateVideosOfItem = async (videoId, updateData) => {
   try {
     // Lọc những field mà chúng ta không cho phép cập nhật linh tinh
     Object.keys(updateData).forEach((fieldName) => {
       if (INVALID_UPDATE_FIELDS.includes(fieldName)) {
-        delete updateData[fieldName];
+        delete updateData[fieldName]
       }
-    });
+    })
 
     const result = await GET_DB()
       .collection(VIDEO_COLLECTION_NAME)
       .findOneAndUpdate(
         { _id: new ObjectId(videoId) },
         { $set: updateData },
-        { returnDocument: "after" } // sẽ trả về kết quả mới sau khi cập nhật
-      );
-    return result;
+        { returnDocument: 'after' } // sẽ trả về kết quả mới sau khi cập nhật
+      )
+    return result
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error)
   }
-};
+}
 
 export const videoModel = {
   VIDEO_COLLECTION_NAME,
@@ -146,4 +148,4 @@ export const videoModel = {
 
   // Danh cho hoc sinh
   getListVideoOfItem, // tuyen id Item
-};
+}

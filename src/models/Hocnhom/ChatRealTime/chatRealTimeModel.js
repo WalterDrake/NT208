@@ -34,7 +34,7 @@ const findOneById = async (id) => {
     const result = await GET_DB().collection(CHATREALTIME_COLLECTION_NAME).findOne({
       _id: new ObjectId(id)
     })
-    return result
+    return result || null
   } catch (error) {
     throw new Error(error)
   }

@@ -33,9 +33,39 @@ const getAll = async (req, res, next) => {
   } catch (error) { next(error) }
 }
 
+const getGroupOwnByTeacher = async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const getAllGroup = await groupService.getGroupOwnByTeacher(userId)
+
+    res.status(StatusCodes.OK).json(getAllGroup)
+  } catch (error) { next(error) }
+}
+
+const getPrivate = async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const getAllGroup = await groupService.getGroupOwnByOther(userId)
+
+    res.status(StatusCodes.OK).json(getAllGroup)
+  } catch (error) { next(error) }
+}
+
+const joinGroup = async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const getAllGroup = await groupService.joinGroup(userId, req.body)
+
+    res.status(StatusCodes.OK).json(getAllGroup)
+  } catch (error) { next(error) }
+}
+
 export const groupController = {
   createNew,
   update,
-  getAll
+  getAll,
+  getGroupOwnByTeacher,
+  getPrivate,
+  joinGroup
 }
 
