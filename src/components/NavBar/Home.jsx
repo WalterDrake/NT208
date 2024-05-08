@@ -16,8 +16,8 @@ export default function Home() {
   useEffect(() => {
     document.title = 'Trang chủ';
 
-    studies.getStudies().then((data) => {
-      setHocTapData(data)
+    studies.getStudiesAll().then((data) => {
+      setHocTapData(data[0][0])
     })
       .catch((error) => {
         console.log(error, 'khong lay duoc hoc tap')
@@ -139,11 +139,6 @@ export default function Home() {
             </div>
           </div>
           <div className='content min-h-[20rem] h-auto bg-custom-gradient rounded-lg mt-10 md:flex flex-wrap'>
-            {courseData.map((course, index) => {
-              if (index < 4) {
-                return <HocTapItem HocTap={course} key={course._id} />
-              }
-            })}
           </div>
         </div>
       </Grid>
