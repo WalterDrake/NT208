@@ -28,12 +28,8 @@ const createNewCoursebyAdmin = async (req, res, next) => {
 // Lay danh sach lop hoc Do giao vien mo lop
 const getDetailsCourseAllbyAdmin = async (req, res, next) => {
   try {
-    const coures = await courseModel.getDetailsAllbyTeacher(req.params.id);
-    if (coures.length > 0) {
-      res.status(StatusCodes.OK).json(coures);
-    } else {
-      res.json({}).send({ message: "Khong co lop nao duoc tim thay" });
-    }
+    const listcourse = await courseModel.getDetailsAll();
+    return res.status(StatusCodes.OK).json(listcourse);
   } catch (error) {
     next(error);
   }
