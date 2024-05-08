@@ -78,10 +78,15 @@ export default function CreatePost({ isThongBao }) {
               <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about your Post.</p>
             </div>
             <div className="col-span-full form-group">
-              <label htmlFor="linkPDF" className="block text-sm font-medium leading-6 text-gray-900">LinkPDF: </label>
+              <label htmlFor="linkPDF" className="block text-sm font-medium leading-6 text-gray-900">LinkPDF or Image: </label>
               <input name="linkPDF" id="linkPDF" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
               <div className='flex justify-center'><div className='form-message text-red-600'></div></div>
             </div>
+            {/* <div className="col-span-full form-group">
+              <label htmlFor="linkimage" className="block text-sm font-medium leading-6 text-gray-900">linkimage: </label>
+              <input name="linkimage" id="linkimage" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+              <div className='flex justify-center'><div className='form-message text-red-600'></div></div>
+            </div> */}
           </div>
         </div>
       </div>
