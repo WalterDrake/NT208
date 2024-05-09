@@ -6,13 +6,6 @@ export const login = async (email, password) => {
         password
     }
     try {
-
-        // const response = await httpRequest.post(`users/StudentLogin/`, data,{
-        //     params:{
-        //         email,
-        //         password
-        //     }
-        // })
         const response = await httpRequest.post(`users/StudentLogin/${email}/${password}`,data)
         return response
 
