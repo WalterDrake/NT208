@@ -9,7 +9,7 @@ import Profilepage from "../Pages/Profilepage";
 import Thongbaopage from "../Pages/Thongbaopage";
 import Tinnhanpage from "../Pages/Tinnhanpage";
 import Home from "../components/NavBar/Home";
-import KhoahocitemDetail from "../Pages/Khoahoc/KhoahocItemDetail/KhoahocItemDetail"
+import KhoahocitemDetail from "../Pages/Khoahoc/KhoahocItemDetail/KhoaHocDetailItem"
 
 import DangnhapLayout from "../components/Layout/DangnhapLayout"
 

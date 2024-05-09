@@ -1,38 +1,32 @@
-import {useContext} from 'react'
-import Box from '@mui/material/Box';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import { FixedSizeList } from 'react-window';
-import {CurrentVideoContext} from '../../../../Pages/Khoahoc/KhoahocItemDetail/KhoahocItemDetail'
+import { useContext, useEffect, useState } from 'react'
+import * as item from '../../../../service/item'
+import { CurrentVideoContext } from '../KhoaHocDetailItem'
 
-function renderRow(props) {
-        const {index, style} = props;
-        const {courseDetails, setCurVideo} = useContext(CurrentVideoContext);
-        return (
-                <ListItem style={style} key={index} component="div" disablePadding>
-                        <ListItemButton onClick={() => {setCurVideo(courseDetails.videoList[index].url)}}>
-                                <ListItemText primary={`Bài ${index+1}: ${courseDetails.videoList[index].title}`} />
-                        </ListItemButton>
-                </ListItem>
-        )
-}
 
 export default function KhoahocDetailList() {
-        const {courseDetails} = useContext(CurrentVideoContext)
+        const { courseDetails } = useContext(CurrentVideoContext)
+        const [listItem, setListItem] = useState([])
+        useEffect(() => {
+                item.getListItemOfCourse(courseDetails._id)
+                        .then(res => {
+                                console.log('res list item', res)
+                                setListItem(res)
+                        })
+                        .catch(err => {
+                                console.log('err', err)
+                        })
+        }, [courseDetails])
         return (
-                <Box
-                sx={{ width: '100%', height: 400, maxWidth: 360, bgcolor: 'background.paper' }}
-            >
-                <FixedSizeList
-                    height={400}
-                    width={360}
-                    itemSize={46}
-                    itemCount={courseDetails.videoList.length}
-                    overscanCount={5}
-                >
-                    {renderRow}
-                </FixedSizeList>
-            </Box>
+                <ul className='h-full overflow-auto'>
+                        {
+                                listItem.map((item, index) => {
+                                        return (
+                                                <li key={index} className='flex justify-between items-center p-2 border-b border-[#ccc]'>
+                                                        Title : {item.title}
+                                                </li>
+                                        )
+                                })
+                        }
+                </ul>
         )
 }

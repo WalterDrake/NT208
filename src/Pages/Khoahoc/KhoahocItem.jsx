@@ -1,13 +1,31 @@
-import React from "react";
+import React from "react"
 import { Link } from "react-router-dom"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faUser } from "@fortawesome/free-solid-svg-icons"
+import useUser from "../../hook/useUser"
+import *  as courses from '../../service/courses'
+import useKhoaHocRender from "../../hook/useKhoaHocRender"
+
 
 const KhoahocItem = ({ KhoaHoc, className }) => {
-  if (!KhoaHoc) return null;
+  const { user } = useUser()
+  const test = useKhoaHocRender()
+  const handleDelete = async (e) => {
+    e.stopPropagation()
+    const res = await courses.deleteCourse(KhoaHoc._id)
+    res.then((res) => {
+      console.log('res xoa khoa hoc', res)
+      if(test)
+        test.SetKhoaHocRender(pre => pre +1)
+    })
+      .catch((err) => {
+        console.log('err xoas khoa hoc', err)
+      })
+  }
+
   return (
-    <Link to={`/Khoahocpage/${KhoaHoc._id}`}>
-      <div className= {`md:ml-4 frame rounded-md bg-white wrap ${className}`}>
+    <div className={`md:ml-4 frame rounded-md bg-white wrap h-auto ${className}`}>
+      <Link to={`/Khoahocpage/${KhoaHoc._id}/${KhoaHoc.owner}`}>
         <img
           src={KhoaHoc.linkimage}
           className="mt-4 ml-2 rounded-md frame"
@@ -19,14 +37,19 @@ const KhoahocItem = ({ KhoaHoc, className }) => {
           {/* content của môn học*/}
           <h1 className="font-bold text-xs mb-2 ">{KhoaHoc.title}</h1>
           <h1 className="font-thin text-xs mb-2">{KhoaHoc.description}</h1>
-          <p className="font-bold text-red-600 ">
-            <span className="text-black">
-              <FontAwesomeIcon icon={faUser} />
-            </span> {KhoaHoc.memberof}
-          </p>
         </div>
+      </Link>
+      <div className="font-bold text-red-600 flex flex-col md:flex-row justify-between h-auto">
+        <span className="text-black">
+          <FontAwesomeIcon icon={faUser} />
+          {KhoaHoc.memberof}
+        </span>
+        {(user?.role === "teacher" || user?._id === KhoaHoc.owner) && test != null ?
+          (<><button
+            onClick={handleDelete}
+            className="round-2xl p-2 bg-custom-gradient rounded-xl hover:bg-blue-500 md:mr-4 mr-2">xóa</button></>) : <></>}
       </div>
-    </Link>
-  );
+    </div>
+  )
 }
 export default KhoahocItem

@@ -28,9 +28,9 @@ export const getCourseListStudent = async (id) => {
 }
 
 
-export const getCourse = async (id_teacher,id_courese) => {
+export const getCourseDetail = async (id_teacher,id_courese) => {
     try {
-        const response = await httpRequest.get(`/courses/GetDetailCourse//${id_teacher}/${id_courese}`)
+        const response = await httpRequest.get(`/courses/GetDetailCourse/${id_teacher}/${id_courese}`)
         return response
     } catch (error) {
         throw error.response
@@ -76,21 +76,29 @@ export const createCourse  = async (admin,{title,description,owner,linkimage}) =
 export const addStudent = async (id, data) => {
     try {
         const response = await httpRequest.post(`/courses/UpdateCourse${id}`, data)   // id cousesr
-        return response.data
+        return response
     } catch (error) {
-        throw error.response.data
+        throw error.response
     }
 }   
 
 export const updateCourse = async (id, data) => {
     try {
         const response = await httpRequest.put(`/courses/UpdateCourse/${id}`, data)
-        return response.data
+        return response
     } catch (error) {
-        throw error.response.data
+        throw error.response
     }
 }
 
+export const deleteCourse = async (id) => {
+    try {
+        const response = await httpRequest.remove(`/courses/deleteCourse/${id}`)
+        return response
+    } catch (error) {
+        throw error.response
+    }
+}
 
 // Router.route("/UpdateCourse/:id").put(courseController.updateCourseByAdmin); // truyen vao id course
 // Router.route("/AddStudent/:idstudent/:idcourse").put(
