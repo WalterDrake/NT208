@@ -11,16 +11,17 @@ const KhoahocItem = ({ KhoaHoc, className }) => {
   const { user } = useUser()
   const test = useKhoaHocRender()
   const handleDelete = async (e) => {
-    e.stopPropagation()
-    const res = await courses.deleteCourse(KhoaHoc._id)
-    res.then((res) => {
-      console.log('res xoa khoa hoc', res)
-      if(test)
-        test.SetKhoaHocRender(pre => pre +1)
-    })
-      .catch((err) => {
-        console.log('err xoas khoa hoc', err)
-      })
+    try {
+      e.stopPropagation()
+      const res = await courses.deleteCourse(KhoaHoc._id)
+      console.log('res delete course', res)
+      if(test != null){
+        test.SetKhoaHocRender(pre => pre + 1)
+      }
+    }
+    catch (err) {
+      throw err
+    }
   }
 
   return (
