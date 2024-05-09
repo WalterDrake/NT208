@@ -15,10 +15,8 @@ const COMMENTBOX_COLLECTION_SCHEMA = Joi.object({
     .message(OBJECT_ID_RULE_MESSAGE)
 
     .required(),
-  createdAt: Joi.date().timestamp("javascript").default(Date.now),
-});
-
-const INVALID_UPDATE_FIELDS = ["_id", "createdAt"];
+  createdAt: Joi.date().timestamp('javascript').default(Date.now)
+})
 
 
 const validateBeforeCreate = async (data) => {
@@ -31,13 +29,13 @@ const createNew = async (data) => {
   try {
 
     const datas = {
-      video: data,
-    };
-    const validData = await validateBeforeCreate(datas);
+      video: data
+    }
+    const validData = await validateBeforeCreate(datas)
     const createdStudy = await GET_DB()
       .collection(COMMENTBOX_COLLECTION_NAME)
-      .insertOne(validData);
-    return createdStudy;
+      .insertOne(validData)
+    return createdStudy
   } catch (error) {
     throw new Error(error)
   }
