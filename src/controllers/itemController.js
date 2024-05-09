@@ -1,5 +1,4 @@
 import { StatusCodes } from 'http-status-codes'
-import { boardService } from '~/services/boardService'
 import { itemService } from '~/services/itemService'
 
 const createItemOfCourse = async (req, res, next) => {

@@ -14,12 +14,16 @@ Router.route('/')
 Router.route('/getall')
   .get(studyController.getAll)
 
+Router.route('/getAtHome')
+  .get(studyController.getAtHome)
+
 Router.route('/:id') //Id of study
   .get(studyController.getDetails)
   .put(studyValidation.updateStudy, studyController.updateStudy)
 
 Router.route('/:id/joining') // Id of study
   .get(studyController.joining)
+
 Router.route('/:id/getstudylearning') // Id of student
   .get(studyController.getLearning)
 // Router.route('/hoanthanh')

@@ -84,6 +84,14 @@ const pullChatList= async (messageModel) => {
   } catch (error) { throw new Error(error) }
 }
 
+const deleteOneById = async (messageId) => {
+  try {
+    const result = await GET_DB().collection(CHATREALTIME_COLLECTION_NAME).deleteOne({ _id: new ObjectId(messageId) })
+    return result
+  } catch (error) { throw new Error(error) }
+}
+
+
 export const chatRealTimeModel ={
   CHATREALTIME_COLLECTION_NAME,
   createNew,
@@ -91,5 +99,6 @@ export const chatRealTimeModel ={
   pushMemList,
   pullMemList,
   pushChatList,
-  pullChatList
+  pullChatList,
+  deleteOneById
 }

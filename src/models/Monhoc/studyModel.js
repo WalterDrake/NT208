@@ -2,7 +2,6 @@ import Joi from 'joi'
 import { ObjectId } from 'mongodb'
 import { GET_DB } from '~/config/mongodb'
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
-import { cboxModel } from '~/models/Monhoc/commentboxModel'
 import { postModel } from '../Khoahoc/postModel'
 import { studentModel } from '~/models/studentModel'
 // Define Collection (Name & Schema)
@@ -180,6 +179,22 @@ const getStudyLearning = async (userId) => {
   }
 }
 
+const getAtHome = async () => {
+  try {
+    const result = await GET_DB()
+      .collection(STUDY_COLLECTION_NAME)
+      .aggregate([
+        {
+          $limit: 4
+        }
+      ])
+      .toArray()
+    return result || null
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
 export const studyModel = {
   STUDY_COLLECTION_NAME,
   STUDY_COLLECTION_SCHEMA,
@@ -190,5 +205,6 @@ export const studyModel = {
   pushToListPost,
   updateCommentBoxId,
   getAll,
-  getStudyLearning
+  getStudyLearning,
+  getAtHome
 }

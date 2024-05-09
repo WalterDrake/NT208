@@ -90,10 +90,19 @@ const updateTodoListId = async (id, todoListId) =>
   }
 }
 
+const deleteOneById = async (messageId) => {
+  try {
+    const result = await GET_DB().collection(TEAMBOX_COLLECTION_NAME).deleteOne({ _id: new ObjectId(messageId) })
+    return result
+  } catch (error) { throw new Error(error) }
+}
+
+
 export const teamBoxModel = {
   createNew,
   findOneById,
   updateChatRealTimeId,
   updateTodoListId,
-  updateVideoRealTimeId
+  updateVideoRealTimeId,
+  deleteOneById
 }

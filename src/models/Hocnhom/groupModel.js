@@ -17,7 +17,8 @@ const GROUP_COLLECTION_SCHEMA = Joi.object({
   code: Joi.string().required().min(3).max(50).trim().strict(),
   teamBoxId: Joi.string()
     .pattern(OBJECT_ID_RULE)
-    .message(OBJECT_ID_RULE_MESSAGE)
+    .message(OBJECT_ID_RULE_MESSAGE),
+  image: Joi.string()
 })
 
 const INVALID_UPDATE_FIELDS = ['_id', 'owner', 'code', 'teamBoxId']
@@ -242,6 +243,13 @@ const findOneByCode = async (codeId) => {
   catch (error) { throw new Error(error)}
 }
 
+const deleteOneById = async (messageId) => {
+  try {
+    const result = await GET_DB().collection(GROUP_COLLECTION_NAME).deleteOne({ _id: new ObjectId(messageId) })
+    return result
+  } catch (error) { throw new Error(error) }
+}
+
 
 export const groupModel = {
   GROUP_COLLECTION_NAME,
@@ -253,5 +261,6 @@ export const groupModel = {
   getGroupOwnByTeacher,
   getGroupOwnByOther,
   pushToListMem,
-  findOneByCode
+  findOneByCode,
+  deleteOneById
 }

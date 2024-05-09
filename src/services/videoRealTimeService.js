@@ -1,5 +1,8 @@
+/* eslint-disable no-useless-catch */
 import { videoRealTimeModel } from '~/models/Hocnhom/videoRealTimeModel'
 import { teamBoxModel } from '~/models/Hocnhom/teamboxModel'
+import ApiError from '~/utils/ApiError'
+import { StatusCodes } from 'http-status-codes'
 
 const createNew = async (reqBody) => {
   // eslint-disable-next-line no-useless-catch
@@ -19,6 +22,20 @@ const createNew = async (reqBody) => {
     return getNewVideo
   } catch (error) { throw error }
 }
+
+const deleteVideoRealTime = async (videoRealTimeId) => {
+  try {
+    const targetVideoRealTime = await videoRealTimeModel.findOneById(videoRealTimeId)
+
+    if (!targetVideoRealTime) {
+      throw new ApiError(StatusCodes.NOT_FOUND, 'VideoRealTime not found!')
+    }
+    await videoRealTimeModel.deleteOneById(targetVideoRealTime._id)
+    return { deleteResult: 'VideoRealTime deleted successfully!' }
+  } catch (error) { throw error }
+}
+
 export const videoRealTimeService ={
-  createNew
+  createNew,
+  deleteVideoRealTime
 }

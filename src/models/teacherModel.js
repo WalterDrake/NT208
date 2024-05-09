@@ -8,6 +8,7 @@ import {
   TEXT_RULE
 } from '~/utils/validators'
 import bcrypt from 'bcryptjs'
+import { USER_COLLECTION_NAME } from '~/models/studentModel'
 
 const TEACHER_COLLECTION_NAME = 'teachers'
 const TEACHER_COLLECTION_SCHEMA = Joi.object().keys({

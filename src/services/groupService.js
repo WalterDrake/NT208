@@ -3,6 +3,10 @@ import { chatRealTimeModel } from '~/models/Hocnhom/ChatRealTime/chatRealTimeMod
 import { groupModel } from '~/models/Hocnhom/groupModel'
 import { teamBoxModel } from '~/models/Hocnhom/teamboxModel'
 import { studentModel } from '~/models/studentModel'
+import ApiError from '~/utils/ApiError'
+import { StatusCodes } from 'http-status-codes'
+import { teamBoxService } from './teamBoxService'
+import { ObjectId } from 'mongodb'
 
 const createNew = async (reqBody) => {
   try {
@@ -105,11 +109,41 @@ const joinGroup = async (userId, reqBody) => {
   } catch (error) { throw error }
 }
 
+const deleteGroup = async (groupId, reqBody) => {
+  try {
+    const data = {
+      ...reqBody,
+      ownerId : new ObjectId(reqBody.ownerId)
+    }
+    const targetGroup = await groupModel.findOneById(groupId)
+
+    if (!targetGroup) {
+      throw new ApiError(StatusCodes.NOT_FOUND, 'Group not found!')
+    }
+    if (targetGroup.owner.equals(data.ownerId))
+    {
+      const memIds = targetGroup.listMem
+      for (const memId of memIds)
+      {
+        await studentModel.pullFromGroup(targetGroup._id, memId)
+      }
+      await teamBoxService.deleteTeamBox(targetGroup.teamBoxId)
+    }
+    else {
+      return { Error: 'You don\'t own this group' }
+    }
+    await groupModel.deleteOneById(targetGroup._id)
+    return { deleteResult: 'Group deleted successfully!' }
+  } catch (error) { throw error }
+}
+
+
 export const groupService ={
   createNew,
   update,
   getAll,
   getGroupOwnByTeacher,
   getGroupOwnByOther,
-  joinGroup
+  joinGroup,
+  deleteGroup
 }

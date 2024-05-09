@@ -1,6 +1,10 @@
+/* eslint-disable no-useless-catch */
 import { chatRealTimeModel } from '~/models/Hocnhom/ChatRealTime/chatRealTimeModel'
 import { groupModel } from '~/models/Hocnhom/groupModel'
 import { teamBoxModel } from '~/models/Hocnhom/teamboxModel'
+import ApiError from '~/utils/ApiError'
+import { StatusCodes } from 'http-status-codes'
+import { messageModel } from '~/models/Hocnhom/ChatRealTime/messageModel'
 
 const createNew = async (reqBody) => {
   // eslint-disable-next-line no-useless-catch
@@ -29,6 +33,25 @@ const createNew = async (reqBody) => {
     return getNewChat
   } catch (error) { throw error }
 }
+
+const deleteChatRealTime = async (chatRealTimeId) => {
+  try {
+    const targetChatRealTime = await chatRealTimeModel.findOneById(chatRealTimeId)
+
+    if (!targetChatRealTime) {
+      throw new ApiError(StatusCodes.NOT_FOUND, 'chatRealTime not found!')
+    }
+    const messageIds = targetChatRealTime.messageModel
+    for (const messageId of messageIds)
+    {
+      await messageModel.deleteOneById(messageId)
+    }
+    await chatRealTimeModel.deleteOneById(targetChatRealTime._id)
+    return { deleteResult: 'chatRealTime deleted successfully!' }
+  } catch (error) { throw error }
+}
+
 export const chatRealTimeService ={
-  createNew
+  createNew,
+  deleteChatRealTime
 }

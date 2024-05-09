@@ -9,8 +9,9 @@ Router.route('/')
   })
   .post(groupController.createNew)
 
-Router.route('/:id')
+Router.route('/:id') // id of group
   .put(groupController.update)
+  .delete(groupController.deleteGroup)
 Router.route('/:id/getall')
   .get(groupController.getAll)
 Router.route('/:id/getpublic')

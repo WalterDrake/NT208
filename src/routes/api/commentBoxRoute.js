@@ -15,4 +15,5 @@ Router.route('/:id').get(cboxController.findOneById)
 Router.route('/get/All').get(cboxController.getDetails)
 Router.route('/:id/getComments') //id of studyId
   .get(cboxController.getComments)
+
 export const cboxRoute = Router

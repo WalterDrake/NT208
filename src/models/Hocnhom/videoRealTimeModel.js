@@ -35,7 +35,16 @@ const findOneById = async (id) => {
   }
 }
 
+const deleteOneById = async (videoRealTimeId) => {
+  try {
+    const result = await GET_DB().collection(VIDEOREALTIME_COLLECTION_NAME).deleteOne({ _id: new ObjectId(videoRealTimeId) })
+    return result
+  } catch (error) { throw new Error(error) }
+}
+
+
 export const videoRealTimeModel ={
   createNew,
-  findOneById
+  findOneById,
+  deleteOneById
 }

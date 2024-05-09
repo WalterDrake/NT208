@@ -4,9 +4,6 @@ import { courseController } from '~/controllers/courseController'
 
 const Router = express.Router()
 
-/// Chỗ này viết các API cụ thể từng vai trò nè
-
-/////////////////////////////////////////////////////////////////
 Router.route('/').get((req, res) => {
   res.status(StatusCodes.OK).json({ message: 'GET: API get list Course' })
 })
@@ -49,3 +46,4 @@ Router.route('/GetMark/:idstudent/:idcourse').delete(
 ) // truyen vao idstudent va idcourse
 
 export const courseRoute = Router
+

@@ -13,4 +13,5 @@ Router.route('/')
 Router.route('/:id')
   .put(messageModelValidation.update, messageModelController.update)
   .delete(messageModelValidation.deleteMessage, messageModelController.deleteMessage)
+
 export const messageModelRoute = Router

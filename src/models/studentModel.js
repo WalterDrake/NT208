@@ -242,6 +242,17 @@ const pushToGroup = async (getGroup, userId) => {
   } catch (error) { throw new Error(error) }
 }
 
+const pullFromGroup = async (getGroup, userId) => {
+  try {
+    const result = await GET_DB().collection(USER_COLLECTION_NAME).findOneAndUpdate(
+      { _id: new ObjectId(userId) },
+      { $pull: { group: new ObjectId(getGroup._id) } },
+      { returnDocument: 'after' }
+    )
+    return result
+  } catch (error) { throw new Error(error) }
+}
+
 const pushToStudy = async (studyId, userId) => {
   try {
     const result = await GET_DB().collection(USER_COLLECTION_NAME).findOneAndUpdate(
@@ -330,6 +341,7 @@ export const studentModel = {
   checkExist,
   findCourse,
   pushToGroup,
+  pullFromGroup,
   pushToStudy,
   findOneByEmail,
   changeOnline,

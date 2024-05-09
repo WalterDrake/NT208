@@ -28,7 +28,6 @@ const createNewCoursebyAdmin = async (req, res, next) => {
 // Lay danh sach lop hoc Do giao vien mo lop
 const getDetailsCourseAllbyAdmin = async (req, res, next) => {
   try {
-
     const coures = await courseModel.getDetailsAllbyTeacher(req.params.id)
     if (coures.length > 0) {
       res.status(StatusCodes.OK).json(coures)
@@ -36,9 +35,8 @@ const getDetailsCourseAllbyAdmin = async (req, res, next) => {
       res.json({}).send({ message: 'Khong co lop nao duoc tim thay' })
     }
 
-    const listcourse = await courseModel.getDetailsAll();
-    return res.status(StatusCodes.OK).json(listcourse);
-
+    const listcourse = await courseModel.getDetailsAll()
+    return res.status(StatusCodes.OK).json(listcourse)
   } catch (error) {
     next(error)
   }
@@ -258,34 +256,35 @@ const getOneCoursebyTeacher = async (req, res, next) => {
     // truyen vao id khoa hoc va id teacher
     const course = await GET_DB()
       .collection(courseModel.COURSE_COLLECTION_NAME)
-      .find({
+      .findOne({
         _id: new ObjectId(req.params.idcourse),
         owner: req.params.idteacher
       })
+    console.log(course)
     if (!course) {
       return res
         .status(StatusCodes.FAILED_DEPENDENCY)
         .send({ message: 'Khong ton tai yeu cau' })
     }
-    const courseone = courseModel.findOneById(req.params.idcourse)
+    const courseone = await courseModel.findOneById(req.params.idcourse)
     return res.status(StatusCodes.OK).json(courseone)
   } catch (error) {
     next(error)
   }
-};
+}
 
 const FindCourseOnSearch = async (req, res, next) => {
   try {
     // truyen vao cac key can tim kiem
     const articles = await GET_DB()
       .collection(courseModel.COURSE_COLLECTION_NAME)
-      .find({ title: { $regex: req.query.q, $options: "i" } })
-      .toArray();
-    return res.json(articles);
+      .find({ title: { $regex: req.query.q, $options: 'i' } })
+      .toArray()
+    return res.json(articles)
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 
 const getMarkOfCourse = async (req, res, next) => {
   try {
@@ -390,6 +389,5 @@ export const courseController = {
   getListCoursesofStudentid, // truyen vao id hoc sinh
   getListCourseStudentDone, // truyen vao id hoc sinh
   getMarkOfCourse, // truyen vao id hoc sinh va id khoa hoc
-  FindCourseOnSearch,
-};
-
+  FindCourseOnSearch
+}

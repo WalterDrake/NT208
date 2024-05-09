@@ -2,7 +2,6 @@
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
 import { studyModel } from '~/models/Monhoc/studyModel'
-import { join } from 'lodash'
 import { studentModel } from '~/models/studentModel'
 
 const createNew = async (reqBody) => {
@@ -61,11 +60,17 @@ const getStudyLearning = async(studentId) => {
   return getStudy
 }
 
+const getAtHome = async() => {
+  const getAllStudy = await studyModel.getAtHome()
+  return getAllStudy
+}
+
 export const studyService = {
   createNew,
   getDetails,
   updateStudy,
   getAll,
   joining,
-  getStudyLearning
+  getStudyLearning,
+  getAtHome
 }

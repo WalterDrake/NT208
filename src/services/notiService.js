@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import { slugify } from '~/utils/formatters'
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'

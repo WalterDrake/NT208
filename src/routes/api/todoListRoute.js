@@ -12,4 +12,5 @@ Router.route('/')
 
 Router.route('/:id')
   .delete(todoListValidation.deleteToDoList, todoListController.deleteToDoList)
+
 export const todoListRoute = Router

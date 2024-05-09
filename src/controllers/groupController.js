@@ -60,12 +60,22 @@ const joinGroup = async (req, res, next) => {
   } catch (error) { next(error) }
 }
 
+const deleteGroup = async (req, res, next) => {
+  try {
+    const groupId = req.params.id
+    const getAllGroup = await groupService.deleteGroup(groupId, req.body)
+    res.status(StatusCodes.OK).json(getAllGroup)
+  } catch (error) { next(error) }
+}
+
+
 export const groupController = {
   createNew,
   update,
   getAll,
   getGroupOwnByTeacher,
   getPrivate,
-  joinGroup
+  joinGroup,
+  deleteGroup
 }
 

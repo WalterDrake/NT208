@@ -63,11 +63,21 @@ const getLearning = async (req, res, next) => {
   }
 }
 
+const getAtHome = async (req, res, next) => {
+  try {
+    const studies = await studyService.getAtHome()
+    res.status(StatusCodes.OK).json(studies)
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const studyController = {
   createNew,
   getDetails,
   updateStudy,
   getAll,
   joining,
-  getLearning
+  getLearning,
+  getAtHome
 }
