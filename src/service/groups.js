@@ -25,6 +25,14 @@ const getAllGroupByIdUser = async (id) =>
     }
 }
 
+const deleteGroupById = async (id) => {
+    try {
+        const response = await httpRequest.delete(`groups/${id}`)
+        return response
+    } catch (err) {
+        throw err
+    }
+}
 export {
     addGroup,
     getAllGroupByIdUser
