@@ -28,7 +28,7 @@ const createNewCoursebyAdmin = async (req, res, next) => {
 // Lay danh sach lop hoc Do giao vien mo lop
 const getDetailsCourseAllbyAdmin = async (req, res, next) => {
   try {
-    const coures = await courseModel.getDetailsAllbyTeacher(req.params.id);
+    const coures = await courseModel.getDetailsAll();
     if (coures.length > 0) {
       res.status(StatusCodes.OK).json(coures);
     } else {

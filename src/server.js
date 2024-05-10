@@ -23,7 +23,8 @@ const START_SERVER = () => {
 
   // Middleware handles errors collectively
   app.use(errorHandlingMiddleware);
-
+  
+  
   app.listen(env.APP_PORT, env.APP_HOST, () => {
     console.log(`http://${env.APP_HOST}:${env.APP_PORT}`);
   });

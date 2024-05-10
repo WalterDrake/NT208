@@ -105,9 +105,9 @@ const deleteOneVideo = async (idVideo) => {
 const getListItemOfCourse = async (idCourse) => {
   try {
     const result = await GET_DB()
-      .collection(itemController.ITEM_COLLECTION_NAME)
-      .findMany({
-        course: idCourse
+      .collection(itemModel.ITEM_COLLECTION_NAME)
+      .find({
+        courseCode: idCourse
       })
       .toArray()
     return result
@@ -118,7 +118,7 @@ const getListItemOfCourse = async (idCourse) => {
 const deleteItemOfCourse = async (idItem) => {
   try {
 
-    if (!course) {
+    if (!idItem) {
       //Goi toi ham xoa 1 Item trong Course
       const deletedCourse = await courseController.deleteOneItem(idItem) // duyet
       // Goi toi ham xoa 1 video dung vong lap de xoa list video
