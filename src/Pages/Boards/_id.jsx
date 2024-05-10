@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Container from '@mui/material/Container'
 
 
-// import { mockData } from '~/apis/mock-data'
+//import { mockData } from '../../apis/mock-data'
 
 import { isEmpty } from 'lodash'
 import Box from '@mui/material/Box'

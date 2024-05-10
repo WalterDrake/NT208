@@ -31,14 +31,14 @@ function BoardBar({ board }) {
   return (
     <Box sx={{
       width: '100%',
-      height: (theme) => theme.trello.boardBarHeight,
+      //height: (theme) => theme.trello.boardBarHeight,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
       gap: 2,
       paddingX: 2,
       overflowX: 'auto',
-      bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#34495e' : '#1976d2')
+      //bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#34495e' : '#1976d2')
     }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <Tooltip title={board?.description}>
