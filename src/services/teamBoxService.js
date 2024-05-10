@@ -32,7 +32,7 @@ const deleteTeamBox = async (teamBoxId) => {
     const targetTeamBox = await teamBoxModel.findOneById(teamBoxId)
 
     if (!targetTeamBox) {
-      throw new ApiError(StatusCodes.NOT_FOUND, 'ToDoList not found!')
+      return
     }
 
     if (targetTeamBox.todoListId)
