@@ -8,7 +8,7 @@ export const getVideos = async () => {
         throw error.response.data
     }
 } // lấy danh sách video từ api
-export const getVideo = async (id) => { // id lớp học
+export const getVideoOfItem = async (id) => { // id lớp học
     try {
         const response = await httpRequest.get(`/videos/${id}`)
         return response.data

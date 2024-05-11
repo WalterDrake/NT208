@@ -47,11 +47,12 @@ function KhoahocDetailItem() {
       })
   }, [ownerId, courseId,showCreateItem])
   const [curVideo, setCurVideo] = useState([])
+  const [curVideourl, setCurVideourl] = useState('')
 
 
   return (
 
-    <CurrentVideoContext.Provider value={{ curVideo, setCurVideo, courseDetails, setCourseDetails }}>
+    <CurrentVideoContext.Provider value={{ curVideo, setCurVideo, courseDetails, setCourseDetails,curVideourl,setCurVideourl }}>
       <div className="bg-[#29303b] w-full flex justify-between" id="navbar-course">
         <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">{courseDetails.name}</h1>
         <div className='teacher-action'>
@@ -74,7 +75,7 @@ function KhoahocDetailItem() {
           <KhoahocDetailList />
         </div>
         <div id="video-khoa-hoc" className="flex-1">
-          <KhoahocDetailVideo />
+          <KhoahocDetailVideo url={curVideourl}/>
         </div>
       </div>
       <div id='teacher-action'>
