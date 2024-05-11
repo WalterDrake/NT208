@@ -5,26 +5,19 @@ import DefaultLayout from "./components/Layout/DefaultLayout"
 import { createContext, useState } from "react"
 import StudentHomePage from "./Pages/Schoolweb/student/StudentHomePage"
 import Dangnhappage from "./Pages/Dangnhappage"
-const testUser ={
-  id:1,
-  username:"admin",
-  email:"22521339@gm.uit.edu.vn",
-  password:"123456",
-  role:'teacher',
+const testUser = {
+  id: 1,
+  username: "admin",
+  email: "22521339@gm.uit.edu.vn",
+  password: "123456",
+  role: 'teacher',
 }
 import StudentDashboard from "./Pages/Schoolweb/student/StudentDashboard"
 
 export const UserContext = createContext(testUser)
 
 function App() {
-  const [user,setUser] = useState ( () =>{
-    let user = localStorage.getItem('UserUit')
-    if(user){
-      return JSON.parse(user)
-    }else{
-      return testUser
-    }
-  } )
+  const [user, setUser] = useState(true)
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Router className="h-screen bg-[#F0F7FF]">
