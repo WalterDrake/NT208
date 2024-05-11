@@ -14,27 +14,24 @@ const Khoahocpage = () => {
   const [khoahocs, setKhoahocs] = useState([])
   const { user } = useUser()
   useEffect(() => {
-    if(user.role === 'teacher'){
+    if(user.role === 'admin'){
       courses.GetCourseAll()
       .then((res) => {
         setKhoahocs(res[0])
       })
-      // courses.getCourseListTeacher(user._id).then((res) => {
-      //   if(res)
-      //     setKhoahocs(res)
-      // }).catch((err) => {
-      //   console.log(err)
-      // })
-    }
+      .catch((err) => {
+        console.log(err)
+      })}
+      else if(user.role === 'teacher'){
+        courses.getCourseListTeacher(user._id).then((res) => {
+          if(res)
+            setKhoahocs(res[0])
+        }).catch((err) => {
+          console.log(err)
+        })
+      }
     else if( user.role === 'student'){
       courses.getCourseListStudent(user._id).then((res) => {
-        setKhoahocs(res.data)
-      }).catch((err) => {
-        console.log(err)
-      })
-    }
-    else {
-      courses.GetCourseAll().then((res) => {
         setKhoahocs(res.data)
       }).catch((err) => {
         console.log(err)
