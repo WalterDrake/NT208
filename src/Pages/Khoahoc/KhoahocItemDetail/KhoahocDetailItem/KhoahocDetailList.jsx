@@ -43,7 +43,9 @@ export default function KhoahocDetailList() {
               <CreatePost></CreatePost>
             </button>
             {(user.role === "admin" || user.role === "teacher") &&
-              formCreateVideo && <CreateVideoForm></CreateVideoForm>}
+              formCreateVideo && (
+                <CreateVideoForm item={item}></CreateVideoForm>
+              )}
             {(user.role === "admin" || user.role === "teacher") &&
               formCreatePost && (
                 <CreatePostForItem item={item}></CreatePostForItem>
