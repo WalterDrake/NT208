@@ -16,7 +16,7 @@ export default function PostList() {
             })
             .catch(err => {
                 console.log('err',err)
-            })
+            })  
         }, 3000)
         return () => {
             console.log('unmout Post List')

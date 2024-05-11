@@ -18,16 +18,16 @@ const addGroup = async (ListMemberInit,groupData,owner) => {
 const getAllGroupByIdUser = async (id) =>
 {
     try {
-        const response = await httpRequest.get(`groups/${id}/getall`)
+        const response = await httpRequest.get(`/groups/${id}/getall`)
         return response
     } catch (err) {
         throw err.response
     }
 }
-
-const deleteGroupById = async (id) => {
+const deleteGroupById = async (id,ownerId) => {
     try {
-        const response = await httpRequest.delete(`groups/${id}`)
+        console.log('owner',ownerID,id)
+        const response = await httpRequest.delete(`/groups/${id}`,{ownerId})
         return response
     } catch (err) {
         throw err.response
@@ -36,7 +36,7 @@ const deleteGroupById = async (id) => {
 
 const getGroupByIdUser = async (id) => {
     try {
-        const response = await httpRequest.get(`groups/${id}/getprivate`)
+        const response = await httpRequest.get(`/groups/${id}/getprivate`)
         return response
     } catch {
         throw err.response

@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
 import * as item from '../../../../service/item'
 import { CurrentVideoContext } from '../KhoaHocDetailItem'
+import CreateVideo from './CreateVideo'
+import CreatePost from './CreatePost'
 
 
 export default function KhoahocDetailList() {
@@ -22,7 +24,12 @@ export default function KhoahocDetailList() {
                                 listItem.map((item, index) => {
                                         return (
                                                 <li key={index} className='flex justify-between items-center p-2 border-b border-[#ccc]'>
-                                                        Title : {item.title}
+                                                        <div>
+                                                                <h5> Title : {item.title} </h5>
+                                                                <p>Description: {item.description}</p>
+                                                        </div>
+                                                        <CreateVideo></CreateVideo>
+                                                        <CreatePost></CreatePost>
                                                 </li>
                                         )
                                 })

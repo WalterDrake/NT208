@@ -2,13 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
+import * as groups from '../../service/groups'
 
 import useUser from '../../hook/useUser'
-import * as groups from '../../service/groups'
 const HocNhomItem = ({ HocNhom }) => { // tạo props với object
   const {user} = useUser()
   const handleDeleteGroup = () => {
-    groups.deleteGroupById(HocNhom._id)
+    groups.deleteGroupById(HocNhom._id,HocNhom.owner)
     .then((res) => {
       console.log('delete group', res)
     })
