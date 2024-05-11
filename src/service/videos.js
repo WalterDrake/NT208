@@ -3,38 +3,46 @@ import * as httpRequest from "../utils/httpRequest";
 export const getVideos = async () => {
     try {
         const response = await httpRequest.get('/videos/')
-        return response.data
+        return response
     } catch (error) {
-        throw error.response.data
+        throw error.response
     }
 } // lấy danh sách video từ api
 export const getVideoOfItem = async (id) => { // id lớp học
     try {
-        const response = await httpRequest.get(`/videos/${id}`)
-        return response.data
+        const response = await httpRequest.get(`/videos/GetListVideo/${id}`)
+        return response
     } catch (error) {
-        throw error.response.data
+        throw error.response
     }
 }
 
 export const addVideo = async (data) => { // id lớp hoc
     try {
         const response = await httpRequest.post(`videos/CreateNewVideo`, data)
-        return response.data
+        return response
     } catch (error) {
-        throw error.response.data
+        throw error.response
     }
 }
 
 export const updateVideo = async (id, data) => {
     try {
         const response = await httpRequest.put(`/videos/${id}`, data)
-        return response.data
+        return response
     } catch (error) {
-        throw error.response.data
+        throw error.response
     }
 }
 
+export const deleteVideo = async (id) => {
+    try {
+        const response = await httpRequest.remove(`/videos/DeleteVideo/${id}`)
+        return response
+    } catch (error) {
+        throw error.response
+    }
+}
 // import express from "express";
 // import { StatusCodes } from "http-status-codes";
 // import { videoController } from "~/controllers/videoController";

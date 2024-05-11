@@ -5,6 +5,7 @@ import validator from '../../hook/validate'
 import { addNoti } from '../../service/notification';
 
 export default function CreatePost({ isThongBao }) {
+  const { user } = useUser()
   useEffect(() => {
     validator({
       form: '#create-post',
@@ -24,7 +25,8 @@ export default function CreatePost({ isThongBao }) {
             .catch(() => alert('err thong bao'))
         }
         else {
-          forum.addForum(data)
+          const {title, description, linkPDF} = data
+          forum.addForum({title, description, linkPDF,user: user._id})
             .then(res => {
               alert('oke r cu')
               console.log('res post', res)
