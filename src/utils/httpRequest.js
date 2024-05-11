@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const httpRequest = axios.create({
-    baseURL: 'http://localhost:8017/apis/',
+    baseURL: 'http://localhost:8017/api/',
 })
 
 const get = async (url, config) => {
@@ -9,7 +9,7 @@ const get = async (url, config) => {
     return response.data;
 }
 
-const post = async (url, data, config={}) => {
+const post = async (url, data, config = {}) => {
     config.headers = {
         ...config.headers,
         'Content-Type': 'application/json'

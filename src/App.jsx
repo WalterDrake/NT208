@@ -18,7 +18,7 @@ export const UserContext = createContext(testUser)
 
 function App() {
 
-  const [user,setUser] = useState (null)
+  const [user, setUser] = useState(null)
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
