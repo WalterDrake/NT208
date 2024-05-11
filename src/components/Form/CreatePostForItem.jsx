@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import validator from "../../hook/validate";
-export default function CreateVideoForm() {
+import * as forum from "../../service/forum";
+import Item from "../Footer/Item";
+export default function CreatePostForm({ item }) {
   useEffect(() => {
     validator({
       form: "#create-post-item",
@@ -12,8 +14,17 @@ export default function CreateVideoForm() {
         validator.isRequired("#description", "Vui lòng nhập mo ta"),
         validator.isRequired("#linkPDF", "Vui lòng nhập linkpdf"),
       ],
-      onsubmit: function (data) {
+      onSubmit: function (data) {
         console.log("data", data);
+        const { title, description, linkPDF } = data;
+
+        forum
+          .addForum({ title, description, linkPDF, item: item._id })
+          .then((res) => {
+            alert("Create course successfully" + res).catch((err) =>
+              alert("Create post for item failed: " + err)
+            );
+          });
       },
     });
   }, []);
@@ -34,7 +45,7 @@ export default function CreateVideoForm() {
         <div className="form-message"></div>
       </div>
       <div className="form-group">
-        <label htmlFor="linkPDF">linkPDF Video: </label>
+        <label htmlFor="linkPDF">linkPDF : </label>
         <input
           type="text"
           id="linkPDF"
