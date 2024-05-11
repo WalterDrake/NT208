@@ -35,7 +35,7 @@ export default function KhoahocDetailList() {
                                                         </div>
                                                         <button onClick={() => setFormCreateVideo(pre => !pre)}><CreateVideo></CreateVideo></button>
                                                         <button onClick={()=> setFormCreatePost(pre => !pre)}><CreatePost ></CreatePost></button>
-                                                        {((user.role === 'admin' || user.role === 'teacher')&&formCreateVideo ) && <CreateVideoForm></CreateVideoForm>}
+                                                        {((user.role === 'admin' || user.role === 'teacher')&&formCreateVideo ) && <CreateVideoForm item={item}></CreateVideoForm>}
                                                         {((user.role === 'admin' || user.role === 'teacher')&&formCreatePost) && <CreatePostForItem></CreatePostForItem>}
                                                 </li>
                                         )
