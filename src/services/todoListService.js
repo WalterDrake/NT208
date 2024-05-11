@@ -46,8 +46,19 @@ const deleteToDoList = async (todoListId) => {
   } catch (error) { throw error }
 }
 
+const getTodoList = async (userId) => {
+  try {
+    const targetToDoList = await todoListModel.findOneByUserId(userId)
+
+    if (!targetToDoList) {
+      throw new ApiError(StatusCodes.NOT_FOUND, 'ToDoList not found!')
+    }
+    return targetToDoList
+  } catch (error) { throw error }
+}
 export const todoListService =
 {
   createNew,
-  deleteToDoList
+  deleteToDoList,
+  getTodoList
 }

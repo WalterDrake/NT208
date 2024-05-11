@@ -57,10 +57,23 @@ const deleteOneById = async (postId) => {
   } catch (error) { throw new Error(error) }
 }
 
+const findOneByUserId = async (id) => {
+  try {
+    const result = await GET_DB().collection(TODOLIST_COLLECTION_NAME).findOne({
+      userId: new ObjectId(id)
+    })
+    return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+
 export const todoListModel = {
   TODOLIST_COLLECTION_NAME,
   createNew,
   findOneById,
   updateBoardId,
-  deleteOneById
+  deleteOneById,
+  findOneByUserId
 }

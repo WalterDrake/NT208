@@ -23,7 +23,18 @@ const deleteToDoList = async (req, res, next) => {
   } catch (error) { next(error) }
 }
 
+const getTodoList = async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const result = await todoListService.getTodoList(userId)
+
+    res.status(StatusCodes.OK).json(result)
+  } catch (error) { next(error) }
+}
+
+
 export const todoListController = {
   createNew,
-  deleteToDoList
+  deleteToDoList,
+  getTodoList
 }

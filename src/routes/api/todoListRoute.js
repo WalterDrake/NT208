@@ -11,6 +11,9 @@ Router.route('/')
   .post(todoListValidation.createNew, todoListController.createNew)
 
 Router.route('/:id')
+  .get(todoListController.getTodoList)
+
+Router.route('/:id')
   .delete(todoListValidation.deleteToDoList, todoListController.deleteToDoList)
 
 export const todoListRoute = Router
