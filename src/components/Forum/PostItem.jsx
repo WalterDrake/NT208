@@ -5,20 +5,22 @@ import { pink } from '@mui/material/colors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Tooltip } from '@mui/material';
 import * as forum from '../../service/forum'
-import  useTime from '../../hook/useTime'
+import useTime from '../../hook/useTime'
+import useUser from '../../hook/useUser';
 
 export default function PostItem({ post }) {
+  const { user } = useUser()
   const [open, setOpen] = React.useState(false);
   // const [showUpdate, setShowUpdate] = React.useState(false);
 
   const handleDelete = useCallback(() => {
-     console.log(post)
+    console.log(post)
     forum.deleteForum(post._id)
       .then(() => {
         alert('Delete success')
       })
       .catch((err) => {
-        console.log('delete',err)
+        console.log('delete', err)
       })
   }, [])
   const handleTooltipClick = () => {
@@ -30,7 +32,7 @@ export default function PostItem({ post }) {
       {/* {showUpdate && <UpdatePost post={post} setShowUpdate={setShowUpdate} />} */}
       <li className='flex md:flex-row flex-col gap-1 w-[80%] bg-white mx-auto rounded-3xl my-4 overflow-hidden h-auto'>
         <div className="m-auto md:w-1/5">
-          <img src={'https://i.pinimg.com/736x/a5/20/0f/a5200f19de6c7b5d35b89262cd73e129.jpg'&& post.linkPDF} alt={`Post-image-${post.title}-image`} />
+          <img src={'https://i.pinimg.com/736x/a5/20/0f/a5200f19de6c7b5d35b89262cd73e129.jpg' && post.linkPDF} alt={`Post-image-${post.title}-image`} />
         </div>
         <div className='ml-2 w-4/5 flex flex-col'>
           <div className='flex justify-between'>
@@ -38,16 +40,18 @@ export default function PostItem({ post }) {
               <h4 className="text-sm font-bold bg-white shadow py-[2px] w-20 text-center rounded-md">Hỏi đáp</h4>
               <p className='m-0 font-thin text-sm text-gray-500'>{postTime}</p>
             </div>
-            <div className='relative'>
-              <Tooltip
-                title={<ul>
-                  <li onClick={handleDelete}>delete</li>
-                </ul> }
-                open={open} onClick={handleTooltipClick}
-                disableInteractive={false}>
-                <MoreVertIcon />
-              </Tooltip>
-            </div>
+            {
+              (user.role === 'admin' || user._id === post?.owner) && (<div className='relative'>
+                <Tooltip
+                  title={<ul>
+                    <li onClick={handleDelete}>delete</li>
+                  </ul>}
+                  open={open} onClick={handleTooltipClick}
+                  disableInteractive={false}>
+                  <MoreVertIcon />
+                </Tooltip>
+              </div>)
+            }
 
           </div>
           <h3 className='font-bold text-xl bg-slate-100 hover:bg-slate-300 max-w-[70%] w-auto rounded-md shadow pl-8'>{post.title}</h3>

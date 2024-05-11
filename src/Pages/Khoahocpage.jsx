@@ -61,7 +61,7 @@ const Khoahocpage = () => {
           </ul>
           {(user.role === 'teacher' || user.role === 'admin') ? <CreateCourse isCourse={true} isStudy={false} user={user} /> : null}
           <div className="container flex">
-            {khoahocs.length > 0 ? khoahocs.map((khoahoc, index) => (
+            {khoahocs?.length > 0 ? khoahocs.map((khoahoc, index) => (
                 <div key={index} className="item">
                   <KhoahocItem KhoaHoc={khoahoc} />
                 </div>

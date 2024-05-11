@@ -27,7 +27,6 @@ const Dangnhappage = () => {
                 serivce.login(data.email, data.password)
                 .then(res => {
                     console.log('res dang nhap',res)
-                    res.role = 'teacher'
                     setUser(res)
                     // console.log('user',res)
                     if(location.pathname === '/Login') {
