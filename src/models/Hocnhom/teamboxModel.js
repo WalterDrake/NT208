@@ -8,7 +8,6 @@ const TEAMBOX_COLLECTION_NAME = 'teamboxs'
 const TEAMBOX_COLLECTION_SCHEMA = Joi.object({
   chatRealTimeId: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
   videoRealTimeId: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
-  todoListId: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
   groupId: Joi.string().required().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE)
 })
 
@@ -74,22 +73,6 @@ const updateVideoRealTimeId = async (id, videoRealTimeId) =>
   }
 }
 
-const updateTodoListId = async (id, todoListId) =>
-{
-  try {
-    const result = await GET_DB().collection(TEAMBOX_COLLECTION_NAME).findOneAndUpdate(
-      { _id: new ObjectId(id) },
-      { $set: {
-        todoListId: todoListId
-      } },
-      { returnDocument: 'after' } // returns the updated document.
-    )
-    return result
-  } catch (error) {
-    throw new Error(error)
-  }
-}
-
 const deleteOneById = async (messageId) => {
   try {
     const result = await GET_DB().collection(TEAMBOX_COLLECTION_NAME).deleteOne({ _id: new ObjectId(messageId) })
@@ -102,7 +85,6 @@ export const teamBoxModel = {
   createNew,
   findOneById,
   updateChatRealTimeId,
-  updateTodoListId,
   updateVideoRealTimeId,
   deleteOneById
 }

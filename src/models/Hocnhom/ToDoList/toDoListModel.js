@@ -6,10 +6,8 @@ import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
 // Define Collection (Name & Schema)
 const TODOLIST_COLLECTION_NAME = 'todoLists'
 const TODOLIST_COLLECTION_SCHEMA = Joi.object({
-  boardList: Joi.array().items(
-    Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE)
-  ).default([]),
-  teamBoxId: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE).required()
+  boardId: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
+  userId: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE).required()
 })
 
 const validateBeforeCreate = async (data) =>
@@ -24,7 +22,7 @@ const createNew = async (data) =>
     const newtodoListToAdd =
     {
       ...validData,
-      teamBoxId: new ObjectId(validData.teamBoxId)
+      userId: new ObjectId(validData.userId)
     }
     const createdBoardList = await GET_DB().collection(TODOLIST_COLLECTION_NAME).insertOne(newtodoListToAdd)
     return createdBoardList
@@ -41,22 +39,11 @@ const findOneById = async (id) => {
   }
 }
 
-const pushBoardList = async (board) => {
+const updateBoardId = async (board) => {
   try {
     const result = await GET_DB().collection(TODOLIST_COLLECTION_NAME).findOneAndUpdate(
       { _id: new ObjectId(board.todoListId) },
-      { $push: { boardList: new ObjectId(board._id) } },
-      { returnDocument: 'after' }
-    )
-    return result
-  } catch (error) { throw new Error(error) }
-}
-
-const pullBoardList = async (board) => {
-  try {
-    const result = await GET_DB().collection(TODOLIST_COLLECTION_NAME).findOneAndUpdate(
-      { _id: new ObjectId(board.todoListId) },
-      { $pull: { boardList: new ObjectId(board._id) } },
+      { $set: { boardId: new ObjectId(board._id) } },
       { returnDocument: 'after' }
     )
     return result
@@ -74,7 +61,6 @@ export const todoListModel = {
   TODOLIST_COLLECTION_NAME,
   createNew,
   findOneById,
-  pushBoardList,
-  pullBoardList,
+  updateBoardId,
   deleteOneById
 }

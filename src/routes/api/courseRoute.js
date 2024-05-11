@@ -8,7 +8,6 @@ Router.route('/').get((req, res) => {
   res.status(StatusCodes.OK).json({ message: 'GET: API get list Course' })
 })
 
-/////////////////////////////////////////////////////////////////
 Router.route('/').get((req, res) => {
   res.status(StatusCodes.OK).json({ message: 'GET: API get list Course' })
 })

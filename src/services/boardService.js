@@ -7,7 +7,7 @@ import { StatusCodes } from 'http-status-codes'
 import { cloneDeep } from 'lodash'
 import { columnModel } from '~/models/Hocnhom/ToDoList/columnModel'
 import { cardModel } from '~/models/Hocnhom/ToDoList/cardModel'
-import { todoListModel } from '~/models/Hocnhom/ToDoList/toDoListModel'
+
 
 const createNew = async (reqBody) => {
   try {
@@ -16,16 +16,13 @@ const createNew = async (reqBody) => {
       ...reqBody,
       slug: slugify(reqBody.title)
     }
+    delete newBoard.userId
     // Call model layer to save record into database
     const createdBoard = await boardModel.createNew(newBoard)
 
     // Get record board after calling (optional)
     const getNewBoard = await boardModel.findOneById(createdBoard.insertedId)
 
-    if (getNewBoard)
-    {
-      await todoListModel.pushBoardList(getNewBoard)
-    }
     // Return result; note: have to return in Service
     return getNewBoard
   } catch (error) { throw error }

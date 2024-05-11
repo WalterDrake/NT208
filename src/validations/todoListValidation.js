@@ -5,10 +5,9 @@ import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
 
 const createNew = async (req, res, next) => {
   const correctCondition = Joi.object({
-    boardList: Joi.array().items(
-      Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE)
-    ),
-    teamBoxId: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE).required()
+    title: Joi.string().required().min(3).max(50).trim().strict(),
+    description: Joi.string().required().min(3).max(50).trim().strict(),
+    userId: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE).required()
   })
   try {
     // Set abortEarly: false in case many error validation return all case

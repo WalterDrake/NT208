@@ -2,27 +2,33 @@
 import { todoListModel } from '~/models/Hocnhom/ToDoList/toDoListModel'
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
-import { columnModel } from '~/models/Hocnhom/ToDoList/columnModel'
-import { cardModel } from '~/models/Hocnhom/ToDoList/cardModel'
 import { boardModel } from '~/models/Hocnhom/ToDoList/boardModel'
-import { teamBoxModel } from '~/models/Hocnhom/teamboxModel'
+import { boardService } from './boardService'
+
 
 const createNew = async (reqBody) => {
   // eslint-disable-next-line no-useless-catch
   try {
     // Handle data according to each project
-    const newBoardList = {
+    const newTodoList = {
       ...reqBody
     }
+    delete newTodoList.title
+    delete newTodoList.description
     // Call model layer to save record into database
-    const createdBoardList = await todoListModel.createNew(newBoardList)
+    const createdTodoList = await todoListModel.createNew(newTodoList)
+    const newDataBoard = {
+      ...reqBody,
+      todoListId: String(createdTodoList.insertedId)
+    }
+    const getBoard = await boardService.createNew(newDataBoard)
 
+    await todoListModel.updateBoardId(getBoard)
     // Get record board after calling (optional)
-    const getNewBoardList = await todoListModel.findOneById(createdBoardList.insertedId)
+    const getNewBoard = await boardModel.findOneById(getBoard._id)
 
-    await teamBoxModel.updateTodoListId(getNewBoardList.teamBoxId, getNewBoardList._id)
     // Return result note: have to return in Service
-    return getNewBoardList
+    return getNewBoard
   } catch (error) { throw error }
 }
 
@@ -33,18 +39,8 @@ const deleteToDoList = async (todoListId) => {
     if (!targetToDoList) {
       throw new ApiError(StatusCodes.NOT_FOUND, 'ToDoList not found!')
     }
-    const boardIds = targetToDoList.boardList
-    for (const boardId of boardIds)
-    {
-      const targetBoard = await boardModel.findOneById(boardId)
-      const columnIds = targetBoard.listColumn
-      for (const columnId of columnIds)
-      {
-        await cardModel.deleteManyByColumnId(columnId)
-      }
-      await columnModel.deleteManyByBoardId(boardId)
-      await boardModel.deleteOneById(boardId)
-    }
+    const boardId = targetToDoList.boardId
+    await boardService.deleteBoard(boardId)
     await todoListModel.deleteOneById(todoListId)
     return { deleteResult: 'ToDoList deleted successfully!' }
   } catch (error) { throw error }

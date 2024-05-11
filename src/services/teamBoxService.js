@@ -1,7 +1,6 @@
 /* eslint-disable no-useless-catch */
 import { groupModel } from '~/models/Hocnhom/groupModel'
 import { teamBoxModel } from '~/models/Hocnhom/teamboxModel'
-import { todoListService } from './todoListService'
 import { chatRealTimeService } from './chatRealTimeService'
 import { videoRealTimeService } from './videoRealTimeService'
 
@@ -31,11 +30,6 @@ const deleteTeamBox = async (teamBoxId) => {
 
     if (!targetTeamBox) {
       return
-    }
-
-    if (targetTeamBox.todoListId)
-    {
-      await todoListService.deleteToDoList(targetTeamBox.todoListId)
     }
     if (targetTeamBox.chatRealTimeId)
     {

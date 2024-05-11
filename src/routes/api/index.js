@@ -20,7 +20,7 @@ import { commentRoute } from './commentRoute'
 import { itemRoute } from './itemRoute'
 import { videoRoute } from './videoRoute'
 import { complainRoute } from './complainRoute'
-import {adminRoute} from './adminRoute'
+import { adminRoute } from './adminRoute'
 
 const Router = express.Router()
 // Check APIs /status
