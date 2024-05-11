@@ -18,7 +18,6 @@ const COMMENTBOX_COLLECTION_SCHEMA = Joi.object({
   createdAt: Joi.date().timestamp('javascript').default(Date.now)
 })
 
-
 const validateBeforeCreate = async (data) => {
   return await COMMENTBOX_COLLECTION_SCHEMA.validateAsync(data, {
     abortEarly: false
@@ -27,9 +26,8 @@ const validateBeforeCreate = async (data) => {
 
 const createNew = async (data) => {
   try {
-
     const datas = {
-      video: data
+      video: new ObjectId(data)
     }
     const validData = await validateBeforeCreate(datas)
     const createdStudy = await GET_DB()
@@ -67,24 +65,32 @@ const getDetails = async () => {
 
 const pushToListComment = async (commentBoxId, commentId) => {
   try {
-    const result = await GET_DB().collection(COMMENTBOX_COLLECTION_NAME).findOneAndUpdate(
-      { _id: new ObjectId(commentBoxId) },
-      { $push: { listComment: new ObjectId(commentId) } },
-      { returnDocument: 'after' }
-    )
+    const result = await GET_DB()
+      .collection(COMMENTBOX_COLLECTION_NAME)
+      .findOneAndUpdate(
+        { _id: new ObjectId(commentBoxId) },
+        { $push: { listComment: new ObjectId(commentId) } },
+        { returnDocument: 'after' }
+      )
     return result
-  } catch (error) { throw new Error(error) }
+  } catch (error) {
+    throw new Error(error)
+  }
 }
 
 const pullToListComment = async (commentModel) => {
   try {
-    const result = await GET_DB().collection(COMMENTBOX_COLLECTION_NAME).findOneAndUpdate(
-      { _id: new ObjectId(commentModel.cboxId) },
-      { $pull: { listComment: new ObjectId(commentModel._id) } },
-      { returnDocument: 'after' }
-    )
+    const result = await GET_DB()
+      .collection(COMMENTBOX_COLLECTION_NAME)
+      .findOneAndUpdate(
+        { _id: new ObjectId(commentModel.cboxId) },
+        { $pull: { listComment: new ObjectId(commentModel._id) } },
+        { returnDocument: 'after' }
+      )
     return result
-  } catch (error) { throw new Error(error) }
+  } catch (error) {
+    throw new Error(error)
+  }
 }
 
 const getComments = async (studyId) => {

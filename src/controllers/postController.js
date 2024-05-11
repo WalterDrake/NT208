@@ -17,7 +17,7 @@ const createNewPostOfItem = async (req, res, next) => {
 
 const getDetailsAllPost = async (req, res, next) => {
   try {
-    const item = await postService.getDetailsAllPost(itemId)
+    const item = await postService.getDetailsAllPost()
     res.status(StatusCodes.OK).json(item)
   } catch (error) {
     next(error)

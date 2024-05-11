@@ -8,10 +8,19 @@ Router.route('/').get((req, res) => {
   res.status(StatusCodes.OK).json({ message: 'GET: API get list Course' })
 })
 
+/////////////////////////////////////////////////////////////////
+Router.route('/').get((req, res) => {
+  res.status(StatusCodes.OK).json({ message: 'GET: API get list Course' })
+})
+
 Router.route('/CreateCourse').post(courseController.createNewCoursebyAdmin)
+
 Router.route('/GetCourseAll').get(courseController.getDetailsCourseAllbyAdmin)
+
 Router.route('/Search').get(courseController.FindCourseOnSearch)
-Router.route('/DeleteCourse/:id').delete(courseController.deleteCoursebyAdmin) // truyen vao id course
+
+Router.route('/DeleteCourse/:id').delete(courseController.deleteCoursebyAdmin)
+// truyen vao id course
 Router.route('/DeleteCourses/:id').delete(
   courseController.deleteCoursesbyAdmin
 ) //truyen vao id giao vien
