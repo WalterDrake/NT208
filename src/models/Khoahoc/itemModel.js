@@ -93,7 +93,7 @@ const deleteOneVideo = async (idVideo) => {
   try {
     const result = await GET_DB()
       .collection(itemModel.ITEM_COLLECTION_NAME)
-      .updateMany(
+      .updateOne(
         { listVideoids: { $in: [idVideo] } },
         { $pull: { listVideoids: { $in: [idVideo] } } }
       );

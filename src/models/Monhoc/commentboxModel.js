@@ -83,7 +83,7 @@ const deleteCommentbox = async (idcbox) => {
   try {
     const result = await GET_DB()
       .collection(COMMENTBOX_COLLECTION_NAME)
-      .findOneAndDelete({ _id: ObjectId(idcbox) });
+      .findOneAndDelete({ _id: new ObjectId(idcbox) });
     return result;
   } catch (error) {
     throw new Error(error);

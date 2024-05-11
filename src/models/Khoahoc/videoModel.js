@@ -88,13 +88,18 @@ const deleteVideoOfItem = async (idVideos) => {
   try {
     const deletedItem = await itemModel.deleteOneVideo(idVideos);
     // ham xoa commentbox
-    const comment = await GET_DB()
-      .collection(cboxModel.COMMENTBOX_COLLECTION_NAME)
-      .findOne({
-        video: idVideos,
+    //const comment = await GET_DB()
+    // .collection(cboxModel.COMMENTBOX_COLLECTION_NAME)
+    //.findOne({
+    //    video: String(idVideos),
+    // });
+    // const deleteCommentbox = await cboxModel.deleteCommentbox(comment._id);
+    const deleted = await GET_DB()
+      .collection(VIDEO_COLLECTION_NAME)
+      .findOneAndDelete({
+        _id: new ObjectId(idVideos),
       });
-    const deleteCommentbox = await cboxModel.deleteOneCommentBox(comment._id);
-    return true;
+    return deleted;
   } catch (error) {
     throw new Error(error);
   }
