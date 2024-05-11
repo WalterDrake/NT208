@@ -13,7 +13,6 @@ const COMMENTBOX_COLLECTION_SCHEMA = Joi.object({
   video: Joi.string()
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
-
     .required(),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
 });
@@ -26,10 +25,10 @@ const validateBeforeCreate = async (data) => {
   });
 };
 
-const createNew = async (data) => {
+const createNew = async (idcomplain) => {
   try {
     const datas = {
-      video: String(data),
+      video: String(idcomplain),
     };
     const validData = await validateBeforeCreate(datas);
     const createdStudy = await GET_DB()
@@ -74,6 +73,17 @@ const pushToListComment = async (commentBoxId, commentId) => {
         { $push: { listComment: new ObjectId(commentId) } },
         { returnDocument: "after" }
       );
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const deleteCommentbox = async (idcbox) => {
+  try {
+    const result = await GET_DB()
+      .collection(COMMENTBOX_COLLECTION_NAME)
+      .findOneAndDelete({ _id: ObjectId(idcbox) });
     return result;
   } catch (error) {
     throw new Error(error);
@@ -129,4 +139,5 @@ export const cboxModel = {
   pushToListComment,
   pullToListComment,
   getComments,
+  deleteCommentbox,
 };

@@ -1,11 +1,11 @@
-import Joi from 'joi'
-import { isDate } from 'lodash'
-import { ObjectId } from 'mongodb'
-import { GET_DB } from '~/config/mongodb'
-import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
-import { itemModel } from './itemModel'
+import Joi from "joi";
+import { isDate } from "lodash";
+import { ObjectId } from "mongodb";
+import { GET_DB } from "~/config/mongodb";
+import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from "~/utils/validators";
+import { itemModel } from "./itemModel";
 
-const POST_COLLECTION_NAME = 'posts'
+const POST_COLLECTION_NAME = "posts";
 const POST_COLLECTION_SCHEMA = Joi.object({
   title: Joi.string().required().min(3).max(50).trim().strict(),
   description: Joi.string().required().min(3).max(255).trim().strict(),
@@ -13,109 +13,106 @@ const POST_COLLECTION_SCHEMA = Joi.object({
 
   item: Joi.string()
     .pattern(OBJECT_ID_RULE)
-    .message({ OBJECT_ID_RULE_MESSAGE }),
-  createdAt: Joi.date().timestamp('javascript').default(Date.now),
-  studyId : Joi.string()
-    .pattern(OBJECT_ID_RULE)
     .message({ OBJECT_ID_RULE_MESSAGE })
-})
+    .required(),
+  createdAt: Joi.date().timestamp("javascript").default(Date.now),
+  studyId: Joi.string()
+    .pattern(OBJECT_ID_RULE)
+    .message({ OBJECT_ID_RULE_MESSAGE }),
+});
 
-const INVALID_UPDATE_FIELDS = ['_id', 'createdAt']
+const INVALID_UPDATE_FIELDS = ["_id", "createdAt"];
 
 const validateBeforeCreate = async (data) => {
   return await POST_COLLECTION_SCHEMA.validateAsync(data, {
-    abortEarly: false
-  })
-}
+    abortEarly: false,
+  });
+};
 
 const createNewPostOfItem = async (data) => {
   try {
-    const validData = await validateBeforeCreate(data)
-    const newDataToAdd = {
-      ...validData,
-      studyId : new ObjectId(validData.studyId)
-    }
+    const validData = await validateBeforeCreate(data);
     const createdPost = await GET_DB()
       .collection(POST_COLLECTION_NAME)
-      .insertOne(newDataToAdd)
-    return createdPost
+      .insertOne(validData);
+    return createdPost;
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
-}
+};
 
 const findOneById = async (postId) => {
   try {
     const result = await GET_DB()
       .collection(POST_COLLECTION_NAME)
-      .findOne({ _id: new ObjectId(postId) })
-    return result
+      .findOne({ _id: new ObjectId(postId) });
+    return result;
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
-}
+};
 
 const getDetailsAllPost = async () => {
   try {
     const result = await GET_DB()
       .collection(POST_COLLECTION_NAME)
       .find()
-      .toArray()
+      .toArray();
 
-    return result
+    return result;
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
-}
+};
 const deletePostOfItem = async (idPost) => {
   try {
     const deletePost = await GET_DB()
       .collection(postModel.POST_COLLECTION_NAME)
       .deleteOne({
-        _id: new ObjectId(idPost)
-      })
-    const deleteItem = await itemModel.deleteOnePost(idPost)
+        _id: new ObjectId(idPost),
+      });
+    const deleteItem = await itemModel.deleteOnePost(idPost);
 
-    return true
+    return true;
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
-}
+};
 
 const getListPostOfItem = async (idItem) => {
   try {
     const listpost = await GET_DB()
       .collection(postModel.POST_COLLECTION_NAME)
       .findMany({
-        item: idItem
+        item: idItem,
       })
-      .toArray()
-    return listpost
+      .toArray();
+    return listpost;
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
-}
+};
 const updatePostOfItem = async (postId, updateData) => {
   try {
     // Lọc những field mà chúng ta không cho phép cập nhật linh tinh
     Object.keys(updateData).forEach((fieldName) => {
       if (INVALID_UPDATE_FIELDS.includes(fieldName)) {
-        delete updateData[fieldName]
+        delete updateData[fieldName];
       }
-    })
+    });
 
     const result = await GET_DB()
       .collection(POST_COLLECTION_NAME)
       .findOneAndUpdate(
         { _id: new ObjectId(postId) },
         { $set: updateData },
-        { returnDocument: 'after' } // sẽ trả về kết quả mới sau khi cập nhật
-      )
-    return result
+        { returnDocument: "after" } // sẽ trả về kết quả mới sau khi cập nhật
+      );
+    return result;
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
-}
+};
 
 export const postModel = {
   POST_COLLECTION_NAME,
@@ -130,5 +127,5 @@ export const postModel = {
   deletePostOfItem, // truyen id Post
 
   // Danh cho hoc sinh
-  getListPostOfItem // truyen id Item
-}
+  getListPostOfItem, // truyen id Item
+};

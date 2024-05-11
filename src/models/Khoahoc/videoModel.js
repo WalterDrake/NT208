@@ -104,7 +104,7 @@ const getListVideoOfItem = async (idItems) => {
   try {
     const result = await GET_DB()
       .collection(videoModel.VIDEO_COLLECTION_NAME)
-      .findMany({
+      .find({
         item: idItems,
       })
       .toArray();

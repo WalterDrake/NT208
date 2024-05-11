@@ -200,6 +200,20 @@ const findOneById = async (itemId) => {
     throw new Error(error);
   }
 };
+
+const pushToListPost = async (itemId, idPost) => {
+  try {
+    const result = await GET_DB()
+      .collection(ITEM_COLLECTION_NAME)
+      .updateOne(
+        { _id: new ObjectId(itemId) },
+        { $push: { listPostids: String(idPost) } }
+      );
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 export const itemModel = {
   ITEM_COLLECTION_NAME,
   ITEM_COLLECTION_SCHEMA,
@@ -211,6 +225,7 @@ export const itemModel = {
   createItemOfCourse, // truyen data
   updateDataItemOfCourse, // id item va update data
   deleteItemOfCourse, //id item
+  pushToListPost,
 
   // Phuc vu xoa cai nho
   deleteOneVideo, // idVideo
