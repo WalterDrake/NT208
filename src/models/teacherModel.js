@@ -16,7 +16,7 @@ const TEACHER_COLLECTION_SCHEMA = Joi.object().keys({
   password: Joi.string().required().pattern(TEXT_RULE).trim().strict(),
 
   salt: Joi.string().trim().strict().default(""),
-  role: Joi.string().required().trim().default("teacher"),
+  role: Joi.string().trim().default("teacher"),
   admin: Joi.string()
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
@@ -31,7 +31,7 @@ const TEACHER_COLLECTION_SCHEMA = Joi.object().keys({
 const INVALID_UPDATE_FIELDS = ["_id", "createdAt"];
 
 const validateBeforeCreate = async (data) => {
-  return await USER_COLLECTION_SCHEMA.validateAsync(data, {
+  return await TEACHER_COLLECTION_SCHEMA.validateAsync(data, {
     abortEarly: false,
   });
 };
@@ -39,7 +39,7 @@ const validateBeforeCreate = async (data) => {
 const createNew = async (data) => {
   try {
     const existingStudent = await GET_DB()
-      .collection(USER_COLLECTION_NAME)
+      .collection(TEACHER_COLLECTION_NAME)
       .findOne({
         email: data.email,
       });
@@ -66,7 +66,7 @@ const createNew = async (data) => {
 const findOneById = async (ids) => {
   try {
     const result = await GET_DB()
-      .collection(USER_COLLECTION_NAME)
+      .collection(TEACHER_COLLECTION_NAME)
       .findOne({ _id: new ObjectId(ids) });
     return result;
   } catch (error) {
@@ -149,7 +149,7 @@ const update = async (userId, updateData) => {
     });
 
     const result = await GET_DB()
-      .collection(USER_COLLECTION_NAME)
+      .collection(TEACHER_COLLECTION_NAME)
       .findOneAndUpdate(
         { _id: new ObjectId(userId) },
         { $set: updateData },

@@ -31,9 +31,10 @@ const adminRegister = async (req, res, next) => {
 const adminLogIn = async (req, res, next) => {
   try {
     const testadmin = await adminModel.checkExist(
-      req.body.email,
-      req.body.password
+      req.params.email,
+      req.params.password
     );
+
     if (testadmin != null) {
       res.status(StatusCodes.OK).send({ message: "Thanh cong" });
     } else {
