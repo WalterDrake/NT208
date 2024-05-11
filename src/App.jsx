@@ -17,7 +17,9 @@ import StudentDashboard from "./Pages/Schoolweb/student/StudentDashboard"
 export const UserContext = createContext(testUser)
 
 function App() {
-  const [user, setUser] = useState(true)
+
+  const [user, setUser] = useState(null)
+
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Router className="h-screen bg-[#F0F7FF]">
