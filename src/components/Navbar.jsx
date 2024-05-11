@@ -6,7 +6,7 @@ import Badge from '@mui/material/Badge';
 import { Link } from "react-router-dom";
 
 import routes from "../config/routes";
-
+import { LuListTodo } from "react-icons/lu";
 import { UserProfile } from "./UserProfile";
 import Navbarmenu from "./Layout/NavBaritem/Navbarmenu";
 import Navbaritem from "./Layout/NavBaritem/Navbaritem";
@@ -35,6 +35,11 @@ const Navbar = () => {
         />
 
         <Navbaritem
+          to={config.todolist}
+          icon={<LuListTodo className="w-10 h-10" />}
+        />
+
+        <Navbaritem
           to={config.tinnhan}
           icon={<Badge color="error" badgeContent={7}>
             <AiOutlineMessage className="w-10 h-10" />
@@ -48,7 +53,7 @@ const Navbar = () => {
         />
       </Navbarmenu>
 
-      <div>
+      <div className="ml-4">
         <UserProfile />
       </div>
     </nav>
