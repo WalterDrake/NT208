@@ -1,14 +1,11 @@
 import React from 'react'
-import { useContext } from 'react'
-import { CurrentVideoContext } from '../KhoaHocDetailItem'
 
-export default function KhoahocDetailVideo() {
-  const {curVideo} = useContext(CurrentVideoContext)
+export default function KhoahocDetailVideo({url}) {
   return (
     <div>
       <iframe width="560" 
       height="315" 
-      src={curVideo}
+      src={url}
       title="YouTube video player" 
       frameBorder="0" 
       allow="accelerometer; 
@@ -17,7 +14,6 @@ export default function KhoahocDetailVideo() {
       encrypted-media; gyroscope; picture-in-picture; web-share" 
       referrerPolicy="strict-origin-when-cross-origin" 
       allowFullScreen>
-
       </iframe>
     </div>
   )
