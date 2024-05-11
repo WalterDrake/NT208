@@ -3,6 +3,7 @@ import React, { useEffect, useContext, useState } from 'react'
 import { CurrentVideoContext } from '../../Pages/Khoahoc/KhoahocItemDetail/KhoaHocDetailItem'
 import * as videos from '../../service/videos'
 import useUser from '../../hook/useUser'
+import { set } from 'lodash'
 
 export default function ListVideo({ item }) {
     const { user } = useUser()

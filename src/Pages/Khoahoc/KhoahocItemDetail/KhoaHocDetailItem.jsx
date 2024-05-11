@@ -11,7 +11,7 @@ import KhoahocDetailList from "./KhoahocDetailItem/KhoahocDetailList"
 import { useContext } from "react"
 import { UserContext } from "../../../App"
 import * as courses from '../../../service/courses'
-import { AddDealine, AddVideo, AddDocument } from '../../../components/teacherAction/courseAction'
+import  CommentVideo from './KhoahocDetailItem/CommentVideo'
 
 
 export const CurrentVideoContext = createContext();
@@ -62,19 +62,21 @@ function KhoahocDetailItem() {
                   <button className="text-white mr-2 p-4" onClick={handleSeeStudent}><PersonSearchIcon /> Student</button>
                   <button className="text-white mr-5 p-4" onClick={handleAddStudent}><PersonAddAltIcon /> Student</button>
                 </div>
-
               ) : <></>}
         </div>
       </div>
       {showFormAddStudent && <AddStudentForm idAdd={courseId} isCourse={true} />}
       {showCreateItem && <CreateItemForm idCourse={courseId} isCourse={true} />}
-      <div className="flex gap-5">
-        <div className="w-[20%] bg-[#fffff5] rounded-2xl shadow-2xl md:max-h-[700px] max-h-[500px]">
+      <div className="flex gap-5 w-full">
+        <div className="w-[20%] bg-[#fffff5] rounded-2xl shadow-2xl md:max-h-[700px] h-[500px]">
           <KhoahocDetailList />
         </div>
         <div id="video-khoa-hoc" className="flex-1">
           <KhoahocDetailVideo url={curVideourl}/>
         </div>
+      </div>
+      <div className='bg-white min-h-[500px] w-full'>
+        <CommentVideo/>
       </div>
     </CurrentVideoContext.Provider >
 

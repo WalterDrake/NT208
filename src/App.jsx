@@ -5,16 +5,9 @@ import DefaultLayout from "./components/Layout/DefaultLayout"
 import { createContext, useState } from "react"
 import StudentHomePage from "./Pages/Schoolweb/student/StudentHomePage"
 import Dangnhappage from "./Pages/Dangnhappage"
-const testUser = {
-  id: 1,
-  username: "admin",
-  email: "22521339@gm.uit.edu.vn",
-  password: "123456",
-  role: 'teacher',
-}
 import StudentDashboard from "./Pages/Schoolweb/student/StudentDashboard"
 
-export const UserContext = createContext(testUser)
+export const UserContext = createContext()
 
 function App() {
 
