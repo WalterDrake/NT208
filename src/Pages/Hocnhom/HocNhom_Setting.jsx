@@ -1,11 +1,11 @@
 import { useState,useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import { Tooltip, List, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from "@mui/material";
+import { Tooltip, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import Groups2Icon from '@mui/icons-material/Groups2';
 import{ ShowFormAddGroupContext} from "../Hocnhompage";
-function HocNhomItem() {
+function HocNhom_Setting() {
   function HandleSettingClick() { }
   const [open, setOpen] = useState(false)
   const {setOpenJoinGroup,setOpenAddGroup} = useContext(ShowFormAddGroupContext)
@@ -39,14 +39,8 @@ function HocNhomItem() {
             <List
               sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', color: 'black' }}
               component="nav"
-              aria-labelledby="nested-list-subheader"
-              subheader={
-                <ListSubheader component="div" id="nested-list-subheader">
-                  Hãy thêm hoặc tạo nhóm của bạn
-                </ListSubheader>
-              }
             >
-              <ListItemButton onClick={handleClickOpenAddGroup}>
+              <ListItemButton onClick={handleClickOpenAddGroup} className="mt-0 z-[-1] ">
                 <ListItemIcon>
                   <GroupAddIcon />
                 </ListItemIcon>
@@ -69,6 +63,6 @@ function HocNhomItem() {
   );
 }
 
-export default HocNhomItem;
+export default HocNhom_Setting;
 
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Grid from '@mui/material/Grid'
-import Paper from '@mui/material/Paper'
+
 
 import * as studies from '../../service/studies'
 import * as courses from '../../service/courses'
@@ -8,6 +8,7 @@ import KhoahocItem from '../../Pages/Khoahoc/KhoahocItem'
 import { Link } from 'react-router-dom'
 import routes from '../../config/routes'
 import HocTapItem from '../../Pages/Hoctap/HocTapItem'
+import MyCalender from '../Sidebar/Calendar'
 export default function Home() {
   const [courseData, setCoursesData] = useState([]);
   const [hocTapData, setHocTapData] = useState([]);
@@ -15,14 +16,14 @@ export default function Home() {
   useEffect(() => {
     document.title = 'Trang chủ';
 
-    studies.getStudies().then((data) => {
-      setHocTapData(data)
+    studies.getStudiesAll().then((data) => {
+      setHocTapData(data[0][0])
     })
       .catch((error) => {
         console.log(error, 'khong lay duoc hoc tap')
       })
 
-    courses.getCourses().then((data) => {
+    courses.GetCourseAll().then((data) => {
       setCoursesData(data)
     })
       .catch((error) =>
@@ -109,10 +110,10 @@ export default function Home() {
       )
   }, [])
   return (
-    <Grid container className='w-full' spacing={6} style={{ overflowY: "visible", height:'auto',minHeight: "100vh" }}>
-      <Grid item xs={9} >
-        <div className='min-h-[12rem] h-auto bg-gradient-to-r from-blue-500 to-blue-200 bg-opacity-50 rounded-lg'
-          id='home-hello-box bg-[]'>
+    <Grid container className='w-full' spacing={4}>
+      <Grid item xs={12} md={9} className='min-w[12.5rem]'>
+        <div className='min-h-[12rem] min-w-[12.5rem] h-auto bg-gradient-to-r from-blue-500 to-blue-200 bg-opacity-50 rounded-lg'
+          id='home-hello-box'>
           <h1 className='text-3xl text-white font-bold align-middle '>Chào mừng đến với trang web học tập</h1>
         </div>
         <div className="mt-8 min-h-[24rem] h-auto bg-[#F0F7FF] rounded-lg">
@@ -125,7 +126,7 @@ export default function Home() {
           <div className='content min-h-[20rem]  h-auto w-auto bg-custom-gradient rounded-lg mt-10 flex flex-col md:flex-row md:flex-wrap'>
             {courseData.map((course, index) => {
               if (index < 4) {
-                return <KhoahocItem KhoaHoc={course} key={course.id} />
+                return <KhoahocItem KhoaHoc={course} key={index} />
               }
             })}
           </div>
@@ -138,16 +139,11 @@ export default function Home() {
             </div>
           </div>
           <div className='content min-h-[20rem] h-auto bg-custom-gradient rounded-lg mt-10 md:flex flex-wrap'>
-            {courseData.map((course, index) => {
-              if (index < 4) {
-                return <HocTapItem HocTap={course} key={course.id} />
-              }
-            })}
           </div>
         </div>
       </Grid>
-      <Grid item xs={3}>
-        <Paper>Item 2</Paper>
+      <Grid item xs={0} md={3} className='md:block hidden bg-[#f0f7ff]'>
+        <MyCalender />
       </Grid>
     </Grid>
   );

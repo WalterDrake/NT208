@@ -18,7 +18,7 @@ export const UserContext = createContext(testUser)
 
 function App() {
 
-  const [user, setUser] = useState(null)
+  const [user,setUser] = useState (null)
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -69,10 +69,8 @@ function App() {
             )
           })}
           <Route path="/Student/dashboard" element={<StudentDashboard />}>
-
           </Route>
         </Routes>
-
       </Router>
     </UserContext.Provider>
   )

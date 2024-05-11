@@ -9,11 +9,14 @@ const get = async (url, config) => {
     return response.data;
 }
 
-const post = async (url, data, config) => {
+const post = async (url, data, config={}) => {
+    config.headers = {
+        ...config.headers,
+        'Content-Type': 'application/json'
+    };
     const response = await httpRequest.post(url, data, config);
     return response.data;
 }
-
 const put = async (url, data, config) => {
     const response = await httpRequest.put(url, data, config);
     return response.data;

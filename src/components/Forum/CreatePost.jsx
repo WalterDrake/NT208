@@ -2,32 +2,43 @@ import React, { useEffect } from 'react'
 
 import * as forum from '../../service/forum'
 import validator from '../../hook/validate'
+import { addNoti } from '../../service/notification';
 
-export default function CreatePost() {
-  validator({
-    form: '#create-post',
-    formGroup: '.form-group',
-    errorMessage: '.form-message',
-    styleInvalid: 'border-red-500' ,
-    rules: [
-        validator.isRequired('#content', 'Vui lòng nhập content'),
+export default function CreatePost({ isThongBao }) {
+  useEffect(() => {
+    validator({
+      form: '#create-post',
+      formGroup: '.form-group',
+      errorMessage: '.form-message',
+      styleInvalid: 'border-red-500',
+      rules: [
+        validator.isRequired('#description', 'Vui lòng nhập description'),
         validator.isRequired('#title', 'Vui lòng nhập title'),
-    ],
-    onSubmit: function (data) {
-      console.log('data', data)
-      forum.addForum(data)
-      .then(res => {
-          alert('oke r cu')
-          console.log('res',res)
-      })
-      .catch(err => {
-          alert('loi r cu')
-          console.log('loi',err)
-      })
-    }
-});
+        validator.isRequired('#linkPDF', 'Vui lòng nhập linkPDF'),
+      ],
+      onSubmit: function (data) {
+        console.log('data', data)
+        if (isThongBao) {
+          addNoti(data)
+            .then(() => alert('oke thong bao'))
+            .catch(() => alert('err thong bao'))
+        }
+        else {
+          forum.addForum(data)
+            .then(res => {
+              alert('oke r cu')
+              console.log('res post', res)
+            })
+            .catch(err => {
+              alert('loi r cu')
+              console.log('loi', err)
+            })
+        }
+      }
+    });
+  },[])
   return (
-    <form id="create-post" className='bg-[#cfe3d7] p-4'>
+    <form id="create-post" className='bg-[#cfe3d7] p-4 md:w-4/5 w-full rounded-3xl'>
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-base font-semibold leading-7 text-gray-900">Create Post</h2>
@@ -40,7 +51,7 @@ export default function CreatePost() {
                 Title
               </label>
               <div className="mt-2">
-                <input 
+                <input
                   id="title"
                   name="title"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -51,13 +62,13 @@ export default function CreatePost() {
               <p className="mt-3 text-sm leading-6 text-gray-600"></p>
             </div>
             <div className="col-span-full form-group">
-              <label htmlFor="content" className="block text-sm font-medium leading-6 text-gray-900">
-                Content
+              <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
+                description
               </label>
               <div className="mt-2">
                 <input
-                  id="content"
-                  name="content"
+                  id="description"
+                  name="description"
                   rows={3}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   defaultValue={''}
@@ -66,26 +77,16 @@ export default function CreatePost() {
               <div className='flex justify-center'><div className='form-message text-red-600'></div></div>
               <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about your Post.</p>
             </div>
-            <div className="col-span-full">
-              <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
-                Cover photo
-              </label>
-              <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                <div className="text-center">
-                  <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                    <label
-                      htmlFor="file-upload"
-                      className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                    >
-                      <span>Upload a file</span>
-                      <input id="file-upload" name="file-upload" type="file" className="sr-only" />
-                    </label>
-                    <p className="pl-1">or drag and drop</p>
-                  </div>
-                  <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
-                </div>
-              </div>
+            <div className="col-span-full form-group">
+              <label htmlFor="linkPDF" className="block text-sm font-medium leading-6 text-gray-900">LinkPDF or Image: </label>
+              <input name="linkPDF" id="linkPDF" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+              <div className='flex justify-center'><div className='form-message text-red-600'></div></div>
             </div>
+            {/* <div className="col-span-full form-group">
+              <label htmlFor="linkimage" className="block text-sm font-medium leading-6 text-gray-900">linkimage: </label>
+              <input name="linkimage" id="linkimage" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+              <div className='flex justify-center'><div className='form-message text-red-600'></div></div>
+            </div> */}
           </div>
         </div>
       </div>

@@ -3,19 +3,19 @@ import { Button } from "@mui/material";
 const VideoList = () => {
     const [videos, setVideos] = useState([
         {
-            id: 1,
+            _id: 1,
             title: "AWS Cloud Traning",
             description: "Description ",
             thumbnail: "./src/assets/KhoaHoc_img/AWS.jpg",
             subVideos: [
                 {
-                    id: 11,
+                    _id: 11,
                     title: "Sub Video 1",
                     description: "Description of Sub Video 1",
                     thumbnail: "./src/assets/KhoaHoc_img/AWS.jpg",
                 },
                 {
-                    id: 12,
+                    _id: 12,
                     title: "Sub Video 2",
                     description: "Description of Sub Video 2",
                     thumbnail: "./src/assets/KhoaHoc_img/AWS.jpg",
@@ -23,19 +23,19 @@ const VideoList = () => {
             ],
         },
         {
-            id: 2,
+            _id: 2,
             title: "Video 2",
             description: "Description of Video 2",
             thumbnail: "src/assets/LogoUIT.svg",
             subVideos: [
                 {
-                    id: 21,
+                    _id: 21,
                     title: "Sub Video 3",
                     description: "Description of Sub Video 3",
                     thumbnail: "thumbnail21.jpg",
                 },
                 {
-                    id: 22,
+                    _id: 22,
                     title: "Sub Video 4",
                     description: "Description of Sub Video 4",
                     thumbnail: "thumbnail22.jpg",
@@ -57,7 +57,7 @@ const VideoList = () => {
     return (
         <div className="flex flex-wrap justify-center">
             {videos.map((video) => (
-                <div key={video.id} className="p-4 max-w-xs">
+                <div key={video._id} className="p-4 max-w-xs">
                     <div className="border border-gray-300 rounded-lg p-4">
                         <img src={video.thumbnail} alt={video.title} className="w-full mb-4" />
                         <h3 className="text-lg font-medium">{video.title}</h3>
@@ -84,7 +84,7 @@ const VideoList = () => {
                         <p className="text-gray-600">{selectedVideo.description}</p>
                         <div className="flex flex-wrap justify-center mt-4">
                             {selectedVideo.subVideos.map((subVideo) => (
-                                <div key={subVideo.id} className="p-2">
+                                <div key={subVideo._id} className="p-2">
                                     <div className="border border-gray-300 rounded-lg p-2">
                                         <img
                                             src={subVideo.thumbnail}

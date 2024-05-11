@@ -1,78 +1,90 @@
-import { add } from 'lodash';
-import * as httpRequests from '../utils/httpRequest';
+
+import * as httpRequests from '../utils/httpRequest'
 // lấy danh sách các lớp học
-export const getStudies = async (id_user) => {
+export const getStudiesAll= async () => {
     try {
-        const response = await httpRequests.get('/studies/', { params: { id_user } });
-        return response;
+        const response = await httpRequests.get('/studies/getall')
+        return Array(response)
     } catch (error) {
-        throw error.response;
+        throw error.response
     }
 }
 // lấy thông tin một lớp học
-export const getStudy = async (id_study) => { // id_study là id của lớp học đó
+export const getStudyDetail = async (id_study) => { // id_study là id của lớp học đó
     try {
-        const response = await httpRequests.get(`studies/${id_study}`);
-        return response;
+        const response = await httpRequests.get(`/studies/${id_study}`)
+        return response
     } catch (error) {
-        throw error.response;
+        throw error.response
     }
 }
 // tạo một lớp học mới
-export const createStudy = async (data) => {
+export const createStudy = async (owner,{title,descripton}) => {
     try {
-        const response = await httpRequests.post('/studies/', data);
-        return response;
+        const data = {
+            title,
+            descripton,
+            owner: owner._id,
+            admin: owner._id,
+        }
+        const response = await httpRequests.post('/studies/', data)
+        return response
     } catch (error) {
-        throw error.response;
+        throw error.response
     }
 }
 // cập nhật thông tin một lớp học
 export const updateStudy = async (id_study, data) => {
     try {
-        const response = await httpRequests.put(`studies/${id_study}`, data);
-        return response;
+        const response = await httpRequests.put(`/studies/${id_study}`, data)
+        return response
     } catch (error) {
-        throw error.response;
+        throw error.response
     }
 }
-// xóa một lớp học
-export const deleteStudy = async (id_study) => {
-    try {
-        const response = await httpRequests.delete(`studies/${id_study}`);
-        return response;
-    } catch (error) {
-        throw error.response;
-    }
-}
-// lấy danh sách thành viên của một lớp học
-export const getStudyMembers = async (id_study) => { 
-    try {
-        const response = await httpRequests.get(`studies/${id_study}/members`);
-        return response;
-    } catch (error) {
-        throw error.response;
-    }
-}
+
 
 export const addStudent = async (id_study, data) => {
     try {
-        const response = await httpRequests.post(`studies/${id_study}/members`, data);
-        return response;
+        const response = await httpRequests.post(`/studies/${id_study}/joining`, data)
+        return response
     } catch (error) {
-        throw error.response;
+        throw error.response
     }
 }
-// Router.route("/")
+
+export const getstudylearning = async (id_student) => {
+    try {
+        const response = await httpRequests.get(`/studies/${id_student}/getstudylearning`)
+        return response
+    } catch (error) {
+        throw error.response
+    }
+}
+
+
+
+
+// const Router = express.Router()
+
+// Router.route('/')
 //   .get((req, res) => {
-//     res.status(StatusCodes.OK).json({ message: "GET: API get list Study" });
+//     res.status(StatusCodes.OK).json({ message: 'GET: API get list Study' })
 //   })
-//   .post(studyValidation.createNew, studyController.createNew);
+//   .post(studyValidation.createNew, studyController.createNew)
 
-// Router.route("/:id")
-//   .get(studyController.getDetailsAll)
-//   .put(studyValidation.updateStudy, studyController.updateStudy);
+// Router.route('/getall')
+//   .get(studyController.getAll)
 
-// Router.route("/get/All")
-//   .get(studyController.getDetailsAll)
-//   .put(studyValidation.updateStudy, studyController.updateStudy);
+// Router.route('/:id') //Id of study
+//   .get(studyController.getDetails)
+//   .put(studyValidation.updateStudy, studyController.updateStudy)
+
+// Router.route('/:id/joining') // Id of study
+//   .get(studyController.joining)
+// Router.route('/:id/getstudylearning') // Id of student
+//   .get(studyController.getLearning)
+// // Router.route('/hoanthanh')
+// //   .get(studyController.getFinished)
+
+// export const studyRoute = Router

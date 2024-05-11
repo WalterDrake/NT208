@@ -1,6 +1,6 @@
 import React from 'react'
 import { useContext } from 'react'
-import { CurrentVideoContext } from '../../../../Pages/Khoahoc/KhoahocItemDetail/KhoahocItemDetail'
+import { CurrentVideoContext } from '../KhoaHocDetailItem'
 
 export default function KhoahocDetailVideo() {
   const {curVideo} = useContext(CurrentVideoContext)

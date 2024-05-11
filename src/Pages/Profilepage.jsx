@@ -24,14 +24,16 @@ const Profilepage = () => {
 
   const handleSubmitProfile = (e) => {
     e.preventDefault()
-    update.updateUser(user.id, { username, tieusu, avatar })
-      .then(response => {
-        console.log(response)
-        alert('Thay đổi thông tin thành công')
-      })
-      .catch(error => {
-        alert('Thay đổi thông tin thất bại', error)
-      })
+
+    update.updateUser(user._id, {username, tieusu, avatar})
+    .then(response => {
+      console.log(response)
+      alert('Thay đổi thông tin thành công')
+    })
+    .catch(error => {
+      alert('Thay đổi thông tin thất bại',error)
+    })
+
   }
 
   const hanleFileChange = (e) => {

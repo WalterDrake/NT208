@@ -10,7 +10,7 @@ const routes = {
   thongbao: "/Thongbao",
   tinnhan: "/Tinnhan",
   schoolweb: "/Student/dashboard",
-  khoahocitem: "/Khoahocpage/:courseID",
+  khoahocitem: "/Khoahocpage/:courseId/:ownerId",
   hocnhomitem: "/Hocnhompage/:groupID",
   diendanitem: "/Diendanpage/:forumID",
   hoctapitem: "/Hoctappage/:learnID",

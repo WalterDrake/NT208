@@ -61,7 +61,7 @@ function HocTapDetails() {
         <h1 className="h-[50px] ml-5 text-[#fff] text-[1.2rem] items-cpenter bg-[#29303b] flex relative ">{studyDetails.name}</h1>
       <div className='teacher-action'>
       {
-        (user.role === 'teacher')  ?
+        (user.role === 'teacher' || user.role === 'admin')  ?
         (
          <div className="text-white mr-5 p-4" onClick={handleAddStudent}><PersonAddAltIcon/> Student</div>
        ):<></>}
@@ -78,7 +78,7 @@ function HocTapDetails() {
       </div>
       <div className='teacher-action'>
       {
-          (user.role === 'teacher')  ?
+          (user.role === 'teacher' || user.role === 'admin')  ?
        (
       <>
         <AddVideo courseID={StudyID}/>

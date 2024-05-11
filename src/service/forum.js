@@ -1,9 +1,9 @@
 import * as httpRequest from "../utils/httpRequest";
 
-export const getForums = async () => {
+export const getForumAll = async () => {
     try {
         const response = await httpRequest.get('/posts/GetPostAll')
-        return response.data
+        return response
     }
     catch (error) {
         throw error.response
@@ -13,20 +13,20 @@ export const getForums = async () => {
 export const getForum = async (idForum) => { // co id forum lay thong tin forum
     try {
         const response = await httpRequest.get(`/posts/${idForum}`)
-        return response.data
+        return response
     }
     catch (error) {
-        throw error.response.data
+        throw error.response
     }
 }
 
 export const addForum = async (data) => {
     try {
         const response = await httpRequest.post('/posts/CreateNewPost', data)
-        return response.data
+        return response
     }
     catch (error) {
-        throw error.response.data
+        throw error.response
     }
 }
 
@@ -42,11 +42,11 @@ export const updateForum = async (idUser, data) => { // truyen vo id user cap ca
 
 export const deleteForum = async (id) => {
     try {
-        const response = await httpRequest.remove(`/posts/DeletePost/:${id}`)
-        return response.data
+        const response = await httpRequest.remove(`/posts/DeletePost/${id}`)
+        return response
     }
     catch (error) {
-        throw error.response.data
+        throw error.response
     }
 }
 
