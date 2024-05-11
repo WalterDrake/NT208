@@ -22,11 +22,11 @@ const Dangnhappage = () => {
         // validator.isEmail('#email', 'Email không hợp lệ'),
         validator.isRequired("#password", "Vui lòng nhập mật khẩu"),
         validator.minLength("#password", 6),
-        validator.isRequired("#role", "Vui long nhap"),
+        validator.isRequired("#role-login", "Vui lòng nhập role")
       ],
       onSubmit: function (data) {
         serivce
-          .login(data.email, data.password)
+          .login(data.email, data.password,data.role)
           .then((res) => {
             console.log("res dang nhap", res);
             setUser(res);
@@ -91,6 +91,16 @@ const Dangnhappage = () => {
                     placeholder="Mật khẩu"
                   />
                   <FaRegEyeSlash className="absolute fill-gray-400 top-7 right-3 -translate-y-1/2 inline-block w-5 h-5 mr-8 " />
+                  <span className="form-message block  text-red-500"></span>
+                </div>
+                <div className="relative form-group">
+                  <input
+                    className="p-2 mt-2 rounded-xl border"
+                    type="text"
+                    id="role-login"
+                    name="role"
+                    placeholder="admin , teacher , student"
+                  />
                   <span className="form-message block  text-red-500"></span>
                 </div>
                 <div className="text-sm mr-10">

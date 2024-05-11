@@ -3,22 +3,22 @@ import React, { useEffect, useContext, useState } from 'react'
 import { CurrentVideoContext } from '../../Pages/Khoahoc/KhoahocItemDetail/KhoaHocDetailItem'
 import * as videos from '../../service/videos'
 import useUser from '../../hook/useUser'
-import { set } from 'lodash'
+import { memo } from 'react'
 
-export default function ListVideo({ item }) {
+function ListVideo({ item }) {
     const { user } = useUser()
+    const {curVideoList, setCurVideoList} = useContext(CurrentVideoContext)
     const { setCurVideourl } = useContext(CurrentVideoContext)
-    const [listVideos, setListVideos] = useState([])
     useEffect(() => {
         videos.getVideoOfItem(item._id)
             .then(res => {
                 if (res)
-                    setListVideos(res)
+                setCurVideoList(res)
             })
             .catch(err => {
                 console.log('err get video list', err)
             })
-    }, [listVideos])
+    }, [item])
     const handleDeleteVideo = (id) => {
         videos.deleteVideo(id)
             .then(res => {
@@ -30,7 +30,7 @@ export default function ListVideo({ item }) {
     }
     return (
         <ul className='bg-blue-200 w-full rounded-xl '>
-            {listVideos.map((video, index) => {
+            {curVideoList?.map((video, index) => {
                 return (
                     <li  key={index} className='mt-0 round-xl border-[1px] border-b-black '>
                         <div onClick={() => { setCurVideourl(video.link) }} >
@@ -49,3 +49,5 @@ export default function ListVideo({ item }) {
         </ul>
     )
 }
+
+export default memo(ListVideo)
