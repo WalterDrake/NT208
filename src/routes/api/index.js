@@ -21,6 +21,8 @@ import { itemRoute } from "./itemRoute";
 import { videoRoute } from "./videoRoute";
 import { complainRoute } from "./complainRoute";
 import { adminRoute } from "./adminRoute";
+import { teacherModel } from "~/models/teacherModel";
+import { teacherRoute } from "./teacherRoute";
 
 const Router = express.Router();
 // Check APIs /status
@@ -66,6 +68,7 @@ Router.use("/comments", commentRoute);
 Router.use("/complains", complainRoute);
 // user APIs
 Router.use("/users", userRoute);
+Router.use("/teachers", teacherRoute);
 // Study APIs
 Router.use("/studies", studyRoute);
 
