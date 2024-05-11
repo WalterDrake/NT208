@@ -34,9 +34,9 @@ const adminLogIn = async (req, res, next) => {
       req.params.email,
       req.params.password
     );
-
+    const admin = await adminModel.getDetailsbyEmail(req.params.email);
     if (testadmin != null) {
-      res.status(StatusCodes.OK).send({ message: "Thanh cong" });
+      res.status(StatusCodes.OK).json(admin);
     } else {
       res.status(StatusCodes.FAILED_DEPENDENCY).send({ message: "That bai" });
     }

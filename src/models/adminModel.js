@@ -98,6 +98,17 @@ const getDetailsAll = async () => {
   }
 };
 
+const getDetailsbyEmail = async (email) => {
+  try {
+    const result = await GET_DB()
+      .collection(ADMIN_COLLECTION_NAME)
+      .findOne({ email: email });
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 const checkExist = async (email, password) => {
   try {
     const emailex = await GET_DB()
@@ -177,4 +188,5 @@ export const adminModel = {
   getIds,
   checkExist,
   findOneByemail,
+  getDetailsbyEmail,
 };
