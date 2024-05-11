@@ -12,7 +12,8 @@ import { useContext } from "react"
 import { UserContext } from "../../../App"
 import * as courses from '../../../service/courses'
 import  CommentVideo from './KhoahocDetailItem/CommentVideo'
-
+import ListVideo from '../../../components/CourseDetail/ListVideo' 
+import { List } from "lucide-react"
 
 export const CurrentVideoContext = createContext();
 function KhoahocDetailItem() {
@@ -21,6 +22,10 @@ function KhoahocDetailItem() {
   const [showCreateItem, setShowCreateItem] = useState(false)
   const [showFormAddStudent, setShowFormAddStudent] = useState(false)
   const [showFormStudent, setShowFormStudent] = useState(false)
+  const [curVideoList, setCurVideoList] = useState([])
+  const [curPostList, setCurPostList] = useState([])
+  const [curItem, setCurItem] = useState({})
+  const [curCommentList, setCurCommentList] = useState([])
   const { user } = useContext(UserContext)
   const { courseId, ownerId } = useParams();
   // function
@@ -45,12 +50,13 @@ function KhoahocDetailItem() {
         console.log('err detail course', err)
       })
   }, [ownerId, courseId,showCreateItem])
+  
   const [curVideourl, setCurVideourl] = useState('')
 
 
   return (
 
-    <CurrentVideoContext.Provider value={{ courseDetails, setCourseDetails,curVideourl,setCurVideourl }}>
+    <CurrentVideoContext.Provider value={{ courseDetails, setCourseDetails,curVideourl,setCurVideourl,curVideoList, setCurVideoList, curPostList, setCurPostList,curCommentList, setCurCommentList,curItem, setCurItem}}>
       <div className="bg-[#29303b] w-full flex justify-between" id="navbar-course">
         <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">{courseDetails.name}</h1>
         <div className='teacher-action'>
@@ -77,6 +83,7 @@ function KhoahocDetailItem() {
       </div>
       <div className='bg-white min-h-[500px] w-full'>
         <CommentVideo/>
+        <ListVideo item={curItem}/>
       </div>
     </CurrentVideoContext.Provider >
 

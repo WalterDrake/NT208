@@ -3,13 +3,16 @@ import * as item from "../../../../service/item";
 import { CurrentVideoContext } from "../KhoaHocDetailItem";
 
 import useUser from "../../../../hook/useUser";
-import ListVideo from '../../../../components/CourseDetail/ListVideo'
 import ActionList from "./ActionList";
 
 export default function KhoahocDetailList() {
         const { user } = useUser();
-        const { courseDetails } = useContext(CurrentVideoContext);
+        const { courseDetails,setCurItem } = useContext(CurrentVideoContext);
         const [listItem, setListItem] = useState([]);
+        const handleCuritem = (item) => {
+                setCurItem(item)       
+                console.log('item',item)
+        }
         useEffect(() => {
                 item
                         .getListItemOfCourse(courseDetails._id)
@@ -30,15 +33,13 @@ export default function KhoahocDetailList() {
                                                 className="border-b border-[#ccc]"
                                         >
                                                 <div className="flex justify-between items-center p-2 ">
-                                                        <div className='bg-blue-300 w-full rounded-xl border-blue-500'>
+                                                        <div className='bg-blue-300 w-full rounded-xl border-blue-500 hover:bg-blue-500' onClick={() =>handleCuritem(item)}>
                                                                 <h5> Title : {item.title} </h5>
-                                                                <p>Description: {item.description}</p>
+                                                                <h5> Description : {item.description} </h5>
                                                         </div>
-
                                                 </div>
                                                 <div>
                                                         <ActionList item={item} user={user}></ActionList>
-                                                        <ListVideo item={item}></ListVideo>
                                                 </div>
                                         </li>
                                 );
