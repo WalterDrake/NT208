@@ -1,5 +1,5 @@
-import axios from 'axios'
-import { API_ROOT } from '../utils/constants'
+import axios from "axios";
+import { API_ROOT } from "../utils/constants";
 
 /**
  * Lưu ý: Đối với việc sử dụng axios ở khóa MERN Stack Pro trên kênh YouTube: TrungQuanDev - Một Lập Trình Viên
@@ -13,9 +13,10 @@ import { API_ROOT } from '../utils/constants'
 /** Boards */
 export const fetchBoardDetailsAPI = async (boardId) => {
   const response = await axios.get(`${API_ROOT}/api/boards/${boardId}`)
+
   // Lưu ý: axios sẽ trả kết quả về qua property của nó là data
-  return response.data
-}
+  return response.data;
+};
 
 export const fetchBoardId = async (userId) => {
   try {
@@ -28,6 +29,7 @@ export const fetchBoardId = async (userId) => {
 }
 
 export const updateBoardDetailsAPI = async (boardId, updateData) => {
+
   const response = await axios.put(`${API_ROOT}/api/boards/${boardId}`, updateData)
   return response.data
 }

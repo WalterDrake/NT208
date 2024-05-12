@@ -11,9 +11,9 @@ import KhoahocDetailList from "./KhoahocDetailItem/KhoahocDetailList"
 import { useContext } from "react"
 import { UserContext } from "../../../App"
 import * as courses from '../../../service/courses'
-import * as videos from '../../../service/videos'
-import { AddDealine, AddVideo, AddDocument } from '../../../components/teacherAction/courseAction'
-
+import  CommentVideo from './KhoahocDetailItem/CommentVideo'
+import ListVideo from '../../../components/CourseDetail/ListVideo' 
+import { List } from "lucide-react"
 
 export const CurrentVideoContext = createContext();
 function KhoahocDetailItem() {
@@ -22,6 +22,10 @@ function KhoahocDetailItem() {
   const [showCreateItem, setShowCreateItem] = useState(false)
   const [showFormAddStudent, setShowFormAddStudent] = useState(false)
   const [showFormStudent, setShowFormStudent] = useState(false)
+  const [curVideoList, setCurVideoList] = useState([])
+  const [curPostList, setCurPostList] = useState([])
+  const [curItem, setCurItem] = useState({})
+  const [curCommentList, setCurCommentList] = useState([])
   const { user } = useContext(UserContext)
   const { courseId, ownerId } = useParams();
   // function
@@ -46,12 +50,13 @@ function KhoahocDetailItem() {
         console.log('err detail course', err)
       })
   }, [ownerId, courseId,showCreateItem])
-  const [curVideo, setCurVideo] = useState([])
+  
+  const [curVideourl, setCurVideourl] = useState('')
 
 
   return (
 
-    <CurrentVideoContext.Provider value={{ curVideo, setCurVideo, courseDetails, setCourseDetails }}>
+    <CurrentVideoContext.Provider value={{ courseDetails, setCourseDetails,curVideourl,setCurVideourl,curVideoList, setCurVideoList, curPostList, setCurPostList,curCommentList, setCurCommentList,curItem, setCurItem}}>
       <div className="bg-[#29303b] w-full flex justify-between" id="navbar-course">
         <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">{courseDetails.name}</h1>
         <div className='teacher-action'>
@@ -63,32 +68,23 @@ function KhoahocDetailItem() {
                   <button className="text-white mr-2 p-4" onClick={handleSeeStudent}><PersonSearchIcon /> Student</button>
                   <button className="text-white mr-5 p-4" onClick={handleAddStudent}><PersonAddAltIcon /> Student</button>
                 </div>
-
               ) : <></>}
         </div>
       </div>
       {showFormAddStudent && <AddStudentForm idAdd={courseId} isCourse={true} />}
       {showCreateItem && <CreateItemForm idCourse={courseId} isCourse={true} />}
-      <div className="flex gap-5">
-        <div className="w-[20%] bg-[#fffff5] rounded-2xl shadow-2xl md:max-h-[700px] max-h-[500px]">
+      <div className="flex gap-5 w-full">
+        <div className="w-[20%] bg-[#fffff5] rounded-2xl shadow-2xl md:max-h-[700px] h-[500px]">
           <KhoahocDetailList />
         </div>
         <div id="video-khoa-hoc" className="flex-1">
-          <KhoahocDetailVideo />
+          <KhoahocDetailVideo url={curVideourl}/>
         </div>
       </div>
-      <div id='teacher-action'>
-        {
-          (user.role === 'teacher' || user.role === 'admin') ?
-            (
-              <>
-                <AddVideo courseID={courseId} />
-                <AddDocument courseID={courseId} />
-                <AddDealine courseID={courseId} />
-              </>
-            ) : <></>}
+      <div className='bg-white min-h-[500px] w-full'>
+        <CommentVideo/>
+        <ListVideo item={curItem}/>
       </div>
-
     </CurrentVideoContext.Provider >
 
   );

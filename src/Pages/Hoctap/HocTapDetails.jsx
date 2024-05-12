@@ -6,7 +6,6 @@ import HocTapDetailVideo from "./HocTapDetailVideo"
 import HocTapDetailList from "./HocTapDetailList"
 import * as studies from "../../service/studies"
 import useUser from '../../hook/useUser'
-import {AddDealine,AddDocument,AddVideo} from "../../components/teacherAction/courseAction"
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt'
 import AddStudentForm from "../../components/Form/AddStudentForm"  
 
@@ -75,17 +74,6 @@ function HocTapDetails() {
         <div id="video-khoa-hoc">
           <HocTapDetailVideo />
         </div>
-      </div>
-      <div className='teacher-action'>
-      {
-          (user.role === 'teacher' || user.role === 'admin')  ?
-       (
-      <>
-        <AddVideo courseID={StudyID}/>
-        <AddDocument courseID={StudyID}/>
-        <AddDealine courseID={StudyID}/>
-      </>
-       ):<></>}
       </div>
     </CurrentVideoContext.Provider >
 

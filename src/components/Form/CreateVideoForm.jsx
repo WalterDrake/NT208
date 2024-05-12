@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import validator from '../../hook/validate'
-export default function CreateVideoForm() {
+
+import * as videos from '../../service/videos' 
+
+export default function CreateVideoForm({item}) {
 
     useEffect(() => {
         validator({
@@ -10,11 +13,22 @@ export default function CreateVideoForm() {
             styleInvalid: 'border-red-500' ,
             rules: [
                 validator.isRequired('#title', 'Vui lòng nhập title'),
-
+                validator.isRequired('#description', 'Vui lòng nhập description'),
+                validator.isRequired('#link', 'Vui lòng nhập link video')
             ],
-            onsubmit: function (data) {
-                console.log('data',data)
+            onSubmit: function (data) {
                 ///call api
+                console.log('data', data)
+                const { title, description, link } = data
+                videos.addVideo({ title, description, link , item: item._id})
+                    .then(res => {
+                        alert('oke r cu')
+                        console.log('res post', res)
+                    })
+                    .catch(err => {
+                        alert('loi r cu')
+                        console.log('loi', err)
+                    })
             }
 
         })
@@ -36,7 +50,7 @@ export default function CreateVideoForm() {
             <input type='text' id='link' name='link' className='form-control' />
             <div className='form-message'></div>
         </div>
-        <button type='submit' className='btn btn-primary'>Submit</button>
+        <button type='submit' className=' rounded-xl p-2 m-2 bg-custom-gradient hover:bg-blue-400'>Submit</button>
     </form>
   )
 }

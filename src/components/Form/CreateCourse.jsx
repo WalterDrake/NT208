@@ -4,7 +4,8 @@ import validator from "../../hook/validate"
 import { useEffect, useState } from "react"
 import useKhoaHocRender from "../../hook/useKhoaHocRender"
 export function CreateCourse({ user, isCourse, isStudy }) {
-    const {SetKhoaHocRender} = useKhoaHocRender()
+    if (!isCourse && !isStudy) return <></>
+    const SetKhoaHocRender = useKhoaHocRender()
     useEffect(() => {
         validator({
             form: '#create-course',
@@ -21,8 +22,8 @@ export function CreateCourse({ user, isCourse, isStudy }) {
                 if (isCourse) {
                     courses.createCourse(user, data)
                         .then(res => {
-                            SetKhoaHocRender(pre => pre +1)
-                            alert('Create course successfully' + res)
+                            SetKhoaHocRender?.SetKhoaHocRender(pre => pre +1)
+                        alert('Create course successfully' + res)
                         })
                         .catch(err => alert('Create course failed: ' + err))
                 }

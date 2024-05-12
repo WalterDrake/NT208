@@ -1,14 +1,18 @@
 import * as httpRequest from "../utils/httpRequest";
 
-export const login = async (email, password) => {
-    const data = {
-        email,
-        password
-    }
+export const login = async (email, password,role) => {
     try {
-        const response = await httpRequest.post(`users/StudentLogin/${email}/${password}`,data)
+        let response = null
+        if(role === 'student'){
+            response = await httpRequest.post(`users/StudentLogin/${email}/${password}`)
+        }
+        else if(role === 'teacher'){
+            response = await httpRequest.post(`teachers/TeacherLogin/${email}/${password}`)
+        }
+        else if(role === 'admin'){
+            response = await httpRequest.post(`admin/AdminLogin/${email}/${password}`)
+        }
         return response
-
     }
     catch (error) {
         throw error.response
