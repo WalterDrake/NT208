@@ -171,7 +171,35 @@ const deleteOneItem = async (idItem) => {
     next(error);
   }
 };
-
+const pushStudentsIntoCourse = async (req, res, next) => {
+  try {
+    // truyen vao id khoa hoc va id cua hoc sinh
+    const student = await studentModel.findOneById(req.params.idstudent);
+    if (!student) {
+      return res
+        .status(StatusCodes.FAILED_DEPENDENCY)
+        .send({ message: " Khong tim thay sinh vien" });
+    }
+    const pushStudent = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .updateOne(
+        { _id: ObjectId(req.params.idstudent) }, // Điều kiện tìm kiếm tài liệu
+        {
+          $push: {
+            course: req.params.idcourse,
+            examResult: {
+              coursename: req.params.idcourse,
+              markObtain: 0,
+              hoanthanh: false,
+            },
+          },
+        }
+      );
+    return pushStudent;
+  } catch (error) {
+    next(error);
+  }
+};
 const pushStudentIntoCourse = async (req, res, next) => {
   try {
     // truyen vao id khoa hoc va id cua hoc sinh
@@ -286,6 +314,23 @@ const FindCourseOnSearch = async (req, res, next) => {
   }
 };
 
+const AddListStudentOnCourse = async (req, res, next) => {
+  try {
+    // truyen vao id course
+    const courseId = req.params.id;
+    const students = JSON.parse(req.query.students);
+    const update = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .updateMany(
+        { email: { $in: students } },
+        { $set: { course: String(courseId) } }
+      );
+    return res.status(StatusCodes.OK).json(update);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getMarkOfCourse = async (req, res, next) => {
   try {
     // truyen vao id khoa hoc va id hoc sinh
@@ -384,6 +429,7 @@ export const courseController = {
   getListCourseofTeacher, // truyen vao id giao vien
   chamdiemchoStudent, // truyen vao id hoc sinh, id mon hoc va diem so
   deleteOneItem, // truyen voa id item
+  AddListStudentOnCourse,
 
   //Ham xuat phat tu hoc sinh
   getListCoursesofStudentid, // truyen vao id hoc sinh

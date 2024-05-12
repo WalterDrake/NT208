@@ -53,4 +53,8 @@ Router.route("/GetMark/:idstudent/:idcourse").delete(
   courseController.getMarkOfCourse
 ); // truyen vao idstudent va idcourse
 
+Router.route("/AddListStudentOnCourse/:id").post(
+  courseController.AddListStudentOnCourse
+); // truyền vào id và 1 mảng
+
 export const courseRoute = Router;
