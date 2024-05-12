@@ -10,65 +10,89 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Typography from '@mui/material/Typography'
 import { toast } from 'react-toastify'
 import { mapOrder } from '../../utils/sorts'
-import AppBar from '../../components/Todolist/AppBar/AppBar'
-import BoardBar from './BoardBar/BoardBar'
 import BoardContent from './BoardContent/BoardContent'
-import { createNewCardAPI, createNewColumnAPI, deleteColumnDetailsAPI, fetchBoardDetailsAPI, moveCardToDifferentColumnAPI, updateBoardDetailsAPI, updateColumnDetailsAPI } from '../../apis'
+import { createNewCardAPI, createNewColumnAPI, deleteColumnDetailsAPI, fetchBoardDetailsAPI, fetchBoardId, moveCardToDifferentColumnAPI, updateBoardDetailsAPI, updateColumnDetailsAPI } from '../../apis'
 import { generatePlaceholderCard } from '../../utils/formatters'
+import { Button } from '@mui/material'
+import useUser from '../../hook/useUser'
+
+
 
 
 function Board() {
   const [board, setBoard] = useState(null)
+  const { user } = useUser()
+  console.log(user)
 
   useEffect(() => {
     // Tạm thời fix cứng boardId
-    const boardId = '6616c6cbf03dec54050e8461'
-    // Call API
-    fetchBoardDetailsAPI(boardId).then(board => {
+    let boardId = null
+    const myFetch = async () => {
 
-      // Sắp xếp thứ tự các column luôn ở đây trước khi đưa dữ liệu xuống bên dưới các component con 
-      board.columns = mapOrder(board.columns, board.columnOrderIds, '_id')
+      try {
+        boardId = await fetchBoardId(user._id)
+        console.log(boardId.boardId)
+        return boardId
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    myFetch().then((boardId) => {
+      fetchBoardDetailsAPI(boardId.boardId).then(board => {
 
-      board.columns.forEach(column => {
-        // Khi f5 trang web thì cần xử lý vấn đề kéo thả vào một column rỗng 
-        if (isEmpty(column.cards)) {
-          column.cards = [generatePlaceholderCard(column)]
-          column.cardOrderIds = [generatePlaceholderCard(column)._id]
-        } else {
-          // Sắp xếp thứ tự các cards luôn ở đây trước khi đưa dữ liệu xuống bên dưới các component con 
-          column.cards = mapOrder(column.cards, column.cardOrderIds, '_id')
-        }
+        // Sắp xếp thứ tự các column luôn ở đây trước khi đưa dữ liệu xuống bên dưới các component con 
+        board.columns = mapOrder(board.columns, board.columnOrderIds, '_id')
+
+        board.columns.forEach(column => {
+          // Khi f5 trang web thì cần xử lý vấn đề kéo thả vào một column rỗng 
+          if (isEmpty(column.cards)) {
+            column.cards = [generatePlaceholderCard(column)]
+            column.cardOrderIds = [generatePlaceholderCard(column)._id]
+          } else {
+            // Sắp xếp thứ tự các cards luôn ở đây trước khi đưa dữ liệu xuống bên dưới các component con 
+            column.cards = mapOrder(column.cards, column.cardOrderIds, '_id')
+          }
+        })
+        setBoard(board)
+      }
+      )
+    })
+      .catch((err) => {
+        console.log(err)
       })
 
-      setBoard(board)
-    })
-  }, [])
+    // Call API
 
+  }, [])
   // Func này có nhiệm vụ gọi API tạo mới Column và làm lại dữ liệu State Board
   const createNewColumn = async (newColumnData) => {
+
     const createdColumn = await createNewColumnAPI({
       ...newColumnData,
-      boardId: board._id
+      boardId: board.board._id
+    }).catch((error) => {
+      console.log(error)
     })
-
+    console.log(createdColumn)
     // Khi tạo column mới thì nó sẽ chưa có card, cần xử lý vấn đề kéo thả vào một column rỗng 
     createdColumn.cards = [generatePlaceholderCard(createdColumn)]
-    createdColumn.cardOrderIds = [generatePlaceholderCard(createdColumn)._id]
+    createdColumn.listCard = [generatePlaceholderCard(createdColumn)._id]
 
     // Cập nhật state board
     // Phía Front-end chúng ta phải tự làm đúng lại state data board (thay vì phải gọi lại api fetchBoardDetailsAPI)
     // Lưu ý: cách làm này phụ thuộc vào tùy lựa chọn và đặc thù dự án, có nơi thì BE sẽ hỗ trợ trả về luôn toàn bộ Board dù đây có là api tạo Column hay Card đi chăng nữa. => Lúc này FE sẽ nhàn hơn.
+    console.log(board)
     const newBoard = { ...board }
     newBoard.columns.push(createdColumn)
-    newBoard.columnOrderIds.push(createdColumn._id)
+    newBoard.board.listColumn.push(createdColumn._id)
     setBoard(newBoard)
   }
-
   // Func này có nhiệm vụ gọi API tạo mới Card và làm lại dữ liệu State Board
   const createNewCard = async (newCardData) => {
+    console.log('clmmm', newCardData)
     const createdCard = await createNewCardAPI({
       ...newCardData,
-      boardId: board._id
+      boardId: board.board._id
     })
 
     // Cập nhật state board
@@ -76,6 +100,7 @@ function Board() {
     // Lưu ý: cách làm này phụ thuộc vào tùy lựa chọn và đặc thù dự án, có nơi thì BE sẽ hỗ trợ trả về luôn toàn bộ Board dù đây có là api tạo Column hay Card đi chăng nữa. => Lúc này FE sẽ nhàn hơn.
     const newBoard = { ...board }
     const columnToUpdate = newBoard.columns.find(column => column._id === createdCard.columnId)
+    console.log(columnToUpdate)
     if (columnToUpdate) {
       // Nếu column rỗng: bản chất là đang chứa một cái Placeholder card (Nhớ lại video 37.2, hiện tại là video 69)
       if (columnToUpdate.cards.some(card => card.FE_PlaceholderCard)) {
@@ -169,6 +194,7 @@ function Board() {
 
   if (!board) {
     return (
+      // <Button>Thêm board</Button>
       <Box sx={{
         display: 'flex',
         alignItems: 'center',

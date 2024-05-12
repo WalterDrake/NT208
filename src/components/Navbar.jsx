@@ -1,16 +1,16 @@
-import React from "react";
-import { HiMiniHome } from "react-icons/hi2";
-import { AiOutlineMessage } from "react-icons/ai";
-import { IoNotificationsOutline } from "react-icons/io5";
-import Badge from '@mui/material/Badge';
-import { Link } from "react-router-dom";
+import React from "react"
+import { HiMiniHome } from "react-icons/hi2"
+import { AiOutlineMessage } from "react-icons/ai"
+import { IoNotificationsOutline } from "react-icons/io5"
+import Badge from '@mui/material/Badge'
+import { Link } from "react-router-dom"
 
-import routes from "../config/routes";
-import { LuListTodo } from "react-icons/lu";
-import { UserProfile } from "./UserProfile";
-import Navbarmenu from "./Layout/NavBaritem/Navbarmenu";
-import Navbaritem from "./Layout/NavBaritem/Navbaritem";
-import config from "../config/routes";
+import routes from "../config/routes"
+import { LuListTodo } from "react-icons/lu"
+import { UserProfile } from "./UserProfile"
+import Navbarmenu from "./Layout/NavBaritem/Navbarmenu"
+import Navbaritem from "./Layout/NavBaritem/Navbaritem"
+import config from "../config/routes"
 import { Search as SearchHeader } from "./NavBar/Search"
 
 const Navbar = () => {
@@ -57,7 +57,7 @@ const Navbar = () => {
         <UserProfile />
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

@@ -390,7 +390,7 @@ function BoardContent({
       <Box sx={{
         bgcolor: '#34495e',
         width: '100%',
-        // height: (theme) => theme.trello.boardContentHeight,
+        height: '100vh',
         p: '10px 0'
       }}>
         <ListColumns
