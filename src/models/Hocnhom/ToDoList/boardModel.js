@@ -30,6 +30,7 @@ const BOARD_COLLECTION_SCHEMA = Joi.object({
   columnOrderIds: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
+  owner: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
   updatedAt: Joi.date().timestamp("javascript").default(null),
   _destroy: Joi.boolean().default(false),
@@ -44,9 +45,13 @@ const validateBeforeCreate = async (data) => {
   });
 };
 
-const createNew = async (data) => {
+const createNew = async (idusers, data) => {
   try {
-    const validData = await validateBeforeCreate(data);
+    const datas = {
+      ...data,
+      owner: String(idusers),
+    };
+    const validData = await validateBeforeCreate(datas);
     const createdBoard = await GET_DB()
       .collection(BOARD_COLLECTION_NAME)
       .insertOne(validData);
@@ -68,14 +73,14 @@ const findOneById = async (boardId) => {
 };
 
 // Query tổng hợp (aggregate) để lấy toàn bộ Columns và Cards thuộc về Board
-const getDetails = async (id) => {
+const getDetails = async (idboard) => {
   try {
     const result = await GET_DB()
       .collection(BOARD_COLLECTION_NAME)
       .aggregate([
         {
           $match: {
-            _id: new ObjectId(id),
+            _id: new ObjectId(idboard),
             _destroy: false,
           },
         },
@@ -115,6 +120,17 @@ const pushColumnOrderIds = async (column) => {
         { $push: { columnOrderIds: new ObjectId(column._id) } },
         { returnDocument: "after" }
       );
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const getDetailsBoardByUser = async (userid) => {
+  try {
+    const result = await GET_DB()
+      .collection(BOARD_COLLECTION_NAME)
+      .findOne({ owner: String(userid) });
     return result;
   } catch (error) {
     throw new Error(error);
@@ -176,4 +192,5 @@ export const boardModel = {
   pushColumnOrderIds,
   update,
   pullColumnOrderIds,
+  getDetailsBoardByUser,
 };

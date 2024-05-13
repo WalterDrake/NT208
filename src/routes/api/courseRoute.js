@@ -43,7 +43,7 @@ Router.route("/ChamDiem/:idstudent/:idcourse/diemso").post(
   courseController.chamdiemchoStudent
 ); // truyen vao id student id course va diem so
 Router.route("/DeleteOneItem").delete(courseController.deleteOneItem); // truyen vao id item
-Router.route("/GetListCoutseStudent/:id").get(
+Router.route("/GetListCourseStudent/:id").get(
   courseController.getListCoursesofStudentid
 ); // truyen vao id hoc sinh
 Router.route("/GetListCoutseDone/:id").get(

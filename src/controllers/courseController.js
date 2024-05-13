@@ -95,7 +95,7 @@ const getSclassStudents = async (req, res) => {
 };
 
 //Lay danh sach lop hoc cua 1 sinh vien
-const getListCoursesofStudentid = async (req, res) => {
+const getListCoursesofStudentid = async (req, res, next) => {
   try {
     // truyen vao id hocsinh
     const lsitcourseofstudent = await GET_DB()
@@ -103,7 +103,7 @@ const getListCoursesofStudentid = async (req, res) => {
       .aggregate([
         {
           $match: {
-            _id: ObjectId(req.params.id), // Thay 'student_id' bằng ID của student cần lọc
+            _id: new ObjectId(req.params.id), // Thay 'student_id' bằng ID của student cần lọc
           },
         },
         {
@@ -114,10 +114,13 @@ const getListCoursesofStudentid = async (req, res) => {
             as: "courses",
           },
         },
-      ]);
-    res.status(StatusCodes.OK).json(lsitcourseofstudent);
+      ])
+      .toArray();
+    console.log(lsitcourseofstudent);
+    const courses = lsitcourseofstudent[0].course;
+    res.status(StatusCodes.OK).json(courses);
   } catch (err) {
-    res.status(500).json(err);
+    next(err);
   }
 };
 
