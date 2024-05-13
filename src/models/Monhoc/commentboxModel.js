@@ -57,7 +57,6 @@ const getDetails = async () => {
       .collection(COMMENTBOX_COLLECTION_NAME)
       .find()
       .toArray();
-
     return result;
   } catch (error) {
     throw new Error(error);
@@ -70,7 +69,7 @@ const pushToListComment = async (commentBoxId, commentId) => {
       .collection(COMMENTBOX_COLLECTION_NAME)
       .findOneAndUpdate(
         { _id: new ObjectId(commentBoxId) },
-        { $push: { listComment: new ObjectId(commentId) } },
+        { $push: { listComment: String(commentId) } },
         { returnDocument: "after" }
       );
     return result;
@@ -95,8 +94,8 @@ const pullToListComment = async (commentModel) => {
     const result = await GET_DB()
       .collection(COMMENTBOX_COLLECTION_NAME)
       .findOneAndUpdate(
-        { _id: new ObjectId(commentModel.cboxId) },
-        { $pull: { listComment: new ObjectId(commentModel._id) } },
+        { _id: new ObjectId(commentModel.commentbox) },
+        { $pull: { listComment: String(commentModel._id) } },
         { returnDocument: "after" }
       );
     return result;

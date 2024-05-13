@@ -95,21 +95,37 @@ const DeleteComplain = async (req, res, next) => {
     const result = await GET_DB()
       .collection(COMPLAIN_COLLECTION_NAME)
       .findOneAndDelete({ _id: new ObjectId(req.params.id) });
-    return result;
+    if (result) {
+      const finecom = await GET_DB()
+        .collection(cboxModel.COMMENTBOX_COLLECTION_NAME)
+        .findOne(
+          {
+            video: req.params.id,
+          },
+          {
+            _id: 1,
+          }
+        );
+      console.log("finecone", finecom);
+      const deletecomentbox = await cboxModel.deleteCommentbox(finecom._id);
+      return res.status(StatusCodes.OK).json(result);
+    }
+    return res
+      .status(StatusCodes.FAILED_DEPENDENCY)
+      .json({ messenser: "Khong xoa duoc" });
   } catch (error) {
-    throw new Error(error);
+    next(error);
   }
 };
 const findOnSearch = async (req, res, next) => {
   try {
-    req.query.q;
     const articles = await GET_DB()
       .collection(complainModel.COMPLAIN_COLLECTION_NAME)
       .find({ title: { $regex: req.query.q, $options: "i" } })
       .toArray();
     return res.json(articles);
   } catch (error) {
-    throw new Error(error);
+    next(error);
   }
 };
 
@@ -118,6 +134,7 @@ export const complainModel = {
   COMPLAIN_COLLECTION_SCHEMA,
 
   findOneById,
+  getDetails,
 
   //Danh cho Teacher va Hocsinh
   createNew,

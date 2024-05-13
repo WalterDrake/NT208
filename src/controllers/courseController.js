@@ -175,11 +175,12 @@ const getListStudentofCouresbyItem = async (itemid) => {
     const studentList = await GET_DB()
       .collection(itemModel.ITEM_COLLECTION_NAME)
       .findOne({ _id: new ObjectId(itemid) }, { courseCode: 1 });
-    const liststudent = await courseController.getListStudentofCoures(
-      studentList.courseCode
-    );
-    console.log("studentList", studentList);
-    return studentList;
+    const liststudent = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .find({ course: studentList.courseCode })
+      .toArray();
+    console.log("studentList", liststudent);
+    return liststudent;
   } catch (error) {
     throw new Error(error);
   }
