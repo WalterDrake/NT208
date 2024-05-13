@@ -103,9 +103,25 @@ const getListNotiOfItem = async (idItems) => {
   try {
     const result = await GET_DB()
       .collection(notiModel.NOTI_COLLECTION_NAME)
-      .findMany({
+      .find({
         item: idItems,
-      });
+      })
+      .toArray();
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+const pushListNguoinop = async (idnoti, idusers) => {
+  try {
+    const result = await GET_DB()
+      .collection(notiModel.NOTI_COLLECTION_NAME)
+      .updateOne(
+        {
+          _id: new ObjectId(idnoti),
+        },
+        { $push: { listNguoinop: String(idusers) } }
+      );
     return result;
   } catch (error) {
     throw new Error(error);
@@ -121,7 +137,8 @@ export const notiModel = {
 
   // Danh cho Teacher
   createNewNotiOfItem, // truyen data
-  deleteNotiOfItem, // truyen noti
+  deleteNotiOfItem,
+  pushListNguoinop, // truyen noti
 
   // Danh cho hoc sinh
   getListNotiOfItem, // truyen id item
