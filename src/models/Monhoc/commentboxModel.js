@@ -13,7 +13,6 @@ const COMMENTBOX_COLLECTION_SCHEMA = Joi.object({
   video: Joi.string()
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
-
     .required(),
   createdAt: Joi.date().timestamp('javascript').default(Date.now)
 })
@@ -24,12 +23,18 @@ const validateBeforeCreate = async (data) => {
   })
 }
 
-const createNew = async (data) => {
+const createNew = async (idcomplain) => {
   try {
     const datas = {
+<<<<<<< HEAD
       video: new ObjectId(data)
     }
     const validData = await validateBeforeCreate(datas)
+=======
+      video: String(idcomplain),
+    };
+    const validData = await validateBeforeCreate(datas);
+>>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
     const createdStudy = await GET_DB()
       .collection(COMMENTBOX_COLLECTION_NAME)
       .insertOne(validData)
@@ -55,9 +60,14 @@ const getDetails = async () => {
     const result = await GET_DB()
       .collection(COMMENTBOX_COLLECTION_NAME)
       .find()
+<<<<<<< HEAD
       .toArray()
 
     return result
+=======
+      .toArray();
+    return result;
+>>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
   } catch (error) {
     throw new Error(error)
   }
@@ -69,25 +79,51 @@ const pushToListComment = async (commentBoxId, commentId) => {
       .collection(COMMENTBOX_COLLECTION_NAME)
       .findOneAndUpdate(
         { _id: new ObjectId(commentBoxId) },
+<<<<<<< HEAD
         { $push: { listComment: new ObjectId(commentId) } },
         { returnDocument: 'after' }
       )
     return result
+=======
+        { $push: { listComment: String(commentId) } },
+        { returnDocument: "after" }
+      );
+    return result;
+>>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
   } catch (error) {
     throw new Error(error)
   }
 }
+
+const deleteCommentbox = async (idcbox) => {
+  try {
+    const result = await GET_DB()
+      .collection(COMMENTBOX_COLLECTION_NAME)
+      .findOneAndDelete({ _id: new ObjectId(idcbox) });
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 
 const pullToListComment = async (commentModel) => {
   try {
     const result = await GET_DB()
       .collection(COMMENTBOX_COLLECTION_NAME)
       .findOneAndUpdate(
+<<<<<<< HEAD
         { _id: new ObjectId(commentModel.cboxId) },
         { $pull: { listComment: new ObjectId(commentModel._id) } },
         { returnDocument: 'after' }
       )
     return result
+=======
+        { _id: new ObjectId(commentModel.commentbox) },
+        { $pull: { listComment: String(commentModel._id) } },
+        { returnDocument: "after" }
+      );
+    return result;
+>>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
   } catch (error) {
     throw new Error(error)
   }
@@ -126,5 +162,11 @@ export const cboxModel = {
   getDetails,
   pushToListComment,
   pullToListComment,
+<<<<<<< HEAD
   getComments
 }
+=======
+  getComments,
+  deleteCommentbox,
+};
+>>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d

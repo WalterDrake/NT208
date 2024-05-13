@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* eslint-disable no-useless-catch */
 import { slugify } from '~/utils/formatters'
 import ApiError from '~/utils/ApiError'
@@ -5,74 +6,81 @@ import { StatusCodes } from 'http-status-codes'
 import { cloneDeep } from 'lodash'
 import { ObjectId } from 'mongodb'
 import { videoModel } from '~/models/Khoahoc/videoModel'
+=======
+import { slugify } from "~/utils/formatters";
+import ApiError from "~/utils/ApiError";
+import { StatusCodes } from "http-status-codes";
+import { cloneDeep } from "lodash";
+import { ObjectId } from "mongodb";
+import { videoModel } from "~/models/Khoahoc/videoModel";
+>>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
 
 const createNewVideosOfItem = async (reqBody) => {
   try {
     const newItem = {
       ...reqBody,
-    }
+    };
 
-    const createdvideo = await videoModel.createNewVideosOfItem(newItem)
+    const createdvideo = await videoModel.createNewVideosOfItem(newItem);
 
-    const getNewivideo = await videoModel.findOneById(createdvideo.insertedId)
+    const getNewivideo = await videoModel.findOneById(createdvideo.insertedId);
     // Trả kết quả về, trong Service luôn phải có return
-    return getNewivideo
+    return getNewivideo;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 const getDetailsAllVideos = async () => {
   try {
-    const item = await videoModel.getDetailsAllVideos()
-    return item
+    const item = await videoModel.getDetailsAllVideos();
+    return item;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 const updateVideosOfItem = async (videoitem, reqBody) => {
   try {
     const updateData = {
       ...reqBody,
       updatedAt: Date.now(),
-    }
+    };
     const updatedItem = await videoModel.updateVideosOfItem(
       videoitem,
       updateData
-    )
+    );
 
-    return updatedItem
+    return updatedItem;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 const deleteVideoOfItem = async (videoid) => {
   try {
-    const deleteVideo = await videoModel.deleteVideoOfItem(videoid)
-
-    return deleteVideo
+    const deleteVideo = await videoModel.deleteVideoOfItem(videoid);
+    return deleteVideo;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 const deleteOneCommentBox = async (idcbox) => {
   try {
-    const deletecbox = await videoModel.deleteOneCommentBox(idcbox)
+    const deletecbox = await videoModel.deleteOneCommentBox(idcbox);
 
-    return deletecbox
+    return deletecbox;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 const getListVideoOfItem = async (idItem) => {
   try {
-    const getlist = await videoModel.getListVideoOfItem(idItem)
+    const getlist = await videoModel.getListVideoOfItem(idItem);
 
-    return getlist
+    return getlist;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 export const videoService = {
   // Danh cho Admin
   getDetailsAllVideos, //
@@ -87,4 +95,4 @@ export const videoService = {
 
   // Danh cho hoc sinh
   getListVideoOfItem, // tuyen id Item
-}
+};

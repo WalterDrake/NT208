@@ -1,11 +1,11 @@
-import express from 'express'
-import { userController } from '~/controllers/userController'
+import express from "express";
+import { userController } from "~/controllers/userController";
 
-const Router = express.Router()
+const Router = express.Router();
 
-Router.route('/').get((req, res) => {
-  res.json({ message: 'GET: API get list ' })
-})
+Router.route("/").get((req, res) => {
+  res.json({ message: "GET: API get list " });
+});
 
 //==============================
 // STUDENT - CHỨC NĂNG //
@@ -13,13 +13,11 @@ Router.route('/').get((req, res) => {
 //---Đăng nhập- Đăng xuất
 //--Chức năng đăng nhập kiểm tra
 
-Router.route('/StudentReg').post(userController.StudentRegister)
-Router.route('/StudentLogin/:email/:password').post(
+Router.route("/StudentReg").post(userController.StudentRegister);
+Router.route("/StudentLogin/:email/:password").post(
   userController.StudentLogin
-)
-Router.route('/StudentLogOut/:id')
-  .put(userController.StudentLogOut)
-Router.route('/getAlluserOnline')
-  .get(userController.getAllUserOnline)
+);
+Router.route("/StudentLogOut/:id").put(userController.StudentLogOut);
+Router.route("/getAlluserOnline").get(userController.getAllUserOnline);
 
-export const userRoute = Router
+export const userRoute = Router;

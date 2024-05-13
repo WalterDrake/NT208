@@ -16,7 +16,7 @@ Router.route("/DeleteCommentBox/:id").delete(
   videoController.deleteOneCommentBox
 ); // truyen id cbox
 Router.route("/GetListVideo/:id").get(videoController.getListVideoOfItem); // truyen id item
-Router.route("/CreateNewVideo").post(videoController.createNewVideosOfItem); // truyen data
+Router.route("/CreateNewVideo").post(videoController.createNewVideosOfItem); // truyen id item
 // API hỗ trợ việc di chuyển card giữa các column khác nhau trong một board
 
 export const videoRoute = Router;

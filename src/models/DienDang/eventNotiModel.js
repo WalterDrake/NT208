@@ -34,10 +34,16 @@ const validateBeforeCreate = async (data) => {
 };
 const createNew = async (tenevent, idevent, listimpact) => {
   try {
+    const getListImpactIds = (jsonArray) => {
+      const listimpact = jsonArray.map((item) => String(item._id));
+      return listimpact;
+    };
+    const list = getListImpactIds(listimpact);
+    console.log("list", list);
     const data = {
       nameevent: tenevent,
-      own: idevent,
-      listimpact: listimpact,
+      own: String(idevent),
+      listimpact: list,
     };
     const validData = await validateBeforeCreate(data);
     const created = await GET_DB()

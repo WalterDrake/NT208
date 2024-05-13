@@ -18,7 +18,7 @@ Router.route('/:id/getpublic')
   .get(groupController.getGroupOwnByTeacher)
 Router.route('/:id/getprivate')
   .get(groupController.getPrivate)
-Router.route('/:id/join')
-  .get(groupController.joinGroup)
+Router.route('/:id/join') //id user
+  .post(groupController.joinGroup)
 
 export const groupRoute = Router

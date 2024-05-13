@@ -22,7 +22,7 @@ Router.route('/:id') //Id of study
   .put(studyValidation.updateStudy, studyController.updateStudy)
 
 Router.route('/:id/joining') // Id of study
-  .get(studyController.joining)
+  .post(studyController.joining)
 
 Router.route('/:id/getstudylearning') // Id of student
   .get(studyController.getLearning)

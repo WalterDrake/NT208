@@ -22,9 +22,18 @@ Router.route('/DeleteCourse/:id').delete(courseController.deleteCoursebyAdmin)
 // truyen vao id course
 Router.route('/DeleteCourses/:id').delete(
   courseController.deleteCoursesbyAdmin
+<<<<<<< HEAD
 ) //truyen vao id giao vien
 Router.route('/UpdateCourse/:id').put(courseController.updateCourseByAdmin) // truyen vao id course
 Router.route('/AddStudent/:idstudent/:idcourse').put(
+=======
+); //truyen vao id giao vien
+
+Router.route("/UpdateCourse/:id").put(courseController.updateCourseByAdmin);
+
+// truyen vao id course
+Router.route("/AddStudent/:email/:idcourse").put(
+>>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
   courseController.pushStudentIntoCourse
 ) // truyen vao idstudent va idcourse
 Router.route('/DeleteStudentCourse/:idstudent/:idcourse').put(
@@ -38,12 +47,21 @@ Router.route('/GetListStudent/:id').get(
 ) // truyen vao id khoa hoc
 Router.route('/GetListCourseTeacher/:id').get(
   courseController.getListCourseofTeacher
+<<<<<<< HEAD
 ) // truyen vao id giao vien
 Router.route('/ChamDiem/:idstudent/:idcourse/diemso').post(
   courseController.chamdiemchoStudent
 ) // truyen vao id student id course va diem so
 Router.route('/DeleteOneItem').delete(courseController.deleteOneItem) // truyen vao id item
 Router.route('/GetListCoutseStudent/:id').get(
+=======
+); // truyen vao id giao vien
+Router.route("/ChamDiem/:idstudent/:idcourse/:diemso").post(
+  courseController.chamdiemchoStudent
+); // truyen vao id student id course va diem so
+Router.route("/DeleteOneItem").delete(courseController.deleteOneItem); // truyen vao id item
+Router.route("/GetListCourseStudent/:id").get(
+>>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
   courseController.getListCoursesofStudentid
 ) // truyen vao id hoc sinh
 Router.route('/GetListCoutseDone/:id').get(
@@ -55,3 +73,11 @@ Router.route('/GetMark/:idstudent/:idcourse').delete(
 
 export const courseRoute = Router
 
+<<<<<<< HEAD
+=======
+Router.route("/AddListStudentOnCourse/:id").post(
+  courseController.AddListStudentOnCourse
+); // truyền vào id và 1 mảng
+
+export const courseRoute = Router;
+>>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d

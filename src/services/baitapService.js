@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* eslint-disable no-useless-catch */
 import { slugify } from '~/utils/formatters'
 import ApiError from '~/utils/ApiError'
@@ -6,40 +7,49 @@ import { cloneDeep } from 'lodash'
 import { ObjectId } from 'mongodb'
 import { postModel } from '~/models/Khoahoc/postModel'
 import { baitapModel } from '~/models/Khoahoc/filebainopModel'
+=======
+import { slugify } from "~/utils/formatters";
+import ApiError from "~/utils/ApiError";
+import { StatusCodes } from "http-status-codes";
+import { cloneDeep } from "lodash";
+import { ObjectId } from "mongodb";
+import { postModel } from "~/models/Khoahoc/postModel";
+import { baitapModel } from "~/models/Khoahoc/filebainopModel";
+>>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
 
 const createNewBaiTapOfNoti = async (reqBody) => {
   try {
     const newItem = {
       ...reqBody,
-    }
+    };
 
-    const createditem = await baitapModel.createNewBaiTapOfNoti(newItem)
-    const getNewitem = await baitapModel.findOneById(createditem.insertedId)
+    const createditem = await baitapModel.createNewBaiTapOfNoti(newItem);
+    const getNewitem = await baitapModel.findOneById(createditem.insertedId);
     // Trả kết quả về, trong Service luôn phải có return
-    return getNewitem
+    return getNewitem;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 const getDetailsAllBaiTap = async () => {
   try {
-    const item = await postModel.getDetailsAllBaiTap()
-    return item
+    const item = await baitapModel.getDetailsAllBaiTap();
+    return item;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 const getListPostOfNoti = async (idNoti) => {
   try {
     // Lay danh sach nguoi nop bai tap cua 1 cai noti
-    const item = await postModel.getListPostOfNoti(idNoti)
-    return resItem
+    const item = await baitapModel.getListPostOfNoti(idNoti);
+    return item;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 export const baitapService = {
   // Danh cho Admin
@@ -51,4 +61,4 @@ export const baitapService = {
   // Danh cho hoc sinh
 
   createNewBaiTapOfNoti,
-}
+};
