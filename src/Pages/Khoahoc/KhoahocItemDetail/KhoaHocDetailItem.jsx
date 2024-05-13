@@ -13,15 +13,16 @@ import { UserContext } from "../../../App"
 import * as courses from '../../../service/courses'
 import  CommentVideo from './KhoahocDetailItem/CommentVideo'
 import ListVideo from '../../../components/CourseDetail/ListVideo' 
-import { List } from "lucide-react"
+import ListStudent from "../../../components/CourseDetail/ListStudent"
 
 export const CurrentVideoContext = createContext();
 function KhoahocDetailItem() {
   //state
   const [courseDetails, setCourseDetails] = useState({})
+
   const [showCreateItem, setShowCreateItem] = useState(false)
   const [showFormAddStudent, setShowFormAddStudent] = useState(false)
-  const [showFormStudent, setShowFormStudent] = useState(false)
+  const [showListtudent, setShowListStudent] = useState(false)
   const [curVideoList, setCurVideoList] = useState([])
   const [curPostList, setCurPostList] = useState([])
   const [curItem, setCurItem] = useState({})
@@ -30,7 +31,7 @@ function KhoahocDetailItem() {
   const { courseId, ownerId } = useParams();
   // function
   const handleSeeStudent = () => {
-    setShowFormStudent(!showFormStudent)
+    setShowListStudent(pre => !pre)
   }
   const handleAddStudent = () => {
     setShowFormAddStudent(pre => !pre)
@@ -50,6 +51,8 @@ function KhoahocDetailItem() {
         console.log('err detail course', err)
       })
   }, [ownerId, courseId,showCreateItem])
+
+
   
   const [curVideourl, setCurVideourl] = useState('')
 
@@ -84,6 +87,10 @@ function KhoahocDetailItem() {
       <div className='bg-white min-h-[500px] w-full'>
         <CommentVideo/>
         <ListVideo item={curItem}/>
+      </div>
+      <div>
+        {showListtudent && 
+          <ListStudent courseId={courseId} />}
       </div>
     </CurrentVideoContext.Provider >
 

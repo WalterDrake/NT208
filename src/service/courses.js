@@ -88,6 +88,15 @@ export const addStudent = async (idcourse , data) => {
     }
 }   
 
+export const deleteStudent = async (idStudent, idCourse ) => { 
+    try {
+        const response = await httpRequest.put(`/courses/DeleteStudentCourse/${idStudent}/${idCourse}`)   // id cousesr
+        return response
+    } catch (error) {
+        throw error.response
+    }
+}
+
 export const GetListStudent = async (id) => {
     try {
         const response = await httpRequest.get(`/courses/GetListStudent/${id}`)
