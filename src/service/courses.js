@@ -20,10 +20,11 @@ export const getCourseListTeacher = async (id) => {
 
 export const getCourseListStudent = async (id) => {
     try {
-        const response = await httpRequest.get(`/courses/GetListCoutseStudent/${id}`)
+        const response = await httpRequest.get(`/courses/GetListCourseStudent/${id}`)
+        console.log('response',response)
         return response
     } catch (error) {
-        throw error.response.data
+        throw error.response
     }
 }
 
@@ -73,14 +74,28 @@ export const createCourse  = async (admin,{title,description,owner,linkimage}) =
     }
 }
 
-export const addStudent = async (id, data) => {
+export const addStudent = async (idcourse , data) => {
     try {
-        const response = await httpRequest.post(`/courses/UpdateCourse${id}`, data)   // id cousesr
+        const students = data
+        const response = await httpRequest.post(`/courses/AddListStudentOnCourse/${idcourse}`,students,{
+            params: {
+                students: JSON.stringify(data)
+            }
+        })   // id cousesr
         return response
     } catch (error) {
         throw error.response
     }
 }   
+
+export const GetListStudent = async (id) => {
+    try {
+        const response = await httpRequest.get(`/courses/GetListStudent/${id}`)
+        return response
+    } catch (error) {
+        throw error.response
+    }
+}
 
 export const updateCourse = async (id, data) => {
     try {
@@ -100,32 +115,3 @@ export const deleteCourse = async (id) => {
     }
 }
 
-// Router.route("/UpdateCourse/:id").put(courseController.updateCourseByAdmin); // truyen vao id course
-// Router.route("/AddStudent/:idstudent/:idcourse").put(
-//   courseController.pushStudentIntoCourse
-// ); // truyen vao idstudent va idcourse
-// Router.route("/DeleteStudentCourse/:idstudent/:idcourse").put(
-//   courseController.deleteStudentFromCourse
-// ); // truyen vao idstudent va idcourse
-// Router.route("/GetDetailCourse/:idteacher/:idcourse").get(
-//   courseController.getOneCoursebyTeacher
-// ); // truyen vao id teacher va idcourse
-// Router.route("/GetListStudent/:id").get(
-//   courseController.getListStudentofCoures
-// ); // truyen vao id khoa hoc
-// Router.route("/GetListCourseTeacher/:id").get(
-//   courseController.getListCourseofTeacher
-// ); // truyen vao id giao vien
-// Router.route("/ChamDiem/:idstudent/:idcourse/diemso").post(
-//   courseController.chamdiemchoStudent
-// ); // truyen vao id student id course va diem so
-// Router.route("/DeleteOneItem").delete(courseController.deleteOneItem); // truyen vao id item
-// Router.route("/GetListCoutseStudent/:id").get(
-//   courseController.getListCoursesofStudentid
-// ); // truyen vao id hoc sinh
-// Router.route("/GetListCoutseDone/:id").get(
-//   courseController.getListCourseStudentDone
-// ); // truyen vao id hoc sinh
-// Router.route("/GetMark/:idstudent/:idcourse").delete(
-//   courseController.getMarkOfCourse
-// ); // truyen vao idstudent va idcourse

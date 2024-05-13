@@ -45,7 +45,7 @@ const KhoahocItem = ({ KhoaHoc, className }) => {
           <FontAwesomeIcon icon={faUser} />
           {KhoaHoc.memberof}
         </span>
-        {(user?.role === "teacher" || user?._id === KhoaHoc.owner) && test != null ?
+        {(user?.role === "admin" || user?._id === KhoaHoc.owner) && test != null ?
           (<><button
             onClick={handleDelete}
             className="round-2xl p-2 bg-custom-gradient rounded-xl hover:bg-blue-500 md:mr-4 mr-2">xóa</button></>) : <></>}
