@@ -12,14 +12,31 @@ import { ExplainVerbosity, ObjectId } from "mongodb";
 // Tao khoa hoc by Teacher
 const createNewCoursebyAdmin = async (req, res, next) => {
   try {
-    const findtest = await studentModel.findOneByEmail(req.body.owner);
-    console.log(findtest);
-    let modified = {
-      ...req.body,
-      owner: String(findtest._id),
-    };
-    console.log(modified);
-    const createdItem = await courseService.createNew(modified, res, next);
+    const findtest = await teacherModel.findOneByEmail(req.body.owner);
+    if (findtest) {
+      let modified = {
+        ...req.body,
+        owner: String(findtest._id),
+      };
+      console.log("modified:", modified);
+      const createdItem = await courseService.createNew(modified);
+      if (!createdItem) {
+        console.log("createdItem:", createdItem);
+        return res.status(StatusCodes.FAILED_DEPENDENCY).json({
+          messenger: "Khong tao duoc khoa hoc hoac khoa hoc da ton tai",
+        });
+      } else {
+        console.log("createditem:", createdItem);
+        const pushintoteacher = await teacherModel.pushCourseintoTeacher(
+          req.body.owner,
+          String(createdItem._id)
+        );
+      }
+      return res.status(StatusCodes.OK).json(createdItem);
+    }
+    return res
+      .status(StatusCodes.FAILED_DEPENDENCY)
+      .json({ messenger: "Loi khong tao duoc khoa hoc" });
   } catch (error) {
     next(error);
   }
@@ -72,7 +89,8 @@ const getListCourseofTeacher = async (req, res, next) => {
       .collection(courseModel.COURSE_COLLECTION_NAME)
       .find({
         owner: req.params.id, // id giao vien
-      });
+      })
+      .toArray();
     res.status(StatusCodes.OK).json(listcourse);
   } catch (error) {
     next(error);
@@ -100,24 +118,17 @@ const getListCoursesofStudentid = async (req, res, next) => {
     // truyen vao id hocsinh
     const lsitcourseofstudent = await GET_DB()
       .collection(studentModel.USER_COLLECTION_NAME)
-      .aggregate([
-        {
-          $match: {
-            _id: new ObjectId(req.params.id), // Thay 'student_id' bằng ID của student cần lọc
-          },
-        },
-        {
-          $lookup: {
-            from: courseModel.COURSE_COLLECTION_NAME,
-            localField: "course",
-            foreignField: "_id",
-            as: "courses",
-          },
-        },
-      ])
+      .findOne({ _id: new ObjectId(req.params.id) }, { course: 1 });
+
+    const courseIds = lsitcourseofstudent.course.map(
+      (courseId) => new ObjectId(courseId)
+    );
+
+    const courses = await GET_DB()
+      .collection(courseModel.COURSE_COLLECTION_NAME)
+      .find({ _id: { $in: courseIds } })
       .toArray();
-    console.log(lsitcourseofstudent);
-    const courses = lsitcourseofstudent[0].course;
+
     res.status(StatusCodes.OK).json(courses);
   } catch (err) {
     next(err);
@@ -151,8 +162,9 @@ const getListStudentofCoures = async (req, res, next) => {
     // truyen vao id khoa hoc
     const studentList = await GET_DB()
       .collection(studentModel.USER_COLLECTION_NAME)
-      .findMany({ course: { $in: req.params.id } });
-    return studentList;
+      .find({ course: req.params.id })
+      .toArray();
+    return res.status(StatusCodes.OK).json(studentList);
   } catch (error) {
     next(error);
   }
@@ -206,7 +218,7 @@ const pushStudentsIntoCourse = async (req, res, next) => {
 const pushStudentIntoCourse = async (req, res, next) => {
   try {
     // truyen vao id khoa hoc va id cua hoc sinh
-    const student = await studentModel.findOneById(req.params.idstudent);
+    const student = await studentModel.findOneByEmail(req.params.email);
     if (!student) {
       return res
         .status(StatusCodes.FAILED_DEPENDENCY)
@@ -215,19 +227,18 @@ const pushStudentIntoCourse = async (req, res, next) => {
     const pushStudent = await GET_DB()
       .collection(studentModel.USER_COLLECTION_NAME)
       .updateOne(
-        { _id: ObjectId(req.params.idstudent) }, // Điều kiện tìm kiếm tài liệu
+        { email: req.params.email }, // Điều kiện tìm kiếm tài liệu
         {
-          $push: {
+          $addToSet: {
             course: req.params.idcourse,
-            examResult: {
-              coursename: req.params.idcourse,
-              markObtain: 0,
-              hoanthanh: false,
-            },
+            //examResult: {
+            //  coursename: req.params.idcourse,
+            //  markObtain: 0,
+            //  hoanthanh: false,
           },
         }
       );
-    return pushStudent;
+    return res.status(StatusCodes.OK).json(pushStudent);
   } catch (error) {
     next(error);
   }
@@ -326,7 +337,7 @@ const AddListStudentOnCourse = async (req, res, next) => {
       .collection(studentModel.USER_COLLECTION_NAME)
       .updateMany(
         { email: { $in: students } },
-        { $set: { course: String(courseId) } }
+        { $addToSet: { course: String(courseId) } }
       );
     return res.status(StatusCodes.OK).json(update);
   } catch (error) {
@@ -392,27 +403,28 @@ const deleteStudentFromCourse = async (req, res, next) => {
 };
 
 // Xoa tat cac cac lop ma do teacher tao
-const deleteCoursesbyAdmin = async (req, res) => {
+const deleteCoursesbyAdmin = async (req, res, next) => {
   try {
     const teacher = await teacherModel.findOneById(req.params.id);
     if (teacher.teachCourse.length == 0) {
       return res.send({ message: "No classes found to delete" });
     }
     var arraycourseddelete = teacher.teachCourse;
+    console.log("teacher.teachCourse", teacher.teachCourse);
     const deletedStudents = await GET_DB()
-      .collection(USER_COLLECTION_NAME)
+      .collection(studentModel.USER_COLLECTION_NAME)
       .updateMany(
-        { course: { $in: arraycourseddelete } },
-        { $pull: { $in: arraycourseddelete } }
+        { course: { $in: [arraycourseddelete] } },
+        { $pull: { $in: [arraycourseddelete] } }
       );
-
+    console.log("deletedstudent", deletedStudents);
     const deletedSubjects = await GET_DB()
-      .collection(ITEM_COLLECTION_NAME)
+      .collection(itemModel.ITEM_COLLECTION_NAME)
       .deleteMany({ course: new Object(req.params.id) });
 
-    res.send(deletedClasses);
+    return res.status(StatusCodes.OK).json(deletedSubjects);
   } catch (error) {
-    res.status(500).json(error);
+    next(error);
   }
 };
 

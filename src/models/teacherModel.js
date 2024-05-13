@@ -196,6 +196,27 @@ const findOneByEmail = async (email) => {
   }
 };
 
+const pushCourseintoTeacher = async (idteacher, idcourse) => {
+  try {
+    console.log("emmai:", idteacher);
+    console.log("teachcourse:", idcourse);
+    const teacher = await GET_DB()
+      .collection(teacherModel.TEACHER_COLLECTION_NAME)
+      .updateOne(
+        {
+          email: idteacher,
+        },
+        {
+          $push: { teachCourse: idcourse },
+        }
+      );
+    console.log("da vao dayyy", teacher);
+    return teacher;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 export const teacherModel = {
   TEACHER_COLLECTION_NAME,
   TEACHER_COLLECTION_SCHEMA,
@@ -209,4 +230,5 @@ export const teacherModel = {
   deleteMany,
   deleteOneCourse,
   findOneByEmail,
+  pushCourseintoTeacher,
 };

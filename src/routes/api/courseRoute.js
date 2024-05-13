@@ -23,8 +23,11 @@ Router.route("/DeleteCourse/:id").delete(courseController.deleteCoursebyAdmin);
 Router.route("/DeleteCourses/:id").delete(
   courseController.deleteCoursesbyAdmin
 ); //truyen vao id giao vien
-Router.route("/UpdateCourse/:id").put(courseController.updateCourseByAdmin); // truyen vao id course
-Router.route("/AddStudent/:idstudent/:idcourse").put(
+
+Router.route("/UpdateCourse/:id").put(courseController.updateCourseByAdmin);
+
+// truyen vao id course
+Router.route("/AddStudent/:email/:idcourse").put(
   courseController.pushStudentIntoCourse
 ); // truyen vao idstudent va idcourse
 Router.route("/DeleteStudentCourse/:idstudent/:idcourse").put(
@@ -39,7 +42,7 @@ Router.route("/GetListStudent/:id").get(
 Router.route("/GetListCourseTeacher/:id").get(
   courseController.getListCourseofTeacher
 ); // truyen vao id giao vien
-Router.route("/ChamDiem/:idstudent/:idcourse/diemso").post(
+Router.route("/ChamDiem/:idstudent/:idcourse/:diemso").post(
   courseController.chamdiemchoStudent
 ); // truyen vao id student id course va diem so
 Router.route("/DeleteOneItem").delete(courseController.deleteOneItem); // truyen vao id item
