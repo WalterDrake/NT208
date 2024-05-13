@@ -37,7 +37,7 @@ function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDeta
 
   return (
     <SortableContext items={columns?.map(c => c._id)} strategy={horizontalListSortingStrategy}>
-      <Box sx={{
+      <Box sx={{  
         bgcolor: 'inherit',
         width: '100%',
         height: '100%',
