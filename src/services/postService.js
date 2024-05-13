@@ -11,12 +11,6 @@ const createNewPostOfItem = async (reqBody) => {
     };
 
     const createdpost = await postModel.createNewPostOfItem(newItem);
-
-    const push = await itemModel.pushToListPost(
-      createdpost.item,
-      createdpost.insertedId
-    );
-
     const getNewitem = await postModel.findOneById(createdpost.insertedId);
     // Trả kết quả về, trong Service luôn phải có return
     return getNewitem;

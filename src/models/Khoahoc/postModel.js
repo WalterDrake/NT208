@@ -16,9 +16,6 @@ const POST_COLLECTION_SCHEMA = Joi.object({
     .message({ OBJECT_ID_RULE_MESSAGE })
     .required(),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
-  studyId: Joi.string()
-    .pattern(OBJECT_ID_RULE)
-    .message({ OBJECT_ID_RULE_MESSAGE }),
 });
 
 const INVALID_UPDATE_FIELDS = ["_id", "createdAt"];
@@ -30,15 +27,24 @@ const validateBeforeCreate = async (data) => {
 };
 
 const createNewPostOfItem = async (data) => {
-  try {
-    const validData = await validateBeforeCreate(data);
-    const createdPost = await GET_DB()
-      .collection(POST_COLLECTION_NAME)
-      .insertOne(validData);
-    return createdPost;
-  } catch (error) {
-    throw new Error(error);
-  }
+  const validData = await validateBeforeCreate(data);
+  const createdpost = await GET_DB()
+    .collection(POST_COLLECTION_NAME)
+    .insertOne(validData);
+  const getitem = await GET_DB()
+    .collection(postModel.POST_COLLECTION_NAME)
+    .findOne(
+      {
+        _id: new ObjectId(createdpost.insertedId),
+      },
+      { item: 1 }
+    );
+  console.log(getitem.item);
+  const updateItem = await itemModel.pushToListPost(
+    getitem.item,
+    createdpost.insertedId
+  );
+  return createdpost;
 };
 
 const findOneById = async (postId) => {
@@ -71,9 +77,13 @@ const deletePostOfItem = async (idPost) => {
       .deleteOne({
         _id: new ObjectId(idPost),
       });
-    const deleteItem = await itemModel.deleteOnePost(idPost);
-
-    return true;
+    console.log("deletePost", deletePost);
+    if (deletePost.deletedCount === 1) {
+      const deleteItem = await itemModel.deleteOnePost(idPost);
+      return true;
+    } else {
+      return false;
+    }
   } catch (error) {
     throw new Error(error);
   }
@@ -83,7 +93,7 @@ const getListPostOfItem = async (idItem) => {
   try {
     const listpost = await GET_DB()
       .collection(postModel.POST_COLLECTION_NAME)
-      .findMany({
+      .find({
         item: idItem,
       })
       .toArray();

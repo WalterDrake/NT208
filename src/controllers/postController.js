@@ -39,8 +39,15 @@ const deletePostOfItem = async (req, res, next) => {
   try {
     const postid = req.params.id;
     const updatepost = await postService.deletePostOfItem(postid);
-
-    res.status(StatusCodes.OK).json(updatepost);
+    if (updatepost) {
+      return res
+        .status(StatusCodes.OK)
+        .json({ messenger: "Da xoa thanh cong" });
+    } else {
+      return res
+        .status(StatusCodes.OK)
+        .json({ messenger: "Khong xoa thanh cong" });
+    }
   } catch (error) {
     next(error);
   }

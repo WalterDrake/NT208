@@ -169,6 +169,21 @@ const getListStudentofCoures = async (req, res, next) => {
     next(error);
   }
 };
+const getListStudentofCouresbyItem = async (itemid) => {
+  try {
+    // truyen vao id khoa hoc
+    const studentList = await GET_DB()
+      .collection(itemModel.ITEM_COLLECTION_NAME)
+      .findOne({ _id: new ObjectId(itemid) }, { courseCode: 1 });
+    const liststudent = await courseController.getListStudentofCoures(
+      studentList.courseCode
+    );
+    console.log("studentList", studentList);
+    return studentList;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 const deleteOneItem = async (idItem) => {
   try {
     // truyen vao id item
@@ -176,14 +191,14 @@ const deleteOneItem = async (idItem) => {
       .collection(courseModel.COURSE_COLLECTION_NAME)
       .updateOne(
         {
-          listitem: { $in: idItem },
+          listitem: idItem,
         },
         {
-          $pull: { listitem: { $in: idItem } },
+          $pull: { listitem: idItem },
         }
       );
   } catch (error) {
-    next(error);
+    throw new Error(error);
   }
 };
 const pushStudentsIntoCourse = async (req, res, next) => {
@@ -445,6 +460,7 @@ export const courseController = {
   chamdiemchoStudent, // truyen vao id hoc sinh, id mon hoc va diem so
   deleteOneItem, // truyen voa id item
   AddListStudentOnCourse,
+  getListStudentofCouresbyItem,
 
   //Ham xuat phat tu hoc sinh
   getListCoursesofStudentid, // truyen vao id hoc sinh

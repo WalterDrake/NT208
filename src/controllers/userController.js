@@ -118,7 +118,6 @@ const getAllUserOnline = async (req, res, next) => {
   }
 };
 
-
 export const userController = {
   //Danh cho Admin
   getDetailsAllbyAdmin,

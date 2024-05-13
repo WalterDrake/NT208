@@ -8,6 +8,7 @@ import { notiModel } from "./notiModel";
 import { postModel } from "./postModel";
 import { courseController } from "~/controllers/courseController";
 import { itemController } from "~/controllers/itemController";
+import { teacherModel } from "../teacherModel";
 
 const ITEM_COLLECTION_NAME = "items";
 const ITEM_COLLECTION_SCHEMA = Joi.object({
@@ -15,7 +16,8 @@ const ITEM_COLLECTION_SCHEMA = Joi.object({
   description: Joi.string().required().min(3).max(255).trim().strict(),
   courseCode: Joi.string()
     .pattern(OBJECT_ID_RULE)
-    .message(OBJECT_ID_RULE_MESSAGE),
+    .message(OBJECT_ID_RULE_MESSAGE)
+    .required(),
   listVideoids: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
@@ -25,11 +27,10 @@ const ITEM_COLLECTION_SCHEMA = Joi.object({
   listNotids: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
-  teacher: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
 });
 
-const INVALID_UPDATE_FIELDS = ["_id", "createdAt"];
+const INVALID_UPDATE_FIELDS = ["_id", "createdAt", "courseCode"];
 
 const validateBeforeCreate = async (data) => {
   return await ITEM_COLLECTION_SCHEMA.validateAsync(data, {
@@ -43,6 +44,10 @@ const createItemOfCourse = async (data) => {
     const createdBoard = await GET_DB()
       .collection(ITEM_COLLECTION_NAME)
       .insertOne(validData);
+    const pushitemoncoourse = await courseModel.pushItemOnCourse(
+      data.courseCode,
+      String(createdBoard.insertedId)
+    );
     return createdBoard;
   } catch (error) {
     throw new Error(error);
@@ -118,7 +123,7 @@ const getListItemOfCourse = async (idCourse) => {
 };
 const deleteItemOfCourse = async (idItem) => {
   try {
-    if (!idItem) {
+    if (idItem) {
       //Goi toi ham xoa 1 Item trong Course
       const deletedCourse = await courseController.deleteOneItem(idItem); // duyet
       // Goi toi ham xoa 1 video dung vong lap de xoa list video
@@ -128,6 +133,7 @@ const deleteItemOfCourse = async (idItem) => {
           item: idItem,
         })
         .toArray();
+      console.log(videos);
 
       for (const video of videos) {
         await videoModel.deleteVideoOfItem(video._id);
@@ -158,10 +164,10 @@ const deleteItemOfCourse = async (idItem) => {
 
       const deleteCourse = await GET_DB()
         .collection(itemModel.ITEM_COLLECTION_NAME)
-        .deleteOne({
+        .findOneAndDelete({
           _id: new ObjectId(idItem),
         });
-      return true;
+      return deleteCourse;
     }
     return false;
   } catch (error) {
@@ -179,7 +185,7 @@ const updateDataItemOfCourse = async (itemId, updateData) => {
     });
 
     const result = await GET_DB()
-      .collection(BOARD_COLLECTION_NAME)
+      .collection(ITEM_COLLECTION_NAME)
       .findOneAndUpdate(
         { _id: new ObjectId(itemId) },
         { $set: updateData },
@@ -214,6 +220,33 @@ const pushToListPost = async (itemId, idPost) => {
     throw new Error(error);
   }
 };
+
+const pushToListVideo = async (itemId, idVideo) => {
+  try {
+    const result = await GET_DB()
+      .collection(ITEM_COLLECTION_NAME)
+      .updateOne(
+        { _id: new ObjectId(itemId) },
+        { $push: { listVideoids: String(idVideo) } }
+      );
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+const pushToListNoti = async (itemId, idNoti) => {
+  try {
+    const result = await GET_DB()
+      .collection(ITEM_COLLECTION_NAME)
+      .updateOne(
+        { _id: new ObjectId(itemId) },
+        { $push: { listNotids: String(idNoti) } }
+      );
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 export const itemModel = {
   ITEM_COLLECTION_NAME,
   ITEM_COLLECTION_SCHEMA,
@@ -226,6 +259,8 @@ export const itemModel = {
   updateDataItemOfCourse, // id item va update data
   deleteItemOfCourse, //id item
   pushToListPost,
+  pushToListVideo,
+  pushToListNoti,
 
   // Phuc vu xoa cai nho
   deleteOneVideo, // idVideo

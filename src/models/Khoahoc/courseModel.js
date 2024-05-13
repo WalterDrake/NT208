@@ -128,6 +128,20 @@ const deleteMany = async (ids) => {
   }
 };
 
+const pushItemOnCourse = async (idCourse, idItem) => {
+  const getitem = await GET_DB()
+    .collection(courseModel.COURSE_COLLECTION_NAME)
+    .updateOne(
+      {
+        _id: new ObjectId(idCourse),
+      },
+      { $push: { listitem: idItem } }
+    );
+  console.log(getitem.listitem);
+
+  return getitem;
+};
+
 //danh cho giao vien va admin
 const updateCourse = async (courseId, updateData) => {
   try {
@@ -159,6 +173,7 @@ export const courseModel = {
   findOneById, // có id course
   getDetailsAll, // lấy hết
   updateCourse, // có id course
+  pushItemOnCourse,
 
   findOne, // truyền vào cả id course và id owner
   getDetailsAllbyTeacher, // Cái này là trả về thẳng cái mảng luôn thay vì ta phải query từ các id

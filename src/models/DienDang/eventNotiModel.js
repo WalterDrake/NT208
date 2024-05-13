@@ -36,7 +36,7 @@ const createNew = async (tenevent, idevent, listimpact) => {
   try {
     const data = {
       nameevent: tenevent,
-      own: idevent,
+      own: String(idevent),
       listimpact: listimpact,
     };
     const validData = await validateBeforeCreate(data);
