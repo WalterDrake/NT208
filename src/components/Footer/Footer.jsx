@@ -4,13 +4,13 @@ import ItemsContainer from './ItemsContainer'
 const Footer = () => {
   const Year = new Date().getFullYear()
   return (
-    <footer className="bg-gradient-to-r from-[#0077FF] to-[#B5D5FB]  rounded-t-lg  opacity-50 text-white">
-      <div className="md:flex md:justify-between md:items-center sm:px-12 px-4 bg-[#ffffff19] py-7">
-      </div>
+    <footer className="bg-gradient-to-r from-[#0077FF] to-[#B5D5FB]  rounded-t-lg pt-8 opacity-50 text-white">
+
       <ItemsContainer />
       <div className=" text-center pt-2 text-[#656567] text-sm pb-7">
         <span>Copyright © UITeCo {Year} . All rights reserved.</span>
       </div>
+
     </footer>
   )
 }
