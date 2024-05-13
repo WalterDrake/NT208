@@ -89,7 +89,7 @@ function KhoahocDetailItem() {
         <ListVideo item={curItem}/>
       </div>
       <div>
-        {showListtudent && 
+        {(showListtudent && (user?.role === 'admin' || courseDetails?.owner=== user._id) ) &&  
           <ListStudent courseId={courseId} />}
       </div>
     </CurrentVideoContext.Provider >

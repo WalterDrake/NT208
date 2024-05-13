@@ -1,6 +1,8 @@
 import  {useState,useEffect} from 'react'
 import * as courses from '../../service/courses'
+import useUser from '../../hook/useUser'
 export default function ListStudent({ courseId }) {
+    const{user} = useUser()
     const [listStudent, setListStudent] = useState([{}])
     useEffect(() => {
         courses.GetListStudent(courseId)
