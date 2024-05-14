@@ -68,9 +68,8 @@ function KhoahocDetailItem() {
 
 
   return (
-
     <CurrentVideoContext.Provider value={{ courseDetails, setCourseDetails, curVideourl, setCurVideourl, curVideoList, setCurVideoList, curPostList, setCurPostList, curCommentList, setCurCommentList, curItem, setCurItem, curNotiList, setCurNotiList }}>
-      <div className="bg-[#29303b] w-full flex justify-between" id="navbar-course">
+      <div className="bg-[#29303b] w-full box-border flex justify-between" id="navbar-course">
         <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">{courseDetails.title}</h1>
         <div className='teacher-action'>
           <div className="flex">
@@ -104,16 +103,13 @@ function KhoahocDetailItem() {
         </div>
       </div>
       <div className='bg-white min-h-[500px] w-full'>
-        <CommentVideo />
+        <CommentVideo item = {curItem}/>
         <ListVideo item={curItem} />
         <ListPost item={curItem} />
-      </div>
-      <div>
         {(showListtudent && (user?.role === 'admin' || courseDetails?.owner === user._id)) &&
           <ListStudent courseId={courseId} />}
       </div>
     </CurrentVideoContext.Provider >
-
   );
 }
 

@@ -15,7 +15,7 @@ import { Search as SearchHeader } from "./NavBar/Search"
 
 const Navbar = () => {
   return (
-    <nav className=" items-center flex z-50 p-26 ">
+    <nav className=" items-center flex z-50 box-border p-26 ">
       <Link to={routes.home}  >
         <img
           className="ml-[4rem] mt-[1rem] "
