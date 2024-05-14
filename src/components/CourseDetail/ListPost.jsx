@@ -1,26 +1,27 @@
 import React, { useEffect, useContext, useState } from "react";
-
 import { CurrentVideoContext } from "../../Pages/Khoahoc/KhoahocItemDetail/KhoaHocDetailItem";
-import * as videos from "../../service/videos";
+import * as posts from "../../service/posts"
 import useUser from "../../hook/useUser";
 
 export default function ListPost({ item }) {
   const { user } = useUser();
-  const { setCurPosturl } = useContext(CurrentPostContext);
+  const { setCurPosturl } = useContext(CurrentVideoContext);
   const [listPosts, setListPosts] = useState([]);
   useEffect(() => {
-    videos
-      .getPostOfItem(item._id)
-      .then((res) => {
-        if (res) setListPosts(res);
-      })
-      .catch((err) => {
-        console.log("err get posts list", err);
-      });
-  }, [listPosts]);
+    const postInterval = setInterval(() => { 
+      posts.getListPostofItem(item._id)
+        .then((res) => {
+          setListPosts(res);
+        })
+        .catch((err) => {
+          console.log("err get list post", err);
+        });
+    }, 3000);
+    return () => clearInterval(postInterval);
+  }, [listPosts,item]);
   const handleDeletePost = (id) => {
-    videos
-      .deletePost(id)
+    posts
+      .DeletePost(id)
       .then((res) => {
         console.log("res delete post", res);
       })

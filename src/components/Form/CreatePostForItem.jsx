@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import validator from "../../hook/validate";
-import * as forum from "../../service/forum";
+import * as posts from '../../service/posts'
 import Item from "../Footer/Item";
 export default function CreatePostForm({ item }) {
   useEffect(() => {
@@ -18,8 +18,8 @@ export default function CreatePostForm({ item }) {
         console.log("data", data);
         const { title, description, linkPDF } = data;
 
-        forum
-          .addForum({ title, description, linkPDF, item: item._id })
+        posts
+          .CreateNewPost({ title, description, linkPDF, item: item._id })
           .then((res) => {
             alert("Create course successfully" + res).catch((err) =>
               alert("Create post for item failed: " + err)

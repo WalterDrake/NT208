@@ -3,6 +3,7 @@ import { useEffect, useState, createContext } from "react"
 
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt'
 import PersonSearchIcon from '@mui/icons-material/PersonSearch'
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 import AddStudentForm from "../../../components/Form/AddStudentForm"
 import CreateItemForm from "../../../components/Form/CreateItemForm"
@@ -11,24 +12,27 @@ import KhoahocDetailList from "./KhoahocDetailItem/KhoahocDetailList"
 import { useContext } from "react"
 import { UserContext } from "../../../App"
 import * as courses from '../../../service/courses'
-import  CommentVideo from './KhoahocDetailItem/CommentVideo'
-import ListVideo from '../../../components/CourseDetail/ListVideo' 
+import CommentVideo from './KhoahocDetailItem/CommentVideo'
+import ListVideo from '../../../components/CourseDetail/ListVideo'
 import ListStudent from "../../../components/CourseDetail/ListStudent"
+import ListPost from "../../../components/CourseDetail/ListPost"
+import Notification from '../../../components/CourseDetail/Notification'
 
 export const CurrentVideoContext = createContext();
 function KhoahocDetailItem() {
   //state
   const [courseDetails, setCourseDetails] = useState({})
-
   const [showCreateItem, setShowCreateItem] = useState(false)
   const [showFormAddStudent, setShowFormAddStudent] = useState(false)
   const [showListtudent, setShowListStudent] = useState(false)
-  const [curVideoList, setCurVideoList] = useState([])
-  const [curPostList, setCurPostList] = useState([])
+  const [curVideoList, setCurVideoList] = useState([{}])
+  const [curPostList, setCurPostList] = useState([{}])
+  const [curNotiList, setCurNotiList] = useState([{}])
   const [curItem, setCurItem] = useState({})
   const [curCommentList, setCurCommentList] = useState([])
   const { user } = useContext(UserContext)
   const { courseId, ownerId } = useParams();
+  const [curVideourl, setCurVideourl] = useState('')
   // function
   const handleSeeStudent = () => {
     setShowListStudent(pre => !pre)
@@ -38,6 +42,14 @@ function KhoahocDetailItem() {
   }
   const handleCreateItem = () => {
     setShowCreateItem(pre => !pre)
+  }
+  const handleNotification = (e) => {
+    const listNoti = document.getElementById('ListNoti')
+    if (listNoti.style.display === 'none') {
+      listNoti.style.display = 'block'
+    } else {
+      listNoti.style.display = 'none'
+    }
   }
   useEffect(() => {
     document.title = courseDetails.title
@@ -50,26 +62,30 @@ function KhoahocDetailItem() {
       .catch(err => {
         console.log('err detail course', err)
       })
-  }, [ownerId, courseId,showCreateItem])
+  }, [ownerId, courseId, showCreateItem])
 
 
-  
-  const [curVideourl, setCurVideourl] = useState('')
 
 
   return (
 
-    <CurrentVideoContext.Provider value={{ courseDetails, setCourseDetails,curVideourl,setCurVideourl,curVideoList, setCurVideoList, curPostList, setCurPostList,curCommentList, setCurCommentList,curItem, setCurItem}}>
+    <CurrentVideoContext.Provider value={{ courseDetails, setCourseDetails, curVideourl, setCurVideourl, curVideoList, setCurVideoList, curPostList, setCurPostList, curCommentList, setCurCommentList, curItem, setCurItem,curNotiList, setCurNotiList }}>
       <div className="bg-[#29303b] w-full flex justify-between" id="navbar-course">
-        <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">{courseDetails.name}</h1>
+        <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">{courseDetails.title}</h1>
         <div className='teacher-action'>
           {
-            (user.role === 'teacher' || user.role === 'admin') ?
+            (user._id === courseDetails.owner || user.role === 'admin') ?
               (
                 <div className="flex">
-                  <button className="text-white mr-2 p-4" onClick={handleCreateItem}><PersonSearchIcon /> Item</button>
-                  <button className="text-white mr-2 p-4" onClick={handleSeeStudent}><PersonSearchIcon /> Student</button>
-                  <button className="text-white mr-5 p-4" onClick={handleAddStudent}><PersonAddAltIcon /> Student</button>
+                  <button className="text-white mr-2 p-4" onClick={handleCreateItem}><PersonSearchIcon /> <p className="hidden md:inline">Item</p></button>
+                  <button className="text-white mr-2 p-4" onClick={handleSeeStudent}><PersonSearchIcon /> <p className="hidden md:inline">See</p></button>
+                  <button className="text-white mr-5 p-4" onClick={handleAddStudent}><PersonAddAltIcon /><p className="hidden md:inline">Add</p></button>
+                  <div className="relative">
+                    <button className="text-white mr-5 p-4 " onClick={handleNotification}><NotificationsIcon />
+                      <p className="hidden md:inline">Notification</p>
+                    </button>
+                    <Notification id='ListNoti' />
+                  </div>
                 </div>
               ) : <></>}
         </div>
@@ -81,15 +97,16 @@ function KhoahocDetailItem() {
           <KhoahocDetailList />
         </div>
         <div id="video-khoa-hoc" className="flex-1">
-          <KhoahocDetailVideo url={curVideourl}/>
+          <KhoahocDetailVideo url={curVideourl} />
         </div>
       </div>
-      <div className='bg-white min-h-[500px] w-full'>
-        <CommentVideo/>
-        <ListVideo item={curItem}/>
-      </div>
+      {/* <div className='bg-white min-h-[500px] w-full'>
+        <CommentVideo />
+        <ListVideo item={curItem} />
+        <ListPost item={curItem} />
+      </div> */}
       <div>
-        {(showListtudent && (user?.role === 'admin' || courseDetails?.owner=== user._id) ) &&  
+        {(showListtudent && (user?.role === 'admin' || courseDetails?.owner === user._id)) &&
           <ListStudent courseId={courseId} />}
       </div>
     </CurrentVideoContext.Provider >
