@@ -4,17 +4,21 @@ import { CurrentVideoContext } from "../KhoaHocDetailItem";
 
 import useUser from "../../../../hook/useUser";
 import ActionList from "./ActionList";
+import { useParams } from "react-router-dom";
 
 export default function KhoahocDetailList() {
         const { user } = useUser();
         const { courseDetails,setCurItem } = useContext(CurrentVideoContext);
+        const {courseId} = useParams()
+
+        console.log(useParams())
         const [listItem, setListItem] = useState([]);
         const handleCuritem = (item) => {
                 setCurItem(item)       
         }
         useEffect(() => {
                 item
-                        .getListItemOfCourse(courseDetails._id)
+                        .getListItemOfCourse(courseId)
                         .then((res) => {
                                 console.log("res list item", res);
                                 setListItem(res);
@@ -22,7 +26,7 @@ export default function KhoahocDetailList() {
                         .catch((err) => {
                                 console.log("err", err);
                         });
-        }, [courseDetails]);
+        }, [courseId]);
         return (
                 <ul className="h-full overflow-auto">
                         {listItem.map((item, index) => {

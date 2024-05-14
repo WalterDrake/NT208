@@ -31,7 +31,7 @@ export default function AddNotiItem({idItem}) {
         }
     }, [idItem])
     return (
-        <form id='add-noti-form' className='absolute w-[10rem] right-16'>
+        <form id='add-noti-form' className='absolute w-[10rem] right-[15.2rem]' style={{display:"none"}} >
                 <div className="border-b bg-white rounded-lg p-4 border-gray-900/10 pb-12 shadow-lg w-full">
                     <div className='form-group mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
                         <div className="sm:col-span-6">

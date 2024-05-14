@@ -84,7 +84,8 @@ function KhoahocDetailItem() {
                   </>
                 ) : <></>}
             <div className="relative">
-              <button className="text-white mr-5 p-4 " onClick={handleNotification}><NotificationsIcon />
+              <button className="text-white mr-5 p-4 " onClick={handleNotification}>
+                <NotificationsIcon />
                 <p className="hidden md:inline">Notification</p>
               </button>
               <Notification id='ListNoti' />
