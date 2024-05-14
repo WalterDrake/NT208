@@ -3,6 +3,7 @@ import { ObjectId } from "mongodb";
 import { GET_DB } from "~/config/mongodb";
 import { commentModel } from "~/models/Monhoc/commentModel";
 import { cboxModel } from "~/models/Monhoc/commentboxModel";
+import { studentModel } from "~/models/studentModel";
 
 const createNew = async (req, res, next) => {
   try {
@@ -48,8 +49,29 @@ const GetListcommentCbox = async (req, res, next) => {
     const idcBox = req.params.id;
     const listcomment = await GET_DB()
       .collection(commentModel.COMMENT_COLLECTION_NAME)
-      .find({ commentbox: idcBox })
+      .aggregate([
+        {
+          $match: { commentbox: idcBox },
+        },
+        {
+          $lookup: {
+            from: studentModel.USER_COLLECTION_NAME,
+            localField: "owner",
+            foreignField: "_id",
+            as: "ten",
+          },
+        },
+        {
+          $project: {
+            datatext: 1,
+            commentbox: 1,
+
+            "ten.username": 1,
+          },
+        },
+      ])
       .toArray();
+
     res.status(StatusCodes.OK).json(listcomment);
   } catch (error) {
     next(error);

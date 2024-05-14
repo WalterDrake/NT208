@@ -32,14 +32,12 @@ const createNewComment = async (data) => {
     const validData = await validateBeforeCreate(data);
     const newDataToAdd = {
       ...validData,
-      owner: validData.owner,
+      owner: new ObjectId(validData.owner),
       commentbox: validData.commentbox,
     };
     const createdStudy = await GET_DB()
       .collection(COMMENT_COLLECTION_NAME)
       .insertOne(newDataToAdd);
-    console.log(" validData.cBoxId", validData.commentbox);
-    console.log("createdStudy.insertedId ", createdStudy.insertedId);
 
     const pushintocbox = await cboxModel.pushToListComment(
       validData.commentbox,
