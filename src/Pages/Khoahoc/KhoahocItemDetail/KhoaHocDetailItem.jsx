@@ -29,7 +29,7 @@ function KhoahocDetailItem() {
   const [curPostList, setCurPostList] = useState([{}])
   const [curNotiList, setCurNotiList] = useState([{}])
   const [curItem, setCurItem] = useState({})
-  const [curCommentList, setCurCommentList] = useState([])
+  const [curCommentList, setCurCommentList] = useState([{}])
   const { user } = useContext(UserContext)
   const { courseId, ownerId } = useParams();
   const [curVideourl, setCurVideourl] = useState('')

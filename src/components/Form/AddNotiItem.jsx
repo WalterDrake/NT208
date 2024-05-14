@@ -4,7 +4,6 @@ import * as notification from '../../service/notification'
 import validator from '../../hook/validate'
 
 export default function AddNotiItem({idItem}) {
-    console.log('idItem', idItem)
     useEffect(() => {
         validator({
             form: "#add-noti-form",

@@ -11,7 +11,6 @@ export default function KhoahocDetailList() {
         const [listItem, setListItem] = useState([]);
         const handleCuritem = (item) => {
                 setCurItem(item)       
-                console.log('item',item)
         }
         useEffect(() => {
                 item
