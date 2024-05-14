@@ -54,7 +54,7 @@ export default function PostItem({ post }) {
             }
 
           </div>
-          <h3 className='font-bold text-xl bg-slate-100 hover:bg-slate-300 max-w-[70%] w-auto rounded-md shadow pl-8'>{post.title}</h3>
+          <h3 className='font-bold text-xl max-w-[70%] w-auto rounded-md pl-8'>{post.title}</h3>
           <div className='flex-col h-full m-8'>
             <a href={post.linkPDF} target='_blank'> PDF or image: {post.linkPDF}</a>
             <p > description: {post.description}</p>

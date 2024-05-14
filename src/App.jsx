@@ -15,7 +15,7 @@ function App() {
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <Router className="h-screen bg-[#F0F7FF]">
+      <Router className="h-screen">
         <Routes>
           {publicRoutes.map((route, index) => {  // là các page không đăng nhập vẫn vô đc
             const Page = route.component
