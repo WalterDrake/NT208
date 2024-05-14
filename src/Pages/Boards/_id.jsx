@@ -18,7 +18,7 @@ import {
   moveCardToDifferentColumnAPI,
   updateBoardDetailsAPI,
   updateColumnDetailsAPI,
-  fetchBoardIdsOnUser,
+  // fetchBoardIdsOnUser,
 } from "../../apis";
 import { generatePlaceholderCard } from "../../utils/formatters";
 import { Button } from "@mui/material";

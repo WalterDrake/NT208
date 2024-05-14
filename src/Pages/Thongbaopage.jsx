@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ThongBaoItem from '../components/Item/ThongBaoItem'
 import useUser from '../hook/useUser'
-import {getAddNoti} from '../service/notification'
+// import {getAddNoti} from '../service/notification'
 import { Button } from '@mui/material'
 import CreatePost from '../components/Forum/CreatePost'
 
@@ -43,14 +43,14 @@ const handleCreatePost = () => {
   setShowCreatePost(pre => !pre)
 
 }
-const updateNoti =() => {
-  const fecthApiNotification = async () => {
-    const result =  await getAddNoti(user._id)
-    setThongBaoList(result)
-  }
-  fecthApiNotification();
-}
-  useEffect(updateNoti,[])
+// const updateNoti =() => {
+//   const fecthApiNotification = async () => {
+//     const result =  await getAddNoti(user._id)
+//     setThongBaoList(result)
+//   }
+//   fecthApiNotification();
+// }
+//   useEffect(updateNoti,[])
   return (
 <div className='w-full'>
   <div className="flex justify-between">

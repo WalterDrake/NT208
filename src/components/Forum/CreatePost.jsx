@@ -2,10 +2,9 @@ import React, { useEffect } from "react";
 
 import * as forum from "../../service/forum";
 import validator from "../../hook/validate";
-import { addNoti } from "../../service/notification";
 import useUser from "../../hook/useUser";
 
-export default function CreatePost({ isThongBao }) {
+export default function CreatePost({  }) {
   const { user } = useUser();
   useEffect(() => {
     validator({
@@ -18,13 +17,7 @@ export default function CreatePost({ isThongBao }) {
         validator.isRequired("#title", "Vui lòng nhập title"),
         validator.isRequired("#linkPDF", "Vui lòng nhập linkPDF"),
       ],
-      onSubmit: function (data) {
-        console.log("data", data);
-        if (isThongBao) {
-          addNoti(data)
-            .then(() => alert("oke thong bao"))
-            .catch(() => alert("err thong bao"));
-        } else {
+      onSubmit: function (data) { {
           const { title, description, linkPDF } = data;
           forum
             .addForum({ title, description, linkPDF, user: user._id })

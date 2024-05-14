@@ -69,25 +69,27 @@ function KhoahocDetailItem() {
 
   return (
 
-    <CurrentVideoContext.Provider value={{ courseDetails, setCourseDetails, curVideourl, setCurVideourl, curVideoList, setCurVideoList, curPostList, setCurPostList, curCommentList, setCurCommentList, curItem, setCurItem,curNotiList, setCurNotiList }}>
+    <CurrentVideoContext.Provider value={{ courseDetails, setCourseDetails, curVideourl, setCurVideourl, curVideoList, setCurVideoList, curPostList, setCurPostList, curCommentList, setCurCommentList, curItem, setCurItem, curNotiList, setCurNotiList }}>
       <div className="bg-[#29303b] w-full flex justify-between" id="navbar-course">
         <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">{courseDetails.title}</h1>
         <div className='teacher-action'>
-          {
-            (user._id === courseDetails.owner || user.role === 'admin') ?
-              (
-                <div className="flex">
-                  <button className="text-white mr-2 p-4" onClick={handleCreateItem}><PersonSearchIcon /> <p className="hidden md:inline">Item</p></button>
-                  <button className="text-white mr-2 p-4" onClick={handleSeeStudent}><PersonSearchIcon /> <p className="hidden md:inline">See</p></button>
-                  <button className="text-white mr-5 p-4" onClick={handleAddStudent}><PersonAddAltIcon /><p className="hidden md:inline">Add</p></button>
-                  <div className="relative">
-                    <button className="text-white mr-5 p-4 " onClick={handleNotification}><NotificationsIcon />
-                      <p className="hidden md:inline">Notification</p>
-                    </button>
-                    <Notification id='ListNoti' />
-                  </div>
-                </div>
-              ) : <></>}
+          <div className="flex">
+            {
+              (user._id === courseDetails.owner || user.role === 'admin') ?
+                (
+                  <>
+                    <button className="text-white mr-2 p-4" onClick={handleCreateItem}><PersonSearchIcon /> <p className="hidden md:inline">Item</p></button>
+                    <button className="text-white mr-2 p-4" onClick={handleSeeStudent}><PersonSearchIcon /> <p className="hidden md:inline">See</p></button>
+                    <button className="text-white mr-5 p-4" onClick={handleAddStudent}><PersonAddAltIcon /><p className="hidden md:inline">Add</p></button>
+                  </>
+                ) : <></>}
+            <div className="relative">
+              <button className="text-white mr-5 p-4 " onClick={handleNotification}><NotificationsIcon />
+                <p className="hidden md:inline">Notification</p>
+              </button>
+              <Notification id='ListNoti' />
+            </div>
+          </div>
         </div>
       </div>
       {showFormAddStudent && <AddStudentForm idAdd={courseId} isCourse={true} />}
@@ -100,11 +102,11 @@ function KhoahocDetailItem() {
           <KhoahocDetailVideo url={curVideourl} />
         </div>
       </div>
-      {/* <div className='bg-white min-h-[500px] w-full'>
+      <div className='bg-white min-h-[500px] w-full'>
         <CommentVideo />
         <ListVideo item={curItem} />
         <ListPost item={curItem} />
-      </div> */}
+      </div>
       <div>
         {(showListtudent && (user?.role === 'admin' || courseDetails?.owner === user._id)) &&
           <ListStudent courseId={courseId} />}

@@ -1,17 +1,8 @@
 import * as httpRequests from "../utils/httpRequest";
 
-export const getAddNoti = async () => {
+export const GetAllNoti = async () => {
   try {
-    const result = await httpRequests.get("/notis/getall");
-    return result;
-  } catch (err) {
-    throw err.response;
-  }
-};
-
-export const addNoti = async (data) => {
-  try {
-    const result = await httpRequests.post("/notis/addtall", data);
+    const result = await httpRequests.get("/notis/GetAllNoti");  
     return result;
   } catch (err) {
     throw err.response;
@@ -26,12 +17,20 @@ export const createNoti = async (data) => {
   } catch (err) {
     throw err.response;
   }
-
 }
 
 export const GetlistNoti =  async (id) => {
   try {
     const result = await httpRequests.get(`/notis/GetlistNoti/${id}`);
+    return result;
+  } catch (err) {
+    throw err.response;
+  }
+}
+
+export const DeleteNoti =  async (id) => {
+  try {
+    const result = await httpRequests.get(`/notis/DeleteNoti/${id}`);
     return result;
   } catch (err) {
     throw err.response;

@@ -30,7 +30,7 @@ const updateDataItemOfCourse = async (data) => {
 
 const deleteItemOfCourse = async (id) => {
     try {
-        const response = await httpRequest.remove(`/items/Teacher/Item/${id}`)
+        const response = await httpRequest.remove(`/items/Teacher/DeleteItem/${id}`)
         return response
     } catch (error) {
         throw error.response
@@ -39,7 +39,7 @@ const deleteItemOfCourse = async (id) => {
 
 const deleteOneVideo = async (id) => {
     try {
-        const response = await httpRequest.remove(`/items/Teacher/Item/deleteVideo/${id}`)
+        const response = await httpRequest.remove(`/items/Teacher/Item/DeleteOneVideo/${id}`)
         return response
     } catch (error) {
         throw error.response
@@ -48,7 +48,7 @@ const deleteOneVideo = async (id) => {
 
 const deleteOneNoti = async (id) => {
     try {
-        const response = await httpRequest.remove(`/items/Teacher/Item/deleteNoti/${id}`)
+        const response = await httpRequest.remove(`/items/Teacher/Item/DeleteOneNoti/${id}`)
         return response
     } catch (error) {
         throw error.response
@@ -57,7 +57,7 @@ const deleteOneNoti = async (id) => {
 
 const deleteOnePost = async (id) => {
     try {
-        const response = await httpRequest.remove(`/items/Teacher/Item/deletePost/${id}`)
+        const response = await httpRequest.remove(`/items/Teacher/Item/DeleteOnePost/${id}`)
         return response
     } catch (error) {
         throw error.response
