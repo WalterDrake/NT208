@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { Box, Avatar, Menu, MenuItem, ListItemIcon, Divider, IconButton, Tooltip } from '@mui/material';
 import { Settings, Logout } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+//import { useSelector } from 'react-redux';
+import useUser from '../../hook/useUser';
 
 const AccountMenu = () => {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const open = Boolean(anchorEl);
-
-    const { currentRole, currentUser } = useSelector(state => state.user);
+    const { user } = useUser()
+    //const { currentRole, currentUser } = useSelector(state => state.user);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -30,7 +31,7 @@ const AccountMenu = () => {
                         aria-expanded={open ? 'true' : undefined}
                     >
                         <Avatar sx={{ width: 32, height: 32 }}>
-                            {String(currentUser.name).charAt(0)}
+                            {String(user._id).charAt(0)}
                         </Avatar>
                     </IconButton>
                 </Tooltip>
@@ -50,7 +51,7 @@ const AccountMenu = () => {
             >
                 <MenuItem>
                     <Avatar />
-                    <Link to={`/${currentRole}/profile`}>
+                    <Link to={`/${user._id}/profile`}>
                         Profile
                     </Link>
                 </MenuItem>

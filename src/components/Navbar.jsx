@@ -1,7 +1,7 @@
 import React from "react"
 import { HiMiniHome } from "react-icons/hi2"
 import { AiOutlineMessage } from "react-icons/ai"
-import { IoNotificationsOutline } from "react-icons/io5"
+import { IoNotificationsOutline, IoSettingsOutline } from "react-icons/io5"
 import Badge from '@mui/material/Badge'
 import { Link } from "react-router-dom"
 
@@ -12,8 +12,10 @@ import Navbarmenu from "./Layout/NavBaritem/Navbarmenu"
 import Navbaritem from "./Layout/NavBaritem/Navbaritem"
 import config from "../config/routes"
 import { Search as SearchHeader } from "./NavBar/Search"
+import useUser from "../hook/useUser"
 
 const Navbar = () => {
+  const { user } = useUser()
   return (
     <nav className=" items-center flex z-50 box-border p-26 ">
       <Link to={routes.home}  >
@@ -46,6 +48,11 @@ const Navbar = () => {
           </Badge>}
         />
 
+        {user?.role === "admin" ?
+          (<Navbaritem
+            to={config.setting}
+            icon={<IoSettingsOutline className="w-10 h-10" />}
+          />) : null}
 
         <Navbaritem
           to={config.thongbao}
