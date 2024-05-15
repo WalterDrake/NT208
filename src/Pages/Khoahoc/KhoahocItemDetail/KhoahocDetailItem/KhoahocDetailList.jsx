@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import * as item from "../../../../service/item";
-import { CurrentVideoContext } from "../KhoaHocDetailItem";
+
+
+import { CurrentItemContext } from "../../../../state/CoursecDetailProvider";
 
 import useUser from "../../../../hook/useUser";
 import ActionList from "./ActionList";
@@ -8,10 +10,8 @@ import { useParams } from "react-router-dom";
 
 export default function KhoahocDetailList() {
         const { user } = useUser();
-        const { courseDetails,setCurItem } = useContext(CurrentVideoContext);
+        const {setCurItem } = useContext(CurrentItemContext);
         const {courseId} = useParams()
-
-        console.log(useParams())
         const [listItem, setListItem] = useState([]);
         const handleCuritem = (item) => {
                 setCurItem(item)       

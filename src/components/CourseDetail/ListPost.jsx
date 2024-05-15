@@ -1,5 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
-import { CurrentVideoContext } from "../../Pages/Khoahoc/KhoahocItemDetail/KhoaHocDetailItem";
+
+import {CurrentVideoContext} from '../../state/CoursecDetailProvider'
+
 import * as posts from "../../service/posts"
 import useUser from "../../hook/useUser";
 
@@ -37,17 +39,11 @@ export default function ListPost({ item }) {
             key={index}
             className="mt-0 round-xl border-[1px] border-b-black "
           >
-            <div
-              onClick={() => {
-                setCurPosturl(post.link);
-              }}
-            >
               <h5> Title: {post.title}</h5>
               <p className="text-sm font-thin">
                 {" "}
                 Description: {post.description}
               </p>
-            </div>
             {(user.role === "teacher" || user.role === "admin") && (
               <button
                 className="ml-[30%] bg-red-300 rounded-xl hover:bg-red-400"

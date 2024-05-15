@@ -1,14 +1,15 @@
 import React, { useEffect, useContext, useState } from 'react'
 
-import { CurrentVideoContext } from '../../Pages/Khoahoc/KhoahocItemDetail/KhoaHocDetailItem'
+import { CurrentVideoListContext, CurrentVideoContext } from '../../state/CoursecDetailProvider'
+
 import * as videos from '../../service/videos'
 import useUser from '../../hook/useUser'
 import { memo } from 'react'
 
 function ListVideo({ item }) {
     const { user } = useUser()
-    const {curVideoList, setCurVideoList} = useContext(CurrentVideoContext)
-    const { setCurVideourl } = useContext(CurrentVideoContext)
+    const {curVideoList, setCurVideoList} = useContext(CurrentVideoListContext)
+    const { setCurVideo } = useContext(CurrentVideoContext)
     useEffect(() => {
         videos.getVideoOfItem(item._id)
             .then(res => {
@@ -33,7 +34,7 @@ function ListVideo({ item }) {
             {curVideoList?.map((video, index) => {
                 return (
                     <li  key={index} className='mt-0 round-xl border-[1px] border-b-black '>
-                        <div onClick={() => { setCurVideourl(video.link) }} >
+                        <div onClick={() => { setCurVideo(video) }} >
                             <h5> Title: {video.title}</h5>
                             <p className='text-sm font-thin'> Description: {video.description}</p>
                         </div>

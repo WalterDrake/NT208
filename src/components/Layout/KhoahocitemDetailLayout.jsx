@@ -1,5 +1,6 @@
 import React from 'react'
 import Navbar from '../Navbar'
+import CoursecDetailProvider from '../../state/CoursecDetailProvider'
 
 export default function KhoahocitemDetailLayout({children}) {
   return (
@@ -7,7 +8,11 @@ export default function KhoahocitemDetailLayout({children}) {
       <header>
         <Navbar/>
       </header>
-      <div className='mt-[7.5rem] box-border w-full '>{children}</div>
+      <div className='h-[100px]'></div>
+
+      <CoursecDetailProvider>
+        <div className='mt-0 box-border w-full '>{children}</div>
+      </CoursecDetailProvider>
     </div>
   )
 }

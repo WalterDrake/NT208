@@ -1,15 +1,18 @@
 import { useParams } from "react-router-dom"
-import { useEffect, useState, createContext } from "react"
+import { useEffect, useState, useContext } from "react"
 
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt'
 import PersonSearchIcon from '@mui/icons-material/PersonSearch'
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
+//context
+import { CurrentCourseContext,CurrentVideoContext, CurrentItemContext } from "../../../state/CoursecDetailProvider"
+
+//component
 import AddStudentForm from "../../../components/Form/AddStudentForm"
 import CreateItemForm from "../../../components/Form/CreateItemForm"
 import KhoahocDetailVideo from "./KhoahocDetailItem/KhoahocDetailVideo"
 import KhoahocDetailList from "./KhoahocDetailItem/KhoahocDetailList"
-import { useContext } from "react"
 import { UserContext } from "../../../App"
 import * as courses from '../../../service/courses'
 import CommentVideo from './KhoahocDetailItem/CommentVideo'
@@ -18,21 +21,20 @@ import ListStudent from "../../../components/CourseDetail/ListStudent"
 import ListPost from "../../../components/CourseDetail/ListPost"
 import Notification from '../../../components/CourseDetail/Notification'
 
-export const CurrentVideoContext = createContext();
+
 function KhoahocDetailItem() {
+
+  //context
+  const {curVideo} = useContext(CurrentVideoContext)
+  const {courseDetails, setCourseDetails} = useContext(CurrentCourseContext)
+  const {curItem} = useContext(CurrentItemContext)
   //state
-  const [courseDetails, setCourseDetails] = useState({})
   const [showCreateItem, setShowCreateItem] = useState(false)
   const [showFormAddStudent, setShowFormAddStudent] = useState(false)
   const [showListtudent, setShowListStudent] = useState(false)
-  const [curVideoList, setCurVideoList] = useState([{}])
-  const [curPostList, setCurPostList] = useState([{}])
-  const [curNotiList, setCurNotiList] = useState([{}])
-  const [curItem, setCurItem] = useState({})
-  const [curCommentList, setCurCommentList] = useState([{}])
   const { user } = useContext(UserContext)
-  const { courseId, ownerId } = useParams();
-  const [curVideourl, setCurVideourl] = useState('')
+  const { courseId, ownerId } = useParams()
+
   // function
   const handleSeeStudent = () => {
     setShowListStudent(pre => !pre)
@@ -65,10 +67,8 @@ function KhoahocDetailItem() {
   }, [ownerId, courseId, showCreateItem])
 
 
-
-
   return (
-    <CurrentVideoContext.Provider value={{ courseDetails, setCourseDetails, curVideourl, setCurVideourl, curVideoList, setCurVideoList, curPostList, setCurPostList, curCommentList, setCurCommentList, curItem, setCurItem, curNotiList, setCurNotiList }}>
+    <>
       <div className="bg-[#29303b] w-full box-border flex justify-between" id="navbar-course">
         <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">{courseDetails.title}</h1>
         <div className='teacher-action'>
@@ -99,17 +99,17 @@ function KhoahocDetailItem() {
           <KhoahocDetailList />
         </div>
         <div id="video-khoa-hoc" className="flex-1">
-          <KhoahocDetailVideo url={curVideourl} />
+          <KhoahocDetailVideo url={curVideo?.link} />
         </div>
       </div>
       <div className='bg-white min-h-[500px] w-full'>
-        <CommentVideo item = {curItem}/>
+        <CommentVideo item={curItem} />
         <ListVideo item={curItem} />
         <ListPost item={curItem} />
         {(showListtudent && (user?.role === 'admin' || courseDetails?.owner === user._id)) &&
           <ListStudent courseId={courseId} />}
       </div>
-    </CurrentVideoContext.Provider >
+    </>
   );
 }
 

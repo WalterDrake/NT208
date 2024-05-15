@@ -3,11 +3,12 @@ import NotificationAddIcon from '@mui/icons-material/NotificationAdd';
 
 import * as notification from '../../service/notification'
 import AddNotiItem from '../Form/AddNotiItem';
-import { CurrentVideoContext } from '../../Pages/Khoahoc/KhoahocItemDetail/KhoaHocDetailItem';
 import useUser from '../../hook/useUser';
+import { CurrentNotiListContext,CurrentItemContext } from '../../state/CoursecDetailProvider';
 export default function Notification({ id }) {
   const { user } = useUser()
-  const { curNotiList, setCurNotiList, curItem } = useContext(CurrentVideoContext)
+  const { curNotiList, setCurNotiList } = useContext(CurrentNotiListContext)
+  const { curItem } = useContext(CurrentItemContext)
   useEffect(() => {
     const intervalListNoti = setInterval(() => {
       notification.GetlistNoti(curItem._id)
