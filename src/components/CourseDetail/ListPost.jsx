@@ -18,17 +18,17 @@ export default function ListPost({ item }) {
         .catch((err) => {
           console.log("err get list post", err);
         });
-    }, 3000);
+    }, 10000);
     return () => clearInterval(postInterval);
   }, [listPosts,item]);
   const handleDeletePost = (id) => {
     posts
       .DeletePost(id)
       .then((res) => {
-        console.log("res delete post", res);
+        alert("delete post", res);
       })
       .catch((err) => {
-        console.log("err delete post", err);
+        alert("err delete post", err);
       });
   };
   return (

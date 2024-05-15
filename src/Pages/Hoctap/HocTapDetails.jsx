@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { useEffect, useState, createContext } from "react"
+import { useState, createContext } from "react"
 import { Grid } from "@mui/material"
 
 import HocTapDetailVideo from "./HocTapDetailVideo"
