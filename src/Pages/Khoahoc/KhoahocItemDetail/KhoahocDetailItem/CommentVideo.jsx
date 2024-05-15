@@ -50,6 +50,17 @@ export default function CommentVideo() {
     }
   },[curVideo])
 
+  const handleDeleteComment = (id) => {
+    alert(id)
+    comment.deleteComment(id)
+      .then(res => {
+        alert('deleted comment', res)
+      })
+      .catch(err => {
+        alert('err delete comment', err)
+      })
+  }
+
   return (
     <div className='mt-8 w-full flex md:text-base text-xs justify-center' >
       <form id="comment-video-form" className='w-full'>
@@ -75,6 +86,7 @@ export default function CommentVideo() {
               <li key={index} className='border-b-2 border-black'>
                 <h4 className='font-bold'>{comment.owner}</h4>
                 <p>{comment.datatext}</p>
+                {(user.role === 'admin' || comment.owner=== user._id) ? <button onClick={() => handleDeleteComment(comment._id)}>xóa</button> : <></>}
               </li>
             )
           })}
