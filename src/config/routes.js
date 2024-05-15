@@ -15,5 +15,6 @@ const routes = {
   diendanitem: "/Diendanpage/:forumID",
   hoctapitem: "/Hoctappage/:learnID",
   todolist: "/Todolist"
+  setting: "/Admin/Setting"
 }
 export default routes

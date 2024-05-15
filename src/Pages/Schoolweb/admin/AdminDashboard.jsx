@@ -16,31 +16,28 @@ import SideBar from './SideBar';
 import AdminProfile from './AdminProfile';
 import AdminHomePage from './AdminHomePage';
 
-import AddStudent from './studentRelated/AddStudent';
-import SeeComplains from './studentRelated/SeeComplains';
-import ShowStudents from './studentRelated/ShowStudents';
-import StudentAttendance from './studentRelated/StudentAttendance';
-import StudentExamMarks from './studentRelated/StudentExamMarks';
-import ViewStudent from './studentRelated/ViewStudent';
 
-import AddNotice from './noticeRelated/AddNotice';
-import ShowNotices from './noticeRelated/ShowNotices';
-
-import ShowSubjects from './subjectRelated/ShowSubjects';
-import SubjectForm from './subjectRelated/SubjectForm';
-import ViewSubject from './subjectRelated/ViewSubject';
-
-import AddTeacher from './teacherRelated/AddTeacher';
-import ChooseClass from './teacherRelated/ChooseClass';
-import ChooseSubject from './teacherRelated/ChooseSubject';
-import ShowTeachers from './teacherRelated/ShowTeachers';
-import TeacherDetails from './teacherRelated/TeacherDetails';
-
-import AddClass from './classRelated/AddClass';
-import ClassDetails from './classRelated/ClassDetails';
-import ShowClasses from './classRelated/ShowClasses';
 import { AppBar, Drawer } from '../../../components/Schoolweb/styles';
 import AccountMenu from '../../../components/Schoolweb/AccountMenu';
+import SeeComplains from './studentRelated/SeeComplains';
+import AddNotice from './noticeRelated/AddNotice';
+import ShowNotices from './noticeRelated/ShowNotices';
+import ShowSubjects from './subjectRelated/ShowSubjects';
+import ViewSubject from './subjectRelated/ViewSubject';
+import ChooseClass from './teacherRelated/ChooseClass';
+import SubjectForm from './subjectRelated/SubjectForm';
+import StudentAttendance from './studentRelated/StudentAttendance';
+import StudentExamMarks from './studentRelated/StudentExamMarks';
+import ShowClasses from './classRelated/ShowClasses';
+import ClassDetails from './classRelated/ClassDetails';
+import AddStudent from './studentRelated/AddStudent';
+import ShowStudents from './studentRelated/ShowStudents';
+import AddClass from './classRelated/AddClass';
+import ViewStudent from './studentRelated/ViewStudent';
+import ShowTeachers from './teacherRelated/ShowTeachers';
+import TeacherDetails from './teacherRelated/TeacherDetails';
+import ChooseSubject from './teacherRelated/ChooseSubject';
+import AddTeacher from './teacherRelated/AddTeacher';
 
 const AdminDashboard = () => {
     const [open, setOpen] = useState(false);
@@ -134,7 +131,7 @@ const AdminDashboard = () => {
                         <Route path="/Admin/teachers/choosesubject/:classID/:teacherID" element={<ChooseSubject situation="Teacher" />} />
                         <Route path="/Admin/teachers/addteacher/:id" element={<AddTeacher />} />
 
-                        <Route path="/logout" element={<Logout />} />
+                        {/* <Route path="/logout" element={<Logout />} /> */}
                     </Routes>
                 </Box>
             </Box>
