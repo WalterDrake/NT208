@@ -14,7 +14,7 @@ const routes = {
   hocnhomitem: "/Hocnhompage/:groupID",
   diendanitem: "/Diendanpage/:forumID",
   hoctapitem: "/Hoctappage/:learnID",
-  todolist: "/Todolist"
-  setting: "/Admin/Setting"
+  todolist: "/Todolist",
+  setting: "/Admin/Setting/"
 }
 export default routes
