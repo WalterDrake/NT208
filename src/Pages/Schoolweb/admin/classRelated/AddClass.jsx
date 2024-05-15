@@ -3,7 +3,6 @@ import { Box, Button, CircularProgress, Stack, TextField } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-//import Classroom from "../../../assets/classroom.png";
 import styled from "styled-components";
 import { addStuff } from "../../../../redux/Schoolweb/userRelated/userHandle";
 import { underControl } from "../../../../redux/Schoolweb/userRelated/userSlice";
@@ -54,6 +53,7 @@ const AddClass = () => {
             setLoader(false)
         }
     }, [status, navigate, error, response, dispatch, tempDetails]);
+
     return (
         <>
             <StyledContainer>

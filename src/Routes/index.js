@@ -21,6 +21,8 @@ import StudentDashboard from "../Pages/Schoolweb/student/StudentDashboard";
 import HocnhomDetail from "../Pages/Hocnhom/HocNhomDetail/HocNhomDetail";
 import HocTapDetails from "../Pages/Hoctap/HocTapDetails";
 import Board from '../Pages/Boards/_id'
+import AdminDashboard from "../Pages/Schoolweb/admin/AdminDashboard";
+import AdminHomePage from "../Pages/Schoolweb/admin/AdminHomePage";
 
 
 const publicRoutes = [
@@ -38,10 +40,11 @@ const privateRoutes = [
   { path: routesConfig.profile, component: Profilepage },
   { path: routesConfig.thongbao, component: Thongbaopage },
   { path: routesConfig.hoctapitem, component: HocTapDetails, layout: KhoahocitemDetailLayout },
-  { path: routesConfig.tinnhan, component: Tinnhanpage, layout: TinnhanLayout },
+  { path: routesConfig.tinnhan, component: AdminHomePage },
   { path: routesConfig.khoahocitem, component: KhoahocitemDetail, layout: KhoahocitemDetailLayout },
   { path: routesConfig.schoolweb, component: StudentDashboard, layout: DangnhapLayout },
   { path: routesConfig.hocnhomitem, component: HocnhomDetail, layout: KhoahocitemDetailLayout },
+  { path: routesConfig.setting, component: AdminDashboard },
   { path: routesConfig.todolist, component: Board }
 
 ]

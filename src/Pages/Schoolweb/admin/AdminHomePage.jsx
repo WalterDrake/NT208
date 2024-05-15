@@ -14,24 +14,24 @@ import SeeNotice from '../../../components/Schoolweb/SeeNotice';
 
 
 const AdminHomePage = () => {
-    const dispatch = useDispatch();
-    const { studentsList } = useSelector((state) => state.student);
-    const { sclassesList } = useSelector((state) => state.sclass);
-    const { teachersList } = useSelector((state) => state.teacher);
+    // const dispatch = useDispatch();
+    // const { studentsList } = useSelector((state) => state.student);
+    // const { sclassesList } = useSelector((state) => state.sclass);
+    // const { teachersList } = useSelector((state) => state.teacher);
 
-    const { currentUser } = useSelector(state => state.user)
+    // const { currentUser } = useSelector(state => state.user)
 
-    const adminID = currentUser._id
+    // const adminID = currentUser._id
 
-    useEffect(() => {
-        dispatch(getAllStudents(adminID));
-        dispatch(getAllSclasses(adminID, "Sclass"));
-        dispatch(getAllTeachers(adminID));
-    }, [adminID, dispatch]);
+    // useEffect(() => {
+    //     dispatch(getAllStudents(adminID));
+    //     dispatch(getAllSclasses(adminID, "Sclass"));
+    //     dispatch(getAllTeachers(adminID));
+    // }, [adminID, dispatch]);
 
-    const numberOfStudents = studentsList && studentsList.length;
-    const numberOfClasses = sclassesList && sclassesList.length;
-    const numberOfTeachers = teachersList && teachersList.length;
+    // const numberOfStudents = studentsList && studentsList.length;
+    // const numberOfClasses = sclassesList && sclassesList.length;
+    // const numberOfTeachers = teachersList && teachersList.length;
 
     return (
         <>
@@ -43,7 +43,7 @@ const AdminHomePage = () => {
                             <Title>
                                 Total Students
                             </Title>
-                            <Data start={0} end={numberOfStudents} duration={2.5} />
+                            {/* <Data start={0} end={numberOfStudents} duration={2.5} /> */}
                         </StyledPaper>
                     </Grid>
                     <Grid item xs={12} md={3} lg={3}>
@@ -52,7 +52,7 @@ const AdminHomePage = () => {
                             <Title>
                                 Total Classes
                             </Title>
-                            <Data start={0} end={numberOfClasses} duration={5} />
+                            {/* <Data start={0} end={numberOfClasses} duration={5} /> */}
                         </StyledPaper>
                     </Grid>
                     <Grid item xs={12} md={3} lg={3}>
@@ -61,7 +61,7 @@ const AdminHomePage = () => {
                             <Title>
                                 Total Teachers
                             </Title>
-                            <Data start={0} end={numberOfTeachers} duration={2.5} />
+                            {/* <Data start={0} end={numberOfTeachers} duration={2.5} /> */}
                         </StyledPaper>
                     </Grid>
                     <Grid item xs={12} md={3} lg={3}>
