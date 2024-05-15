@@ -26,7 +26,8 @@ export default function CommentVideo() {
         
         comment.createComment({...data,commentbox:curVideo.commentBox,owner:user._id})
         .then(res => {
-          alert('created comment', res)
+          commentInputRef.current.value = ''
+          commentInputRef.current.focus()
         })
         .catch((err) => {
           alert('err create comment', err)
@@ -58,6 +59,7 @@ export default function CommentVideo() {
       })
       .catch(err => {
         alert('err delete comment', err)
+        console.log('err comment dele', err)
       })
   }
 
@@ -76,7 +78,8 @@ export default function CommentVideo() {
               className='block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-gray-900  placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6' />
             <span className='items-center justify-center p-2'><button type="submit" >Send< SendIcon /></button></span>
           </div>
-          <div className='form-message text-red-500'></div>
+          <div className='form-message border-2 text-red-500'></div>
+          <div className='form-success border-2 text-green-500'></div>
         </div>
       </form>
       <div className='w-full'>

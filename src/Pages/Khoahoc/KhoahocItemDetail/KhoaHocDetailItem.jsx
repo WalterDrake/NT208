@@ -87,7 +87,7 @@ function KhoahocDetailItem() {
                 <NotificationsIcon />
                 <p className="hidden md:inline">Notification</p>
               </button>
-              <Notification id='ListNoti' />
+              {/* <Notification id='ListNoti' /> */}
             </div>
           </div>
         </div>
@@ -105,7 +105,7 @@ function KhoahocDetailItem() {
       <div className='bg-white min-h-[500px] w-full'>
         <CommentVideo item={curItem} />
         <ListVideo item={curItem} />
-        <ListPost item={curItem} />
+        {/* <ListPost item={curItem} /> */}
         {(showListtudent && (user?.role === 'admin' || courseDetails?.owner === user._id)) &&
           <ListStudent courseId={courseId} />}
       </div>

@@ -11,8 +11,7 @@ export const createComment = async (data) => {
 
 export const deleteComment = async (id) => {
     try {
-        alert(`/comments/DeleteComment${id}`)
-        const res = await httpRequest.delete(`/comments/DeleteComment/${id}`)
+        const res = await httpRequest.remove(`/comments/DeleteComment/${id}`)
         return res
     }
     catch (error) {
