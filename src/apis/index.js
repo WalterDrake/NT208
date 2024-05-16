@@ -13,16 +13,21 @@ import { API_ROOT } from "../utils/constants";
 /** Boards */
 export const fetchBoardDetailsAPI = async (boardId) => {
   const response = await axios.get(
-    `${API_ROOT}/api/boards/user/:id/${boardId}`
-  );
+    `${API_ROOT}/api/boards/user/${boardId}`
+    );
+    
+    // Lưu ý: axios sẽ trả kết quả về qua property của nó là data
+    return response.data;
+  };
 
-  // Lưu ý: axios sẽ trả kết quả về qua property của nó là data
-  return response.data;
-};
-
-export const fetchcreateBoard = async (userId) => {
+  export const fetchBoardIdsOnUser = async (userId) => {
+    const response = await axios.get(`${API_ROOT}/api/boards/user/${userId}`);
+    return response.data;
+  }
+  
+export const fetchcreateBoard = async (data,userId) => {
   try {
-    const response = await axios.get(`${API_ROOT}/api/boards/add/${userId}`);
+    const response = await axios.post(`${API_ROOT}/api/boards/add/${userId}`,data);
     // Lưu ý: axios sẽ trả kết quả về qua property của nó là data
     return response.data;
   } catch (err) {

@@ -3,7 +3,7 @@ import Container from "@mui/material/Container";
 
 //import { mockData } from '../../apis/mock-data'
 
-import { isEmpty } from "lodash";
+import { isEmpty, set } from "lodash";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
@@ -18,16 +18,17 @@ import {
   moveCardToDifferentColumnAPI,
   updateBoardDetailsAPI,
   updateColumnDetailsAPI,
-  // fetchBoardIdsOnUser,
+  fetchBoardIdsOnUser,
 } from "../../apis";
 import { generatePlaceholderCard } from "../../utils/formatters";
 import { Button } from "@mui/material";
 import useUser from "../../hook/useUser";
+import CreateBroad  from "../../components/Form/CreateBroad";
 
 function Board() {
   const [board, setBoard] = useState(null);
   const { user } = useUser();
-  console.log(user);
+  const [existBroad, setExistBroad] = useState(false);
 
   useEffect(() => {
     // Tạm thời fix cứng boardId
@@ -35,6 +36,7 @@ function Board() {
     const myFetch = async () => {
       try {
         boardId = await fetchBoardIdsOnUser(user._id);
+        setExistBroad(boardId)
         return boardId;
       } catch (err) {
         console.log(err);
@@ -42,7 +44,7 @@ function Board() {
     };
     myFetch()
       .then((boardId) => {
-        fetchBoardDetailsAPI(boardId.boardId).then((board) => {
+        fetchBoardDetailsAPI(boardId?.owner).then((board) => {
           // Sắp xếp thứ tự các column luôn ở đây trước khi đưa dữ liệu xuống bên dưới các component con
           board.columns = mapOrder(board.columns, board.columnOrderIds, "_id");
 
@@ -60,11 +62,11 @@ function Board() {
         });
       })
       .catch((err) => {
-        console.log(err);
+        console.log('FECTH BOARDID',err);
       });
 
     // Call API
-  }, []);
+  }, [existBroad]);
   // Func này có nhiệm vụ gọi API tạo mới Column và làm lại dữ liệu State Board
   const createNewColumn = async (newColumnData) => {
     const createdColumn = await createNewColumnAPI({
@@ -212,6 +214,10 @@ function Board() {
     });
   };
 
+  if(!existBroad) return (
+    
+    <CreateBroad user={user} setExistBroad={setExistBroad}/>
+  )
   if (!board) {
     return (
       // <Button>Thêm board</Button>
