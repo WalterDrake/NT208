@@ -52,7 +52,6 @@ export default function CommentVideo() {
   },[curVideo])
 
   const handleDeleteComment = (id) => {
-    alert(id)
     comment.deleteComment(id)
       .then(res => {
         alert('deleted comment', res)
