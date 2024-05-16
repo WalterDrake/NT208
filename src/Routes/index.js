@@ -21,8 +21,11 @@ import StudentDashboard from "../Pages/Schoolweb/student/StudentDashboard";
 import HocnhomDetail from "../Pages/Hocnhom/HocNhomDetail/HocNhomDetail";
 import HocTapDetails from "../Pages/Hoctap/HocTapDetails";
 import Board from '../Pages/Boards/_id'
+//admin
 import AdminDashboard from "../Pages/Schoolweb/admin/AdminDashboard";
 import AdminHomePage from "../Pages/Schoolweb/admin/AdminHomePage";
+import ShowClasses from "../Pages/Schoolweb/admin/classRelated/ShowClasses";
+import ShowStudents from "../Pages/Schoolweb/admin/studentRelated/ShowStudents";
 
 
 const publicRoutes = [
@@ -46,7 +49,11 @@ const privateRoutes = [
   { path: routesConfig.hocnhomitem, component: HocnhomDetail, layout: KhoahocitemDetailLayout },
   { path: routesConfig.setting, component: AdminDashboard },
   { path: routesConfig.todolist, component: Board }
+]
 
+const adminRoutes = [
+  {path:"/Admin/Setting/classes", component: ShowClasses},
+  {path:"/Admin/Setting/students",component:ShowStudents}
 ]
 // Phải đăng nhập mới vào được
-export { publicRoutes, privateRoutes };
+export { publicRoutes, privateRoutes ,adminRoutes};

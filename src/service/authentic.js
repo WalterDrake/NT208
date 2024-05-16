@@ -31,7 +31,7 @@ export const logout = async (id) => {
   }
 };
 
-export const register = async (data) => {
+export const registerStudent = async (data) => {
   try {
     const response = await httpRequest.post(`users/StudentReg`, data);
     return response;
@@ -39,6 +39,15 @@ export const register = async (data) => {
     throw error.response;
   }
 };
+
+export const registerTeacher = async () => {
+  try {
+    const response = await httpRequest.post(`users/TeacherReg`, data);
+    return response;
+  } catch (error) {
+    throw error.response;
+  }
+}
 
 export const getAlluserOnline = async () => {
   try {

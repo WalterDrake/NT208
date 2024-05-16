@@ -34,7 +34,7 @@ function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDeta
     setNewColumnTitle('')
   }
 
-
+  console.log('columns', columns)
   return (
     <SortableContext items={columns?.map(c => c._id)} strategy={horizontalListSortingStrategy}>
       <Box sx={{  
@@ -46,8 +46,8 @@ function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDeta
         overflowY: 'hidden',
         '&::-webkit-scrollbar-track': { m: 2 }
       }}>
-        {columns?.map(column => <Column
-          key={column._id}
+        {columns?.map((column,index) => <Column
+          key={column.index}
           column={column}
           createNewCard={createNewCard}
           deleteColumnDetails={deleteColumnDetails}

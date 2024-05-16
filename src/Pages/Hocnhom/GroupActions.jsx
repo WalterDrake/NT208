@@ -125,6 +125,28 @@ export const CreateGroup = () => {
 }
 
 export const JoinGroup = () => {
+  const { user } = useUser()
+  useEffect(() => {
+    validator({
+      form: '#join-group-form',
+      formGroup: '.form-group',
+      errorMessage: '.form-message',
+      styleInvalid: 'border-red-500',
+      rules: [
+        validator.isRequired('#add-group-name', 'Nhập mã code'),
+      ],
+      onSubmit: function (data) {
+        console.log('join group data', data)
+        groups.joinGroup(data, user._id)
+          .then((res) => {
+            console.log('join group response', res)
+          })
+          .catch((error) => {
+            console.log('join group err', error)
+          })
+      }
+    })
+  }, [user])
 
   return (
     <form id='join-group-form' className='border-b bg-white rounded-lg p-4 border-gray-900/10  pb-12 shadow-lg'>
@@ -132,9 +154,9 @@ export const JoinGroup = () => {
         <label htmlFor='code'>Mã code: </label>
         <input type='text' placeholder='Nhập mã code' name='code' id='add-group-name' className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' />
         <div className='form-message text-red-700 flex justify-center'>
-          <button type="submit" className="rounded-md bg-blue-500 px-3 py-2 mt-5 text-sm font-semibold text-white  shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tham gia nhóm</button>
         </div>
       </div>
+      <button type="submit" className="rounded-md bg-blue-500 px-3 py-2 mt-5 text-sm font-semibold text-white  shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tham gia nhóm</button>
     </form>
   )
 }

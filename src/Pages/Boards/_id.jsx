@@ -29,14 +29,13 @@ function Board() {
   const [board, setBoard] = useState(null);
   const { user } = useUser();
   const [existBroad, setExistBroad] = useState(false);
-
   useEffect(() => {
     // Tạm thời fix cứng boardId
     let boardId = null;
     const myFetch = async () => {
       try {
         boardId = await fetchBoardIdsOnUser(user._id);
-        setExistBroad(boardId)
+        setExistBroad(!!boardId)
         return boardId;
       } catch (err) {
         console.log(err);
@@ -71,7 +70,7 @@ function Board() {
   const createNewColumn = async (newColumnData) => {
     const createdColumn = await createNewColumnAPI({
       ...newColumnData,
-      boardId: board.board._id,
+      boardId: board._id,
     }).catch((error) => {
       console.log(error);
     });
@@ -86,7 +85,7 @@ function Board() {
     console.log(board);
     const newBoard = { ...board };
     newBoard.columns.push(createdColumn);
-    newBoard.board.listColumn.push(createdColumn._id);
+    newBoard.columns.push(createdColumn._id);
     setBoard(newBoard);
   };
   // Func này có nhiệm vụ gọi API tạo mới Card và làm lại dữ liệu State Board

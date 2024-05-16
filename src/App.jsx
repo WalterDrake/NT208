@@ -1,6 +1,6 @@
 import "./App.css"
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
-import { publicRoutes, privateRoutes } from "./Routes"
+import { publicRoutes, privateRoutes, adminRoutes } from "./Routes"
 import DefaultLayout from "./components/Layout/DefaultLayout"
 import { createContext, useState } from "react"
 import StudentHomePage from "./Pages/Schoolweb/student/StudentHomePage"
@@ -63,6 +63,18 @@ function App() {
           })}
           <Route path="/Student/dashboard" element={<StudentDashboard />}>
           </Route>
+          {adminRoutes.map((route, index) => {  // là các page không đăng nhập vẫn vô đc
+            const Page = route.component
+            return (
+              <Route
+                key={index}
+                path={route.path}
+                element={
+                    <Page />
+                }
+              />
+            )
+          })}
         </Routes>
       </Router>
     </UserContext.Provider>

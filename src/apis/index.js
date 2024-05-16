@@ -57,7 +57,7 @@ export const createNewColumnAPI = async (newColumnData) => {
     const response = await axios.post(`${API_ROOT}/api/columns`, newColumnData);
     return response.data;
   } catch (err) {
-    throw err.response.data;
+    throw err.response;
   }
 };
 
