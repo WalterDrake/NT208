@@ -65,12 +65,20 @@ function App() {
           </Route>
           {adminRoutes.map((route, index) => {  // là các page không đăng nhập vẫn vô đc
             const Page = route.component
+            let Layout = DefaultLayout
+            if (route.layout) { // nếu có layout thì gán layout
+              Layout = route.layout
+            } else if (route.layout === null) {  // nếu không có layout thì gán layout = Fragment
+              Layout = route.Fragment
+            }
             return (
               <Route
                 key={index}
                 path={route.path}
                 element={
-                    <Page />
+                  <Layout>
+                    {<Page />}
+                  </Layout>
                 }
               />
             )

@@ -52,8 +52,8 @@ const privateRoutes = [
 ]
 
 const adminRoutes = [
-  {path:"/Admin/Setting/classes", component: ShowClasses},
-  {path:"/Admin/Setting/students",component:ShowStudents}
+  {path:"/Admin/Setting/classes", component: ShowClasses,layout: AdminDashboard},
+  {path:"/Admin/Setting/students",component:ShowStudents,layout: AdminDashboard},
 ]
 // Phải đăng nhập mới vào được
 export { publicRoutes, privateRoutes ,adminRoutes};

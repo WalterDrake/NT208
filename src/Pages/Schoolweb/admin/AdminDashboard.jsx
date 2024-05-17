@@ -37,7 +37,7 @@ import TeacherDetails from './teacherRelated/TeacherDetails';
 import ChooseSubject from './teacherRelated/ChooseSubject';
 import AddTeacher from './teacherRelated/AddTeacher';
 
-const AdminDashboard = () => {
+const AdminDashboard = ({children}) => {
     const [open, setOpen] = useState(false);
     const toggleDrawer = () => {
         setOpen(!open);
@@ -60,6 +60,7 @@ const AdminDashboard = () => {
                     </List>
                 </Drawer>
                 <Box component="main" sx={styles.boxStyled}>
+                    {children}
                     <Toolbar />
                     <Routes>
                         <Route path="/Admin/Setting/" element={<AdminHomePage />} />
