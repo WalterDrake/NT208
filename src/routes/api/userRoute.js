@@ -12,7 +12,7 @@ Router.route("/").get((req, res) => {
 //==============================
 //---Đăng nhập- Đăng xuất
 //--Chức năng đăng nhập kiểm tra
-
+Router.route("/GetAllStudent").get(userController.getDetailsAllbyAdmin);
 Router.route("/StudentReg").post(userController.StudentRegister);
 Router.route("/StudentLogin/:email/:password").post(
   userController.StudentLogin
