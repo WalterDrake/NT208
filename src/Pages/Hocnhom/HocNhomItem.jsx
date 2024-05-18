@@ -18,7 +18,7 @@ const HocNhomItem = ({ HocNhom }) => { // tạo props với object
   }
   return (
     <div className=' ml-2 mr-2 gap-2 frame rounded-md'>
-      <Link to={`/Hocnhompage/${HocNhom._id}`}>
+      <Link to={`/Hocnhompage/${HocNhom.code}`}>
         <div className="mb-3 frame rounded-md bg-white wrap">
 
           <img src={HocNhom.image}
