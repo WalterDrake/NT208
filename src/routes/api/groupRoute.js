@@ -19,5 +19,9 @@ Router.route('/:id/getprivate')
   .get(groupController.getPrivate)
 Router.route('/:id/join')
   .get(groupController.joinGroup)
+Router.route('/:id/leave')
+  .get(groupController.leaveGroup)
+Router.route('/:code/getgroup') // get by code
+  .get(groupController.getGroup)
 
 export const groupRoute = Router

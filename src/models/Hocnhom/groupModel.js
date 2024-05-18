@@ -242,6 +242,16 @@ const findOneByCode = async (codeId) => {
   catch (error) { throw new Error(error)}
 }
 
+const pullToListMem = async (getGroup, userId) => {
+  try {
+    const result = await GET_DB().collection(GROUP_COLLECTION_NAME).findOneAndUpdate(
+      { _id: new ObjectId(getGroup._id) },
+      { $pull: { listMem: new ObjectId(userId) } },
+      { returnDocument: 'after' }
+    )
+    return result
+  } catch (error) { throw new Error(error) }
+}
 
 export const groupModel = {
   GROUP_COLLECTION_NAME,
@@ -253,5 +263,6 @@ export const groupModel = {
   getGroupOwnByTeacher,
   getGroupOwnByOther,
   pushToListMem,
-  findOneByCode
+  findOneByCode,
+  pullToListMem
 }
