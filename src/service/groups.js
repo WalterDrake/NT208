@@ -43,16 +43,24 @@ const getGroupByIdUser = async (id) => {
     }
 }
 
-const joinGroup = async (code) => {
+const joinGroup = async (code,userId) => {
     try {
-        const response = await httpRequest.post(`groups/${code}/join`)
+        const response = await httpRequest.get(`groups/${userId}/join`,code)
         return response
     } catch (err) {
         throw err.response
     }
 }
-
+const getGroupByCode = async (code) => {
+    try {
+        const response = await httpRequest.get(`/groups/${code}/getgroup`)
+        return response
+    } catch (err) {
+        throw err.response
+    }
+}
 export {
+    getGroupByCode,
     addGroup,
     getAllGroupByIdUser,
     deleteGroupById,

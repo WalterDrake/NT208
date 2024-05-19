@@ -11,7 +11,7 @@ const routes = {
   tinnhan: "/Tinnhan",
   schoolweb: "/Student/dashboard",
   khoahocitem: "/Khoahocpage/:courseId/:ownerId",
-  hocnhomitem: "/Hocnhompage/:groupID",
+  hocnhomitem: "/Hocnhompage/:code",
   diendanitem: "/Diendanpage/:forumID",
   hoctapitem: "/Hoctappage/:learnID",
   todolist: "/Todolist",
