@@ -98,17 +98,12 @@ main {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  top: 200px;
-  left: 50px;
-  bottom: 500px;
-  padding-top: 100px;
-  margin: 0 auto;
   text-align: left;
-  overflow: auto;
   margin-left: 1rem;
   margin-right: 0px;  
   padding: 5px;
   margin-top: 1.5rem;
+  box-sizing: border-box;
 }
 
 footer {

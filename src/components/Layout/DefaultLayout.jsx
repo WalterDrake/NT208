@@ -5,11 +5,11 @@ import Footer from "../Footer/Footer";
 
 const DefaultLayout = ({ children }) => {
   return (
-    <div className="flex flex-col min-h-screen bg-[#F0F7FF]">
+    <div className="flex flex-col bg-[#F0F7FF] overflow-y-scroll">
       <header>
         <Navbar />
       </header>
-      <div style={{ paddingTop: "100px", display: "flex" }}>
+      <div className="flex mt-[100px]">
         <Sidebar />
         <main>{children}</main>
       </div>
