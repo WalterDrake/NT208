@@ -29,9 +29,9 @@ const SideBar = () => {
                     </ListItemIcon>
                     <ListItemText primary="Classes" />
                 </ListItemButton>
-                <ListItemButton component={Link} to="/Admin/Setting/subjects">
+                <ListItemButton component={Link} to="/Admin/Setting/groups">
                     <ListItemIcon>
-                        <AssignmentIcon color={location.pathname.startsWith("/Admin/Setting/subjects") ? 'primary' : 'inherit'} />
+                        <AssignmentIcon color={location.pathname.startsWith("/Admin/Setting/groups") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
                     <ListItemText primary="Subjects" />
                 </ListItemButton>

@@ -55,7 +55,7 @@ const SmallAvatar = styled(Avatar)(({ theme }) => ({
 export const UserProfile = () => {
     const [anchorEl, setAnchorEl] = React.useState(null)
     const open = Boolean(anchorEl)
-    const { setUser } = React.useContext(UserContext)
+    const { user,setUser } = React.useContext(UserContext)
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
     }
@@ -71,7 +71,7 @@ export const UserProfile = () => {
 
         <div className='flex w-[14rem] rounded-lg' >
             <div>
-                <h1 className='font-bold'>Lê Thị Thùy Trang</h1>
+                <h1 className='font-bold'>{user.username}</h1>
                 <h2 className='text-gray-500'>MMTT2022</h2>
             </div>
             <React.Fragment>

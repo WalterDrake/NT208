@@ -80,9 +80,13 @@ function App() {
                 key={index}
                 path={route.path}
                 element={
-                  <Layout>
-                    {<Page />}
-                  </Layout>
+                  user ? (
+                    <Layout>
+                      {<Page />}
+                    </Layout>
+                  ) : (
+                    <Dangnhappage />
+                  )
                 }
               />
             )

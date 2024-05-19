@@ -25,6 +25,15 @@ const getAllGroupByIdUser = async (id) =>
     }
 }
 
+const getAllGroupByAdmin = async (idAdmin) => {
+    try {
+        const response = await httpRequest.get(`/groups/${idAdmin}/getAllgroupByAdmin`)
+        return response
+    } catch (err) {
+        throw err.response
+    }
+}
+
 const getGroupByIdUser = async (id) => {
     try {
         const response = await httpRequest.get(`/groups/${id}/getprivate`)
@@ -61,6 +70,7 @@ const leaveGroup = async (code,idUser) => {
     }
 }
 export {
+    getAllGroupByAdmin,
     leaveGroup,
     getGroupByCode,
     addGroup,
