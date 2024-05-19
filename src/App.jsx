@@ -6,6 +6,7 @@ import { createContext, useState } from "react"
 import StudentHomePage from "./Pages/Schoolweb/student/StudentHomePage"
 import Dangnhappage from "./Pages/Dangnhappage"
 import StudentDashboard from "./Pages/Schoolweb/student/StudentDashboard"
+import PageNotFound from "./Pages/PageNotFound"
 
 export const UserContext = createContext()
 
@@ -15,7 +16,7 @@ function App() {
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <Router className="h-screen">
+      <Router>
         <Routes>
           {publicRoutes.map((route, index) => {  // là các page không đăng nhập vẫn vô đc
             const Page = route.component
@@ -63,6 +64,7 @@ function App() {
           })}
           <Route path="/Student/dashboard" element={<StudentDashboard />}>
           </Route>
+          <Route path="/*" element={<PageNotFound />} />
         </Routes>
       </Router>
     </UserContext.Provider>
