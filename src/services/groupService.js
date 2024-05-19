@@ -127,7 +127,14 @@ const getGroup = async (code) => {
   } catch (error) { throw error }
 }
 
+const getAllGroupByAdmin = async (userId) => {
+  try {
+    const getAllGroup = await groupModel.getAllGroupByAdmin(userId)
+    return getAllGroup
+  } catch (error) { throw error }
+}
 export const groupService ={
+  getAllGroupByAdmin,
   getGroup,
   createNew,
   update,
