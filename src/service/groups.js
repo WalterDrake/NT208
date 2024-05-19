@@ -24,15 +24,6 @@ const getAllGroupByIdUser = async (id) =>
         throw err.response
     }
 }
-const deleteGroupById = async (id,ownerId) => {
-    try {
-        console.log('owner',ownerID,id)
-        const response = await httpRequest.delete(`/groups/${id}`,{ownerId})
-        return response
-    } catch (err) {
-        throw err.response
-    }
-}
 
 const getGroupByIdUser = async (id) => {
     try {
@@ -59,11 +50,20 @@ const getGroupByCode = async (code) => {
         throw err.response
     }
 }
+
+const leaveGroup = async (code,idUser) => {
+    try {
+        const response = await httpRequest.get(`/groups/${idUser}/leave`,{code : code})
+        return response
+    } catch (err) {
+        throw err.response
+    }
+}
 export {
+    leaveGroup,
     getGroupByCode,
     addGroup,
     getAllGroupByIdUser,
-    deleteGroupById,
     getGroupByIdUser,
     joinGroup,
 }

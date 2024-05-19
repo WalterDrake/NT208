@@ -13,9 +13,7 @@ const DefaultLayout = ({ children }) => {
         <Sidebar />
         <main>{children}</main>
       </div>
-      <footer>
-        <Footer />
-      </footer>
+      <Footer />
     </div >
   );
 };

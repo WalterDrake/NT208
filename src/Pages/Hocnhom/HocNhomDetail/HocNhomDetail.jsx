@@ -8,8 +8,10 @@ import ImageIcon from '@mui/icons-material/Image';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Tooltip } from '@mui/material';
 import * as groups from '../../../service/groups'
+import useUser from '../../../hook/useUser'
 
 export default function HocNhomDetail() {
+  const {user} = useUser()
   const { code } = useParams()
   const navigate = useNavigate()
   const [groupDetails, setgroupDetails] = useState({})
@@ -33,10 +35,25 @@ export default function HocNhomDetail() {
         console.log('err', err)
       })
   }, [code])
+
   const handleSeeNav = () => {
     const nav = document.querySelector('#nav-bar-group-action')
     nav.classList.toggle('hidden')
   }
+  const handleLeave = () => {
+    const a = window.confirm('Are you sure to leave this group?')
+    if(a) {
+      groups.leaveGroup(code,user._id)
+        .then(res => {
+          console.log('res', res)
+          navigate('/Hocnhompage')
+        })
+        .catch(err => {
+          console.log('err', err)
+        })
+    }
+  }
+
   return (
     <div className='relative h-full'> 
       <nav className='flex justify-between 
@@ -56,7 +73,7 @@ export default function HocNhomDetail() {
           </button>
           <ul className='flex-col md:flex-row gap-2 pr-2 md:flex hidden'>
             <li className='hover:bg-[#FF7A7B]'>Member</li>
-            <li className='hover:bg-[#FF7A7B]'>Leave</li>
+            <li className='hover:bg-[#FF7A7B]' onClick={handleLeave}>Leave</li>
             <li className='hover:bg-[#FF7A7B]'>Showcode</li>
             <li className='hover:bg-[#FF7A7B]'>Member</li>
           </ul>
