@@ -26,7 +26,7 @@ export default function ShowStudents() {
                     <li key={index} className='border-2 border-black md:m-4 m-2 '>
                       <p>email:{student.email}</p>
                       <p>username:{student.username}</p>
-                      <p>đã tạo cách đây:{time}</p>
+                      <time>đã tạo cách đây:{time}</time>
                       <button className='bg-red-500 text-white' onClick={() => {}}>Delete</button>
                     </li>
                   )

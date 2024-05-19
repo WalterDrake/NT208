@@ -38,7 +38,7 @@ export default function PostItem({ post }) {
           <div className='flex justify-between'>
             <div className='flex mt-4 mb-2'>
               <h4 className="text-sm font-bold bg-white shadow py-[2px] w-20 text-center rounded-md">Hỏi đáp</h4>
-              <p className='m-0 font-thin text-sm text-gray-500'>{postTime}</p>
+              <time className='m-0 font-thin text-sm text-gray-500'>{postTime}</time>
             </div>
             {
               (user.role === 'admin' || user._id === post?.owner) && (<div className='relative'>
