@@ -36,7 +36,8 @@ const getGroupByIdUser = async (id) => {
 
 const joinGroup = async (code,userId) => {
     try {
-        const response = await httpRequest.get(`groups/${userId}/join`,code)
+        console.log('code',code)
+        const response = await httpRequest.put(`groups/${userId}/join`,code)
         return response
     } catch (err) {
         throw err.response
@@ -53,7 +54,7 @@ const getGroupByCode = async (code) => {
 
 const leaveGroup = async (code,idUser) => {
     try {
-        const response = await httpRequest.get(`/groups/${idUser}/leave`,{code : code})
+        const response = await httpRequest.put(`/groups/${idUser}/leave`,{code : code})
         return response
     } catch (err) {
         throw err.response

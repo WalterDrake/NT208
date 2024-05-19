@@ -14,6 +14,7 @@ const HocNhompage = () => {
   useEffect(() => {
     groups.getAllGroupByIdUser(user._id)
       .then((res) => {
+        console.log('res hoc nhom get by id user', res)
         setHocnhoms(res)
       })
       .catch((err) => {
