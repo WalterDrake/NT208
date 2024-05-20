@@ -2,8 +2,7 @@ import { FaSearch } from "react-icons/fa";
 import { useEffect, useState, useRef } from 'react';
 import Tooltip from "@mui/material/Tooltip";
 import useDebounce from "../../hook/useDebounce";
-import Tippy from "@tippyjs/react";
-
+import * as searchServices from "../../service/search";    
 export function Search() {
     const [searchValue, setsearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
@@ -30,6 +29,7 @@ export function Search() {
             setLoading(true);
 
             const result = await searchServices.search(debouncedValue);
+            alert (result)
 
             setSearchResult(result);
             setLoading(false);
