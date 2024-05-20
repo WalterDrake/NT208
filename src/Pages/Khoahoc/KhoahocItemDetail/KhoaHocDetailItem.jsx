@@ -6,7 +6,7 @@ import PersonSearchIcon from '@mui/icons-material/PersonSearch'
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
 //context
-import { CurrentCourseContext,CurrentVideoContext, CurrentItemContext } from "../../../state/CoursecDetailProvider"
+import { CurrentCourseContext, CurrentVideoContext, CurrentItemContext } from "../../../state/CoursecDetailProvider"
 
 //component
 import AddStudentForm from "../../../components/Form/AddStudentForm"
@@ -25,9 +25,9 @@ import Notification from '../../../components/CourseDetail/Notification'
 function KhoahocDetailItem() {
 
   //context
-  const {curVideo} = useContext(CurrentVideoContext)
-  const {courseDetails, setCourseDetails} = useContext(CurrentCourseContext)
-  const {curItem} = useContext(CurrentItemContext)
+  const { curVideo } = useContext(CurrentVideoContext)
+  const { courseDetails, setCourseDetails } = useContext(CurrentCourseContext)
+  const { curItem } = useContext(CurrentItemContext)
   //state
   const [showCreateItem, setShowCreateItem] = useState(false)
   const [showFormAddStudent, setShowFormAddStudent] = useState(false)
@@ -70,7 +70,7 @@ function KhoahocDetailItem() {
   return (
     <>
       <div className="bg-[rgb(41,48,59)] w-full box-border flex justify-between" id="navbar-course">
-        <h1 className="h-[56px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative mt-0">{courseDetails.title}</h1>
+        <h1 className="h-[56px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative md:px-4 px-2">{courseDetails.title}</h1>
         <div className='teacher-action'>
           <div className="flex">
             {
@@ -102,9 +102,11 @@ function KhoahocDetailItem() {
           <KhoahocDetailVideo url={curVideo?.link} />
         </div>
       </div>
-      <div className='bg-white min-h-[500px] w-full'>
-        <CommentVideo item={curItem} />
-        <ListVideo item={curItem} />
+      <div className='bg-white max-h-[400px] w-full overflow-auto'>
+        <div className="flex my-4">
+          <ListVideo item={curItem} />
+          <CommentVideo item={curItem} />
+        </div>
         <ListPost item={curItem} />
         {(showListtudent && (user?.role === 'admin' || courseDetails?.owner === user._id)) &&
           <ListStudent courseId={courseId} />}

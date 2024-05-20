@@ -1,13 +1,13 @@
 import React, { useEffect, useContext, useState } from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
 
-import {CurrentVideoContext} from '../../state/CoursecDetailProvider'
 
 import * as posts from "../../service/posts"
 import useUser from "../../hook/useUser";
+import { Tooltip } from "@mui/material";
 
 export default function ListPost({ item }) {
   const { user } = useUser();
-  const { setCurPosturl } = useContext(CurrentVideoContext);
   const [listPosts, setListPosts] = useState([]);
   useEffect(() => {
     const postInterval = setInterval(() => { 
@@ -32,7 +32,7 @@ export default function ListPost({ item }) {
       });
   };
   return (
-    <ul className="bg-red-500 w-full rounded-xl ">
+    <ul className="bg-gradient-to-r from-[#758EB7] to-[#A5CAD2] w-full rounded-xl ">
       {listPosts.map((post, index) => {
         return (
           <li
@@ -49,7 +49,9 @@ export default function ListPost({ item }) {
                 className="ml-[30%] bg-red-300 rounded-xl hover:bg-red-400"
                 onClick={() => handleDeletePost(post._id)}
               >
-                Delete
+                <Tooltip title="Delete Post">
+                  <DeleteIcon />
+                </Tooltip>
               </button>
             )}
           </li>
