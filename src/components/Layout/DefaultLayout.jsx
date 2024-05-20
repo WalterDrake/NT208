@@ -9,11 +9,13 @@ const DefaultLayout = ({ children }) => {
       <header>
         <Navbar />
       </header>
-      <div className="flex mt-[100px]">
-        <Sidebar />
-        <main>{children}</main>
+      <div className="max-h-[calc(100vh-100px)] overflow-y-scroll mt-[100px]">
+        <div className="flex">
+          <Sidebar />
+          <main>{children}</main>
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </div >
   );
 };

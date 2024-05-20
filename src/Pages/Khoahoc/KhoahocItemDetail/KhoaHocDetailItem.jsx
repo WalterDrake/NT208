@@ -69,8 +69,8 @@ function KhoahocDetailItem() {
 
   return (
     <>
-      <div className="bg-[#29303b] w-full box-border flex justify-between" id="navbar-course">
-        <h1 className="h-[50px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative ">{courseDetails.title}</h1>
+      <div className="bg-[rgb(41,48,59)] w-full box-border flex justify-between" id="navbar-course">
+        <h1 className="h-[56px] text-[#fff] text-[1.2rem] items-center bg-[#29303b] flex relative mt-0">{courseDetails.title}</h1>
         <div className='teacher-action'>
           <div className="flex">
             {
