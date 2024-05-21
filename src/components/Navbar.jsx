@@ -1,9 +1,10 @@
 import React from "react"
 import { HiMiniHome } from "react-icons/hi2"
-import { AiOutlineMessage } from "react-icons/ai"
-import { IoNotificationsOutline, IoSettingsOutline } from "react-icons/io5"
+import { AiFillHome, AiFillMessage, AiOutlineHome, AiOutlineMessage } from "react-icons/ai"
+import { IoNotifications, IoNotificationsOutline, IoSettingsOutline, IoSettingsSharp } from "react-icons/io5"
 import Badge from '@mui/material/Badge'
 import { Link } from "react-router-dom"
+import { PiListChecks, PiListChecksFill } from "react-icons/pi";
 
 import routes from "../config/routes"
 import { LuListTodo } from "react-icons/lu"
@@ -33,12 +34,14 @@ const Navbar = () => {
       <Navbarmenu>
         <Navbaritem
           to={config.home}
-          icon={<HiMiniHome className="w-10 h-10" />}
+          icon={<AiOutlineHome className="w-10 h-10" />}
+          activeIcon={<AiFillHome className="w-10 h-10 text-[#0077FF]" />}
         />
 
         <Navbaritem
           to={config.todolist}
-          icon={<LuListTodo className="w-10 h-10" />}
+          icon={<PiListChecks className="w-10 h-10" />}
+          activeIcon={<PiListChecksFill className="w-10 h-10 text-[#0077FF]" />}
         />
 
         <Navbaritem
@@ -46,17 +49,22 @@ const Navbar = () => {
           icon={<Badge color="error" badgeContent={7}>
             <AiOutlineMessage className="w-10 h-10" />
           </Badge>}
+          activeIcon={<Badge color="error" badgeContent={7}>
+            <AiFillMessage className="w-10 h-10 text-[#0077FF]" />
+          </Badge>}
         />
 
         {user?.role === "admin" ?
           (<Navbaritem
             to={config.setting}
             icon={<IoSettingsOutline className="w-10 h-10" />}
+            activeIcon={<IoSettingsSharp className="w-10 h-10 text-[#0077FF]" />}
           />) : null}
 
         <Navbaritem
           to={config.thongbao}
           icon={<IoNotificationsOutline className="w-10 h-10" />}
+          activeIcon={<IoNotifications className="w-10 h-10 text-[#0077FF]" />}
         />
       </Navbarmenu>
 

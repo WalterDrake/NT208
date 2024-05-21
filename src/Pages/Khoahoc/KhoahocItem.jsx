@@ -11,6 +11,7 @@ const KhoahocItem = ({ KhoaHoc, className }) => {
   const { user } = useUser()
   const test = useKhoaHocRender()
   const handleDelete = async (e) => {
+    // eslint-disable-next-line no-useless-catch
     try {
       e.stopPropagation()
       const res = await courses.deleteCourse(KhoaHoc._id)
