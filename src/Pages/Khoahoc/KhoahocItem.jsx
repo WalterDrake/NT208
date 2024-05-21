@@ -15,7 +15,7 @@ const KhoahocItem = ({ KhoaHoc, className }) => {
       e.stopPropagation()
       const res = await courses.deleteCourse(KhoaHoc._id)
       console.log('res delete course', res)
-      if(test != null){
+      if (test != null) {
         test.SetKhoaHocRender(pre => pre + 1)
       }
     }
@@ -40,15 +40,17 @@ const KhoahocItem = ({ KhoaHoc, className }) => {
           <h1 className="font-thin text-xs mb-2">{KhoaHoc.description}</h1>
         </div>
       </Link>
-      <div className="font-bold text-red-600 flex flex-col md:flex-row justify-between h-auto">
-        <span className="text-black">
+      <div className=' ml-2.5 mt-1 flex flex-col md:flex-row justify-between'>
+        <p className="font-bold mb-4 text-red-600"><span className="text-black mr-1">
           <FontAwesomeIcon icon={faUser} />
-          {KhoaHoc.memberof}
-        </span>
+        </span>{KhoaHoc.memberof}</p>
+
         {(user?.role === "admin" || user?._id === KhoaHoc.owner) && test != null ?
           (<><button
             onClick={handleDelete}
-            className="round-2xl p-2 bg-custom-gradient rounded-xl hover:bg-blue-500 md:mr-4 mr-2">xóa</button></>) : <></>}
+            className="ml-2.5 mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded mr-2">Xóa</button></>) : <></>}
+
+
       </div>
     </div>
   )
