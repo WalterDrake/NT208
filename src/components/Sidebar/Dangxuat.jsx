@@ -1,14 +1,14 @@
 import React from 'react';
 import useUser from '../../hook/useUser';
 import * as authentic from '../../service/authentic'
+import { removeUserInLocalStorage } from '../../hook/useCheckLogin';
 const Dangxuat = () => {
   const {user,setUser} = useUser()
   const hanldeLogout = () =>{
-    authentic.logout(user._id)
+    authentic.logout(user._id,user.role)
     .then((res) => {
       setUser(null)
-      console.log('logout', res)
-      localStorage.removeItem('user')
+      removeUserInLocalStorage()
     })
     .catch((err) => {
       console.log('err logout', err)

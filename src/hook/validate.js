@@ -55,7 +55,11 @@ function validator  (option)
                 console.log('Dữ liệu đã được submit');
                 let enableInputs = formElenment.querySelectorAll('[name]');
                 let formValues = Array.from(enableInputs).reduce((values, input) => {
-                values[input.name] = input.value;   
+                if(input && input.type === 'checkbox') {
+                    values[input.name] = input.checked;
+                }
+                else 
+                    values[input.name] = input.value;   
                 return values;
                 }, {});
                 if(typeof option.onSubmit === 'function') {

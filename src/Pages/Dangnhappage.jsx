@@ -6,6 +6,8 @@ import loginImg from "../assets/BackgroundLogin.svg";
 import validator from "../hook/validate";
 import * as serivce from "../service/authentic";
 
+import { saveUserToLocalStorage } from "../hook/useCheckLogin";
+
 import { UserContext } from "../App";
 const Dangnhappage = () => {
   const { setUser } = useContext(UserContext);
@@ -31,6 +33,8 @@ const Dangnhappage = () => {
             console.log("res dang nhap", res);
             setUser(res);
             // console.log('user',res)
+            if(data.rememberPassword) 
+              saveUserToLocalStorage(res);
             if (location.pathname === "/Login") {
               navigate("/");
             } else {
@@ -103,11 +107,9 @@ const Dangnhappage = () => {
                   />
                   <span className="form-message block  text-red-500"></span>
                 </div>
-                <div className="text-sm mr-10">
-                  <p>
-                    <input type="checkbox" />
-                    Nhớ tài khoản của tôi
-                  </p>
+                <div className="text-sm mr-10 form-group">
+                    <input type="checkbox" name='rememberPassword' id="rememberPassword"/>
+                    <label htmlFor="rememberPassword">Nhớ tài khoản của tôi</label>
                 </div>
                 <button className="form-submit">
                   {" "}
