@@ -8,7 +8,8 @@ import KhoahocItem from '../../Pages/Khoahoc/KhoahocItem'
 import { Link } from 'react-router-dom'
 import routes from '../../config/routes'
 import HocTapItem from '../../Pages/Hoctap/HocTapItem'
-import MyCalender from '../Sidebar/Calendar'
+import MyCalender from '../RightSideBar/Calendar'
+import ListuserAcitve from '../RightSideBar/ListuserAcitve'
 export default function Home() {
   const [courseData, setCoursesData] = useState([]);
   const [hocTapData, setHocTapData] = useState([]);
@@ -70,6 +71,7 @@ export default function Home() {
       </Grid>
       <Grid item xs={0} md={3} className='md:block hidden bg-[#f0f7ff]'>
         <MyCalender />
+        <ListuserAcitve />
       </Grid>
     </Grid>
   );
