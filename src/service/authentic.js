@@ -22,10 +22,15 @@ export const login = async (email, password, role) => {
   }
 };
 
-export const logout = async (id) => {
+export const logout = async (id,role) => {
   try {
-    const response = await httpRequest.put(`users/StudentLogOut/${id}`);
-    return response;
+    if(role==='student') {
+      const response = await httpRequest.put(`users/StudentLogOut/${id}`);
+      return response;
+    }
+    else  {
+      return 'log out just for student'
+    }
   } catch (error) {
     throw error.response;
   }

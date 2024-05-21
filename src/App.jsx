@@ -7,12 +7,13 @@ import StudentHomePage from "./Pages/Schoolweb/student/StudentHomePage"
 import Dangnhappage from "./Pages/Dangnhappage"
 import StudentDashboard from "./Pages/Schoolweb/student/StudentDashboard"
 import PageNotFound from "./Pages/PageNotFound"
-
+import { getUserInLocalStorage } from "./hook/useCheckLogin"
 export const UserContext = createContext()
 
 function App() {
 
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(getUserInLocalStorage)
+  console.log('user', user)
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
