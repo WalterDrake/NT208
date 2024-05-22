@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import { registerStudent, registerTeacher } from "../../service/authentic"
 
 import validator from "../../hook/validate";
+import useUser from "../../hook/useUser";
 
 const CreateStudent = () => {
+    const {user}= useUser()
     useEffect(() => {
         validator({
             form: "#form-create-student",
@@ -17,12 +19,13 @@ const CreateStudent = () => {
                 validator.minLength("#password", 6),
                 validator.isRequired("#re-password", "Vui lòng nhập lại mật khẩu"),
                 validator.isConfirmed("#re-password","#password", "Mật khẩu không khớp"),
+                validator.isRequired("#create-username", "Vui lòng nhập username "),
                 validator.isRequired("#role-login", "Vui lòng nhập role")
             ],
             onSubmit: function (data) {
                 const { email, password, role } = data;
                 if(role === "student"){
-                    registerStudent({ email, password, role })
+                    registerStudent({ email, password, role,admin:user._id })
                 }
                 else if(role === "teacher"){
                     registerTeacher({ email, password, role })
@@ -63,6 +66,17 @@ const CreateStudent = () => {
                     id="re-password"
                     name="repassword"
                     placeholder="Nhập lại mật khẩu"
+                />
+                <span className="form-message block  text-red-500"></span>
+            </div>
+            <div className="relative form-group">
+                <input
+                    className="p-2 mt-2 rounded-xl border"
+                    autoComplete="true"
+                    type="text"
+                    name="username"
+                    id="create-username"
+                    placeholder="username"
                 />
                 <span className="form-message block  text-red-500"></span>
             </div>

@@ -31,8 +31,6 @@ export default function CommentVideo() {
     }
 
     const intervalId = setInterval(fetchComments, 3000)
-    fetchComments()
-
     return () => {
       clearInterval(intervalId)
     }
@@ -59,7 +57,6 @@ export default function CommentVideo() {
         alert('deleted comment', res)
       })
       .catch(err => {
-        alert('err delete comment', err)
         console.log('err comment dele', err)
       })
   }

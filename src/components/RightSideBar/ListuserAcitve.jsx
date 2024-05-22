@@ -44,7 +44,6 @@ function ListuserAcitve() {
                 console.log(error, 'khong lay duoc ds user online')
             })
     }, [])
-    console.log('jeje', usersActive)
     return (
         <div>
             <div className="title justify-between">
