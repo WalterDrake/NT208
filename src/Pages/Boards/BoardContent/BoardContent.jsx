@@ -66,7 +66,7 @@ function BoardContent({
   const lastOverId = useRef(null)
 
   useEffect(() => {
-    console.log('BoardContent useEffect: ', board) 
+    console.log('BoardContent useEffect: ', board)
     // Columns đã được sắp xếp ở component cha cao nhất (boards/_id.jsx) (Video 71 đã giải thích lý do)
     setOrderedColumns(board.columns)
   }, [board])
@@ -371,7 +371,7 @@ function BoardContent({
     // Nếu overId là null thì trả về mảng rỗng - tránh bug crash trang
     return lastOverId.current ? [{ id: lastOverId.current }] : []
   }, [activeDragItemType, orderedColumns])
-  console.log('thắng debug listorrder col',orderedColumns)
+  console.log('thắng debug listorrder col', orderedColumns)
   return (
     <DndContext
       // Cảm biến (đã giải thích kỹ ở video số 30)
@@ -389,9 +389,9 @@ function BoardContent({
       onDragEnd={handleDragEnd}
     >
       <Box sx={{
-        bgcolor: '#34495e',
+        bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#34495e' : '#1976d2'),
         width: '100%',
-        height: '100vh',
+        height: (theme) => theme.trello.boardContentHeight,
         p: '10px 0'
       }}>
         <ListColumns
