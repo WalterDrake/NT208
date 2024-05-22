@@ -332,6 +332,21 @@ const getAllUserOnline = async () => {
   }
 };
 
+const pullToGroup = async (getGroup, userId) => {
+  try {
+    const result = await GET_DB()
+      .collection(USER_COLLECTION_NAME)
+      .findOneAndUpdate(
+        { _id: new ObjectId(userId) },
+        { $pull: { group: new ObjectId(getGroup._id) } },
+        { returnDocument: "after" }
+      );
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 // ở trong 1 class xây dựng những cái hàm tương tác với từng field như thêm sửa xóa cập nhật
 export const studentModel = {
   USER_COLLECTION_NAME,
@@ -351,6 +366,7 @@ export const studentModel = {
   changeOnline,
   changeOffline,
   getAllUserOnline,
+  pullToGroup, // xóa khỏi group
 
   //deleteCourse
   deletedOneCourse,

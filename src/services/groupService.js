@@ -105,11 +105,42 @@ const joinGroup = async (userId, reqBody) => {
   } catch (error) { throw error }
 }
 
+const leaveGroup = async (userId, reqBody) => {
+  try {
+    const data = {
+      ...reqBody
+    }
+    const getGroup = await groupModel.findOneByCode(data.code)
+    if (getGroup != null)
+    {
+      await groupModel.pullToListMem(getGroup, userId)
+      await studentModel.pullToGroup(getGroup, userId)
+    }
+    return { Leaving: 'Successfully!'}
+  } catch (error) { throw error }
+}
+
+const getGroup = async (code) => {
+  try {
+    const getGroup = await groupModel.findOneByCode(code)
+    return getGroup
+  } catch (error) { throw error }
+}
+
+const getAllGroupByAdmin = async (userId) => {
+  try {
+    const getAllGroup = await groupModel.getAllGroupByAdmin(userId)
+    return getAllGroup
+  } catch (error) { throw error }
+}
 export const groupService ={
+  getAllGroupByAdmin,
+  getGroup,
   createNew,
   update,
   getAll,
   getGroupOwnByTeacher,
   getGroupOwnByOther,
-  joinGroup
+  joinGroup,
+  leaveGroup
 }

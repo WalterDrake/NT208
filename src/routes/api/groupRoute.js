@@ -18,6 +18,11 @@ Router.route('/:id/getpublic')
 Router.route('/:id/getprivate')
   .get(groupController.getPrivate)
 Router.route('/:id/join')
-  .get(groupController.joinGroup)
-
+  .put(groupController.joinGroup)
+Router.route('/:id/leave')
+  .put(groupController.leaveGroup)
+Router.route('/:code/getgroup') // get by code
+  .get(groupController.getGroup)
+Router.route('/:id/getAllgroupByAdmin') // get by id
+  .get(groupController.getAllGroupByAdmin)
 export const groupRoute = Router

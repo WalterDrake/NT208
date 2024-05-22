@@ -60,12 +60,41 @@ const joinGroup = async (req, res, next) => {
   } catch (error) { next(error) }
 }
 
+const leaveGroup = async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const getAllGroup = await groupService.leaveGroup(userId, req.body)
+
+    res.status(StatusCodes.OK).json(getAllGroup)
+  } catch (error) { next(error) }
+}
+
+const getGroup = async (req, res, next) => {
+  try {
+    const code = req.params.code
+    const getAllGroup = await groupService.getGroup(code)
+
+    res.status(StatusCodes.OK).json(getAllGroup)
+  } catch (error) { next(error) }
+}
+
+const getAllGroupByAdmin = async (req, res, next) => {
+  try {
+    const adminId = req.params.id
+    const getAllGroup = await groupService.getAllGroupByAdmin(adminId)
+
+    res.status(StatusCodes.OK).json(getAllGroup)
+  } catch (error) { next(error) }
+}
 export const groupController = {
+  getGroup,
+  getAllGroupByAdmin,
   createNew,
   update,
   getAll,
   getGroupOwnByTeacher,
   getPrivate,
-  joinGroup
+  joinGroup,
+  leaveGroup
 }
 
