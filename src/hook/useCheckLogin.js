@@ -1,6 +1,7 @@
 
 const removeUserInLocalStorage = () => {
-    const a= localStorage.removeItem('userUITcourse')
+    console.log('removeUserInLocalStorage')
+    const a= localStorage.removeItem("userUITcourse")
 }
 
 const getUserInLocalStorage = () => {

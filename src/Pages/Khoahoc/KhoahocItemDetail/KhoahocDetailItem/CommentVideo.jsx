@@ -22,9 +22,10 @@ export default function CommentVideo() {
         comment.createComment({ datatext: commentText, owner: user._id, commentbox: curVideo.commentBox })
           .then(res => {
             console.log('res create comment', res)
+            commentInputRef.current.value = ''
+            commentInputRef.current.focus()
           })
           .catch(err => {
-            alert('error create comment', err)
           })
       }
     })
@@ -51,7 +52,6 @@ export default function CommentVideo() {
         alert('deleted comment', res)
       })
       .catch(err => {
-        alert('err delete comment', err)
         console.log('err comment dele', err)
       })
   }
