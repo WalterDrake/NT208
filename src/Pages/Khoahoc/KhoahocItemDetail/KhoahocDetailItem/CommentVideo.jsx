@@ -62,7 +62,7 @@ export default function CommentVideo() {
   }
 
   const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(true)}>
       <div className='mt-8 w-full md:text-base text-xs'>
         <form onSubmit={handleSubmitComment} className='w-full flex justify-center'>
           <TextField
