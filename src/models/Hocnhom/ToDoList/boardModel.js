@@ -128,10 +128,38 @@ const pushColumnOrderIds = async (column) => {
 
 const getDetailsBoardByUser = async (userid) => {
   try {
-    const result = await GET_DB()
+    const result1 = await GET_DB()
       .collection(BOARD_COLLECTION_NAME)
       .findOne({ owner: String(userid) });
-    return result;
+    const result2 = await GET_DB()
+      .collection(BOARD_COLLECTION_NAME)
+      .aggregate([
+        {
+          $match: {
+            _id: new ObjectId(result1._id),
+            _destroy: false,
+          },
+        },
+        {
+          $lookup: {
+            from: columnModel.COLUMN_COLLECTION_NAME,
+            localField: "_id",
+            foreignField: "boardId",
+            as: "columns",
+          },
+        },
+        {
+          $lookup: {
+            from: cardModel.CARD_COLLECTION_NAME,
+            localField: "_id",
+            foreignField: "boardId",
+            as: "cards",
+          },
+        },
+      ])
+      .toArray();
+
+    return result2[0] || null;
   } catch (error) {
     throw new Error(error);
   }
