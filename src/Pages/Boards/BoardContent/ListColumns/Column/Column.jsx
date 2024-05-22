@@ -25,7 +25,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import { useConfirm } from 'material-ui-confirm'
 
 function Column({ column, createNewCard, deleteColumnDetails }) {
-  console.log('hahsaghgsahagsh', column)
+  console.log('column', column)
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: column._id,
     data: { ...column }
@@ -116,12 +116,12 @@ function Column({ column, createNewCard, deleteColumnDetails }) {
           ml: 2,
           borderRadius: '6px',
           height: 'fit-content',
-          maxHeight: (theme) => `calc(${theme.trello.boardContentHeight} - ${theme.spacing(5)})`
+          maxHeight: (theme) => `calc(${theme.trello?.boardContentHeight} - ${theme.spacing(5)})`
         }}
       >
         {/* Box Column Header */}
         <Box sx={{
-          height: (theme) => theme.trello.columnHeaderHeight,
+          height: (theme) => theme.trello?.columnHeaderHeight,
           p: 2,
           display: 'flex',
           alignItems: 'center',

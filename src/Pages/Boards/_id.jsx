@@ -93,7 +93,7 @@ function Board() {
     console.log("clmmm", newCardData);
     const createdCard = await createNewCardAPI({
       ...newCardData,
-      boardId: board.board._id,
+      boardId: board._id,
     });
 
     // Cập nhật state board
