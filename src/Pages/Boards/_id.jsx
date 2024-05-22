@@ -23,7 +23,8 @@ import {
 import { generatePlaceholderCard } from "../../utils/formatters";
 import { Button } from "@mui/material";
 import useUser from "../../hook/useUser";
-import CreateBroad  from "../../components/Form/CreateBroad";
+import CreateBroad from "../../components/Form/CreateBroad";
+import BoardBar from "./BoardBar/BoardBar";
 
 function Board() {
   const [board, setBoard] = useState(null);
@@ -61,7 +62,7 @@ function Board() {
         });
       })
       .catch((err) => {
-        console.log('FECTH BOARDID',err);
+        console.log('FECTH BOARDID', err);
       });
 
     // Call API
@@ -213,9 +214,9 @@ function Board() {
     });
   };
 
-  if(!existBroad) return (
-    
-    <CreateBroad user={user} setExistBroad={setExistBroad}/>
+  if (!existBroad) return (
+
+    <CreateBroad user={user} setExistBroad={setExistBroad} />
   )
   if (!board) {
     return (
@@ -239,7 +240,7 @@ function Board() {
   return (
     <Container disableGutters maxWidth={false} sx={{ height: "100vh" }}>
       {/* <AppBar /> */}
-      {/* <BoardBar board={board} /> */}
+      <BoardBar board={board} />
       <BoardContent
         board={board}
         createNewColumn={createNewColumn}

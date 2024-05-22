@@ -11,9 +11,9 @@ import { Provider } from 'react-redux'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   //<React.StrictMode>
-  <Provider theme={theme} store={store}>
+  <CssVarsProvider theme={theme} store={store}>
     <CssBaseline />
     <App />
-  </Provider>
+  </CssVarsProvider>
   //</React.StrictMode>
 )
