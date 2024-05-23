@@ -238,7 +238,7 @@ function Board() {
   }
 
   return (
-    <Container disableGutters maxWidth={false} sx={{ height: "100vh" }}>
+    <Container disableGutters >
       {/* <AppBar /> */}
       <BoardBar board={board} />
       <BoardContent
