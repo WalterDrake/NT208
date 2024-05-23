@@ -4,7 +4,8 @@ import { CurrentVideoContext, CurrentCommentListContext } from '../../../../stat
 import useUser from '../../../../hook/useUser'
 import * as comment from '../../../../service/comment'
 import * as commentbox from '../../../../service/commentbox'
-import { Avatar, Box, Button, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, TextField } from '@mui/material'
+import { Avatar, Box, Button, Drawer, Fab, List, ListItem, ListItemButton, ListItemIcon, ListItemText, TextField } from '@mui/material'
+import { NavigationIcon } from 'lucide-react'
 
 export default function CommentVideo() {
   const [open, setOpen] = React.useState(false)
@@ -126,7 +127,10 @@ export default function CommentVideo() {
 
   return (
     <>
-      <Button onClick={toggleDrawer(true)}>Bình luận</Button>
+      <Fab variant="extended" onClick={toggleDrawer(true)} color="primary" sx={{ position: 'absolute', bottom: 20, right: 25 }}>
+        <NavigationIcon sx={{ mr: 1 }} />
+        Bình luận
+      </Fab>
       <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>
