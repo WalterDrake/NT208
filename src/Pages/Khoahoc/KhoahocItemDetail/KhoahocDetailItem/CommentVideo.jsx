@@ -4,7 +4,7 @@ import { CurrentVideoContext, CurrentCommentListContext } from '../../../../stat
 import useUser from '../../../../hook/useUser'
 import * as comment from '../../../../service/comment'
 import * as commentbox from '../../../../service/commentbox'
-import { Avatar, Box, Button, Drawer, TextField } from '@mui/material'
+import { Avatar, Box, Button, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, TextField } from '@mui/material'
 
 export default function CommentVideo() {
   const [open, setOpen] = React.useState(false)
@@ -62,44 +62,72 @@ export default function CommentVideo() {
   }
 
   const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(true)}>
-      <div className='mt-8 w-full md:text-base text-xs'>
-        <form onSubmit={handleSubmitComment} className='w-full flex justify-center'>
-          <TextField
-            inputRef={commentInputRef}
-            type="text"
-            className='md:w-2/4 w-3/4 h-14 border-2 border-black'
-            placeholder='comment....'
-            variant="outlined"
-          />
-          <Button type="submit" variant="contained" color="primary">
-            <SendIcon />
-          </Button>
-        </form>
-        <div className='w-full flex justify-center'>
-          <ul className='md:w-[90%] w-[95%]'>
+    <Box sx={{
+      width: 450, padding: 2, display: 'flex'
+    }} role="presentation" onClick={toggleDrawer(true)} >
+      <div className='mt-8 w-full  md:text-base text-xs'>
+
+        <Box sx={{
+          display: 'flex'
+        }}>
+          {/* <ul className='md:w-[90%] flex flex-row w-[95%]'>
             {curCommentList.map((comment, index) => (
-              <li key={index} className='border-y-2 border-black my-4 rounded-xl w-full'>
-                <div className='flex items-center'>
+              <li key={index} className='border-y-2 border-black my-4 rounded-xl flex flex-row w-full'>
+                <div className='flex flex-row items-center'>
                   <Avatar src='https://thespiritofsaigon.net/wp-content/uploads/2022/10/avatar-vo-danh-15.jpg' />
                   <h4 className='font-bold mx-2'>{comment.owner || 'Ẩn danh'}</h4>
+                  <p className='ml-4 text-sm md:text-base'>{comment.datatext}</p>
+
                 </div>
-                <p className='ml-4 text-sm md:text-base'>{comment.datatext}</p>
                 {(user.role === 'admin' || comment.owner === user._id) && (
                   <Button onClick={() => handleDeleteComment(comment._id)}>Xóa</Button>
                 )}
               </li>
             ))}
-          </ul>
-        </div>
+          </ul> */}
+
+          <List>
+            {curCommentList.map((comment, index) => (
+              <ListItem sx={{ mb: 2 }} key={index} disablePadding>
+
+                <ListItemIcon sx={{ flexDirection: 'column', mr: 2 }}>
+                  <Avatar src='https://thespiritofsaigon.net/wp-content/uploads/2022/10/avatar-vo-danh-15.jpg' />
+                  <h4>{comment.owner || 'Ẩn danh'}</h4>
+
+                </ListItemIcon>
+                <ListItemText sx={{ border: '2px solid grey', borderRadius: 2, p: 1 }} primary={comment.datatext} />
+
+                {(user.role === 'admin' || comment.owner === user._id) && (
+                  <Button onClick={() => handleDeleteComment(comment._id)}>Xóa</Button>
+                )}
+              </ListItem>
+            ))}
+          </List>
+
+        </Box>
+
+        <form onSubmit={handleSubmitComment} >
+          <TextField
+
+            inputRef={commentInputRef}
+            type="text"
+            placeholder='comment....'
+            variant="outlined"
+          />
+          <Button sx={{
+            ml: 2
+          }} type="submit" variant="contained">
+            <SendIcon />
+          </Button>
+        </form>
       </div>
-    </Box>
+    </Box >
   )
 
   return (
     <>
       <Button onClick={toggleDrawer(true)}>Bình luận</Button>
-      <Drawer open={open} onClose={toggleDrawer(false)}>
+      <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>
     </>
