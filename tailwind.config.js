@@ -8,7 +8,10 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'custom-gradient': 'linear-gradient(2.88deg, rgba(38, 135, 246, 0.5) 1.08%, rgba(177, 207, 242, 0.5) 100.93%)'
+        'custom-gradient': 'linear-gradient(2.88deg, rgba(38, 135, 246, 0.5) 1.08%, rgba(177, 207, 242, 0.5) 100.93%)',
+
+        'bgtrello': "url('./src/assets/bgtrello.jpg')"
+
       },
       animation: {
         'bounce': 'bounce 2.5s linear infinite'

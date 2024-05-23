@@ -38,13 +38,17 @@ function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDeta
   return (
     <SortableContext items={columns?.map(c => c._id)} strategy={horizontalListSortingStrategy}>
       <Box sx={{
-        bgcolor: '#cacaa0',  //chỉnh bg ở đây
+        bgcolor: 'black',  //chỉnh bg ở đây
         width: '100%',
         height: '100%',
         display: 'flex',
         overflowX: 'auto',
         overflowY: 'hidden',
-        '&::-webkit-scrollbar-track': { m: 2 }
+        '&::-webkit-scrollbar-track': { m: 2 },
+        backgroundImage: 'url("/src/assets/bgtrello.jpg")', // Thêm đường dẫn đến hình ảnh
+        backgroundSize: 'cover', // Điều chỉnh kích thước hình ảnh để lấp đầy Box
+        backgroundPosition: 'center', // Canh giữa hình ảnh trong Box
+        backgroundRepeat: 'no-repeat' // Không lặp lại hình ảnh
       }}>
         {columns?.map((column, index) => <Column
           key={column.index}
@@ -131,7 +135,9 @@ function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDeta
           </Box>
         }
       </Box>
+
     </SortableContext>
+
   )
 }
 
