@@ -5,7 +5,6 @@ import useUser from '../../../../hook/useUser'
 import * as comment from '../../../../service/comment'
 import * as commentbox from '../../../../service/commentbox'
 import { Avatar, Box, Button, Drawer, TextField } from '@mui/material'
-import CommentIcon from '@mui/icons-material/Comment';
 
 export default function CommentVideo() {
   const [open, setOpen] = React.useState(false)
@@ -63,9 +62,9 @@ export default function CommentVideo() {
   }
 
   const DrawerList = (
-    <Box sx={{ width: 250, maxHeight:500 }} role="presentation" onClick={toggleDrawer(true)}>
+    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(true)}>
       <div className='mt-8 w-full md:text-base text-xs'>
-        <form onSubmit={handleSubmitComment} className='w-full flex justify-center' style={{display:"flex"}} >
+        <form onSubmit={handleSubmitComment} className='w-full flex justify-center'>
           <TextField
             inputRef={commentInputRef}
             type="text"
@@ -81,7 +80,7 @@ export default function CommentVideo() {
           <ul className='md:w-[90%] w-[95%]'>
             {curCommentList.map((comment, index) => (
               <li key={index} className='border-y-2 border-black my-4 rounded-xl w-full'>
-                <div className='flex items-center' style={{display:"flex"}}>
+                <div className='flex items-center'>
                   <Avatar src='https://thespiritofsaigon.net/wp-content/uploads/2022/10/avatar-vo-danh-15.jpg' />
                   <h4 className='font-bold mx-2'>{comment.owner || 'Ẩn danh'}</h4>
                 </div>
@@ -99,8 +98,8 @@ export default function CommentVideo() {
 
   return (
     <>
-      <Button onClick={toggleDrawer(true)} className='fixed right-0 bottom-[200px]'><CommentIcon></CommentIcon>Bình luận</Button>
-      <Drawer open={open} onClose={toggleDrawer(false)} anchor='bottom'>
+      <Button onClick={toggleDrawer(true)}>Bình luận</Button>
+      <Drawer open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>
     </>
