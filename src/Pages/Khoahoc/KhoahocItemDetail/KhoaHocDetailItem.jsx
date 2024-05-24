@@ -104,7 +104,6 @@ function KhoahocDetailItem() {
       </div>
       <div className='bg-white max-h-[400px] w-full overflow-auto'>
         <div className="flex my-4">
-          <ListVideo item={curItem} />
           <CommentVideo item={curItem} />
         </div>
         <ListPost item={curItem} />
