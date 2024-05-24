@@ -20,14 +20,16 @@ const USER_COLLECTION_SCHEMA = Joi.object().keys({
   course: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
-  examResult: Joi.object({
-    coursename: Joi.string()
-      .pattern(OBJECT_ID_RULE)
-      .message(OBJECT_ID_RULE_MESSAGE)
-      .required(),
-    markObtain: Joi.number().required(),
-    hoanthanh: Joi.boolean().required(),
-  }),
+  examResult: Joi.array().items(
+    Joi.object({
+      coursename: Joi.string()
+        .pattern(OBJECT_ID_RULE)
+        .message(OBJECT_ID_RULE_MESSAGE)
+        .required(),
+      markObtain: Joi.number().required(),
+      hoanthanh: Joi.boolean().required(),
+    })
+  ),
   study: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),

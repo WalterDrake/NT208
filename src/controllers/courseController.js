@@ -247,10 +247,11 @@ const pushStudentIntoCourse = async (req, res, next) => {
         {
           $addToSet: {
             course: req.params.idcourse,
-            //examResult: {
-            //  coursename: req.params.idcourse,
-            //  markObtain: 0,
-            //  hoanthanh: false,
+            examResult: {
+              coursename: req.params.idcourse,
+              markObtain: 0,
+              hoanthanh: false,
+            },
           },
         }
       );
@@ -263,16 +264,50 @@ const pushStudentIntoCourse = async (req, res, next) => {
 const getListCourseStudentDone = async (req, res, next) => {
   try {
     //truyen vao id hoc sinh
-
-    const listcourse = await getListCoursesofStudentid(req, res, next);
-    const donecourse = await GET_DB()
+    const lsitcourseofstudent = await GET_DB()
       .collection(studentModel.USER_COLLECTION_NAME)
-      .find({
-        "examResult.coursename": { $in: listcourse.courses },
-        "examResult.hoanthanh": true,
-      })
+      .findOne({ _id: new ObjectId(req.params.id) }, { course: 1 });
+
+    const courseIds = lsitcourseofstudent.course.map(
+      (courseId) => new ObjectId(courseId)
+    );
+
+    const courses = await GET_DB()
+      .collection(courseModel.COURSE_COLLECTION_NAME)
+      .find({ _id: { $in: courseIds } })
+      .project({ _id: 1 })
       .toArray();
-    return res.status(StatusCodes.OK).json(donecourse);
+
+    const courseId = courses.map((course) => course._id);
+    const listcourse = await GET_DB()
+      .collection(studentModel.USER_COLLECTION_NAME)
+      .aggregate([
+        {
+          $match: {
+            _id: new ObjectId(req.params.id),
+          },
+        },
+        {
+          $unwind: "$examResult",
+        },
+        {
+          $match: { "examResult.hoanthanh": true },
+        },
+        {
+          $project: {
+            _id: 0,
+            coursename: "$examResult.coursename",
+          },
+        },
+      ])
+      .toArray();
+    const coursename = listcourse.map((course) => course.coursename);
+    console.log(coursename);
+    const detail = await GET_DB()
+      .collection(courseModel.COURSE_COLLECTION_NAME)
+      .find({ _id: { $in: coursename } })
+      .toArray();
+    return res.status(StatusCodes.OK).json(detail);
   } catch (error) {
     next(error);
   }
@@ -291,15 +326,12 @@ const chamdiemchoStudent = async (req, res, next) => {
       .updateOne(
         {
           _id: new ObjectId(req.params.idstudent),
-          course: req.params.idcourse,
+          "examResult.coursename": new ObjectId(req.params.idcourse),
         },
         {
           $set: {
-            examResult: {
-              coursename: req.params.idcourse,
-              markObtain: req.params.diemso,
-              hoanthanh: true,
-            },
+            "examResult.$.markObtain": req.params.diemso,
+            "examResult.$.hoanthanh": true,
           },
         }
       );
@@ -353,7 +385,16 @@ const AddListStudentOnCourse = async (req, res, next) => {
       .collection(studentModel.USER_COLLECTION_NAME)
       .updateMany(
         { email: { $in: students } },
-        { $addToSet: { course: String(courseId) } }
+        {
+          $addToSet: {
+            course: String(courseId),
+            examResult: {
+              coursename: new ObjectId(courseId),
+              markObtain: 0,
+              hoanthanh: false,
+            },
+          },
+        }
       );
     return res.status(StatusCodes.OK).json(update);
   } catch (error) {

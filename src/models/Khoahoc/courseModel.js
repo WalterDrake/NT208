@@ -9,14 +9,11 @@ const COURSE_COLLECTION_NAME = "courses";
 const COURSE_COLLECTION_SCHEMA = Joi.object({
   title: Joi.string().required().min(3).max(50).trim().strict(), //yêu cầu
   description: Joi.string().required().min(3).max(255).trim().strict(), // yêu cầu
-
   linkimage: Joi.string().default(""),
-
   memberof: Joi.number().default(0),
   //Nay la do admin tao
   owner: Joi.string()
     .pattern(OBJECT_ID_RULE)
-
     .message({ OBJECT_ID_RULE_MESSAGE })
     .required(),
   listitem: Joi.array()

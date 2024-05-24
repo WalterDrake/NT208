@@ -65,7 +65,6 @@ const GetListcommentCbox = async (req, res, next) => {
           $project: {
             datatext: 1,
             commentbox: 1,
-
             "ten.username": 1,
           },
         },
