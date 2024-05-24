@@ -32,39 +32,26 @@ function Board() {
   const [existBroad, setExistBroad] = useState(false);
   useEffect(() => {
     // Tạm thời fix cứng boardId
-    let boardId = null;
-    const myFetch = async () => {
-      try {
-        boardId = await fetchBoardIdsOnUser(user._id);
-        setExistBroad(!!boardId)
-        return boardId;
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    myFetch()
-      .then((boardId) => {
-        fetchBoardDetailsAPI(boardId?.owner).then((board) => {
-          // Sắp xếp thứ tự các column luôn ở đây trước khi đưa dữ liệu xuống bên dưới các component con
-          board.columns = mapOrder(board.columns, board.columnOrderIds, "_id");
+    fetchBoardIdsOnUser(user._id).then((board) => {
+        console.log('fecth board',board);
+        if(!!board){
+          setExistBroad(true);
+        }
+        // Sắp xếp thứ tự các column luôn ở đây trước khi đưa dữ liệu xuống bên dưới các component con
+        board.columns = mapOrder(board.columns, board.columnOrderIds, "_id");
 
-          board.columns.forEach((column) => {
-            // Khi f5 trang web thì cần xử lý vấn đề kéo thả vào một column rỗng
-            if (isEmpty(column.cards)) {
-              column.cards = [generatePlaceholderCard(column)];
-              column.cardOrderIds = [generatePlaceholderCard(column)._id];
-            } else {
-              // Sắp xếp thứ tự các cards luôn ở đây trước khi đưa dữ liệu xuống bên dưới các component con
-              column.cards = mapOrder(column.cards, column.cardOrderIds, "_id");
-            }
-          });
-          setBoard(board);
-        });
-      })
-      .catch((err) => {
-        console.log('FECTH BOARDID', err);
+        board.columns.forEach((column) => {
+          // Khi f5 trang web thì cần xử lý vấn đề kéo thả vào một column rỗng
+          if (isEmpty(column.cards)) {
+            column.cards = [generatePlaceholderCard(column)];
+            column.cardOrderIds = [generatePlaceholderCard(column)._id];
+          } else {
+            // Sắp xếp thứ tự các cards luôn ở đây trước khi đưa dữ liệu xuống bên dưới các component con
+            column.cards = mapOrder(column.cards, column.cardOrderIds, "_id");
+          }
+        setBoard(board);
       });
-
+    })
     // Call API
   }, [existBroad]);
   // Func này có nhiệm vụ gọi API tạo mới Column và làm lại dữ liệu State Board

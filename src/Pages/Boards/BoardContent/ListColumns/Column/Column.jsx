@@ -25,7 +25,6 @@ import CloseIcon from '@mui/icons-material/Close'
 import { useConfirm } from 'material-ui-confirm'
 
 function Column({ column, createNewCard, deleteColumnDetails }) {
-  console.log('column', column)
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: column._id,
     data: { ...column }
