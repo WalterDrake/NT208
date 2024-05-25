@@ -5,34 +5,40 @@ import { Container, Grid, Paper } from '@mui/material'
 // import Fees from "../../assets/img4.png";
 import styled from 'styled-components';
 import CountUp from 'react-countup';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { getAllStudents } from '../../../redux/Schoolweb/studentRelated/studentHandle';
-import { getAllSclasses } from '../../../redux/Schoolweb/sclassRelated/sclassHandle';
-import { getAllTeachers } from '../../../redux/Schoolweb/teacherRelated/teacherHandle';
+import { useEffect, useState } from 'react';
 import SeeNotice from '../../../components/Schoolweb/SeeNotice';
+
+import * as course from '../../../service/courses'
+import * as admin from '../../../service/admin'
 
 
 const AdminHomePage = () => {
-    // const dispatch = useDispatch();
-    // const { studentsList } = useSelector((state) => state.student);
-    // const { sclassesList } = useSelector((state) => state.sclass);
-    // const { teachersList } = useSelector((state) => state.teacher);
-
-    // const { currentUser } = useSelector(state => state.user)
-
-    // const adminID = currentUser._id
-
-    // useEffect(() => {
-    //     dispatch(getAllStudents(adminID));
-    //     dispatch(getAllSclasses(adminID, "Sclass"));
-    //     dispatch(getAllTeachers(adminID));
-    // }, [adminID, dispatch]);
-
-    // const numberOfStudents = studentsList && studentsList.length;
-    // const numberOfClasses = sclassesList && sclassesList.length;
-    // const numberOfTeachers = teachersList && teachersList.length;
-
+    const [listCourse, setListCourse] = useState([])
+    const [listStudent, setListStudent] = useState([])
+    const [listTeacher, setListTeacher] = useState([])
+    useEffect(() => {
+        course.GetCourseAll()
+        .then(res => {
+            setListCourse(res[0])
+        })
+        .catch(err => {
+            console.log(err)
+        })
+        admin.getAllStudents()
+        .then(res => {
+            setListStudent(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })  
+        admin.getTeacherAll()
+        .then(res => {
+            setListTeacher(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    },[])
     return (
         <>
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
@@ -41,7 +47,7 @@ const AdminHomePage = () => {
                         <StyledPaper>
                             <img src="#" alt="Students" />
                             <Title>
-                                Total Students
+                                Total Students: {listStudent?.length}
                             </Title>
                             {/* <Data start={0} end={numberOfStudents} duration={2.5} /> */}
                         </StyledPaper>
@@ -50,7 +56,7 @@ const AdminHomePage = () => {
                         <StyledPaper>
                             <img src="#" alt="Classes" />
                             <Title>
-                                Total Classes
+                                Total Classes:{listCourse?.length}
                             </Title>
                             {/* <Data start={0} end={numberOfClasses} duration={5} /> */}
                         </StyledPaper>
@@ -59,7 +65,7 @@ const AdminHomePage = () => {
                         <StyledPaper>
                             <img src="#" alt="Teachers" />
                             <Title>
-                                Total Teachers
+                                Total Teachers:{listTeacher?.length}
                             </Title>
                             {/* <Data start={0} end={numberOfTeachers} duration={2.5} /> */}
                         </StyledPaper>
@@ -70,7 +76,7 @@ const AdminHomePage = () => {
                             <Title>
                                 Fees Collection
                             </Title>
-                            <Data start={0} end={23000} duration={2.5} prefix="$" />                        </StyledPaper>
+                            <Data start={0} end={listStudent.length*500} duration={2.5} prefix="$" />                        </StyledPaper>
                     </Grid>
                     <Grid item xs={12} md={12} lg={12}>
                         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>

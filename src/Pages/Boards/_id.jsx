@@ -4,7 +4,6 @@ import BoardBar from './BoardBar/BoardBar'
 import BoardContent from './BoardContent/BoardContent'
 import { mapOrder } from '../../utils/sorts'
 
-// import { mockData } from '~/apis/mock-data'
 import {
   fetchBoarDetailByUser,
   fetchBoardDetailsAPI,
@@ -51,6 +50,7 @@ function Board() {
 
     })
   }, [])
+
 
   // Func này có nhiệm vụ gọi API tạo mới Column và làm lại dữ liệu State Board
   const createNewColumn = async (newColumnData) => {

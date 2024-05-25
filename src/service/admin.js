@@ -9,3 +9,12 @@ export const getAllStudents = async () => {
     }
 
 }
+
+export const getTeacherAll= async () => {
+    try {
+        const response = await HttpRequests.get('/teachers/getall')
+        return Array(response)
+    } catch (error) {
+        throw error.response
+    }
+}

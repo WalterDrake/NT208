@@ -38,24 +38,35 @@ const Khoahocpage = () => {
       })
     }
   }, [khoaHocRender])
-
+  const getCourseListStudent = () => {
+    courses.getCourseListStudent(user._id).then((res) => {
+      setKhoahocs(res)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+  const getCourseListDone = () => {
+    courses.getCoursesDone(user._id).then((res) => {
+      setKhoahocs(res)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
   return (
 <KhoaHocRenderContext.Provider value={{khoaHocRender,SetKhoaHocRender}}>
       <div className=" dimension ">
         <div className="relative ml-[1rem]">
           <h1 className="text-3xl mb-5 ml-2 font-bold">Khóa học</h1>
-  
-          <ul className="flex mb-5">
-            <li className="m-2 font-bold effect" >
-              Tất cả
-            </li>
-            <li className="m-2 font-bold effect" >
-              Đang học
-            </li>
-            <li className="m-2 font-bold effect" >
-              Hoàn thành
-            </li>
-          </ul>
+          {(user.role === 'student') ?
+                    <ul className="flex mb-5">
+                    <li className="m-2 font-bold effect"  onClick={getCourseListStudent}>
+                      Đang học
+                    </li>
+                    <li className="m-2 font-bold effect" onClick={getCourseListDone}>
+                      Hoàn thành
+                    </li>
+                  </ul> : null}
+
           {(user.role === 'teacher' || user.role === 'admin') ? <CreateCourse isCourse={true} isStudy={false} user={user} /> : null}
           <div className="container flex">
             {khoahocs?.length > 0 ? khoahocs.map((khoahoc, index) => (

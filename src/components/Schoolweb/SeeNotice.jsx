@@ -68,9 +68,9 @@ import TableViewTemplate from './TableViewTemplate';
 
 const SeeNotice = () => {
     const noticesList = [
-        { title: 'Notice 1', details: 'Details 1', date: '2022-01-01', id: '1' },
-        { title: 'Notice 2', details: 'Details 2', date: '2022-01-02', id: '2' },
-        { title: 'Notice 3', details: 'Details 3', date: '2022-01-03', id: '3' },
+        { title: 'Notice 1', details: 'Chức năng chưa hoàn thiện nạp tiền để cải thiện', date: '2024-17-05', id: '1' },
+        { title: 'Notice 2', details: 'Vui lòng thanh toán tiền web', date: '2024-16-05', id: '2' },
+        { title: 'Notice 3', details: 'Thanh toán để sử dụng nhiều chức năng hơn', date: '2024-04-05', id: '3' },
     ]; // Dữ liệu thông báo (giả định)
 
     useEffect(() => {
