@@ -34,11 +34,10 @@ function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDeta
     setNewColumnTitle('')
   }
 
-  console.log('columns', columns)
   return (
     <SortableContext items={columns?.map(c => c._id)} strategy={horizontalListSortingStrategy}>
       <Box sx={{
-        bgcolor: 'black',  //chỉnh bg ở đây
+        bgcolor: 'inherit',  //chỉnh bg ở đây
         width: '100%',
         height: '100%',
         display: 'flex',
@@ -50,8 +49,8 @@ function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDeta
         backgroundPosition: 'center', // Canh giữa hình ảnh trong Box
         backgroundRepeat: 'no-repeat' // Không lặp lại hình ảnh
       }}>
-        {columns?.map((column, index) => <Column
-          key={column.index}
+        {columns?.map(column => <Column
+          key={column._id}
           column={column}
           createNewCard={createNewCard}
           deleteColumnDetails={deleteColumnDetails}

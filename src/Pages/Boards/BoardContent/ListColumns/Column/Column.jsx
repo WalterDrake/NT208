@@ -30,7 +30,9 @@ function Column({ column, createNewCard, deleteColumnDetails }) {
     data: { ...column }
   })
   const dndKitColumnStyles = {
-
+    // touchAction: 'none', // Dành cho sensor default dạng PointerSensor
+    // Nếu sử dụng CSS.Transform như docs sẽ lỗi kiểu stretch
+    // https://github.com/clauderic/dnd-kit/issues/117
     transform: CSS.Translate.toString(transform),
     transition,
     // Chiều cao phải luôn max 100% vì nếu không sẽ lỗi lúc kéo column ngắn qua một cái column dài thì phải kéo ở khu vực giữa giữa rất khó chịu (demo ở video 32). Lưu ý lúc này phải kết hợp với {...listeners} nằm ở Box chứ không phải ở div ngoài cùng để tránh trường hợp kéo vào vùng xanh.
@@ -204,7 +206,7 @@ function Column({ column, createNewCard, deleteColumnDetails }) {
 
         {/* Box Column Footer */}
         <Box sx={{
-          height: '56px',
+          height: (theme) => theme.trello.columnFooterHeight,
           p: 2
         }}>
           {!openNewCardForm
