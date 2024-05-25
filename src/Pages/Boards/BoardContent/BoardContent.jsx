@@ -16,15 +16,15 @@ import {
   // rectIntersection,
   getFirstCollision
 } from '@dnd-kit/core'
+import { MouseSensor, TouchSensor } from '../../../customLibraries/DndKitSensors'
 
 import { arrayMove } from '@dnd-kit/sortable'
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { cloneDeep, isEmpty } from 'lodash'
+import { generatePlaceholderCard } from '../../../utils/formatters'
 
 import Column from './ListColumns/Column/Column'
 import Card from './ListColumns/Column/ListCards/Card/Card'
-import { MouseSensor, TouchSensor } from '../../../customLibraries/DndKitSensors'
-import { generatePlaceholderCard } from '../../../utils/formatters'
 
 const ACTIVE_DRAG_ITEM_TYPE = {
   COLUMN: 'ACTIVE_DRAG_ITEM_TYPE_COLUMN',
@@ -66,7 +66,6 @@ function BoardContent({
   const lastOverId = useRef(null)
 
   useEffect(() => {
-    console.log('BoardContent useEffect: ', board)
     // Columns đã được sắp xếp ở component cha cao nhất (boards/_id.jsx) (Video 71 đã giải thích lý do)
     setOrderedColumns(board.columns)
   }, [board])
@@ -371,7 +370,7 @@ function BoardContent({
     // Nếu overId là null thì trả về mảng rỗng - tránh bug crash trang
     return lastOverId.current ? [{ id: lastOverId.current }] : []
   }, [activeDragItemType, orderedColumns])
-  console.log('thắng debug listorrder col', orderedColumns)
+
   return (
     <DndContext
       // Cảm biến (đã giải thích kỹ ở video số 30)

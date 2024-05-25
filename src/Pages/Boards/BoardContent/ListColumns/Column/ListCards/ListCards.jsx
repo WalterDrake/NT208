@@ -1,9 +1,8 @@
 import Box from '@mui/material/Box'
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import Card from './Card/Card'
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 
 function ListCards({ cards }) {
-  if (cards === undefined) return null
   return (
     <SortableContext items={cards?.map(c => c._id)} strategy={verticalListSortingStrategy}>
       <Box sx={{
@@ -14,7 +13,6 @@ function ListCards({ cards }) {
         gap: 1,
         overflowX: 'hidden',
         overflowY: 'auto',
-
         maxHeight: (theme) => `calc(
           ${theme.trello?.boardContentHeight} -
           ${theme.spacing(5)} -
