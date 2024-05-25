@@ -21,16 +21,19 @@ import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
 import Typography from '@mui/material/Typography'
 import { toast } from 'react-toastify'
+import CreateBroad from '../../components/Form/CreateBroad'
 
 function Board() {
   const [board, setBoard] = useState(null)
   const { user } = useUser()
+  const [existsBoard, setExistsBoard] = useState(false)
 
   useEffect(() => {
     // Tạm thời fix cứng boardId, flow chuẩn chỉnh về sau khi học nâng cao trực tiếp với mình là chúng ta sẽ sử dụng react-router-dom để lấy chuẩn boardId từ URL về.
     // Call API
     fetchBoarDetailByUser(user._id).then(userboard => {
       const boardid = String(userboard._id);
+      setExistsBoard(true)
       fetchBoardDetailsAPI(boardid).then(board => {
         // Sắp xếp thứ tự các column luôn ở đây trước khi đưa dữ liệu xuống bên dưới các component con (video 71 đã giải thích lý do ở phần Fix bug quan trọng)
         board.columns = mapOrder(board.columns, board.columnOrderIds, '_id')
@@ -175,6 +178,11 @@ function Board() {
     })
   }
 
+  if(!existsBoard) {
+    return (
+      <CreateBroad user={user} setExistBroad={setExistsBoard} />
+    )
+  }
   if (!board) {
     return (
       <Box sx={{

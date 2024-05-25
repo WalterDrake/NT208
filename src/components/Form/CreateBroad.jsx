@@ -11,7 +11,9 @@ export default function CreateBroad({user,setExistBroad}) {
             errorMessage: ".form-message",
             styleInvalid: "border-red-500",
             rules: [
-
+                validator.isRequired("#form-create-broad-title"),
+                validator.isRequired("#form-create-broad-description"),
+                validator.isRequired("#form-create-broad-type"),
             ],
             onSubmit: function (data) {
                 fetchcreateBoard(data,user._id)

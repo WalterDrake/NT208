@@ -11,6 +11,11 @@ import { API_ROOT } from '../utils/constants'
  */
 
 /** Boards */
+export const fetchcreateBoard = async (data,userId) => {
+  const response = await axios.post(`${API_ROOT}/api/boards/${userId}`, {...data})
+  return response.data
+
+}
 export const fetchBoarDetailByUser = async (userId) => {
   const response = await axios.get(`${API_ROOT}/api/boards/user/${userId}`)
   return response.data
