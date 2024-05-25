@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_ROOT } from '..constants/utils/constants'
+import { API_ROOT } from '../utils/constants'
 
 /**
  * Lưu ý: Đối với việc sử dụng axios ở khóa MERN Stack Pro trên kênh YouTube: TrungQuanDev - Một Lập Trình Viên
