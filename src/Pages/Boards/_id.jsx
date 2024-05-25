@@ -6,6 +6,7 @@ import { mapOrder } from '../../utils/sorts'
 
 // import { mockData } from '~/apis/mock-data'
 import {
+  fetchBoarDetailByUser,
   fetchBoardDetailsAPI,
   createNewColumnAPI,
   createNewCardAPI,
@@ -15,6 +16,7 @@ import {
   deleteColumnDetailsAPI
 } from '../../apis'
 import { generatePlaceholderCard } from '../../utils/formatters'
+import useUser from '../../hook/useUser'
 import { isEmpty } from 'lodash'
 import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -23,28 +25,30 @@ import { toast } from 'react-toastify'
 
 function Board() {
   const [board, setBoard] = useState(null)
+  const { user } = useUser()
 
   useEffect(() => {
     // Tạm thời fix cứng boardId, flow chuẩn chỉnh về sau khi học nâng cao trực tiếp với mình là chúng ta sẽ sử dụng react-router-dom để lấy chuẩn boardId từ URL về.
-    const boardId = '6616c6cbf03dec54050e8461'
     // Call API
-    fetchBoardDetailsAPI(boardId).then(board => {
+    fetchBoarDetailByUser(user._id).then(userboard => {
+      const boardid = String(userboard._id);
+      fetchBoardDetailsAPI(boardid).then(board => {
+        // Sắp xếp thứ tự các column luôn ở đây trước khi đưa dữ liệu xuống bên dưới các component con (video 71 đã giải thích lý do ở phần Fix bug quan trọng)
+        board.columns = mapOrder(board.columns, board.columnOrderIds, '_id')
 
-      // Sắp xếp thứ tự các column luôn ở đây trước khi đưa dữ liệu xuống bên dưới các component con (video 71 đã giải thích lý do ở phần Fix bug quan trọng)
-      board.columns = mapOrder(board.columns, board.columnOrderIds, '_id')
-
-      board.columns.forEach(column => {
-        // Khi f5 trang web thì cần xử lý vấn đề kéo thả vào một column rỗng (Nhớ lại video 37.2, code hiện tại là video 69)
-        if (isEmpty(column.cards)) {
-          column.cards = [generatePlaceholderCard(column)]
-          column.cardOrderIds = [generatePlaceholderCard(column)._id]
-        } else {
-          // Sắp xếp thứ tự các cards luôn ở đây trước khi đưa dữ liệu xuống bên dưới các component con (video 71 đã giải thích lý do ở phần Fix bug quan trọng)
-          column.cards = mapOrder(column.cards, column.cardOrderIds, '_id')
-        }
+        board.columns.forEach(column => {
+          // Khi f5 trang web thì cần xử lý vấn đề kéo thả vào một column rỗng (Nhớ lại video 37.2, code hiện tại là video 69)
+          if (isEmpty(column.cards)) {
+            column.cards = [generatePlaceholderCard(column)]
+            column.cardOrderIds = [generatePlaceholderCard(column)._id]
+          } else {
+            // Sắp xếp thứ tự các cards luôn ở đây trước khi đưa dữ liệu xuống bên dưới các component con (video 71 đã giải thích lý do ở phần Fix bug quan trọng)
+            column.cards = mapOrder(column.cards, column.cardOrderIds, '_id')
+          }
+        })
+        setBoard(board)
       })
 
-      setBoard(board)
     })
   }, [])
 

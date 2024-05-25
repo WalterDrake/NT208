@@ -11,6 +11,11 @@ import { API_ROOT } from '../utils/constants'
  */
 
 /** Boards */
+export const fetchBoarDetailByUser = async (userId) => {
+  const response = await axios.get(`${API_ROOT}/api/boards/user/${userId}`)
+  return response.data
+} 
+
 export const fetchBoardDetailsAPI = async (boardId) => {
   const response = await axios.get(`${API_ROOT}/api/boards/${boardId}`)
   // Lưu ý: axios sẽ trả kết quả về qua property của nó là data
