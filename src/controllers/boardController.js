@@ -3,8 +3,8 @@
  * YouTube: https://youtube.com/@trungquandev
  * "A bit of fragrance clings to the hand that gives flowers!"
  */
-import { StatusCodes } from "http-status-codes";
-import { boardService } from "~/services/boardService";
+import { StatusCodes } from 'http-status-codes'
+import { boardService } from '~/services/boardService'
 
 const createNew = async (req, res, next) => {
   try {
@@ -16,62 +16,62 @@ const createNew = async (req, res, next) => {
     // console.log('req.jwtDecoded: ', req.jwtDecoded)
 
     // Điều hướng dữ liệu sang tầng Service
-    const userid = req.params.id;
-    const data = req.body;
-    const createdBoard = await boardService.createNew(userid, data);
+    const userid = req.params.id
+    const data = req.body
+    const createdBoard = await boardService.createNew(userid, data)
 
     // Có kết quả thì trả về phía Client
-    res.status(StatusCodes.CREATED).json(createdBoard);
+    res.status(StatusCodes.CREATED).json(createdBoard)
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 
 const getDetails = async (req, res, next) => {
   try {
-    const boardId = req.params.id;
+    const boardId = req.params.id
     // Sau này ở khóa MERN Stack Advance nâng cao học trực tiếp sẽ có thêm userId nữa để chỉ lấy board thuộc về user đó thôi chẳng hạn...vv
-    const board = await boardService.getDetails(boardId);
-    res.status(StatusCodes.OK).json(board);
+    const board = await boardService.getDetails(boardId)
+    res.status(StatusCodes.OK).json(board)
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 
 const update = async (req, res, next) => {
   try {
-    const boardId = req.params.id;
-    const updatedBoard = await boardService.update(boardId, req.body);
+    const boardId = req.params.id
+    const updatedBoard = await boardService.update(boardId, req.body)
 
-    res.status(StatusCodes.OK).json(updatedBoard);
+    res.status(StatusCodes.OK).json(updatedBoard)
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 
 const moveCardToDifferentColumn = async (req, res, next) => {
   try {
-    const result = await boardService.moveCardToDifferentColumn(req.body);
+    const result = await boardService.moveCardToDifferentColumn(req.body)
 
-    res.status(StatusCodes.OK).json(result);
+    res.status(StatusCodes.OK).json(result)
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 const getDetailsBoardByUser = async (req, res, next) => {
   try {
-    const userid = req.params.id;
-    const result = await boardService.getDetailsBoardByUser(userid);
-    res.status(StatusCodes.OK).json(result);
+    const userid = req.params.id
+    const result = await boardService.getDetailsBoardByUser(userid)
+    res.status(StatusCodes.OK).json(result)
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 
 export const boardController = {
   createNew,
   getDetails,
   update,
   moveCardToDifferentColumn,
-  getDetailsBoardByUser,
-};
+  getDetailsBoardByUser
+}

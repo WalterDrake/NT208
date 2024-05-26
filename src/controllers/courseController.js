@@ -12,16 +12,6 @@ import { ExplainVerbosity, ObjectId } from 'mongodb'
 // Tao khoa hoc by Teacher
 const createNewCoursebyAdmin = async (req, res, next) => {
   try {
-<<<<<<< HEAD
-    const findtest = await studentModel.findOneByEmail(req.body.owner)
-    console.log(findtest)
-    let modified = {
-      ...req.body,
-      owner: String(findtest._id)
-    }
-    console.log(modified)
-    const createdItem = await courseService.createNew(modified, res, next)
-=======
     const findtest = await teacherModel.findOneByEmail(req.body.owner);
     if (findtest) {
       let modified = {
@@ -47,7 +37,6 @@ const createNewCoursebyAdmin = async (req, res, next) => {
     return res
       .status(StatusCodes.FAILED_DEPENDENCY)
       .json({ messenger: "Loi khong tao duoc khoa hoc" });
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
   } catch (error) {
     next(error)
   }
@@ -99,16 +88,10 @@ const getListCourseofTeacher = async (req, res, next) => {
     const listcourse = await GET_DB()
       .collection(courseModel.COURSE_COLLECTION_NAME)
       .find({
-<<<<<<< HEAD
-        owner: req.params.id // id giao vien
-      })
-    res.status(StatusCodes.OK).json(listcourse)
-=======
         owner: req.params.id, // id giao vien
       })
       .toArray();
     res.status(StatusCodes.OK).json(listcourse);
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
   } catch (error) {
     next(error)
   }
@@ -135,26 +118,6 @@ const getListCoursesofStudentid = async (req, res, next) => {
     // truyen vao id hocsinh
     const lsitcourseofstudent = await GET_DB()
       .collection(studentModel.USER_COLLECTION_NAME)
-<<<<<<< HEAD
-      .aggregate([
-        {
-          $match: {
-            _id: ObjectId(req.params.id) // Thay 'student_id' bằng ID của student cần lọc
-          }
-        },
-        {
-          $lookup: {
-            from: courseModel.COURSE_COLLECTION_NAME,
-            localField: 'course',
-            foreignField: '_id',
-            as: 'courses'
-          }
-        }
-      ])
-    res.status(StatusCodes.OK).json(lsitcourseofstudent)
-  } catch (err) {
-    res.status(500).json(err)
-=======
       .findOne({ _id: new ObjectId(req.params.id) }, { course: 1 });
 
     const courseIds = lsitcourseofstudent.course.map(
@@ -169,7 +132,6 @@ const getListCoursesofStudentid = async (req, res, next) => {
     res.status(StatusCodes.OK).json(courses);
   } catch (err) {
     next(err);
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
   }
 }
 
@@ -200,20 +162,12 @@ const getListStudentofCoures = async (req, res, next) => {
     // truyen vao id khoa hoc
     const studentList = await GET_DB()
       .collection(studentModel.USER_COLLECTION_NAME)
-<<<<<<< HEAD
-      .findMany({ course: { $in: req.params.id } })
-    return studentList
-=======
       .find({ course: req.params.id })
       .toArray();
     return res.status(StatusCodes.OK).json(studentList);
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
   } catch (error) {
     next(error)
   }
-<<<<<<< HEAD
-}
-=======
 };
 const getListStudentofCouresbyItem = async (itemid) => {
   try {
@@ -231,7 +185,6 @@ const getListStudentofCouresbyItem = async (itemid) => {
     throw new Error(error);
   }
 };
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
 const deleteOneItem = async (idItem) => {
   try {
     // truyen vao id item
@@ -239,32 +192,17 @@ const deleteOneItem = async (idItem) => {
       .collection(courseModel.COURSE_COLLECTION_NAME)
       .updateOne(
         {
-<<<<<<< HEAD
-          listitem: { $in: idItem }
-        },
-        {
-          $pull: { listitem: { $in: idItem } }
-=======
           listitem: idItem,
         },
         {
           $pull: { listitem: idItem },
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
         }
       )
   } catch (error) {
-<<<<<<< HEAD
-    next(error)
-  }
-}
-
-const pushStudentIntoCourse = async (req, res, next) => {
-=======
     throw new Error(error);
   }
 };
 const pushStudentsIntoCourse = async (req, res, next) => {
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
   try {
     // truyen vao id khoa hoc va id cua hoc sinh
     const student = await studentModel.findOneById(req.params.idstudent)
@@ -292,9 +230,6 @@ const pushStudentsIntoCourse = async (req, res, next) => {
   } catch (error) {
     next(error)
   }
-<<<<<<< HEAD
-}
-=======
 };
 const pushStudentIntoCourse = async (req, res, next) => {
   try {
@@ -324,7 +259,6 @@ const pushStudentIntoCourse = async (req, res, next) => {
     next(error);
   }
 };
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
 
 const getListCourseStudentDone = async (req, res, next) => {
   try {
@@ -491,28 +425,11 @@ const deleteCoursesbyAdmin = async (req, res, next) => {
     if (teacher.teachCourse.length == 0) {
       return res.send({ message: 'No classes found to delete' })
     }
-<<<<<<< HEAD
-    var arraycourseddelete = teacher.teachCourse
-=======
     var arraycourseddelete = teacher.teachCourse;
     console.log("teacher.teachCourse", teacher.teachCourse);
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
     const deletedStudents = await GET_DB()
       .collection(studentModel.USER_COLLECTION_NAME)
       .updateMany(
-<<<<<<< HEAD
-        { course: { $in: arraycourseddelete } },
-        { $pull: { $in: arraycourseddelete } }
-      )
-
-    const deletedSubjects = await GET_DB()
-      .collection(ITEM_COLLECTION_NAME)
-      .deleteMany({ course: new Object(req.params.id) })
-
-    res.send(deletedClasses)
-  } catch (error) {
-    res.status(500).json(error)
-=======
         { course: { $in: [arraycourseddelete] } },
         { $pull: { $in: [arraycourseddelete] } }
       );
@@ -524,7 +441,6 @@ const deleteCoursesbyAdmin = async (req, res, next) => {
     return res.status(StatusCodes.OK).json(deletedSubjects);
   } catch (error) {
     next(error);
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
   }
 }
 

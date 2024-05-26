@@ -12,13 +12,6 @@ import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from "~/utils/validators";
 // Define Collection (name & schema)
 const COLUMN_COLLECTION_NAME = "columns";
 const COLUMN_COLLECTION_SCHEMA = Joi.object({
-<<<<<<< HEAD
-  boardId: Joi.string().required().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
-  title: Joi.string().required().min(3).max(50).trim().strict(),
-  listCard: Joi.array().items(
-    Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE)
-  ).default([]),
-=======
   boardId: Joi.string()
     .required()
     .pattern(OBJECT_ID_RULE)
@@ -29,7 +22,6 @@ const COLUMN_COLLECTION_SCHEMA = Joi.object({
   cardOrderIds: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
 
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
   updatedAt: Joi.date().timestamp("javascript").default(null),

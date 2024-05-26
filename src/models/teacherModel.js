@@ -5,16 +5,9 @@ import {
   OBJECT_ID_RULE,
   OBJECT_ID_RULE_MESSAGE,
   EMAIL_RULE,
-<<<<<<< HEAD
-  TEXT_RULE
-} from '~/utils/validators'
-import bcrypt from 'bcryptjs'
-import { USER_COLLECTION_NAME } from '~/models/studentModel'
-=======
   TEXT_RULE,
 } from "~/utils/validators";
 import bcrypt from "bcryptjs";
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
 
 const TEACHER_COLLECTION_NAME = "teachers";
 const TEACHER_COLLECTION_SCHEMA = Joi.object().keys({

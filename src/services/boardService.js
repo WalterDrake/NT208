@@ -1,11 +1,3 @@
-/* eslint-disable no-useless-catch */
-/**
- * Updated by trungquandev.com's author on August 17 2023
- * YouTube: https://youtube.com/@trungquandev
- * "A bit of fragrance clings to the hand that gives flowers!"
- */
-
-<<<<<<< HEAD
 import { slugify } from '~/utils/formatters'
 import { boardModel } from '~/models/Hocnhom/ToDoList/boardModel'
 import ApiError from '~/utils/ApiError'
@@ -14,9 +6,6 @@ import { cloneDeep } from 'lodash'
 import { columnModel } from '~/models/Hocnhom/ToDoList/columnModel'
 import { cardModel } from '~/models/Hocnhom/ToDoList/cardModel'
 
-=======
-import { slugify } from "~/utils/formatters";
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
 
 import ApiError from "~/utils/ApiError";
 import { StatusCodes } from "http-status-codes";
@@ -26,30 +15,14 @@ const createNew = async (userid, data) => {
   try {
     // Xử lý logic dữ liệu tùy đặc thù dự án
     const newBoard = {
-<<<<<<< HEAD
-      ...reqBody,
-      slug: slugify(reqBody.title)
-    }
-    delete newBoard.userId
-    // Call model layer to save record into database
-    const createdBoard = await boardModel.createNew(newBoard)
-=======
       slug: slugify(data.title),
       ...data,
     };
     // Gọi tới tầng Model để xử lý lưu bản ghi newBoard vào trong Database
     const createdBoard = await boardModel.createNew(userid, newBoard);
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
 
     // Lấy bản ghi board sau khi gọi (tùy mục đích dự án mà có cần bước này hay không)
     const getNewBoard = await boardModel.findOneById(createdBoard.insertedId);
-
-<<<<<<< HEAD
-    // Return result; note: have to return in Service
-    return getNewBoard
-  } catch (error) { throw error }
-}
-=======
     // Làm thêm các xử lý logic khác với các Collection khác tùy đặc thù dự án...vv
     // Bắn email, notification về cho admin khi có 1 cái board mới được tạo...vv
 
@@ -59,7 +32,6 @@ const createNew = async (userid, data) => {
     throw error;
   }
 };
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
 
 const getDetails = async (boardId) => {
   try {

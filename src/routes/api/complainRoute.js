@@ -1,15 +1,9 @@
-<<<<<<< HEAD
-import express from 'express'
-import { StatusCodes } from 'http-status-codes'
-import { complainController } from '~/controllers/complainController'
-import { complainModel } from '~/models/DienDang/complainModel'
-=======
 import express from "express";
 import { StatusCodes } from "http-status-codes";
 import { commentController } from "~/controllers/commentController";
 import { complainController } from "~/controllers/complainController";
 import { complainModel } from "~/models/DienDang/complainModel";
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
+
 
 const Router = express.Router();
 

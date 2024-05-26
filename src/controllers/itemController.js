@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-import { StatusCodes } from 'http-status-codes'
-import { itemService } from '~/services/itemService'
-=======
 import { StatusCodes } from "http-status-codes";
 import { boardService } from "~/services/boardService";
 import { itemService } from "~/services/itemService";
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
 
 const createItemOfCourse = async (req, res, next) => {
   try {

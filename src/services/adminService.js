@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-/* eslint-disable no-useless-catch */
-import { slugify } from '~/utils/formatters'
-import ApiError from '~/utils/ApiError'
-import { StatusCodes } from 'http-status-codes'
-import { cloneDeep } from 'lodash'
-import { ObjectId } from 'mongodb'
-import { postModel } from '~/models/Khoahoc/postModel'
-import { baitapModel } from '~/models/Khoahoc/filebainopModel'
-import { adminModel } from '~/models/adminModel'
-=======
 import { slugify } from "~/utils/formatters";
 import ApiError from "~/utils/ApiError";
 import { StatusCodes } from "http-status-codes";
@@ -17,7 +6,6 @@ import { ObjectId } from "mongodb";
 import { postModel } from "~/models/Khoahoc/postModel";
 import { baitapModel } from "~/models/Khoahoc/filebainopModel";
 import { adminModel } from "~/models/adminModel";
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
 
 const getDetails = async (adminId) => {
   try {

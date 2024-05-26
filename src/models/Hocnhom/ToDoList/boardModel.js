@@ -4,32 +4,18 @@
  * "A bit of fragrance clings to the hand that gives flowers!"
  */
 
-<<<<<<< HEAD
-import Joi from 'joi'
-import { ObjectId } from 'mongodb'
-import { GET_DB } from '~/config/mongodb'
-import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
-import { cardModel } from '~/models/Hocnhom/ToDoList/cardModel'
-import { columnModel } from '~/models/Hocnhom/ToDoList/columnModel'
-=======
 import Joi from "joi";
 import { ObjectId } from "mongodb";
 import { GET_DB } from "~/config/mongodb";
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from "~/utils/validators";
 import { BOARD_TYPES } from "~/utils/constants";
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
 
 // Define Collection (Name & Schema)
 const BOARD_COLLECTION_NAME = "boards";
 const BOARD_COLLECTION_SCHEMA = Joi.object({
   title: Joi.string().required().min(3).max(50).trim().strict(),
   slug: Joi.string().required().min(3).trim().strict(),
-<<<<<<< HEAD
-  description: Joi.string().required().min(3).max(256).trim().strict(),
-  todoListId: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE).required(),
-=======
   description: Joi.string().required().min(3).max(255).trim().strict(),
->>>>>>> 8ce1313fe4b8d4db4b1b1052bbba7d924cf68e9d
 
   /**
    * Tips: Thay vì gọi lần lượt tất cả type của board để cho vào hàm valid() thì có thể viết gọn lại bằng Object.values() kết hợp Spread Operator của JS. Cụ thể: .valid(...Object.values(BOARD_TYPES))
