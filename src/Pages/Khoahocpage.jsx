@@ -25,7 +25,7 @@ const Khoahocpage = () => {
       else if(user.role === 'teacher'){
         courses.getCourseListTeacher(user._id).then((res) => {
           if(res)
-            setKhoahocs(res[0])
+            setKhoahocs(res)
         }).catch((err) => {
           console.log(err)
         })

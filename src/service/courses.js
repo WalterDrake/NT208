@@ -12,6 +12,7 @@ export const GetCourseAll = async () => {
 export const getCourseListTeacher = async (id) => {
     try {
         const response = await httpRequest.get(`/courses/GetListCourseTeacher/${id}`)
+        console.log('res',response)
         return response
     } catch (error) {
         throw error.response.data
@@ -21,7 +22,6 @@ export const getCourseListTeacher = async (id) => {
 export const getCourseListStudent = async (id) => {
     try {
         const response = await httpRequest.get(`/courses/GetListCourseStudent/${id}`)
-        console.log('response',response)
         return response
     } catch (error) {
         throw error.response
