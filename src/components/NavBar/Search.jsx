@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HeadlessTippy from '@tippyjs/react/headless';
 
 
-
 function Search() {
     const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z]'])
@@ -59,7 +58,7 @@ function Search() {
         // Using a wrapper <div> tag around the reference element solves
         // this by creating a new parentNode context.
         <div>
-            {/* <HeadlessTippy
+            <HeadlessTippy
                 interactive
                 visible={showResult > 0}
                 render={(attrs) => (
@@ -96,10 +95,9 @@ function Search() {
                     {loading && <FontAwesomeIcon icon={faSpinner} />}
 
                     <button onMouseDown={(e) => e.preventDefault()}>
-                        <SearchIcon />
                     </button>
                 </div>
-            </HeadlessTippy> */}
+            </HeadlessTippy>
         </div>
     );
 }

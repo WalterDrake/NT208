@@ -39,7 +39,7 @@ export default function PostItem({ post }) {
               <time className='m-0 font-thin text-sm text-gray-500'>{postTime}</time>
             </div>
             {
-              (user.role === 'admin' || user._id === post?.owner) && (<div className='relative'>
+              (user.role === 'admin' || user._id === post?.user) && (<div className='relative'>
                 <Tooltip
                   title={<ul>
                     <li onClick={handleDelete}>delete</li>

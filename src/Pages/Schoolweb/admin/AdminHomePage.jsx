@@ -33,7 +33,7 @@ const AdminHomePage = () => {
         })  
         admin.getTeacherAll()
         .then(res => {
-            setListTeacher(res)
+            setListTeacher(res[0])
         })
         .catch(err => {
             console.log(err)
