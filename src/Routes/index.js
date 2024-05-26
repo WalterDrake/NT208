@@ -28,6 +28,7 @@ import ShowClasses from "../Pages/Schoolweb/admin/classRelated/ShowClasses";
 import ShowStudents from "../Pages/Schoolweb/admin/studentRelated/ShowStudents";
 import HocnhomDetailLayout from "../components/Layout/HocnhomDetailLayout";
 import ShowSubjects from "../Pages/Schoolweb/admin/subjectRelated/ShowSubjects";
+import ShowTeachers from "../Pages/Schoolweb/admin/teacherRelated/ShowTeachers";
 
 
 const publicRoutes = [
@@ -56,7 +57,8 @@ const privateRoutes = [
 const adminRoutes = [
   { path: "/Admin/Setting/classes", component: ShowClasses, layout: AdminDashboard },
   { path: "/Admin/Setting/students", component: ShowStudents, layout: AdminDashboard },
-  { path: "/Admin/Setting/groups", component: ShowSubjects, layout: AdminDashboard }
+  { path: "/Admin/Setting/groups", component: ShowSubjects, layout: AdminDashboard },
+  {path:"/Admin/Setting/teachers",component:ShowTeachers,layout:AdminDashboard},
 ]
 // Phải đăng nhập mới vào được
 export { publicRoutes, privateRoutes, adminRoutes };
