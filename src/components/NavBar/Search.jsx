@@ -58,7 +58,6 @@ function Search() {
 
     const GetLinkImage = (object) => {
         if (object.linkimage == ''||object.linkimage == null) {
-            console.log('object.linkimage',LINK_IMAGE)
             return LINK_IMAGE;
         }
         return object.linkimage;
