@@ -1,12 +1,7 @@
-/**
- * Updated by trungquandev.com's author on August 17 2023
- * YouTube: https://youtube.com/@trungquandev
- * "A bit of fragrance clings to the hand that gives flowers!"
- */
-
 import { StatusCodes } from "http-status-codes";
 import ApiError from "~/utils/ApiError";
-
+import { columnModel } from "~/models/Hocnhom/ToDoList/columnModel";
+import { boardModel } from "~/models/Hocnhom/ToDoList/boardModel";
 const createNew = async (reqBody) => {
   try {
     // Xử lý logic dữ liệu tùy đặc thù dự án

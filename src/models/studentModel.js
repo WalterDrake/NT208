@@ -20,14 +20,16 @@ const USER_COLLECTION_SCHEMA = Joi.object().keys({
   course: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
-  examResult: Joi.object({
-    coursename: Joi.string()
-      .pattern(OBJECT_ID_RULE)
-      .message(OBJECT_ID_RULE_MESSAGE)
-      .required(),
-    markObtain: Joi.number().required(),
-    hoanthanh: Joi.boolean().required(),
-  }),
+  examResult: Joi.array().items(
+    Joi.object({
+      coursename: Joi.string()
+        .pattern(OBJECT_ID_RULE)
+        .message(OBJECT_ID_RULE_MESSAGE)
+        .required(),
+      markObtain: Joi.number().required(),
+      hoanthanh: Joi.boolean().required(),
+    })
+  ),
   study: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
@@ -247,17 +249,6 @@ const pushToGroup = async (getGroup, userId) => {
   }
 };
 
-const pullFromGroup = async (getGroup, userId) => {
-  try {
-    const result = await GET_DB().collection(USER_COLLECTION_NAME).findOneAndUpdate(
-      { _id: new ObjectId(userId) },
-      { $pull: { group: new ObjectId(getGroup._id) } },
-      { returnDocument: 'after' }
-    )
-    return result
-  } catch (error) { throw new Error(error) }
-}
-
 const pushToStudy = async (studyId, userId) => {
   try {
     const result = await GET_DB()
@@ -343,6 +334,21 @@ const getAllUserOnline = async () => {
   }
 };
 
+const pullToGroup = async (getGroup, userId) => {
+  try {
+    const result = await GET_DB()
+      .collection(USER_COLLECTION_NAME)
+      .findOneAndUpdate(
+        { _id: new ObjectId(userId) },
+        { $pull: { group: new ObjectId(getGroup._id) } },
+        { returnDocument: "after" }
+      );
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 // ở trong 1 class xây dựng những cái hàm tương tác với từng field như thêm sửa xóa cập nhật
 export const studentModel = {
   USER_COLLECTION_NAME,
@@ -357,12 +363,12 @@ export const studentModel = {
   checkExist,
   findCourse,
   pushToGroup,
-  pullFromGroup,
   pushToStudy,
   findOneByEmail,
   changeOnline,
   changeOffline,
   getAllUserOnline,
+  pullToGroup, // xóa khỏi group
 
   //deleteCourse
   deletedOneCourse,

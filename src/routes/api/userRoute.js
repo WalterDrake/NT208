@@ -12,7 +12,7 @@ Router.route("/").get((req, res) => {
 //==============================
 //---Đăng nhập- Đăng xuất
 //--Chức năng đăng nhập kiểm tra
-
+Router.route("/GetAllStudents").get(userController.getDetailsAllbyAdmin);
 Router.route("/StudentReg").post(userController.StudentRegister);
 Router.route("/StudentLogin/:email/:password").post(
   userController.StudentLogin
@@ -21,3 +21,4 @@ Router.route("/StudentLogOut/:id").put(userController.StudentLogOut);
 Router.route("/getAlluserOnline").get(userController.getAllUserOnline);
 
 export const userRoute = Router;
+

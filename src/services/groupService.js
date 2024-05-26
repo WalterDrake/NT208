@@ -1,11 +1,11 @@
 /* eslint-disable no-useless-catch */
+
 import { chatRealTimeModel } from '~/models/Hocnhom/ChatRealTime/chatRealTimeModel'
 import { groupModel } from '~/models/Hocnhom/groupModel'
 import { teamBoxModel } from '~/models/Hocnhom/teamboxModel'
 import { studentModel } from '~/models/studentModel'
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
-import { teamBoxService } from './teamBoxService'
 import { ObjectId } from 'mongodb'
 
 const createNew = async (reqBody) => {
@@ -109,6 +109,35 @@ const joinGroup = async (userId, reqBody) => {
   } catch (error) { throw error }
 }
 
+const leaveGroup = async (userId, reqBody) => {
+  try {
+    const data = {
+      ...reqBody
+    }
+    const getGroup = await groupModel.findOneByCode(data.code)
+    if (getGroup != null)
+    {
+      await groupModel.pullToListMem(getGroup, userId)
+      await studentModel.pullToGroup(getGroup, userId)
+    }
+    return { Leaving: 'Successfully!'}
+  } catch (error) { throw error }
+}
+
+const getGroup = async (code) => {
+  try {
+    const getGroup = await groupModel.findOneByCode(code)
+    return getGroup
+  } catch (error) { throw error }
+}
+
+const getAllGroupByAdmin = async (userId) => {
+  try {
+    const getAllGroup = await groupModel.getAllGroupByAdmin(userId)
+    return getAllGroup
+  } catch (error) { throw error }
+}
+
 const deleteGroup = async (groupId, reqBody) => {
   try {
     const data = {
@@ -127,7 +156,6 @@ const deleteGroup = async (groupId, reqBody) => {
       {
         await studentModel.pullFromGroup(targetGroup._id, memId)
       }
-      await teamBoxService.deleteTeamBox(targetGroup.teamBoxId)
     }
     else {
       return { Error: 'You don\'t own this group' }
@@ -137,13 +165,15 @@ const deleteGroup = async (groupId, reqBody) => {
   } catch (error) { throw error }
 }
 
-
 export const groupService ={
+  getAllGroupByAdmin,
+  getGroup,
   createNew,
   update,
   getAll,
   getGroupOwnByTeacher,
   getGroupOwnByOther,
   joinGroup,
+  leaveGroup,
   deleteGroup
 }

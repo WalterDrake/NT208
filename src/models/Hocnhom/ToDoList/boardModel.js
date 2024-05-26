@@ -1,14 +1,10 @@
-/**
- * Updated by trungquandev.com's author on August 17 2023
- * YouTube: https://youtube.com/@trungquandev
- * "A bit of fragrance clings to the hand that gives flowers!"
- */
-
 import Joi from "joi";
 import { ObjectId } from "mongodb";
 import { GET_DB } from "~/config/mongodb";
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from "~/utils/validators";
 import { BOARD_TYPES } from "~/utils/constants";
+import { columnModel } from "./columnModel";
+import { cardModel } from "./cardModel";
 
 // Define Collection (Name & Schema)
 const BOARD_COLLECTION_NAME = "boards";
@@ -128,10 +124,38 @@ const pushColumnOrderIds = async (column) => {
 
 const getDetailsBoardByUser = async (userid) => {
   try {
-    const result = await GET_DB()
+    const result1 = await GET_DB()
       .collection(BOARD_COLLECTION_NAME)
       .findOne({ owner: String(userid) });
-    return result;
+    const result2 = await GET_DB()
+      .collection(BOARD_COLLECTION_NAME)
+      .aggregate([
+        {
+          $match: {
+            _id: new ObjectId(result1._id),
+            _destroy: false,
+          },
+        },
+        {
+          $lookup: {
+            from: columnModel.COLUMN_COLLECTION_NAME,
+            localField: "_id",
+            foreignField: "boardId",
+            as: "columns",
+          },
+        },
+        {
+          $lookup: {
+            from: cardModel.CARD_COLLECTION_NAME,
+            localField: "_id",
+            foreignField: "boardId",
+            as: "cards",
+          },
+        },
+      ])
+      .toArray();
+
+    return result2[0] || null;
   } catch (error) {
     throw new Error(error);
   }

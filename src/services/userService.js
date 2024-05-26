@@ -54,7 +54,7 @@ const getDetails = async (userId) => {
 }
 const getDetailsAll = async (userId) => {
   try {
-    const user = await userModel.getDetailsAll()
+    const user = await studentModel.getDetailsAll()
     if (!user) {
       throw new ApiError(StatusCodes.NOT_FOUND, 'User not found!')
     }
@@ -123,3 +123,4 @@ export const userService = {
   getAllUserOnline,
   findOneById,
 }
+

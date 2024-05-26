@@ -16,10 +16,10 @@ const COMMENT_COLLECTION_SCHEMA = Joi.object({
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
     .required(),
-  createdAt: Joi.date().timestamp('javascript').default(Date.now)
-})
+  createdAt: Joi.date().timestamp("javascript").default(Date.now),
+});
 // Commentbox chua listcomment va comment chua id cua commentbox
-const INVALID_UPDATE_FIELDS = ['_id', 'createdAt']
+const INVALID_UPDATE_FIELDS = ["_id", "createdAt"];
 
 const validateBeforeCreate = async (data) => {
   return await COMMENT_COLLECTION_SCHEMA.validateAsync(data, {
@@ -32,14 +32,12 @@ const createNewComment = async (data) => {
     const validData = await validateBeforeCreate(data);
     const newDataToAdd = {
       ...validData,
-      owner: validData.owner,
+      owner: new ObjectId(validData.owner),
       commentbox: validData.commentbox,
     };
     const createdStudy = await GET_DB()
       .collection(COMMENT_COLLECTION_NAME)
       .insertOne(newDataToAdd);
-    console.log(" validData.cBoxId", validData.commentbox);
-    console.log("createdStudy.insertedId ", createdStudy.insertedId);
 
     const pushintocbox = await cboxModel.pushToListComment(
       validData.commentbox,

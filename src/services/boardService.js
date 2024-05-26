@@ -1,16 +1,10 @@
-import { slugify } from '~/utils/formatters'
-import { boardModel } from '~/models/Hocnhom/ToDoList/boardModel'
-import ApiError from '~/utils/ApiError'
-import { StatusCodes } from 'http-status-codes'
-import { cloneDeep } from 'lodash'
-import { columnModel } from '~/models/Hocnhom/ToDoList/columnModel'
-import { cardModel } from '~/models/Hocnhom/ToDoList/cardModel'
-
+/* eslint-disable no-useless-catch */
+import { slugify } from "~/utils/formatters";
 
 import ApiError from "~/utils/ApiError";
 import { StatusCodes } from "http-status-codes";
 import { cloneDeep } from "lodash";
-
+import { boardModel } from "~/models/Hocnhom/ToDoList/boardModel";
 const createNew = async (userid, data) => {
   try {
     // Xử lý logic dữ liệu tùy đặc thù dự án
@@ -23,6 +17,7 @@ const createNew = async (userid, data) => {
 
     // Lấy bản ghi board sau khi gọi (tùy mục đích dự án mà có cần bước này hay không)
     const getNewBoard = await boardModel.findOneById(createdBoard.insertedId);
+
     // Làm thêm các xử lý logic khác với các Collection khác tùy đặc thù dự án...vv
     // Bắn email, notification về cho admin khi có 1 cái board mới được tạo...vv
 

@@ -53,9 +53,21 @@ const TeacherLogin = async (req, res, next) => {
   }
 };
 
+const getTeacherAll = async (req, res, next) => {
+  try{
+    const teachers = await teacherModel.getDetailsAll();
+    res.status(StatusCodes.OK).json(teachers);
+  }
+  catch (error) {
+    next(error);
+  }
+}
+
 export const teacherController = {
+  getTeacherAll,
   TeacherRegister,
   getTeacherDetails,
   TeacherLogin,
   getIds,
 };
+

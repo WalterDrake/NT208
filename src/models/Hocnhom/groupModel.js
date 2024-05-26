@@ -11,14 +11,14 @@ const GROUP_COLLECTION_SCHEMA = Joi.object({
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
     .required(),
+  linkImage: Joi.string().uri().trim().strict().default(''),
   listMem: Joi.array()
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
   code: Joi.string().required().min(3).max(50).trim().strict(),
   teamBoxId: Joi.string()
     .pattern(OBJECT_ID_RULE)
-    .message(OBJECT_ID_RULE_MESSAGE),
-  image: Joi.string()
+    .message(OBJECT_ID_RULE_MESSAGE)
 })
 
 const INVALID_UPDATE_FIELDS = ['_id', 'owner', 'code', 'teamBoxId']
@@ -243,6 +243,29 @@ const findOneByCode = async (codeId) => {
   catch (error) { throw new Error(error)}
 }
 
+const pullToListMem = async (getGroup, userId) => {
+  try {
+    const result = await GET_DB().collection(GROUP_COLLECTION_NAME).findOneAndUpdate(
+      { _id: new ObjectId(getGroup._id) },
+      { $pull: { listMem: new ObjectId(userId) } },
+      { returnDocument: 'after' }
+    )
+    return result
+  } catch (error) { throw new Error(error) }
+}
+
+const getAllGroupByAdmin = async () => {
+  try {
+    const result = await GET_DB()
+      .collection(GROUP_COLLECTION_NAME)
+      .find({})
+      .toArray()
+    return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
 const deleteOneById = async (messageId) => {
   try {
     const result = await GET_DB().collection(GROUP_COLLECTION_NAME).deleteOne({ _id: new ObjectId(messageId) })
@@ -250,9 +273,9 @@ const deleteOneById = async (messageId) => {
   } catch (error) { throw new Error(error) }
 }
 
-
 export const groupModel = {
   GROUP_COLLECTION_NAME,
+  getAllGroupByAdmin,
   createNew,
   findOneById,
   update,
@@ -262,5 +285,6 @@ export const groupModel = {
   getGroupOwnByOther,
   pushToListMem,
   findOneByCode,
+  pullToListMem,
   deleteOneById
 }
