@@ -12,7 +12,7 @@ import { UserProfile } from "./UserProfile"
 import Navbarmenu from "./Layout/NavBaritem/Navbarmenu"
 import Navbaritem from "./Layout/NavBaritem/Navbaritem"
 import config from "../config/routes"
-import { Search as SearchHeader } from "./NavBar/Search"
+import Search from "./NavBar/Search"
 import useUser from "../hook/useUser"
 
 const Navbar = () => {
@@ -28,7 +28,7 @@ const Navbar = () => {
       </Link>
 
       <div className=" relative ml-40 h-[3.125rem] w-[27rem]">
-        <SearchHeader />
+        <Search />
       </div>
 
       <Navbarmenu>
