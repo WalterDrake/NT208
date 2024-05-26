@@ -12,9 +12,7 @@ export default function PostItem({ post }) {
   const { user } = useUser()
   const [open, setOpen] = React.useState(false);
   // const [showUpdate, setShowUpdate] = React.useState(false);
-
   const handleDelete = useCallback(() => {
-    console.log(post)
     forum.deleteForum(post._id)
       .then(() => {
         alert('Delete success')

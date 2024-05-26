@@ -4,7 +4,7 @@ import * as forum from "../../service/forum";
 import validator from "../../hook/validate";
 import useUser from "../../hook/useUser";
 
-export default function CreatePost({  }) {
+export default function CreatePost({ setShowCreatePost }) {
   const { user } = useUser();
   useEffect(() => {
     validator({
@@ -22,8 +22,7 @@ export default function CreatePost({  }) {
           forum
             .addForum({ title, description, linkPDF, user: user._id })
             .then((res) => {
-              alert("oke r cu");
-              console.log("res post", res);
+              setShowCreatePost(false);
             })
             .catch((err) => {
               alert("loi r cu");

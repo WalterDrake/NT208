@@ -50,7 +50,7 @@ const Diendanpages = () => {
         </div>
         <Button variant="contained" onClick={handleCreatePost} className="p-2 mr-2 md:mr-8 w-auto max-h-10   ">Create Post</Button>
       </div>
-      <div className="flex justify-center">{showCreatePost && <CreatePost />}</div>
+      <div className="flex justify-center">{showCreatePost && <CreatePost setShowCreatePost={setShowCreatePost} />}</div>
       {/* <VideoList /> */}
       <PostList />
     </div >

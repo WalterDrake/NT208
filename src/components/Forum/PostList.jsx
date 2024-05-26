@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState ,useRef} from 'react'
 import PostItem from './PostItem'
 
 import * as forum from '../../service/forum'
+import { post } from '../../utils/httpRequest'
 
 export default function PostList() {
+    const postForumBottomRef = useRef()
     const [posts,setPosts] =useState( [
     ])
     useEffect(() => {
@@ -11,7 +13,6 @@ export default function PostList() {
         const RefInterval = setInterval(() => {
             forum.getForumAll()
             .then(res => {
-                console.log('res interval',res)
                 setPosts(res)
             })
             .catch(err => {
@@ -23,11 +24,15 @@ export default function PostList() {
             clearInterval(RefInterval)
         }
     },[])
+    useEffect(() => {
+        //postForumBottomRef.current.scrollIntoView({behavior: 'smooth'})
+    },[posts])
   return (
     <ul>
         {posts.length>0 && posts.map(post => (
             <PostItem post={post} key={post._id} />
         ))}
+        <div id='post-forum-bottom' ref={postForumBottomRef}></div>
     </ul>
   )
 }

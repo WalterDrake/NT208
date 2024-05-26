@@ -35,7 +35,6 @@ const useTime = (pastTimestamp) => {
         second = Math.floor(remainingSeconds);
     }
     let output = ''
-    console.log(day, hour, minute, second);
     if (day > 0)
         output += day.toString() + ' day ';
     if (hour > 0)
