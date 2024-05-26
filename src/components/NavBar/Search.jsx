@@ -7,11 +7,13 @@ import * as searchServices from "../../service/search";
 import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HeadlessTippy from '@tippyjs/react/headless';
+import { Avatar } from "@mui/material";
+import useTime from "../../hook/useTime"
 
-
+const LINK_IMAGE = 'https://th.bing.com/th/id/OIP.RopD45u-y2SjLUw0x5loNAHaI2?rs=1&pid=ImgDetMain';
 function Search() {
     const [searchValue, setSearchValue] = useState('');
-    const [searchResult, setSearchResult] = useState(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z]'])
+    const [searchResult, setSearchResult] = useState([''])
     const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -26,13 +28,14 @@ function Search() {
         }
 
         const fetchApi = async () => {
+            const result = await searchServices.search(debouncedValue);
             setLoading(true);
-
-
-            setSearchResult(result);
+            if(result?.length > 0 && result)
+             setSearchResult(result);
+            else setSearchResult([]);
             setLoading(false)
         };
-        console.log(searchResult)
+
         fetchApi();
     }, [debouncedValue]);
 
@@ -53,24 +56,37 @@ function Search() {
         }
     };
 
+    const GetLinkImage = (object) => {
+        if (object.linkimage == ''||object.linkimage == null) {
+            console.log('object.linkimage',LINK_IMAGE)
+            return LINK_IMAGE;
+        }
+        return object.linkimage;
 
+
+    }
     return (
         // Using a wrapper <div> tag around the reference element solves
         // this by creating a new parentNode context.
         <div>
             <HeadlessTippy
                 interactive
-                visible={showResult > 0}
+                visible={showResult > 0 && searchResult.length > 0}
                 render={(attrs) => (
-                    <div tabIndex="-1" {...attrs}>
-                        <div>
-                            <h4>Accounts</h4>
-                            {searchResult.map((result) => (
-                                <div>
-                                    <p>{result}</p>
-                                </div>
+                    <div tabIndex="-1" {...attrs} className="bg-white md:p-10">
+                        <ul>
+                            {searchResult.length>0&&searchResult.map((result,index) => (
+                                <li key={index} className="flex">
+                                    <div>
+                                        <Avatar src={GetLinkImage(result)}  alt={`${result.description}-${result.title}-UITCourse`}/>
+                                    </div>
+                                    <div>
+                                        <p>{result.title}</p>
+                                        <time >create:{useTime(result.createdAt)}</time>
+                                    </div>
+                                </li>
                             ))}
-                        </div>
+                        </ul>
                     </div>
                 )}
                 onClickOutside={handleHideResult}
