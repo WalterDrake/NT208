@@ -6,6 +6,8 @@ import * as comment from '../../../../service/comment'
 import * as commentbox from '../../../../service/commentbox'
 import { Avatar, Box, Button, Drawer, Fab, List, ListItem, ListItemButton, ListItemIcon, CircularProgress, ListItemText, TextField } from '@mui/material'
 import { NavigationIcon } from 'lucide-react'
+import { createTheme } from '@mui/material/styles';
+
 
 export default function CommentVideo() {
   const [open, setOpen] = React.useState(false)
@@ -13,7 +15,16 @@ export default function CommentVideo() {
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen)
   }
-
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#0077FF'
+      },
+      secondary: {
+        main: '#f44336',
+      },
+    },
+  });
   const commentInputRef = useRef(null)
   const { user } = useUser()
   const { curVideo } = useContext(CurrentVideoContext)
@@ -39,7 +50,7 @@ export default function CommentVideo() {
         })
     }
     if (curVideo.commentBox)
-    var intervalId = setInterval(fetchComments, 3000)
+      var intervalId = setInterval(fetchComments, 3000)
     return () => {
       clearInterval(intervalId)
     }
@@ -135,7 +146,7 @@ export default function CommentVideo() {
 
   return (
     <>
-      <Fab variant="extended" onClick={toggleDrawer(true)} color="primary" sx={{ position: 'absolute', bottom: 20, right: 25 }}>
+      <Fab variant="extended" onClick={toggleDrawer(true)} className='bg-[#0077ff] text-white' sx={{ position: 'absolute', bottom: 20, right: 25 }}>
         <NavigationIcon sx={{ mr: 1 }} />
         Bình luận
       </Fab>
