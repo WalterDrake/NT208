@@ -1,4 +1,4 @@
-import { Container, Grid, Paper } from '@mui/material'
+import { Container, Divider, Drawer, Grid, IconButton, List, Paper, Toolbar } from '@mui/material'
 // import Students from "../../assets/img1.png";
 // import Classes from "../../assets/img2.png";
 // import Teachers from "../../assets/img3.png";
@@ -10,38 +10,55 @@ import SeeNotice from '../../../components/Schoolweb/SeeNotice';
 
 import * as course from '../../../service/courses'
 import * as admin from '../../../service/admin'
+import { ChevronLeftIcon } from 'lucide-react';
+import SideBar from './SideBar';
 
 
 const AdminHomePage = () => {
+    const [open, setOpen] = useState(false);
+    const toggleDrawer = () => {
+        setOpen(!open);
+    };
     const [listCourse, setListCourse] = useState([])
     const [listStudent, setListStudent] = useState([])
     const [listTeacher, setListTeacher] = useState([])
     useEffect(() => {
         course.GetCourseAll()
-        .then(res => {
-            setListCourse(res[0])
-        })
-        .catch(err => {
-            console.log(err)
-        })
+            .then(res => {
+                setListCourse(res[0])
+            })
+            .catch(err => {
+                console.log(err)
+            })
         admin.getAllStudents()
-        .then(res => {
-            setListStudent(res)
-        })
-        .catch(err => {
-            console.log(err)
-        })  
+            .then(res => {
+                setListStudent(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
         admin.getTeacherAll()
-        .then(res => {
-            setListTeacher(res[0])
-        })
-        .catch(err => {
-            console.log(err)
-        })
-    },[])
+            .then(res => {
+                setListTeacher(res[0])
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
     return (
         <>
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                <Drawer variant="permanent" open={open} sx={open ? styles.drawerStyled : styles.hideDrawer}>
+                    <Toolbar sx={styles.toolBarStyled}>
+                        <IconButton onClick={toggleDrawer}>
+                            <ChevronLeftIcon />
+                        </IconButton>
+                    </Toolbar>
+                    <Divider />
+                    <List component="nav">
+                        <SideBar />
+                    </List>
+                </Drawer>
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={3} lg={3}>
                         <StyledPaper>
@@ -76,7 +93,7 @@ const AdminHomePage = () => {
                             <Title>
                                 Fees Collection
                             </Title>
-                            <Data start={0} end={listStudent.length*500} duration={2.5} prefix="$" />                        </StyledPaper>
+                            <Data start={0} end={listStudent.length * 500} duration={2.5} prefix="$" />                        </StyledPaper>
                     </Grid>
                     <Grid item xs={12} md={12} lg={12}>
                         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
@@ -108,5 +125,32 @@ const Data = styled(CountUp)`
   font-size: calc(1.3rem + .6vw);
   color: green;
 `;
+
+const styles = {
+    boxStyled: {
+        backgroundColor: (theme) =>
+            theme.palette.mode === 'light'
+                ? theme.palette.grey[100]
+                : theme.palette.grey[900],
+        flexGrow: 1,
+        height: '100vh',
+        overflow: 'auto',
+    },
+    toolBarStyled: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        px: [1],
+    },
+    drawerStyled: {
+        display: "flex"
+    },
+    hideDrawer: {
+        display: 'flex',
+        '@media (max-width: 600px)': {
+            display: 'none',
+        },
+    },
+}
 
 export default AdminHomePage

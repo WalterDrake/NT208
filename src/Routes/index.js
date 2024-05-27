@@ -50,7 +50,7 @@ const privateRoutes = [
   { path: routesConfig.khoahocitem, component: KhoahocitemDetail, layout: KhoahocitemDetailLayout },
   { path: routesConfig.schoolweb, component: StudentDashboard, layout: DangnhapLayout },
   { path: routesConfig.hocnhomitem, component: HocnhomDetail, layout: HocnhomDetailLayout },
-  { path: routesConfig.setting, component: AdminDashboard },
+  { path: routesConfig.setting, component: AdminHomePage, layout: KhoahocitemDetailLayout },
   { path: routesConfig.todolist, component: Board }
 ]
 
@@ -58,7 +58,7 @@ const adminRoutes = [
   { path: "/Admin/Setting/classes", component: ShowClasses, layout: AdminDashboard },
   { path: "/Admin/Setting/students", component: ShowStudents, layout: AdminDashboard },
   { path: "/Admin/Setting/groups", component: ShowSubjects, layout: AdminDashboard },
-  {path:"/Admin/Setting/teachers",component:ShowTeachers,layout:AdminDashboard},
+  { path: "/Admin/Setting/teachers", component: ShowTeachers, layout: AdminDashboard },
 ]
 // Phải đăng nhập mới vào được
 export { publicRoutes, privateRoutes, adminRoutes };
