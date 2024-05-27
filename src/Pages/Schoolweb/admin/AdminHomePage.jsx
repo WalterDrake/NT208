@@ -62,7 +62,7 @@ const AdminHomePage = () => {
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={3} lg={3}>
                         <StyledPaper>
-                            <img src="#" alt="Students" />
+                            <img src="./src/assets/img1.png" alt="Students" />
                             <Title>
                                 Total Students: {listStudent?.length}
                             </Title>
