@@ -19,8 +19,8 @@ UITeCo là một trang web học tập trực tuyến dành cho sinh viên và g
 **Chức năng 2: Trang chủ**
 - Đề xuất danh sách các khóa học, nhóm học 
 - Hiển thị danh sách thành viên đang hoạt động
-- Hiển thị lịch
-- 
+- Hiển thị lịch 
+
 **Chức năng 3: Khóa học**
 - Tạo khóa học 
 - Cho phép học sinh tham gia khóa học
@@ -165,75 +165,118 @@ UITeCo là một trang web học tập trực tuyến dành cho sinh viên và g
 ## PHẦN 3: SƠ ĐỒ DATABASE, CÁC BẢNG TRONG MONGODB
 
 **1. AdminModel**
+
 ![AdminModel](https://github.com/WalterDrake/NT208/assets/87658807/be78e9b4-2faf-4a63-aadd-43c028560e86)
 
+
 **2. BaitapModel**
+
 ![BaitapModel](https://github.com/WalterDrake/NT208/assets/87658807/a24a1097-870c-444d-aa7e-8a61e80b7e8e)
 
+
 **3. BoardModel**
+
 ![BoardModel](https://github.com/WalterDrake/NT208/assets/87658807/7345a49e-1f55-4eb7-9e94-a038dcf4c058)
 
+
 **4. CardModel**
+
 ![CardModel](https://github.com/WalterDrake/NT208/assets/87658807/e49066df-4a20-4e4f-8fcf-97bdf583f6de)
 
+
 **5. ChatrealtimeModel**
+
 ![ChatrealtimeModel](https://github.com/WalterDrake/NT208/assets/87658807/9ff0f967-4b3b-41ec-b267-092b5f671c01)
 
+
 **6. ColumnModel**
+
 ![ColumnModel](https://github.com/WalterDrake/NT208/assets/87658807/90c5cd53-aef1-4a5d-8c5c-a698fec565be)
 
+
 **7. CommentModel**
+
 ![CommentModel](https://github.com/WalterDrake/NT208/assets/87658807/5252d8e3-c930-42cc-a0b0-665746e2a988)
 
+
 **8. CommentBoxModel**
+
 ![CommentBoxModel](https://github.com/WalterDrake/NT208/assets/87658807/9a3a484b-56ae-4ace-a70d-5c6036707dc8)
 
+
 **9. ComplainModel**
+
 ![ComplainModel](https://github.com/WalterDrake/NT208/assets/87658807/f9a2eeda-61f8-4b20-9ed3-7256d1c1332e)
 
+
 **10. CoursesModel**
+
 ![CoursesModel](https://github.com/WalterDrake/NT208/assets/87658807/e9e59dc1-4e90-470e-a568-9740273e1c64)
 
+
 **11. EventModel**
+
 ![EventModel](https://github.com/WalterDrake/NT208/assets/87658807/2006333a-0c27-469f-93b7-b5e4219c96f5)
 
+
 **12. GroupModel**
+
 ![GroupModel](https://github.com/WalterDrake/NT208/assets/87658807/ded1f960-5eb3-411d-9161-8e8c3b567e0a)
 
+
 **13. ItemModel**
+
 ![ItemModel](https://github.com/WalterDrake/NT208/assets/87658807/2681a492-3f83-48c4-8c8f-d2204c0f87ca)
 
+
 **14. MessageModel**
+
 ![MessageModel](https://github.com/WalterDrake/NT208/assets/87658807/0d121872-8c36-483f-876c-bc499d476e41)
 
 
 **15. NotificationModel**
+
 ![NotificationModel](https://github.com/WalterDrake/NT208/assets/87658807/ed0e7862-57a0-4019-8797-f3e3f4012d0c)
+
 
 **16. PostModel**
 
 Post diễn đàn
+
 ![PostForum](https://github.com/WalterDrake/NT208/assets/87658807/294e914d-3c09-4a29-83eb-41f7344a3434)
 
 Post khóa học
+
 ![PostCourses](https://github.com/WalterDrake/NT208/assets/87658807/f0d4417f-d485-44c3-ac50-7ee60365b30c)
 
+
 **17. StudiesModel**
+
 ![StudyModel](https://github.com/WalterDrake/NT208/assets/87658807/0d89c91b-dfb9-47c5-8aaa-4e63226e4ab2)
 
+
 **18. TeacherModel**
+
 ![TeacherModel](https://github.com/WalterDrake/NT208/assets/87658807/8211e52f-fe2e-4a9c-bd2d-11f0f99c6b6f)
 
+
 **19. TeamBoxModel**
+
 ![TeamBox](https://github.com/WalterDrake/NT208/assets/87658807/cc36fdc3-762a-4440-bb12-0103c9d54d27)
 
+
 **20. TodolistModel**
+
 ![Todolist](https://github.com/WalterDrake/NT208/assets/87658807/ab21b2e5-c263-4bfb-a177-dc16c9a9477e)
 
+
 **21. UsersModel**
+
 ![User](https://github.com/WalterDrake/NT208/assets/87658807/abf2b909-0cd6-4ff7-91cb-4d777c4d0f4f)
 
+
 **22. VideoModel**
+
 ![VideoModel](https://github.com/WalterDrake/NT208/assets/87658807/53b66f0b-7606-45b5-ae05-d30a90f87704)
 
 
