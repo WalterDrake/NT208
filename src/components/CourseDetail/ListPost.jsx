@@ -5,22 +5,26 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import * as posts from "../../service/posts"
 import useUser from "../../hook/useUser";
 import { Tooltip } from "@mui/material";
+import { CurrentItemContext } from "../../state/CoursecDetailProvider";
 
 export default function ListPost({ item }) {
+  const {curItem} = useContext(CurrentItemContext);
   const { user } = useUser();
   const [listPosts, setListPosts] = useState([]);
   useEffect(() => {
-    const postInterval = setInterval(() => { 
-      posts.getListPostofItem(item._id)
-        .then((res) => {
-          setListPosts(res);
-        })
-        .catch((err) => {
-          console.log("err get list post", err);
-        });
-    }, 10000);
+    if(item._id) {
+      var postInterval = setInterval(() => { 
+        posts.getListPostofItem(item._id)
+          .then((res) => {
+            setListPosts(res);
+          })
+          .catch((err) => {
+            console.log("err get list post", err);
+          });
+      }, 3000);
+    }
     return () => clearInterval(postInterval);
-  }, [listPosts,item]);
+  }, [listPosts,curItem]);
   const handleDeletePost = (id) => {
     posts
       .DeletePost(id)
