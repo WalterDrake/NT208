@@ -124,3 +124,11 @@ export const deleteCourse = async (id) => {
     }
 }
 
+export const markStudent = async (idStudent, idCourse, mark) => {
+    try {
+        const response = await httpRequest.post(`/courses/ChamDiem/${idStudent}/${idCourse}/${mark}`)
+        return response
+    } catch (error) {
+        throw error.response
+    }
+}

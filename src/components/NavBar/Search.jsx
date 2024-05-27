@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import Tooltip from "@mui/material/Tooltip";
 import useDebounce from "../../hook/useDebounce";
 import * as searchServices from "../../service/search";
+import { Link } from "react-router-dom";
 
 import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -75,14 +76,14 @@ function Search() {
                     <div tabIndex="-1" {...attrs} className="bg-white md:p-10">
                         <ul>
                             {searchResult.length>0&&searchResult.map((result,index) => (
-                                <li key={index} className="flex">
+                                <li key={index} className="flex hover:bg-slate-300 md:m-2 p-1 rounded-xl">
                                     <div>
                                         <Avatar src={GetLinkImage(result)}  alt={`${result.description}-${result.title}-UITCourse`}/>
                                     </div>
-                                    <div>
+                                    <Link to={`/Khoahocpage/${result?._id}/${result?.owner}`}>
                                         <p>{result.title}</p>
                                         <time >create:{useTime(result.createdAt)}</time>
-                                    </div>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>

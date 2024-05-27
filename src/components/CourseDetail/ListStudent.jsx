@@ -1,6 +1,7 @@
 import  {useState,useEffect} from 'react'
 import * as courses from '../../service/courses'
 import useUser from '../../hook/useUser'
+import MarkDialog from './MarkDialog'
 export default function ListStudent({ courseId }) {
     const{user} = useUser()
     const [listStudent, setListStudent] = useState([{}])
@@ -24,8 +25,6 @@ export default function ListStudent({ courseId }) {
                     </div>
                     <hr />
                     <button className="bg-blue-500 text-white" onClick={() => {
-                        console.log('student', student)
-                        console.log('courseId', courseId)
                         courses.deleteStudent(student._id, courseId)
                             .then(res => {
                                 console.log('res delete student', res)
@@ -34,6 +33,7 @@ export default function ListStudent({ courseId }) {
                                 console.log('err delete student', err)
                             })
                     }}>Delete</button>
+                    <MarkDialog studentId={student._id}/>
                 </li>
             ))
             }

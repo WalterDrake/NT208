@@ -23,16 +23,12 @@ const useTime = (pastTimestamp) => {
         hour = Math.floor(differenceInSeconds / 3600);
         let remainingSeconds = differenceInSeconds % 3600;
         minute = Math.floor(remainingSeconds / 60);
-        remainingSeconds %= 60;
-        second = Math.floor(remainingSeconds);
     } else {
         day = Math.floor(differenceInSeconds / (3600 * 24));
         let remainingSeconds = differenceInSeconds % (3600 * 24);
         hour = Math.floor(remainingSeconds / 3600);
         remainingSeconds %= 3600;
         minute = Math.floor(remainingSeconds / 60);
-        remainingSeconds %= 60;
-        second = Math.floor(remainingSeconds);
     }
     let output = ''
     if (day > 0)
