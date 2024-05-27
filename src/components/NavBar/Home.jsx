@@ -72,11 +72,20 @@ export default function Home() {
   }, [])
   return (
     <Grid container className='w-full' spacing={4}>
-      <Grid item xs={12} md={9} className='min-w[12.5rem] h-auto'>
-        <div className='min-h-[12rem] min-w-[12.5rem] h-auto bg-gradient-to-r from-blue-500 to-blue-200 bg-opacity-50 rounded-lg'
-          id='home-hello-box'>
-          <img src="../assets/Backpack.svg" />
-          <h1 className='text-3xl text-white font-bold align-middle '>Chào mừng đến với trang web học tập</h1>
+      <Grid item xs={12} md={9} className='min-w-[12.5rem]'>
+        <div
+          className="min-h-[10rem] h-10 min-w-[12.5rem] shrink-0 flex bg-gradient-to-r from-blue-400 to-blue-200 bg-opacity-50 rounded-lg"
+
+        >
+          <h1 className="text-3xl mt-8 ml-10 flex text-white font-bold ">
+            Xin chào, {user.username}!👋
+          </h1>
+          <div className=" flex flex-initial -mt-28 h-96 w-96 ml-32">
+            <img
+              src="./src/assets/School.svg"
+              className="object-contain"
+            />
+          </div>
         </div>
         <div className="mt-8 min-h-[24rem] bg-[#F0F7FF] rounded-lg">
           <div className="title justify-between">
