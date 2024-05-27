@@ -2,9 +2,7 @@ import { StatusCodes } from 'http-status-codes'
 import { groupService } from '~/services/groupService'
 
 const createNew = async (req, res, next) => {
-
   try {
-
     // Direct data to Service
     const createdGroup = await groupService.createNew(req.body)
 
@@ -21,7 +19,9 @@ const update = async (req, res, next) => {
     const updatedGroup = await groupService.update(groupId, req.body)
 
     res.status(StatusCodes.OK).json(updatedGroup)
-  } catch (error) { next(error) }
+  } catch (error) {
+    next(error)
+  }
 }
 
 const getAll = async (req, res, next) => {
@@ -30,7 +30,9 @@ const getAll = async (req, res, next) => {
     const getAllGroup = await groupService.getAll(userId)
 
     res.status(StatusCodes.OK).json(getAllGroup)
-  } catch (error) { next(error) }
+  } catch (error) {
+    next(error)
+  }
 }
 
 const getGroupOwnByTeacher = async (req, res, next) => {
@@ -39,7 +41,9 @@ const getGroupOwnByTeacher = async (req, res, next) => {
     const getAllGroup = await groupService.getGroupOwnByTeacher(userId)
 
     res.status(StatusCodes.OK).json(getAllGroup)
-  } catch (error) { next(error) }
+  } catch (error) {
+    next(error)
+  }
 }
 
 const getPrivate = async (req, res, next) => {
@@ -48,7 +52,9 @@ const getPrivate = async (req, res, next) => {
     const getAllGroup = await groupService.getGroupOwnByOther(userId)
 
     res.status(StatusCodes.OK).json(getAllGroup)
-  } catch (error) { next(error) }
+  } catch (error) {
+    next(error)
+  }
 }
 
 const joinGroup = async (req, res, next) => {
@@ -57,7 +63,9 @@ const joinGroup = async (req, res, next) => {
     const getAllGroup = await groupService.joinGroup(userId, req.body)
 
     res.status(StatusCodes.OK).json(getAllGroup)
-  } catch (error) { next(error) }
+  } catch (error) {
+    next(error)
+  }
 }
 
 const leaveGroup = async (req, res, next) => {
@@ -66,7 +74,9 @@ const leaveGroup = async (req, res, next) => {
     const getAllGroup = await groupService.leaveGroup(userId, req.body)
 
     res.status(StatusCodes.OK).json(getAllGroup)
-  } catch (error) { next(error) }
+  } catch (error) {
+    next(error)
+  }
 }
 
 const getGroup = async (req, res, next) => {
@@ -75,24 +85,28 @@ const getGroup = async (req, res, next) => {
     const getAllGroup = await groupService.getGroup(code)
 
     res.status(StatusCodes.OK).json(getAllGroup)
-  } catch (error) { next(error) }
+  } catch (error) {
+    next(error)
+  }
 }
 
 const getAllGroupByAdmin = async (req, res, next) => {
   try {
     const adminId = req.params.id
     const getAllGroup = await groupService.getAllGroupByAdmin(adminId)
-
     res.status(StatusCodes.OK).json(getAllGroup)
   } catch (error) { next(error) }
 }
 
-const deleteGroup = async (req, res, next) => {
+const deleteGroupByOwner = async (req, res, next) => {
+  const code = req.params.code
+  const owner = req.params.owner
   try {
-    const groupId = req.params.id
-    const getAllGroup = await groupService.deleteGroup(groupId, req.body)
-    res.status(StatusCodes.OK).json(getAllGroup)
-  } catch (error) { next(error) }
+    const result = await groupService.deleteGroupByOwner(code, owner)
+    res.status(StatusCodes.OK).json(result)
+  } catch (error) {
+    next(error)
+  }
 }
 
 const getGroupByTeacherId = async (req, res, next) => {
@@ -102,6 +116,16 @@ const getGroupByTeacherId = async (req, res, next) => {
 
     res.status(StatusCodes.OK).json(getGroupById)
   } catch (error) { next(error) }
+}
+
+const GetGroupOfStudent = async (req, res, next) => {
+  const studentid = req.params.id
+  try {
+    const result = await groupService.GetGroupOfStudent(studentid)
+    res.status(StatusCodes.OK).json(result)
+  } catch (error) {
+    next(error)
+  }
 }
 
 export const groupController = {
@@ -114,6 +138,8 @@ export const groupController = {
   getPrivate,
   joinGroup,
   leaveGroup,
-  deleteGroup,
-  getGroupByTeacherId
+  getGroupByTeacherId,
+  deleteGroupByOwner,
+  GetGroupOfStudent
 }
+

@@ -1,6 +1,7 @@
 import express from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { groupController } from '~/controllers/groupController'
+import { groupModel } from '~/models/Hocnhom/groupModel'
 const Router = express.Router()
 
 Router.route('/')
@@ -11,7 +12,6 @@ Router.route('/')
 
 Router.route('/:id')
   .put(groupController.update)
-  .delete(groupController.deleteGroup)
 Router.route('/:id/getall')
   .get(groupController.getAll)
 Router.route('/:id/getpublic')
@@ -28,4 +28,8 @@ Router.route('/:id/getAllgroupByAdmin') // get by id
   .get(groupController.getAllGroupByAdmin)
 Router.route(':/id/getOwnGroup') // id teacher
   .get(groupController.getGroupByTeacherId)
+Router.route('/:code/:owner').delete(groupController.deleteGroupByOwner)
+Router.route('/GetGroupOfStudent/:id').get(groupController.GetGroupOfStudent)
+Router.route('/GetListStudent/:id').get(groupModel.getListStudentOfGroup)
 export const groupRoute = Router
+

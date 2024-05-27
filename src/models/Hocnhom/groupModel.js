@@ -3,8 +3,11 @@ import { ObjectId } from 'mongodb'
 import { GET_DB } from '~/config/mongodb'
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
 import { studentModel } from '../studentModel'
+import { StatusCodes } from 'http-status-codes'
 import { TEACHER_COLLECTION_NAME } from '../teacherModel'
+
 const GROUP_COLLECTION_NAME = 'groups'
+
 const GROUP_COLLECTION_SCHEMA = Joi.object({
   name: Joi.string().required().min(3).max(50).trim().strict(),
   owner: Joi.string()
@@ -208,6 +211,7 @@ const getGroupOwnByOther = async (userId) => {
           $match: {
             'newGroupInfo.role': { $ne: 'GiaoVien' }
           }
+
         },
         {
           $group: {
@@ -225,13 +229,17 @@ const getGroupOwnByOther = async (userId) => {
 
 const pushToListMem = async (getGroup, userId) => {
   try {
-    const result = await GET_DB().collection(GROUP_COLLECTION_NAME).findOneAndUpdate(
-      { _id: new ObjectId(getGroup._id) },
-      { $push: { listMem: new ObjectId(userId) } },
-      { returnDocument: 'after' }
-    )
+    const result = await GET_DB()
+      .collection(GROUP_COLLECTION_NAME)
+      .findOneAndUpdate(
+        { _id: new ObjectId(getGroup._id) },
+        { $push: { listMem: new ObjectId(userId) } },
+        { returnDocument: 'after' }
+      )
     return result
-  } catch (error) { throw new Error(error) }
+  } catch (error) {
+    throw new Error(error)
+  }
 }
 
 const findOneByCode = async (codeId) => {
@@ -246,13 +254,17 @@ const findOneByCode = async (codeId) => {
 
 const pullToListMem = async (getGroup, userId) => {
   try {
-    const result = await GET_DB().collection(GROUP_COLLECTION_NAME).findOneAndUpdate(
-      { _id: new ObjectId(getGroup._id) },
-      { $pull: { listMem: new ObjectId(userId) } },
-      { returnDocument: 'after' }
-    )
+    const result = await GET_DB()
+      .collection(GROUP_COLLECTION_NAME)
+      .findOneAndUpdate(
+        { _id: new ObjectId(getGroup._id) },
+        { $pull: { listMem: new ObjectId(userId) } },
+        { returnDocument: 'after' }
+      )
     return result
-  } catch (error) { throw new Error(error) }
+  } catch (error) {
+    throw new Error(error)
+  }
 }
 
 const getAllGroupByAdmin = async () => {
@@ -260,6 +272,67 @@ const getAllGroupByAdmin = async () => {
     const result = await GET_DB()
       .collection(GROUP_COLLECTION_NAME)
       .find({})
+      .toArray()
+    return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+const deleteGroupByOwner = async (code, owner) => {
+  try {
+    const result = await GET_DB()
+      .collection(GROUP_COLLECTION_NAME)
+      .findOneAndDelete({
+        owner: new ObjectId(owner),
+        code: code
+      })
+    return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+const getListStudentOfGroup = async (req, res, next) => {
+  try {
+    const result = await GET_DB()
+      .collection(GROUP_COLLECTION_NAME)
+      .aggregate([
+        {
+          $match: {
+            code: req.params.id
+          }
+        },
+        {
+          $lookup: {
+            from: studentModel.USER_COLLECTION_NAME,
+            localField: 'listMem',
+            foreignField: '_id',
+            as: 'listMemOfGroup'
+          }
+        },
+        {
+          $unwind: '$listMemOfGroup'
+        },
+        {
+          $project: {
+            // Các trường cần lấy từ bản ghi sinh viên
+            listMemOfGroup: 1
+          }
+        }
+      ])
+      .toArray()
+    return res.status(StatusCodes.OK).json(result)
+  } catch (error) {
+    next(error)
+  }
+}
+
+const findGroupOfStudent = async (studentid) => {
+  try {
+    const result = await GET_DB()
+      .collection(GROUP_COLLECTION_NAME)
+      .find({ listMem: new ObjectId(studentid) })
       .toArray()
     return result
   } catch (error) {
@@ -313,5 +386,9 @@ export const groupModel = {
   findOneByCode,
   pullToListMem,
   deleteOneById,
-  getGroupByTeacherId
+  getGroupByTeacherId,
+  deleteGroupByOwner,
+  getListStudentOfGroup,
+  findGroupOfStudent
 }
+

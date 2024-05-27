@@ -1,5 +1,4 @@
 /* eslint-disable no-useless-catch */
-
 import { chatRealTimeModel } from '~/models/Hocnhom/ChatRealTime/chatRealTimeModel'
 import { groupModel } from '~/models/Hocnhom/groupModel'
 import { teamBoxModel } from '~/models/Hocnhom/teamboxModel'
@@ -8,6 +7,7 @@ import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
 import { ObjectId } from 'mongodb'
 import { teacherModel } from '~/models/teacherModel'
+import { GET_DB } from '~/config/mongodb'
 
 const createNew = async (reqBody) => {
   try {
@@ -18,37 +18,37 @@ const createNew = async (reqBody) => {
       ...reqBody
     }
     const checkCodeId = await groupModel.findOneByCode(newGroup.code)
-    if (checkCodeId)
-    {
-      return { Error : 'Same code' }
+    if (checkCodeId) {
+      return { Error: 'Same code' }
     }
     // Call model layer to save record into database
     const createdGroup = await groupModel.createNew(newGroup)
     const getNewGroup = await groupModel.findOneById(createdGroup.insertedId)
     await groupModel.pushToListMem(getNewGroup, newGroup.owner)
-    for (const mem of mems)
-    {
+    for (const mem of mems) {
       const student = await studentModel.findOneByEmail(mem)
-      if (student != null)
-      {
+      if (student != null) {
         await groupModel.pushToListMem(getNewGroup, student._id)
         await studentModel.pushToGroup(getGroup, student._id)
         continue
       }
 
       const teacher = await teacherModel.findOneByEmail(mem)
-      if (teacher != null)
-      {
+      if (teacher != null) {
         await groupModel.pushToListMem(getNewGroup, teacher._id)
         // await teacherModel.pushToGroup(getGroup, teacher._id)
       }
     }
 
     // Get record board after calling (optional)
-    const getNewGroupAgain = await groupModel.findOneById(createdGroup.insertedId)
+    const getNewGroupAgain = await groupModel.findOneById(
+      createdGroup.insertedId
+    )
     // Return result; note: have to return in Service
     return getNewGroupAgain
-  } catch (error) { throw error }
+  } catch (error) {
+    throw error
+  }
 }
 
 const update = async (groupId, reqBody) => {
@@ -59,26 +59,28 @@ const update = async (groupId, reqBody) => {
     const updatedGroup = await groupModel.update(groupId, updateData)
 
     const teamBoxId = await teamBoxModel.findOneById(updatedGroup.teamBoxId)
-    if (teamBoxId != null)
-    {
-      const chatRealTimeId = await chatRealTimeModel.findOneById(teamBoxId.chatRealTimeId)
-      if (chatRealTimeId != null)
-      {
+    if (teamBoxId != null) {
+      const chatRealTimeId = await chatRealTimeModel.findOneById(
+        teamBoxId.chatRealTimeId
+      )
+      if (chatRealTimeId != null) {
         const conversationMems = chatRealTimeId.conversationMem
         const groupListMems = updatedGroup.listMem
         for (const conversationMem of conversationMems) {
-          if (!groupListMems.includes(conversationMem))
-          {
-            await chatRealTimeModel.pullMemList(conversationMem, chatRealTimeId._id)
+          if (!groupListMems.includes(conversationMem)) {
+            await chatRealTimeModel.pullMemList(
+              conversationMem,
+              chatRealTimeId._id
+            )
           }
         }
-        if (groupListMems.length != chatRealTimeId.conversationMem.length)
-        {
-          for (const groupListMem of groupListMems)
-          {
-            if (!chatRealTimeId.conversationMem.includes(groupListMem))
-            {
-              await chatRealTimeModel.pushMemList(groupListMem, chatRealTimeId._id)
+        if (groupListMems.length != chatRealTimeId.conversationMem.length) {
+          for (const groupListMem of groupListMems) {
+            if (!chatRealTimeId.conversationMem.includes(groupListMem)) {
+              await chatRealTimeModel.pushMemList(
+                groupListMem,
+                chatRealTimeId._id
+              )
             }
           }
         }
@@ -86,20 +88,22 @@ const update = async (groupId, reqBody) => {
     }
 
     return updatedGroup
-  } catch (error) { throw error }
+  } catch (error) {
+    throw error
+  }
 }
 
-const getAll = async(userID) => {
+const getAll = async (userID) => {
   const getAllGroup = await groupModel.getAll(userID)
   return getAllGroup
 }
 
-const getGroupOwnByTeacher = async(userID) => {
+const getGroupOwnByTeacher = async (userID) => {
   const getAllGroup = await groupModel.getGroupOwnByTeacher(userID)
   return getAllGroup
 }
 
-const getGroupOwnByOther= async(userID) => {
+const getGroupOwnByOther = async (userID) => {
   const getAllGroup = await groupModel.getGroupOwnByOther(userID)
   return getAllGroup
 }
@@ -110,15 +114,12 @@ const joinGroup = async (userId, reqBody) => {
       ...reqBody
     }
     const getGroup = await groupModel.findOneByCode(data.code)
-    if (getGroup != null)
-    {
+    if (getGroup != null) {
       await groupModel.pushToListMem(getGroup, userId)
-      if (studentModel.findOneById(userId))
-      {
+      if (studentModel.findOneById(userId)) {
         await studentModel.pushToGroup(getGroup, userId)
       }
-      else
-      {
+      else {
         await teacherModel.pushToGroup(getGroup, userId)
       }
 
@@ -127,60 +128,70 @@ const joinGroup = async (userId, reqBody) => {
   } catch (error) { throw error }
 }
 
+
 const leaveGroup = async (userId, reqBody) => {
   try {
     const data = {
       ...reqBody
     }
     const getGroup = await groupModel.findOneByCode(data.code)
-    if (getGroup != null)
-    {
+    if (getGroup != null) {
       await groupModel.pullToListMem(getGroup, userId)
-      await studentModel.pullToGroup(getGroup, userId)
+      if (studentModel.findOneById(userId)) {
+        await studentModel.pullToGroup(getGroup, userId)
+      }
+      else {
+        await teacherModel.pullToGroup(getGroup, userId)
+      }
     }
     return { Leaving: 'Successfully!' }
   } catch (error) { throw error }
 }
 
+
 const getGroup = async (code) => {
   try {
     const getGroup = await groupModel.findOneByCode(code)
     return getGroup
-  } catch (error) { throw error }
+  } catch (error) {
+    throw error
+  }
 }
 
 const getAllGroupByAdmin = async (userId) => {
   try {
     const getAllGroup = await groupModel.getAllGroupByAdmin(userId)
     return getAllGroup
-  } catch (error) { throw error }
+  } catch (error) {
+    throw error
+  }
 }
 
-const deleteGroup = async (groupId, reqBody) => {
+const deleteGroupByOwner = async (code, owner) => {
   try {
-    const data = {
-      ...reqBody,
-      ownerId : new ObjectId(reqBody.ownerId)
-    }
-    const targetGroup = await groupModel.findOneById(groupId)
-
-    if (!targetGroup) {
-      throw new ApiError(StatusCodes.NOT_FOUND, 'Group not found!')
-    }
-    if (targetGroup.owner.equals(data.ownerId))
-    {
-      const memIds = targetGroup.listMem
-      for (const memId of memIds)
-      {
-        await studentModel.pullFromGroup(targetGroup._id, memId)
+    const getGroup = await groupModel.findOneByCode(code)
+    if (getGroup && getGroup.owner == owner) {
+      //Xoa group
+      await groupModel.deleteGroupByOwner(code, owner)
+      //Xoa hoc sinh khoi group
+      for (const mem of getGroup.listMem) {
+        await studentModel.pullToGroup(getGroup, mem)
       }
+      return { Deleting: 'Successfully!' }
     }
-    else {
-      return { Error: 'You don\'t own this group' }
-    }
-    await groupModel.deleteOneById(targetGroup._id)
-    return { deleteResult: 'Group deleted successfully!' }
-  } catch (error) { throw error }
+    throw { Deleting: 'check your role!' }
+  } catch (error) {
+    throw error
+  }
+}
+
+const GetGroupOfStudent = async (studentid) => {
+  try {
+    const getGroup = await groupModel.findGroupOfStudent(studentid)
+    return getGroup
+  } catch (error) {
+    throw error
+  }
 }
 
 const getGroupByTeacherId = async (userId) => {
@@ -190,7 +201,7 @@ const getGroupByTeacherId = async (userId) => {
   } catch (error) { throw error }
 }
 
-export const groupService ={
+export const groupService = {
   getAllGroupByAdmin,
   getGroup,
   createNew,
@@ -200,6 +211,8 @@ export const groupService ={
   getGroupOwnByOther,
   joinGroup,
   leaveGroup,
-  deleteGroup,
+  deleteGroupByOwner,
+  GetGroupOfStudent,
   getGroupByTeacherId
 }
+

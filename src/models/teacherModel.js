@@ -235,6 +235,21 @@ const pushToGroup = async (getGroup, userId) => {
   }
 }
 
+const pullToGroup = async (getGroup, userId) => {
+  try {
+    const result = await GET_DB()
+      .collection(TEACHER_COLLECTION_NAME)
+      .findOneAndUpdate(
+        { _id: new ObjectId(userId) },
+        { $pull: { group: new ObjectId(getGroup._id) } },
+        { returnDocument: 'after' }
+      )
+    return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
 export const teacherModel = {
   TEACHER_COLLECTION_NAME,
   TEACHER_COLLECTION_SCHEMA,
@@ -249,5 +264,6 @@ export const teacherModel = {
   deleteOneCourse,
   findOneByEmail,
   pushCourseintoTeacher,
-  pushToGroup
+  pushToGroup,
+  pullToGroup
 }
