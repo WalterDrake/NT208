@@ -19,7 +19,8 @@ UITeCo là một trang web học tập trực tuyến dành cho sinh viên và g
 **Chức năng 2: Trang chủ**
 - Đề xuất danh sách các khóa học, nhóm học 
 - Hiển thị danh sách thành viên đang hoạt động
-- Hiển thị lịch 
+- Hiển thị lịch
+
 **Chức năng 3: Khóa học**
 - Tạo khóa học 
 - Cho phép học sinh tham gia khóa học
