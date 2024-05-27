@@ -85,6 +85,7 @@ const getEventOfStudent = async (req, res, next) => {
       .collection(eventModel.EVENT_COLLECTION_NAME)
       .find({ listimpact: String(req.params.id) })
       .toArray();
+
     return res.status(StatusCodes.OK).json(result);
   } catch (error) {
     next(error);
