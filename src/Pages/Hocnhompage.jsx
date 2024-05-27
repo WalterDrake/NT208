@@ -12,7 +12,8 @@ const HocNhompage = () => {
   const { user } = useUser()
   const [hocnhoms, setHocnhoms] = useState([])
   useEffect(() => {
-    groups.getAllGroupByIdUser(user._id)
+    if(user.role=='student') {
+      groups.getAllGroupByIdUser(user._id)
       .then((res) => {
         console.log('res hoc nhom get by id user', res)
         setHocnhoms(res)
@@ -20,6 +21,16 @@ const HocNhompage = () => {
       .catch((err) => {
         console.log('err get list group', err)
       })
+    }
+    else if(user.role =='teacher'|| user.role =='admin') {
+      groups.getAllGroupByAdmin()
+      .then((res) => {
+        setHocnhoms(res)
+      })
+      .catch((err) => {
+        console.log('err get list group', err)
+      })
+    }
   }
     , [])
   const [openAddGroup, setOpenAddGroup] = useState(false);
