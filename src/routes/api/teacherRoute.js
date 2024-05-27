@@ -17,6 +17,7 @@ Router.route("/TeacherLogin/:email/:password").post(
 );
 Router.route("/Teacher/:id").get(teacherController.getTeacherDetails);
 
+Router.route("/getall").get(teacherController.getTeacherAll);
 // API hỗ trợ việc di chuyển card giữa các column khác nhau trong một board
 
 export const teacherRoute = Router;
