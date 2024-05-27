@@ -1,8 +1,3 @@
-/**
- * Updated by trungquandev.com's author on August 17 2023
- * YouTube: https://youtube.com/@trungquandev
- * "A bit of fragrance clings to the hand that gives flowers!"
- */
 import express from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { boardValidation } from '~/validations/boardValidation'
@@ -18,7 +13,6 @@ Router.route('/add/:id')
 
 Router.route('/:id')
   .get(boardController.getDetails)
-  .delete(boardValidation.deleteBoard, boardController.deleteBoard)
   .put(boardValidation.update, boardController.update)
 Router.route('/user/:id').get(boardController.getDetailsBoardByUser)
 // API hỗ trợ việc di chuyển card giữa các column khác nhau trong một board

@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb'
 import { GET_DB } from '~/config/mongodb'
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
 import { studentModel } from '../studentModel'
-
+import { TEACHER_COLLECTION_NAME } from '../teacherModel'
 const GROUP_COLLECTION_NAME = 'groups'
 const GROUP_COLLECTION_SCHEMA = Joi.object({
   name: Joi.string().required().min(3).max(50).trim().strict(),
@@ -207,7 +207,8 @@ const getGroupOwnByOther = async (userId) => {
         {
           $match: {
             'newGroupInfo.role': { $ne: 'GiaoVien' }
-          } },
+          }
+        },
         {
           $group: {
             _id: '$_id', // Group back by user ID
@@ -236,11 +237,11 @@ const pushToListMem = async (getGroup, userId) => {
 const findOneByCode = async (codeId) => {
   try {
     const result = await GET_DB().collection(GROUP_COLLECTION_NAME).find({
-      code : codeId
+      code: codeId
     }).toArray()
     return result.length > 0 ? result[0] : null
   }
-  catch (error) { throw new Error(error)}
+  catch (error) { throw new Error(error) }
 }
 
 const pullToListMem = async (getGroup, userId) => {
@@ -273,6 +274,31 @@ const deleteOneById = async (messageId) => {
   } catch (error) { throw new Error(error) }
 }
 
+const getGroupByTeacherId = async (userId) => {
+  try {
+    const result = await GET_DB()
+      .collection(TEACHER_COLLECTION_NAME)
+      .aggregate([
+        {
+          $match: {
+            _id: new ObjectId(userId)
+          }
+        },
+        {
+          $lookup: {
+            from: groupModel.GROUP_COLLECTION_NAME,
+            localField: '_id',
+            foreignField: 'owner',
+            as: 'groupInfo'
+          }
+        }])
+      .toArray()
+    return result.length > 0 ? result[0] : null
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
 export const groupModel = {
   GROUP_COLLECTION_NAME,
   getAllGroupByAdmin,
@@ -286,5 +312,6 @@ export const groupModel = {
   pushToListMem,
   findOneByCode,
   pullToListMem,
-  deleteOneById
+  deleteOneById,
+  getGroupByTeacherId
 }

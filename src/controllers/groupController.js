@@ -95,6 +95,14 @@ const deleteGroup = async (req, res, next) => {
   } catch (error) { next(error) }
 }
 
+const getGroupByTeacherId = async (req, res, next) => {
+  try {
+    const Id = req.params.id
+    const getGroupById = await groupService.getGroupByTeacherId(Id)
+
+    res.status(StatusCodes.OK).json(getGroupById)
+  } catch (error) { next(error) }
+}
 
 export const groupController = {
   getGroup,
@@ -106,5 +114,6 @@ export const groupController = {
   getPrivate,
   joinGroup,
   leaveGroup,
-  deleteGroup
+  deleteGroup,
+  getGroupByTeacherId
 }

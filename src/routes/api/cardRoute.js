@@ -8,5 +8,5 @@ const Router = express.Router()
 Router.route('/')
   .post(cardValidation.createNew, cardController.createNew)
 Router.route('/:id')
-  .delete(cardValidation.deleteCard, cardController.deleteCard)
+  .delete(cardValidation.deleteCard, cardController.deleteItem)
 export const cardRoute = Router

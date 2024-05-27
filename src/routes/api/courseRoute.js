@@ -8,9 +8,6 @@ Router.route('/').get((req, res) => {
   res.status(StatusCodes.OK).json({ message: 'GET: API get list Course' })
 })
 
-Router.route('/').get((req, res) => {
-  res.status(StatusCodes.OK).json({ message: 'GET: API get list Course' })
-})
 
 Router.route('/CreateCourse').post(courseController.createNewCoursebyAdmin)
 
@@ -22,12 +19,12 @@ Router.route('/DeleteCourse/:id').delete(courseController.deleteCoursebyAdmin)
 // truyen vao id course
 Router.route('/DeleteCourses/:id').delete(
   courseController.deleteCoursesbyAdmin
-); //truyen vao id giao vien
+) //truyen vao id giao vien
 
-Router.route("/UpdateCourse/:id").put(courseController.updateCourseByAdmin);
+Router.route('/UpdateCourse/:id').put(courseController.updateCourseByAdmin)
 
 // truyen vao id course
-Router.route("/AddStudent/:email/:idcourse").put(
+Router.route('/AddStudent/:email/:idcourse').put(
   courseController.pushStudentIntoCourse
 ) // truyen vao idstudent va idcourse
 Router.route('/DeleteStudentCourse/:idstudent/:idcourse').put(
@@ -41,12 +38,12 @@ Router.route('/GetListStudent/:id').get(
 ) // truyen vao id khoa hoc
 Router.route('/GetListCourseTeacher/:id').get(
   courseController.getListCourseofTeacher
-); // truyen vao id giao vien
-Router.route("/ChamDiem/:idstudent/:idcourse/:diemso").post(
+) // truyen vao id giao vien
+Router.route('/ChamDiem/:idstudent/:idcourse/:diemso').post(
   courseController.chamdiemchoStudent
-); // truyen vao id student id course va diem so
-Router.route("/DeleteOneItem").delete(courseController.deleteOneItem); // truyen vao id item
-Router.route("/GetListCourseStudent/:id").get(
+) // truyen vao id student id course va diem so
+Router.route('/DeleteOneItem').delete(courseController.deleteOneItem) // truyen vao id item
+Router.route('/GetListCourseStudent/:id').get(
   courseController.getListCoursesofStudentid
 ) // truyen vao id hoc sinh
 Router.route('/GetListCoutseDone/:id').get(
@@ -56,9 +53,8 @@ Router.route('/GetMark/:idstudent/:idcourse').delete(
   courseController.getMarkOfCourse
 ) // truyen vao idstudent va idcourse
 
-export const courseRoute = Router
-Router.route("/AddListStudentOnCourse/:id").post(
+Router.route('/AddListStudentOnCourse/:id').post(
   courseController.AddListStudentOnCourse
-); // truyền vào id và 1 mảng
+) // truyền vào id và 1 mảng
 
-export const courseRoute = Router;
+export const courseRoute = Router

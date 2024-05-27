@@ -7,6 +7,7 @@ import { studentModel } from '~/models/studentModel'
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
 import { ObjectId } from 'mongodb'
+import { teacherModel } from '~/models/teacherModel'
 
 const createNew = async (reqBody) => {
   try {
@@ -31,6 +32,15 @@ const createNew = async (reqBody) => {
       if (student != null)
       {
         await groupModel.pushToListMem(getNewGroup, student._id)
+        await studentModel.pushToGroup(getGroup, student._id)
+        continue
+      }
+
+      const teacher = await teacherModel.findOneByEmail(mem)
+      if (teacher != null)
+      {
+        await groupModel.pushToListMem(getNewGroup, teacher._id)
+        // await teacherModel.pushToGroup(getGroup, teacher._id)
       }
     }
 
@@ -103,7 +113,15 @@ const joinGroup = async (userId, reqBody) => {
     if (getGroup != null)
     {
       await groupModel.pushToListMem(getGroup, userId)
-      await studentModel.pushToGroup(getGroup, userId)
+      if (studentModel.findOneById(userId))
+      {
+        await studentModel.pushToGroup(getGroup, userId)
+      }
+      else
+      {
+        await teacherModel.pushToGroup(getGroup, userId)
+      }
+
     }
     return { Joining: 'Successfully!' }
   } catch (error) { throw error }
@@ -120,7 +138,7 @@ const leaveGroup = async (userId, reqBody) => {
       await groupModel.pullToListMem(getGroup, userId)
       await studentModel.pullToGroup(getGroup, userId)
     }
-    return { Leaving: 'Successfully!'}
+    return { Leaving: 'Successfully!' }
   } catch (error) { throw error }
 }
 
@@ -165,6 +183,13 @@ const deleteGroup = async (groupId, reqBody) => {
   } catch (error) { throw error }
 }
 
+const getGroupByTeacherId = async (userId) => {
+  try {
+    const getGroup = await groupModel.getGroupById(userId)
+    return getGroup
+  } catch (error) { throw error }
+}
+
 export const groupService ={
   getAllGroupByAdmin,
   getGroup,
@@ -175,5 +200,6 @@ export const groupService ={
   getGroupOwnByOther,
   joinGroup,
   leaveGroup,
-  deleteGroup
+  deleteGroup,
+  getGroupByTeacherId
 }
