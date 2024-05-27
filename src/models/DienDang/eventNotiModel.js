@@ -8,8 +8,9 @@ import {
   TEXT_RULE,
 } from "~/utils/validators";
 import { courseModel } from "../Khoahoc/courseModel";
-import { response } from "express";
+import e, { response } from "express";
 import { cboxModel } from "../Monhoc/commentboxModel";
+import { StatusCodes } from "http-status-codes";
 
 const EVENT_COLLECTION_NAME = "events";
 const EVENT_COLLECTION_SCHEMA = Joi.object().keys({
@@ -66,15 +67,27 @@ const findOneById = async (ids) => {
   }
 };
 
-const getDetailsAll = async () => {
+const getDetailsAll = async (req, res, next) => {
   try {
     const result = await GET_DB()
       .collection(EVENT_COLLECTION_NAME)
       .find()
       .toArray();
-    return result;
+    return res.status(StatusCodes.OK).json(result);
   } catch (error) {
-    throw new Error(error);
+    next(error);
+  }
+};
+
+const getEventOfStudent = async (req, res, next) => {
+  try {
+    const result = await GET_DB()
+      .collection(eventModel.EVENT_COLLECTION_NAME)
+      .find({ listimpact: String(req.params.id) })
+      .toArray();
+    return res.status(StatusCodes.OK).json(result);
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -87,4 +100,5 @@ export const eventModel = {
   //Danh cho Teacher va Hocsinh
   createNew,
   getDetailsAll,
+  getEventOfStudent,
 };

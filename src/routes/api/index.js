@@ -23,6 +23,7 @@ import { complainRoute } from "./complainRoute";
 import { adminRoute } from "./adminRoute";
 import { teacherModel } from "~/models/teacherModel";
 import { teacherRoute } from "./teacherRoute";
+import { eventRoute } from "./eventRoute";
 
 const Router = express.Router();
 // Check APIs /status
@@ -71,6 +72,8 @@ Router.use("/users", userRoute);
 Router.use("/teachers", teacherRoute);
 // Study APIs
 Router.use("/studies", studyRoute);
+// Event APIs
+Router.use("/events", eventRoute);
 
 Router.use("/admin", adminRoute);
 export const APIs = Router;
