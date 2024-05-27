@@ -4,7 +4,7 @@ import { CurrentVideoContext, CurrentCommentListContext } from '../../../../stat
 import useUser from '../../../../hook/useUser'
 import * as comment from '../../../../service/comment'
 import * as commentbox from '../../../../service/commentbox'
-import { Avatar, Box, Button, Drawer, Fab, List, ListItem, ListItemButton, ListItemIcon, ListItemText, TextField } from '@mui/material'
+import { Avatar, Box, Button, Drawer, Fab, List, ListItem, ListItemButton, ListItemIcon, CircularProgress, ListItemText, TextField } from '@mui/material'
 import { NavigationIcon } from 'lucide-react'
 
 export default function CommentVideo() {
@@ -18,7 +18,15 @@ export default function CommentVideo() {
   const { user } = useUser()
   const { curVideo } = useContext(CurrentVideoContext)
   const { curCommentList, setCurCommentList } = useContext(CurrentCommentListContext)
-  
+  // xử lý khi chưa chọn video
+  if (!curVideo || !curVideo.commentBox == undefined) {
+    return (
+      <div>
+        please chosse video
+        <CircularProgress />
+      </div>
+    )
+  }
   useEffect(() => {
     const fetchComments = () => {
       commentbox.getListComments(curVideo.commentBox)
@@ -30,8 +38,8 @@ export default function CommentVideo() {
           console.log('err get list comment', err)
         })
     }
-
-    const intervalId = setInterval(fetchComments, 3000)
+    if (curVideo.commentBox)
+    var intervalId = setInterval(fetchComments, 3000)
     return () => {
       clearInterval(intervalId)
     }
@@ -91,9 +99,9 @@ export default function CommentVideo() {
             {curCommentList.map((comment, index) => (
               <ListItem sx={{ mb: 2 }} key={index} disablePadding>
 
-                <ListItemIcon sx={{ flexDirection: 'column', mr: 2 , fontWeight:600,color:"black"}}>
+                <ListItemIcon sx={{ flexDirection: 'column', mr: 2, fontWeight: 600, color: "black" }}>
                   <Avatar src='https://thespiritofsaigon.net/wp-content/uploads/2022/10/avatar-vo-danh-15.jpg' />
-                  <h4 >{comment?.ten?.[0]?.username|| 'Ẩn danh'}</h4>
+                  <h4 >{comment?.ten?.[0]?.username || 'Ẩn danh'}</h4>
 
                 </ListItemIcon>
                 <ListItemText sx={{ border: '2px solid grey', borderRadius: 2, p: 1 }} primary={comment.datatext} />

@@ -1,5 +1,4 @@
 import React, { useEffect, useContext, useState } from "react";
-import * as posts from "../../service/posts"
 import useUser from "../../hook/useUser";
 
 export default function ListComment({ item }) {

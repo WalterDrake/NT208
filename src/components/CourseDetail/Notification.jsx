@@ -4,23 +4,25 @@ import NotificationAddIcon from '@mui/icons-material/NotificationAdd';
 import * as notification from '../../service/notification'
 import AddNotiItem from '../Form/AddNotiItem';
 import useUser from '../../hook/useUser';
-import { CurrentNotiListContext,CurrentItemContext } from '../../state/CoursecDetailProvider';
+import { CurrentNotiListContext, CurrentItemContext } from '../../state/CoursecDetailProvider';
 export default function Notification({ id }) {
   const { user } = useUser()
   const { curNotiList, setCurNotiList } = useContext(CurrentNotiListContext)
   const { curItem } = useContext(CurrentItemContext)
   useEffect(() => {
-    const intervalListNoti = setInterval(() => {
-      notification.GetlistNoti(curItem._id)
-        .then(res => {
-          if (res)
-            setCurNotiList(res)
-          // console.log('res get list noti', res)
-        })
-        .catch(err => {
-          console.log('err get list noti', err)
-        })
-    }, 3000)
+    if (curItem._id) {
+      var intervalListNoti = setInterval(() => {
+        notification.GetlistNoti(curItem._id)
+          .then(res => {
+            if (res)
+              setCurNotiList(res)
+            // console.log('res get list noti', res)
+          })
+          .catch(err => {
+            console.log('err get list noti', err)
+          })
+      }, 3000)
+    }
     return () => {
       clearInterval(intervalListNoti)
     }
