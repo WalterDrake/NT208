@@ -18,7 +18,7 @@ export default function CommentVideo() {
   const { user } = useUser()
   const { curVideo } = useContext(CurrentVideoContext)
   const { curCommentList, setCurCommentList } = useContext(CurrentCommentListContext)
-
+  
   useEffect(() => {
     const fetchComments = () => {
       commentbox.getListComments(curVideo.commentBox)
@@ -91,9 +91,9 @@ export default function CommentVideo() {
             {curCommentList.map((comment, index) => (
               <ListItem sx={{ mb: 2 }} key={index} disablePadding>
 
-                <ListItemIcon sx={{ flexDirection: 'column', mr: 2 }}>
+                <ListItemIcon sx={{ flexDirection: 'column', mr: 2 , fontWeight:600,color:"black"}}>
                   <Avatar src='https://thespiritofsaigon.net/wp-content/uploads/2022/10/avatar-vo-danh-15.jpg' />
-                  <h4>{comment.owner || 'Ẩn danh'}</h4>
+                  <h4 >{comment?.ten?.[0]?.username|| 'Ẩn danh'}</h4>
 
                 </ListItemIcon>
                 <ListItemText sx={{ border: '2px solid grey', borderRadius: 2, p: 1 }} primary={comment.datatext} />
