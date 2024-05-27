@@ -41,7 +41,7 @@ export default function ShowStudents() {
       </div>
       <div>
         <h2>Create Students</h2>
-        <CreateStudent></CreateStudent>
+        <CreateStudent/>
       </div>
 
     </div>

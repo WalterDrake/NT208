@@ -23,12 +23,12 @@ const CreateStudent = () => {
                 validator.isRequired("#role-login", "Vui lòng nhập role")
             ],
             onSubmit: function (data) {
-                const { email, password, role } = data;
+                const { email, password, role,username } = data;
                 if(role === "student"){
-                    registerStudent({ email, password, role,admin:user._id })
+                    registerStudent({ email, password, username,role,admin:user._id })
                 }
                 else if(role === "teacher"){
-                    registerTeacher({ email, password, role })
+                    registerTeacher({ email, password, role,admin:user._id })
                 }
             },
         });

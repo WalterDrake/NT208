@@ -38,6 +38,7 @@ export const logout = async (id,role) => {
 
 export const registerStudent = async (data) => {
   try {
+    console.log(data);
     const response = await httpRequest.post(`users/StudentReg`, data);
     return response;
   } catch (error) {
