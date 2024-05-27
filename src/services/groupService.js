@@ -133,6 +133,25 @@ const getAllGroupByAdmin = async (userId) => {
     return getAllGroup
   } catch (error) { throw error }
 }
+
+const deleteGroupByOwner = async (code, owner) => {
+  try {
+    const getGroup = await groupModel.findOneByCode(code)
+    if(getGroup && getGroup.owner == owner)
+    {
+      await groupModel.deleteGroupByOwner(code, owner)
+      await teamBoxModel.deleteTeamBoxByGroup(getGroup._id)
+      await chatRealTimeModel.deleteChatRealTimeByGroup(getGroup._id)
+      for (const mem of getGroup.listMem)
+      {
+        await studentModel.pullToGroup(getGroup, mem)
+      }
+      return { Deleting: 'Successfully!' }
+    }
+    throw { Deleting: 'check your role!' }
+  }
+  catch (error) { throw error }
+}
 export const groupService ={
   getAllGroupByAdmin,
   getGroup,
@@ -142,5 +161,6 @@ export const groupService ={
   getGroupOwnByTeacher,
   getGroupOwnByOther,
   joinGroup,
-  leaveGroup
+  leaveGroup,
+  deleteGroupByOwner
 }

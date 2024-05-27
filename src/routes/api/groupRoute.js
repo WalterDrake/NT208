@@ -25,4 +25,5 @@ Router.route('/:code/getgroup') // get by code
   .get(groupController.getGroup)
 Router.route('/:id/getAllgroupByAdmin') // get by id
   .get(groupController.getAllGroupByAdmin)
+Router.route('/:code/:owner').delete(groupController.deleteGroupByOwner)
 export const groupRoute = Router
