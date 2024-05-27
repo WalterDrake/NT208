@@ -33,14 +33,14 @@ export default function Calendar() {
   const [today, setToday] = useState(currentDate);
   const [selectDate, setSelectDate] = useState(currentDate);
   return (
-    <div className="flex bg-white p-2 mb-10 rounded-lg">
+    <div className="flex bg-white p-2 mb-10 shadow-lg rounded-lg">
       <div className="flex gap-10 sm:divide-x  justify-center sm:w-1/2 mx-auto mb-14 mt-2 items-center sm:flex-row flex-col">
         <div className="w-96 bg-white h-96 ">
           <div className="flex justify-between items-center">
             <h1 className="select-none font-semibold">
               {months[today.month()]}, {today.year()}
             </h1>
-            <div className="flex gap-14 items-center ">
+            <div className="flex gap-16 items-center ">
               <GrFormPrevious
                 className="w-5 h-5 cursor-pointer hover:scale-105 transition-all"
                 onClick={() => {
