@@ -37,7 +37,7 @@ import TeacherDetails from './teacherRelated/TeacherDetails';
 import ChooseSubject from './teacherRelated/ChooseSubject';
 import AddTeacher from './teacherRelated/AddTeacher';
 
-const AdminDashboard = ({children}) => {
+const AdminDashboard = ({ children }) => {
     const [open, setOpen] = useState(false);
     const toggleDrawer = () => {
         setOpen(!open);
