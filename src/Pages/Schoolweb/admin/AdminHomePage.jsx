@@ -62,7 +62,7 @@ const AdminHomePage = () => {
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={3} lg={3}>
                         <StyledPaper>
-                            <img src="#" alt="Students" />
+                            <img src="../../src/assets/cap.svg" alt="Students" className='h-32 w-32' />
                             <Title>
                                 Total Students: {listStudent?.length}
                             </Title>
@@ -71,7 +71,7 @@ const AdminHomePage = () => {
                     </Grid>
                     <Grid item xs={12} md={3} lg={3}>
                         <StyledPaper>
-                            <img src="#" alt="Classes" />
+                            <img src="../../src/assets/book1.svg" alt="Classes" className='h-32 w-32' />
                             <Title>
                                 Total Classes:{listCourse?.length}
                             </Title>
@@ -80,7 +80,7 @@ const AdminHomePage = () => {
                     </Grid>
                     <Grid item xs={12} md={3} lg={3}>
                         <StyledPaper>
-                            <img src="#" alt="Teachers" />
+                            <img src="../../src/assets/teacher.svg" alt="Teachers" className='h-32 w-32' />
                             <Title>
                                 Total Teachers:{listTeacher?.length}
                             </Title>
@@ -89,7 +89,7 @@ const AdminHomePage = () => {
                     </Grid>
                     <Grid item xs={12} md={3} lg={3}>
                         <StyledPaper>
-                            <img src="#" alt="Fees" />
+                            <img src="../../src/assets/fee.svg" alt="Fees" className='h-28 w-28' />
                             <Title>
                                 Fees Collection
                             </Title>
