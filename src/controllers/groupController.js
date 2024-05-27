@@ -86,6 +86,16 @@ const getAllGroupByAdmin = async (req, res, next) => {
     res.status(StatusCodes.OK).json(getAllGroup)
   } catch (error) { next(error) }
 }
+const  deleteGroupByOwner = async (req, res, next) => {
+  const code = req.params.code
+  const owner = req.params.owner
+  try {
+    const result = await groupService.deleteGroupByOwner(code, owner)
+    res.status(StatusCodes.OK).json(result)
+  } catch (error) {
+    next(error)
+  }
+}
 export const groupController = {
   getGroup,
   getAllGroupByAdmin,
@@ -95,6 +105,7 @@ export const groupController = {
   getGroupOwnByTeacher,
   getPrivate,
   joinGroup,
-  leaveGroup
+  leaveGroup,
+  deleteGroupByOwner
 }
 
