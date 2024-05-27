@@ -44,16 +44,6 @@ const Navbar = () => {
           activeIcon={<PiListChecksFill className="w-10 h-10 text-[#0077FF]" />}
         />
 
-        <Navbaritem
-          to={config.tinnhan}
-          icon={<Badge color="error" badgeContent={7}>
-            <AiOutlineMessage className="w-10 h-10" />
-          </Badge>}
-          activeIcon={<Badge color="error" badgeContent={7}>
-            <AiFillMessage className="w-10 h-10 text-[#0077FF]" />
-          </Badge>}
-        />
-
         {user?.role === "admin" ?
           (<Navbaritem
             to={config.setting}

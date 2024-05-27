@@ -61,18 +61,6 @@ function BoardBar({ board }) {
           label="Add To Google Drive"
           clickable
         />
-        <Chip
-          sx={MENU_STYLES}
-          icon={<BoltIcon />}
-          label="Automation"
-          clickable
-        />
-        <Chip
-          sx={MENU_STYLES}
-          icon={<FilterListIcon />}
-          label="Filters"
-          clickable
-        />
       </Box>
 
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
