@@ -75,6 +75,7 @@ export default function Home() {
       <Grid item xs={12} md={9} className='min-w[12.5rem] h-auto'>
         <div className='min-h-[12rem] min-w-[12.5rem] h-auto bg-gradient-to-r from-blue-500 to-blue-200 bg-opacity-50 rounded-lg'
           id='home-hello-box'>
+          <img src="../assets/Backpack.svg" />
           <h1 className='text-3xl text-white font-bold align-middle '>Chào mừng đến với trang web học tập</h1>
         </div>
         <div className="mt-8 min-h-[24rem] bg-[#F0F7FF] rounded-lg">
