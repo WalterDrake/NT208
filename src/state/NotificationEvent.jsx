@@ -29,7 +29,7 @@ function NotificationEvent({children}) {
       return () => {
         clearInterval(notificationEventInterval)
       }
-    }, [])
+    }, [user])
   return (
     <NotificationEventContext.Provider value={{notificationEvent,setNotificationEvent}}>
       {children}
