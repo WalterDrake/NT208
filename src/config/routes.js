@@ -16,6 +16,7 @@ const routes = {
   hoctapitem: "/Hoctappage/:learnID",
   todolist: "/Todolist",
   setting: "/Admin/Setting/",
-  profiledetail: "/ProfileDetail"
+  profiledetail: "/ProfileDetail",
+  setprofile: "/Setprofile"
 }
 export default routes

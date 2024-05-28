@@ -10,7 +10,6 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
-import PersonAdd from '@mui/icons-material/PersonAdd'
 import Settings from '@mui/icons-material/Settings'
 import Logout from '@mui/icons-material/Logout'
 import config from '../config/routes'
@@ -55,7 +54,7 @@ const SmallAvatar = styled(Avatar)(({ theme }) => ({
 export const UserProfile = () => {
     const [anchorEl, setAnchorEl] = React.useState(null)
     const open = Boolean(anchorEl)
-    const { user,setUser } = React.useContext(UserContext)
+    const { user, setUser } = React.useContext(UserContext)
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
     }
@@ -134,17 +133,19 @@ export const UserProfile = () => {
                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
-                    <MenuItem onClick={handleClose} to ={config.profile}>
+                    <MenuItem onClick={handleClose} to={config.profile}>
                         <Link to={config.profile}>
                             <Avatar alt="Thùy Trang" src="./src/assets/Avt.jpg" /> Tài khoản của tôi
                         </Link>
                     </MenuItem>
                     <Divider />
-                    <MenuItem onClick={handleClose}>
-                        <ListItemIcon>
-                            <Settings fontSize="small" />
-                        </ListItemIcon>
-                        Cài đặt
+                    <MenuItem onClick={handleClose} to={config.setprofile}>
+                        <Link to={config.setprofile}>
+                            <ListItemIcon>
+                                <Settings fontSize="small" />
+                            </ListItemIcon>
+                            Cài đặt
+                        </Link >
                     </MenuItem>
                     <MenuItem onClick={handleDangXuat} title={<Dangxuat />} to={config.dangxuat} >
                         <ListItemIcon>
