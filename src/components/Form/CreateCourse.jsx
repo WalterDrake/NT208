@@ -22,8 +22,8 @@ export function CreateCourse({ user, isCourse, isStudy }) {
                 if (isCourse) {
                     courses.createCourse(user, data)
                         .then(res => {
-                            SetKhoaHocRender?.SetKhoaHocRender(pre => pre +1)
-                        alert('Create course successfully' + res)
+                            SetKhoaHocRender?.SetKhoaHocRender(pre => pre + 1)
+                            alert('Create course successfully' + res)
                         })
                         .catch(err => alert('Create course failed: ' + err))
                 }
@@ -42,13 +42,21 @@ export function CreateCourse({ user, isCourse, isStudy }) {
                 <div style={{ width: '80%', paddingRight: '20px' }}>
                     <div className="form-group">
                         <label htmlFor="title">Title: </label>
-                        <input type="text" id="title" name="title" required style={{ width: '100%', height: '20px' }} />
+                        <input type="text" id="title" name="title" required style={{
+                            width: '100%', height: '20px', border: '1px solid #ccc',
+                            borderRadius: '4px',
+                            padding: '5px 10px'
+                        }} />
                         <div className="form-message" style={{ color: "red" }}></div>
                     </div>
                     <br></br>
                     <div className="form-group">
                         <label htmlFor="description">Description: </label>
-                        <input type="text" id="description" name="description" required style={{ width: '100%', minHeight: '40px' }}></input>
+                        <input type="text" id="description" name="description" required style={{
+                            width: '100%', minHeight: '40px', border: '1px solid #ccc',
+                            borderRadius: '4px',
+                            padding: '5px 10px'
+                        }}></input>
                         <div className="form-message" style={{ color: "red" }}></div>
                     </div>
                     <br></br>
@@ -56,7 +64,11 @@ export function CreateCourse({ user, isCourse, isStudy }) {
                         <label htmlFor="linkimage">Avatar: </label>
                         <div className="form-group">
                             <label htmlFor="linkimage"></label>
-                            <input type="url" id="linkimage" name="linkimage" style={{ width: '100%', height: '20px' }} onChange={(e) => setImage(e.target.value)}></input>
+                            <input type="url" id="linkimage" name="linkimage" style={{
+                                width: '100%', height: '20px', border: '1px solid #ccc',
+                                borderRadius: '4px',
+                                padding: '5px 10px'
+                            }} onChange={(e) => setImage(e.target.value)}></input>
                             <div className="form-message" style={{ color: "red" }}></div>
                         </div>
                     </div>
@@ -64,7 +76,11 @@ export function CreateCourse({ user, isCourse, isStudy }) {
                         <label htmlFor="owner">Owner: </label>
                         <div className="form-group">
                             <label htmlFor="owner"></label>
-                            <input type="email" id="owner" name="owner" style={{ width: '100%', height: '20px' }}></input>
+                            <input type="email" id="owner" name="owner" style={{
+                                width: '100%', height: '20px', border: '1px solid #ccc',
+                                borderRadius: '4px',
+                                padding: '5px 10px'
+                            }}></input>
                             <div className="form-message" style={{ color: "red" }}></div>
                         </div>
                     </div>
