@@ -10,4 +10,10 @@ export const env = {
   APP_PORT: process.env.APP_PORT,
 
   BUILD_MODE: process.env.BUILD_MODE,
+
+  CLOUDINARY: {
+    cloud_name: 'dcyws1o4f',
+    api_key: '817743517582641',
+    api_secret: 'x-xI2OceZPMbjHIE1Kp0_WEe1mA',
+  }
 };
