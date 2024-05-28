@@ -32,7 +32,7 @@ function MarkStudent({ studentId }) {
     return (
         <form style={{ width: "auto", padding: "16px" }} id="form-mark-student">
             <div className="form-group">
-                <input placeholder="Enter mark" name="mark" id="form-input-mark-student" />
+                <input type="number" placeholder="Enter mark" name="mark" id="form-input-mark-student" />
                 <div className='form-message' style={{ color: "red" }}></div>
             </div>
             <button type="submit">Submit</button>

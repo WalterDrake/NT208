@@ -49,8 +49,7 @@ export const getCoursesStudying = async (id) => {
 
 export const getCoursesDone = async (id) => {
     try {
-        const data = id ;
-        const response = await httpRequest.get(`/courses/Khoahoc/Done/`,data)
+        const response = await httpRequest.get(`/courses/GetListCoutseDone/${id}`)
         return response
     } catch (error) {
         throw error.response
@@ -127,6 +126,15 @@ export const deleteCourse = async (id) => {
 export const markStudent = async (idStudent, idCourse, mark) => {
     try {
         const response = await httpRequest.post(`/courses/ChamDiem/${idStudent}/${idCourse}/${mark}`)
+        return response
+    } catch (error) {
+        throw error.response
+    }
+}
+
+export const getMarkStudent = async (idStudent, idCourse) => {
+    try {
+        const response = await httpRequest.get(`/courses/GetMark/${idStudent}/${idCourse}`)
         return response
     } catch (error) {
         throw error.response

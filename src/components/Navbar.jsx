@@ -19,7 +19,6 @@ import useNotificationEvent from "../hook/useNotificationEvent"
 const Navbar = () => {
   const { user } = useUser()
   const {notificationEvent} = useNotificationEvent()
-  console.log('notificationEvent',notificationEvent)
   return (
     <nav className=" items-center flex z-50 box-border p-26 ">
       <Link to={routes.home}  >

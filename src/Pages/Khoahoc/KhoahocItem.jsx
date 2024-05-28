@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUser } from "@fortawesome/free-solid-svg-icons"
@@ -10,6 +10,7 @@ import useKhoaHocRender from "../../hook/useKhoaHocRender"
 const KhoahocItem = ({ KhoaHoc, className }) => {
   const { user } = useUser()
   const test = useKhoaHocRender()
+  const [mark, setMark] = React.useState(0)
   const handleDelete = async (e) => {
     // eslint-disable-next-line no-useless-catch
     try {
@@ -24,6 +25,15 @@ const KhoahocItem = ({ KhoaHoc, className }) => {
       throw err
     }
   }
+  useEffect(() => {
+    courses.getMarkStudent(user._id, KhoaHoc._id)
+      .then(res => {
+        setMark(res.diemso)
+      })
+      .catch(err => {
+        console.log('err', err)
+      })
+  }, [])
 
   return (
     <div className={`md:ml-4 frame rounded-md bg-white wrap h-auto ${className}`}>
@@ -42,16 +52,19 @@ const KhoahocItem = ({ KhoaHoc, className }) => {
         </div>
       </Link>
       <div className=' ml-2.5 mt-1 flex flex-col md:flex-row justify-between'>
-        <p className="font-bold mb-4 text-red-600"><span className="text-black mr-1">
-          <FontAwesomeIcon icon={faUser} />
-        </span>{KhoaHoc.memberof}</p>
+        <div className="font-bold mb-4 text-red-600">
+          <span className="text-black mr-1">
+            <FontAwesomeIcon icon={faUser} />
+          </span>{mark}
+          <span className="text-black mr-1 block">
+            <FontAwesomeIcon icon={faUser} /> {KhoaHoc.memberof}
+          </span>
+        </div>
 
         {(user?.role === "admin" || user?._id === KhoaHoc.owner) && test != null ?
           (<><button
             onClick={handleDelete}
             className="ml-2.5 mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded mr-2">Xóa</button></>) : <></>}
-
-
       </div>
     </div>
   )
