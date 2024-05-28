@@ -1,9 +1,11 @@
 import React, { useLayoutEffect, useState } from 'react'
 import * as authentic from '../../service/authentic'
-import { Avatar } from '@mui/material';
+import { Avatar, Dialog, DialogContent, DialogTitle } from '@mui/material';
 import Badge from '@mui/material/Badge'
 import { styled } from '@mui/material/styles'
-import { Link } from 'react-router-dom';
+import ProfileDetail from '../ProfileDetail';
+import { UserContext } from '../../App';
+
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
         backgroundColor: '#44b700',
@@ -32,7 +34,19 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
         }
     }
 }))
+
 function ListuserAcitve() {
+    const [selectedUser, setSelectedUser] = useState(null);
+    const [open, setOpen] = useState(false);
+
+    const handleUserClick = (user) => {
+        setSelectedUser(user)
+        setOpen(true);
+
+    }
+    const handleClose = () => {
+        setOpen(false);
+    };
     const [usersActive, setUsersActive] = useState([]);
     const [max_List, setMax_List] = useState(5)
     const [buttonSeemore, setButtonSeeMore] = useState({ max_List: 5, text: 'Xem thêm' })
@@ -60,14 +74,17 @@ function ListuserAcitve() {
                     setButtonSeeMore({ max_List: 5, text: 'Xem thêm' })
                 }
             }} className='bg-blue-500 text-white rounded-lg p-1 hover:bg-blue-800 '>{buttonSeemore.text}</button>
-            <ul >
-                {usersActive.map((user, index) => {
-                    if (index >= max_List) {
-                        return
-                    }
-                    return (
-                        <li key={index} className='flex pd-y-2 text-wrap md:my-4'>
-                            <Link to={`Profile/${index}`}>
+            <UserContext.Provider value={{ selectedUser }}>
+                <ul >
+                    {usersActive.map((user, index) => {
+                        if (index >= max_List) {
+                            return
+                        }
+                        return (
+
+
+                            <li key={index} className='flex pd-y-2 gap-3 text-wrap md:my-4' onClick={() => handleUserClick(user)}>
+                                {/* <Link className='flex gap-3' to={`Profile/${user._id}`}> */}
                                 <StyledBadge
                                     overlap="circular"
                                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
@@ -81,11 +98,25 @@ function ListuserAcitve() {
                                     <p className='font-bold'>{user.username}</p>
                                     <p className='font-thin'>{user.email}</p>
                                 </div>
-                            </Link>
-                        </li>)
-                })}
-            </ul>
+                                {/* </Link> */}
+
+                            </li>
+                        )
+                    })}
+                </ul>
+            </UserContext.Provider>
+
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>Profile</DialogTitle>
+                <DialogContent>
+                    {selectedUser && (
+                        <ProfileDetail selectedUser={selectedUser} />
+                    )}
+                </DialogContent>
+            </Dialog>
+
         </div>
+
     )
 }
 
