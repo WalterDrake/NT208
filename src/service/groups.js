@@ -70,16 +70,16 @@ const leaveGroup = async (code,idUser) => {
     }
 }
 
-const deleteGroupById = async (id,owner) => {
+const deleteGroupByCode = async (code,owner) => {
     try {
-        const response = await httpRequest.delete(`/groups/${id}/${owner}`)
+        const response = await httpRequest.remove(`/groups/${code}/${owner}`)
         return response
     } catch (err) {
         throw err.response
     }
 }
 export {
-    deleteGroupById,
+    deleteGroupByCode,
     getAllGroupByAdmin,
     leaveGroup,
     getGroupByCode,

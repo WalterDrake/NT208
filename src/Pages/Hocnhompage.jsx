@@ -9,6 +9,7 @@ import useUser from '../hook/useUser';
 export const ShowFormAddGroupContext = createContext()
 
 const HocNhompage = () => {
+  const [reRender, setReRender] = useState(false)
   const { user } = useUser()
   const [hocnhoms, setHocnhoms] = useState([])
   useEffect(() => {
@@ -32,7 +33,7 @@ const HocNhompage = () => {
       })
     }
   }
-    , [])
+    , [reRender])
   const [openAddGroup, setOpenAddGroup] = useState(false);
   const [openJoinGroup, setOpenJoinGroup] = useState(false);
 
@@ -63,13 +64,13 @@ const HocNhompage = () => {
         </ul>
       </div>
       <div className='flex justify-center'>
-        {openAddGroup && <GroupActions.CreateGroup />}
+        {openAddGroup && <GroupActions.CreateGroup  setReRender={setReRender}/>}
         {openJoinGroup && <GroupActions.JoinGroup />}
       </div>
       <div className='container flex'>
         {hocnhoms.map((HocNhom, index) => (
           <div key={index} className='item'>
-            <HocNhomItem HocNhom={HocNhom} />
+            <HocNhomItem HocNhom={HocNhom} setReRender={setReRender} />
           </div>
         ))}
       </div>

@@ -7,7 +7,7 @@ import * as groups from '../../service/groups'
 import validator from '../../hook/validate';
 import { Chip } from '@mui/material';
 
-export const CreateGroup = () => {
+export const CreateGroup = ({setReRender}) => {
   const memberInputRef = useRef()
   const [memberInput, setMemeberInput] = useState('')
   const [memberList, setMemeberList] = useState([])
@@ -22,13 +22,13 @@ export const CreateGroup = () => {
         validator.isRequired('#add-group-name', 'Nhập tên nhóm'),
         validator.isRequired('#add-group-code', 'Nhập mã code'),
         validator.isRequired('#add-group-desrciption', 'Nhập mô tả'),
-        validator.isEmail1('#add-group-member', 'Email không hợp lệ'),
+        validator.isRequired('#add-group-image', 'Nhập ảnh'),
       ],
       onSubmit: function (data) {
         console.log('member: ', memberList)
         groups.addGroup(memberList, data, user)
           .then((res) => {
-            console.log('tạo nhóm response', res)
+            setReRender(pre=>!pre)
           })
           .catch((error) => {
             console.log('tạo nhóm err', error)
@@ -85,7 +85,13 @@ export const CreateGroup = () => {
 
           <br></br>
           <div>
-            <input type='file' accept='image/*' placeholder='Ảnh' />
+          <div className='form-group col-span-4'>
+            <label htmlFor='description' className='block text-ml font-medium leading-6 text-gray-900'>Ảnh: </label>
+            <div className="mt-2">
+              <input type="text" placeholder='url link image' id='add-group-image' name='linkimage' rows="2" className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' />
+            </div>
+            <div className='form-message text-red-700 flex justify-center'></div>
+          </div>
           </div>
           <div className='form-group grid grid-cols-1 gap-x-6 gap-y-8 mt-4 sm:grid-cols-6'>
             <div className="sm:col-span-3">

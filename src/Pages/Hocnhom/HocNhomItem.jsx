@@ -5,12 +5,12 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 import * as groups from '../../service/groups'
 
 import useUser from '../../hook/useUser'
-const HocNhomItem = ({ HocNhom }) => { // tạo props với object
+const HocNhomItem = ({ HocNhom,setReRender }) => { // tạo props với object
   const { user } = useUser()
   const handleDeleteGroup = () => {
-    groups.deleteGroupById(HocNhom._id, HocNhom.owner)
+    groups.deleteGroupByCode(HocNhom.code, HocNhom.owner)
       .then((res) => {
-        console.log('delete group', res)
+        setReRender(pre=>!pre)
       })
       .catch((err) => {
         console.log('err delete group', err)
@@ -18,9 +18,8 @@ const HocNhomItem = ({ HocNhom }) => { // tạo props với object
   }
   return (
     <div className=' ml-2 mr-2 gap-2 frame rounded-md'>
-      <Link to={`/Hocnhompage/${HocNhom.code}`}>
-        <div className="mb-3 frame rounded-md bg-white wrap">
-
+      <div className="mb-3 frame rounded-md bg-white wrap h-auto">
+        <Link to={`/Hocnhompage/${HocNhom.code}`}>
           <img src={HocNhom.image}
             className='mt-4 ml-2 rounded-md frame'
             style={{ height: '166.27px', width: '175.53px' }}
@@ -34,15 +33,13 @@ const HocNhomItem = ({ HocNhom }) => { // tạo props với object
             <p className="font-bold text-red-600"><span className="text-black">
               <FontAwesomeIcon icon={faUser} />
             </span> {HocNhom?.listMem.length}</p>
-
-            {(user.role === 'admin' || HocNhom?.owner === user._id) &&
-              <button
-                onClick={handleDeleteGroup}
-                className='ml-2.5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded mr-2' >Xóa</button>}
           </div>
-        </div>
-      </Link>
-
+        </Link>
+        {(user.role === 'admin' || HocNhom?.owner === user._id) &&
+          <button
+            onClick={handleDeleteGroup}
+            className='ml-2.5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded mr-2' >Xóa</button>}
+      </div>
     </div>
   )
 }
