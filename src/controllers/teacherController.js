@@ -6,6 +6,7 @@ import { GET_DB } from "~/config/mongodb";
 import { courseModel } from "~/models/Khoahoc/courseModel";
 import { json } from "express";
 import { teacherModel } from "~/models/teacherModel";
+import bcrypt from "bcryptjs";
 
 const TeacherRegister = async (req, res, next) => {
   try {
@@ -54,19 +55,30 @@ const TeacherLogin = async (req, res, next) => {
 };
 
 const getTeacherAll = async (req, res, next) => {
-  try{
+  try {
     const teachers = await teacherModel.getDetailsAll();
     res.status(StatusCodes.OK).json(teachers);
-  }
-  catch (error) {
+  } catch (error) {
     next(error);
   }
-}
-
+};
+const updateTeacher = async (req, res, next) => {
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const password = await bcrypt.hash(req.body.password, salt);
+    const news = { ...req.body, password: password, salt: salt };
+    const teacher = await teacherModel.update(req.params.id, news);
+    const teachers = await teacherModel.findOneById(req.params.id);
+    res.status(StatusCodes.OK).json(teachers);
+  } catch (error) {
+    next(error);
+  }
+};
 export const teacherController = {
   getTeacherAll,
   TeacherRegister,
   getTeacherDetails,
   TeacherLogin,
   getIds,
+  updateTeacher,
 };

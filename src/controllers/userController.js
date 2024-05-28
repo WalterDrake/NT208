@@ -96,14 +96,13 @@ const deleteStudent = async (req, res, next) => {
 };
 const updateStudent = async (req, res, next) => {
   try {
-    if (req.params.password) {
-      const salt = await bcrypt.genSalt(10);
-      const password = await bcrypt.hash(res.body.password, salt);
-      const news = { ...req.body, password: password, salt: salt };
-      const student = await studentModel.update(req.params.id, news);
-      const students = await studentModel.findOneById(req.params.id);
-      res.status(StatusCodes.OK).json(students);
-    }
+    const salt = await bcrypt.genSalt(10);
+    const password = await bcrypt.hash(req.body.password, salt);
+    const news = { ...req.body, password: password, salt: salt };
+    console.log("newss", news);
+    const student = await studentModel.update(req.params.id, news);
+    const students = await studentModel.findOneById(req.params.id);
+    res.status(StatusCodes.OK).json(students);
   } catch (error) {
     next(error);
   }

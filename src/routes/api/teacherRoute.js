@@ -16,6 +16,7 @@ Router.route("/TeacherLogin/:email/:password").post(
   teacherController.TeacherLogin
 );
 Router.route("/Teacher/:id").get(teacherController.getTeacherDetails);
+Router.route("/UpdateTeacher/:id").get(teacherController.updateTeacher);
 
 Router.route("/getall").get(teacherController.getTeacherAll);
 // API hỗ trợ việc di chuyển card giữa các column khác nhau trong một board

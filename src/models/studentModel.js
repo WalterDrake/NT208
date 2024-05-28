@@ -43,6 +43,7 @@ const USER_COLLECTION_SCHEMA = Joi.object().keys({
     .required(),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
   status: Joi.boolean().default(false),
+  linkimage: Joi.string().trim().strict().default(""),
 });
 
 const INVALID_UPDATE_FIELDS = ["_id", "createdAt"];

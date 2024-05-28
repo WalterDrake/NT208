@@ -26,6 +26,7 @@ const TEACHER_COLLECTION_SCHEMA = Joi.object().keys({
     .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
     .default([]),
   createdAt: Joi.date().timestamp("javascript").default(Date.now),
+  linkimage: Joi.string().trim().strict().default(""),
 });
 
 const INVALID_UPDATE_FIELDS = ["_id", "createdAt"];
