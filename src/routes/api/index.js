@@ -24,14 +24,12 @@ import { adminRoute } from "./adminRoute";
 import { teacherModel } from "~/models/teacherModel";
 import { teacherRoute } from "./teacherRoute";
 import { eventRoute } from "./eventRoute";
-import { uploadRoute } from './uploadRoute';
 
 const Router = express.Router();
 // Check APIs /status
 Router.get("/status", (req, res) => {
   res.status(StatusCodes.OK).json({ message: "APIs are ready to use." });
 });
-
 
 /** Board APIs */
 Router.use("/boards", boardRoute);
@@ -76,10 +74,6 @@ Router.use("/teachers", teacherRoute);
 Router.use("/studies", studyRoute);
 // Event APIs
 Router.use("/events", eventRoute);
-
-// Upload APIs
-Router.use("/upload", uploadRoute);
-
 
 Router.use("/admin", adminRoute);
 export const APIs = Router;

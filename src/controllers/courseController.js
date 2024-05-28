@@ -380,7 +380,22 @@ const AddListStudentOnCourse = async (req, res, next) => {
   try {
     // truyen vao id course
     const courseId = req.params.id;
+    const finder = await courseModel.findOneById(courseId);
     const students = JSON.parse(req.query.students);
+    const length = students.length;
+    const update1 = await GET_DB()
+      .collection(courseModel.COURSE_COLLECTION_NAME)
+      .updateMany(
+        {
+          _id: new ObjectId(courseId),
+        },
+        {
+          $set: {
+            memberof: finder.memberof + length,
+          },
+        }
+      );
+
     const update = await GET_DB()
       .collection(studentModel.USER_COLLECTION_NAME)
       .updateMany(
@@ -409,7 +424,7 @@ const getMarkOfCourse = async (req, res, next) => {
       .collection(studentModel.USER_COLLECTION_NAME)
       .findOne({
         _id: new ObjectId(req.params.idstudent),
-        "examResult.coursename": new ObjectId( req.params.idcourse),
+        "examResult.coursename": new ObjectId(req.params.idcourse),
       });
     if (getmark) {
       const markExam = getmark.examResult.find(
