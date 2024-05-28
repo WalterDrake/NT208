@@ -8,6 +8,7 @@ import { StatusCodes } from "http-status-codes";
 const GROUP_COLLECTION_NAME = "groups";
 const GROUP_COLLECTION_SCHEMA = Joi.object({
   name: Joi.string().required().min(3).max(50).trim().strict(),
+  description: Joi.string().required().min(3).max(500).trim().strict(),
   owner: Joi.string()
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
