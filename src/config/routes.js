@@ -6,7 +6,7 @@ const routes = {
   hoctap: "/Hoctappage",
   hocnhom: "/Hocnhompage",
   dangxuat: "/Login",
-  profile: "/Profile",
+  profile: "/Profile/:id",
   thongbao: "/Thongbao",
   tinnhan: "/Tinnhan",
   schoolweb: "/Student/dashboard",
