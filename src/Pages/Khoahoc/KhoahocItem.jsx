@@ -55,7 +55,7 @@ const KhoahocItem = ({ KhoaHoc, className }) => {
       <div className=' ml-2.5 mt-1 flex mr-5 flex-col md:flex-row justify-between'>
         <div className="font-bold flex mb-4 text-red-600">
 
-          <span className="text-black mr-10 block">
+          <span className="text-black items-center gap-1 flex mr-10">
             <FontAwesomeIcon icon={faUser} /> {KhoaHoc.memberof}
           </span>
           <span className="text-red-500 gap-1 items-center flex mr-1">
