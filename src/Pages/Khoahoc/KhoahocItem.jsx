@@ -46,7 +46,7 @@ const KhoahocItem = ({ KhoaHoc, className }) => {
           alt={KhoaHoc.title}
         />
         {/* muốn thêm ảnh thì thêm src trong cái mảng*/}
-        <div className="ml-2.5 mt-1">
+        <div className="ml-2.5 mt-2">
           {/* content của môn học*/}
           <h1 className="font-bold text-xs mb-2 ">{KhoaHoc.title}</h1>
           <h1 className="font-thin text-xs mb-2">{KhoaHoc.description}</h1>

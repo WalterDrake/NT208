@@ -94,7 +94,7 @@ export default function Home() {
               <p className='bg-blue-500 text-white rounded-lg p-1 hover:bg-blue-800 '><Link to={routes.khoahoc}>Xem thêm</Link></p>
             </div>
           </div>
-          <div className='content min-h-[12rem]  w-auto bg-custom-gradient rounded-lg mt-10 flex flex-col md:flex-row md:flex-wrap'>
+          <div className='content min-h-[12rem]  w-auto bg-custom-gradient rounded-lg mt-7 flex flex-col md:flex-row md:flex-wrap'>
             {courseData.map((course, index) => {
               if (index < 4) {
                 return <KhoahocItem KhoaHoc={course} key={index} />
@@ -104,12 +104,12 @@ export default function Home() {
         </div>
         <div className="mt-8 min-h-[24rem] h-auto bg-[#F0F7FF] rounded-lg">
           <div className="title justify-between">
-            <h1 className='text-[#050506]  font-extrabold  font-sans text-3xl pl-[4rem] pt-3'>Đề Xuất Nhóm của bạn</h1>
+            <h1 className='text-[#050506]  font-extrabold  font-sans text-3xl pl-[4rem] pt-5'>Đề Xuất Nhóm của bạn</h1>
             <div className='flex justify-end mr-4'>
               <p className='bg-blue-500 text-white rounded-lg p-1 hover:bg-blue-800 '><Link to={routes.group}>Xem thêm</Link></p>
             </div>
           </div>
-          <div className='content min-h-[20rem]  w-auto bg-custom-gradient rounded-lg mt-10 flex flex-col md:flex-row md:flex-wrap'>
+          <div className='content min-h-[12rem]  w-auto bg-custom-gradient rounded-lg mt-7 flex flex-col md:flex-row md:flex-wrap'>
             {groupData.map((group, index) => {
               if (index < 4) {
                 return <HocNhomItem HocNhom={group} key={index} />

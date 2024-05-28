@@ -7,30 +7,31 @@ import useUser from "../hook/useUser"
 import * as courses from '../service/courses'
 import { CreateCourse } from "../components/teacherAction/courseAction"
 
-export const  KhoaHocRenderContext = createContext()
+export const KhoaHocRenderContext = createContext()
 
 const Khoahocpage = () => {
-  const [khoaHocRender,SetKhoaHocRender] = useState(1)
+  const [khoaHocRender, SetKhoaHocRender] = useState(1)
   const [khoahocs, setKhoahocs] = useState([])
   const { user } = useUser()
   useEffect(() => {
-    if(user.role === 'admin'){
+    if (user.role === 'admin') {
       courses.GetCourseAll()
-      .then((res) => {
-        setKhoahocs(res[0])
-      })
-      .catch((err) => {
-        console.log(err)
-      })}
-      else if(user.role === 'teacher'){
-        courses.getCourseListTeacher(user._id).then((res) => {
-          if(res)
-            setKhoahocs(res)
-        }).catch((err) => {
+        .then((res) => {
+          setKhoahocs(res[0])
+        })
+        .catch((err) => {
           console.log(err)
         })
-      }
-    else if( user.role === 'student'){
+    }
+    else if (user.role === 'teacher') {
+      courses.getCourseListTeacher(user._id).then((res) => {
+        if (res)
+          setKhoahocs(res)
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+    else if (user.role === 'student') {
       courses.getCourseListStudent(user._id).then((res) => {
         setKhoahocs(res)
       }).catch((err) => {
@@ -53,31 +54,31 @@ const Khoahocpage = () => {
     })
   }
   return (
-<KhoaHocRenderContext.Provider value={{khoaHocRender,SetKhoaHocRender}}>
+    <KhoaHocRenderContext.Provider value={{ khoaHocRender, SetKhoaHocRender }}>
       <div className=" dimension ">
         <div className="relative ml-[1rem]">
           <h1 className="text-3xl mb-5 ml-2 font-bold">Khóa học</h1>
           {(user.role === 'student') ?
-                    <ul className="flex mb-5">
-                    <li className="m-2 font-bold effect"  onClick={getCourseListStudent}>
-                      Đang học
-                    </li>
-                    <li className="m-2 font-bold effect" onClick={getCourseListDone}>
-                      Hoàn thành
-                    </li>
-                  </ul> : null}
+            <ul className="flex mb-5">
+              <li className="m-2 font-bold effect" onClick={getCourseListStudent}>
+                Tất cả
+              </li>
+              <li className="m-2 font-bold effect" onClick={getCourseListDone}>
+                Hoàn thành
+              </li>
+            </ul> : null}
 
           {(user.role === 'teacher' || user.role === 'admin') ? <CreateCourse isCourse={true} isStudy={false} user={user} /> : null}
           <div className="container flex">
             {khoahocs?.length > 0 ? khoahocs.map((khoahoc, index) => (
-                <div key={index} className="item">
-                  <KhoahocItem KhoaHoc={khoahoc} />
-                </div>
-              )): <h1>Không có khóa học nào</h1>}
+              <div key={index} className="item">
+                <KhoahocItem KhoaHoc={khoahoc} />
+              </div>
+            )) : <h1>Không có khóa học nào</h1>}
           </div>
         </div>
       </div>
-</KhoaHocRenderContext.Provider>
+    </KhoaHocRenderContext.Provider>
   )
 }
 
