@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom"
 import { useEffect, useState, useContext } from "react"
 import { BsPersonLinesFill } from "react-icons/bs";
+import { MdFormatListBulletedAdd } from "react-icons/md";
 
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt'
-import PersonSearchIcon from '@mui/icons-material/PersonSearch'
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
 //context
@@ -17,12 +17,9 @@ import KhoahocDetailList from "./KhoahocDetailItem/KhoahocDetailList"
 import { UserContext } from "../../../App"
 import * as courses from '../../../service/courses'
 import CommentVideo from './KhoahocDetailItem/CommentVideo'
-import ListVideo from '../../../components/CourseDetail/ListVideo'
 import ListStudent from "../../../components/CourseDetail/ListStudent"
 import ListPost from "../../../components/CourseDetail/ListPost"
 import Notification from '../../../components/CourseDetail/Notification'
-import { Dialog } from "@mui/material";
-
 
 function KhoahocDetailItem() {
 
@@ -79,14 +76,14 @@ function KhoahocDetailItem() {
               (user._id === courseDetails.owner || user.role === 'admin') ?
                 (
                   <>
-                    <button className="text-white mr-2 p-4" onClick={handleCreateItem}><PersonSearchIcon className="inline-block w-6 h-6 mr-2 -mt-2" /> <p className=" hidden md:inline">Item</p></button>
-                    <button className="text-white mr-2 p-4" onClick={handleSeeStudent}><BsPersonLinesFill className="inline-block w-6 h-6 mr-2 -mt-2" /><p className=" hidden md:inline">See</p></button>
-                    <button className="text-white mr-5 p-4" onClick={handleAddStudent}><PersonAddAltIcon className="inline-block w-6 h-6 mr-2 -mt-2" /><p className=" hidden md:inline">Add</p></button>
+                    <button className="text-white items-center mr-2 p-4" onClick={handleCreateItem}><MdFormatListBulletedAdd className="inline-block  w-6 h-6 mr-1 -mt-1" /> <p className=" hidden md:inline">Item</p></button>
+                    <button className="text-white items-center mr-2 p-4" onClick={handleSeeStudent}><BsPersonLinesFill className="inline-block w-6 h-6 mr-2 -mt-1" /><p className=" hidden md:inline">See</p></button>
+                    <button className="text-white items-center mr-5 p-4" onClick={handleAddStudent}><PersonAddAltIcon className="inline-block w-6 h-6 mr-2 -mt-1" /><p className=" hidden md:inline">Add</p></button>
                   </>
                 ) : <></>}
             <div className="relative">
               <button className="text-white mr-5 p-4 " onClick={handleNotification}>
-                <NotificationsIcon className="inline-block w-6 h-6 mr-2 -mt-2" />
+                <NotificationsIcon className="inline-block w-6 h-6 mr-2 -mt-1" />
                 <p className="hidden md:inline">Notification</p>
               </button>
               <Notification id='ListNoti' />
