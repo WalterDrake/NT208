@@ -52,7 +52,7 @@ Router.route("/GetListCourseStudent/:id").get(
 Router.route("/GetListCoutseDone/:id").get(
   courseController.getListCourseStudentDone
 ); // truyen vao id hoc sinh
-Router.route("/GetMark/:idstudent/:idcourse").delete(
+Router.route("/GetMark/:idstudent/:idcourse").get(
   courseController.getMarkOfCourse
 ); // truyen vao idstudent va idcourse
 

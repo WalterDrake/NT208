@@ -409,14 +409,12 @@ const getMarkOfCourse = async (req, res, next) => {
       .collection(studentModel.USER_COLLECTION_NAME)
       .findOne({
         _id: new ObjectId(req.params.idstudent),
-        "examResult.coursename": req.params.idcourse,
+        "examResult.coursename": new ObjectId( req.params.idcourse),
       });
-
     if (getmark) {
       const markExam = getmark.examResult.find(
-        (result) => result.coursename === req.params.idcourse
+        (item) => item.coursename == req.params.idcourse
       );
-
       if (markExam) {
         const diemso = markExam.markObtain;
         return res.json({ diemso: diemso });
