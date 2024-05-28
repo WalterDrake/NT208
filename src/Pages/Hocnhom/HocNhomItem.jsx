@@ -27,6 +27,7 @@ const HocNhomItem = ({ HocNhom,setReRender }) => { // tạo props với object
           /> {/* muốn thêm ảnh thì thêm src trong cái mảng*/}
           <div className='ml-2.5 mt-1'>
             <h1 className='font-bold text-xs mt-4 mb-4 '> {HocNhom.name}</h1> {/* content của môn học*/}
+            <p className='text-xs'>{HocNhom.description}</p> {/* content của môn học*/}
           </div>
 
           <div className=' ml-2.5 mt-1 flex flex-col md:flex-row justify-between'>

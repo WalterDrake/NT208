@@ -14,9 +14,12 @@ import Navbaritem from "./Layout/NavBaritem/Navbaritem"
 import config from "../config/routes"
 import Search from "./NavBar/Search"
 import useUser from "../hook/useUser"
+import useNotificationEvent from "../hook/useNotificationEvent"
 
 const Navbar = () => {
   const { user } = useUser()
+  const {notificationEvent} = useNotificationEvent()
+  console.log('notificationEvent',notificationEvent)
   return (
     <nav className=" items-center flex z-50 box-border p-26 ">
       <Link to={routes.home}  >
@@ -53,8 +56,11 @@ const Navbar = () => {
 
         <Navbaritem
           to={config.thongbao}
-          icon={<IoNotificationsOutline className="w-10 h-10" />}
-          activeIcon={<IoNotifications className="w-10 h-10 text-[#0077FF]" />}
+          icon={<Badge color="secondary" badgeContent={notificationEvent.length} max={100}><IoNotificationsOutline className="w-10 h-10" /></Badge>}
+          activeIcon={
+          <Badge color="secondary" badgeContent={notificationEvent.length} max={100}>
+            <IoNotifications className="w-10 h-10 text-[#0077FF]" />
+          </Badge>}
         />
       </Navbarmenu>
 
