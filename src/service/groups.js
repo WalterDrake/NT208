@@ -3,12 +3,13 @@ import * as httpRequest from '../utils/httpRequest'
 
 const addGroup = async (ListMemberInit,groupData,owner) => {
     try {
-        const { name , code } = groupData
+        const { name , code, linkImage } = groupData
         const res = await httpRequest.post('/groups', {
             listMem: ListMemberInit,
             name: name,
             code: code,
             owner:owner._id,
+            linkImage:linkImage,
         })
         return res
     } catch (error) {

@@ -20,7 +20,7 @@ const HocNhomItem = ({ HocNhom,setReRender }) => { // tạo props với object
     <div className=' ml-2 mr-2 gap-2 frame rounded-md'>
       <div className="mb-3 frame rounded-md bg-white wrap h-auto">
         <Link to={`/Hocnhompage/${HocNhom.code}`}>
-          <img src={HocNhom.image}
+          <img src={HocNhom.linkImage}
             className='mt-4 ml-2 rounded-md frame'
             style={{ height: '166.27px', width: '175.53px' }}
             alt={HocNhom.name}
