@@ -6,7 +6,7 @@ const routes = {
   hoctap: "/Hoctappage",
   hocnhom: "/Hocnhompage",
   dangxuat: "/Login",
-  profile: "/Profile",
+  profile: "/Profile/:id",
   thongbao: "/Thongbao",
   tinnhan: "/Tinnhan",
   schoolweb: "/Student/dashboard",
@@ -15,6 +15,7 @@ const routes = {
   diendanitem: "/Diendanpage/:forumID",
   hoctapitem: "/Hoctappage/:learnID",
   todolist: "/Todolist",
-  setting: "/Admin/Setting/"
+  setting: "/Admin/Setting/",
+  profiledetail: "/ProfileDetail"
 }
 export default routes

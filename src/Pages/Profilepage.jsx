@@ -25,14 +25,14 @@ const Profilepage = () => {
   const handleSubmitProfile = (e) => {
     e.preventDefault()
 
-    update.updateUser(user._id, {username, tieusu, avatar})
-    .then(response => {
-      console.log(response)
-      alert('Thay đổi thông tin thành công')
-    })
-    .catch(error => {
-      alert('Thay đổi thông tin thất bại',error)
-    })
+    update.updateUser(user._id, { username, tieusu, avatar })
+      .then(response => {
+        console.log(response)
+        alert('Thay đổi thông tin thành công')
+      })
+      .catch(error => {
+        alert('Thay đổi thông tin thất bại', error)
+      })
 
   }
 
@@ -59,6 +59,7 @@ const Profilepage = () => {
           src={avatarurl ? avatarurl : curAvatar()}
           sx={{ width: 90, height: 90 }} />
       </div>
+      <p>Tên: {user.username}</p>
       <form id='form-profile' onSubmit={handleSubmitProfile}>
         <div className='profile-form-group flex'>
           <label htmlFor='avatar' className='p-6 w-30 sm:w-40'>Avatar: </label>
