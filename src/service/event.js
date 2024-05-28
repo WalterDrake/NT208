@@ -12,6 +12,7 @@ export function getAllEventList() {
 export function getStudentEventList(id) {
     try {
         const  response = httpRequest.get(`/events/GetEventOfStudent/${id}`)
+        return response 
     } catch (error) {
         throw error.response
     }

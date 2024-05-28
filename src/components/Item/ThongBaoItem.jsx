@@ -19,9 +19,6 @@ export default function ThongBaoItem({ thongbao }) {
   const handleTooltipClick = () => {
     setOpen(pre => !pre);
   }
-  useEffect(() => {
-
-  },[])
   if(!thongbao)
     return <></>
   return (
@@ -41,6 +38,7 @@ export default function ThongBaoItem({ thongbao }) {
   
           </div>
           <h3 className='font-bold text-xl bg-slate-100 hover:bg-slate-300 max-w-[70%] w-auto rounded-md shadow pl-8'>Type:{thongbao.nameevent}</h3>
+          <p>bạn cùng <b>{thongbao.listimpact.length}</b> người khác nhận</p>
         </div>
       </li>
     </>
