@@ -5,6 +5,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons"
 import useUser from "../../hook/useUser"
 import *  as courses from '../../service/courses'
 import useKhoaHocRender from "../../hook/useKhoaHocRender"
+import { FaTrophy } from "react-icons/fa"
 
 
 const KhoahocItem = ({ KhoaHoc, className }) => {
@@ -51,13 +52,14 @@ const KhoahocItem = ({ KhoaHoc, className }) => {
           <h1 className="font-thin text-xs mb-2">{KhoaHoc.description}</h1>
         </div>
       </Link>
-      <div className=' ml-2.5 mt-1 flex flex-col md:flex-row justify-between'>
-        <div className="font-bold mb-4 text-red-600">
-          <span className="text-black mr-1">
-            <FontAwesomeIcon icon={faUser} />
-          </span>{mark}
-          <span className="text-black mr-1 block">
+      <div className=' ml-2.5 mt-1 flex mr-5 flex-col md:flex-row justify-between'>
+        <div className="font-bold flex mb-4 text-red-600">
+
+          <span className="text-black mr-10 block">
             <FontAwesomeIcon icon={faUser} /> {KhoaHoc.memberof}
+          </span>
+          <span className="text-red-500 gap-1 items-center flex mr-1">
+            <FaTrophy />{mark}
           </span>
         </div>
 
