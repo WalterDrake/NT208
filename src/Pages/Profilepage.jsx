@@ -1,22 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Avatar from '@mui/material/Avatar'
 
 import * as update from '../service/updates'
 import useUser from '../hook/useUser'
 const Profilepage = () => {
   const { user, setUser } = useUser()
-  const [username, setUsername] = useState('')
-  const [tieusu, setTieusu] = useState('')
-  const [avatarurl, setAvatarurl] = useState(null);
-  const [avatar, setAvatar] = useState(() => {
-    if (user.avatar) {
-      return user.avatar
-    }
-    return null
+  const [username, setUsername] = useState(user.username)
+  const [password, setPassword] = useState('123456');
 
-  })
-  const handleTieuSu = (e) => {
-    setTieusu(e.target.value)
+
+  const [avatar, setAvatar] = useState(user.linkimage)
+  const handlePassword = (e) => {
+    setPassword(e.target.value)
   }
   const handleUsername = (e) => {
     setUsername(e.target.value)
@@ -24,31 +19,30 @@ const Profilepage = () => {
 
   const handleSubmitProfile = (e) => {
     e.preventDefault()
-
-    update.updateUser(user._id, { username, tieusu, avatar })
+    let data={};
+    if(username && username.trim() !='')
+        data.username = username
+    if(password )
+        data.password = password
+    if(avatar && avatar.trim() !='')
+        data.linkimage = avatar
+    console.log(data)
+    update.updateUser(user._id,data)
       .then(response => {
-        console.log(response)
         alert('Thay đổi thông tin thành công')
+        user.username = username
+        user.linkimage = avatar
       })
       .catch(error => {
         alert('Thay đổi thông tin thất bại', error)
       })
 
   }
+  useEffect(() => {
+    const FormProfile = document.querySelector('#form-profile')
 
-  const hanleFileChange = (e) => {
-    const file = e.target.files[0]
-    setAvatar(file)
-    setAvatarurl(URL.createObjectURL(file))
-  }
-
-  const curAvatar = () => {
-    if (user.avatar) {
-      return user.avatar
-    }
-    return avatar
-  }
-  console.log(avatar)
+    FormProfile.addEventListener('submit', handleSubmitProfile)
+  },[])
 
 
   return (
@@ -56,25 +50,29 @@ const Profilepage = () => {
       <h1 className='text-4xl font-bold text-center'>Profile Page</h1>
       <div className='flex justify-center'>
         <Avatar alt="Remy Sharp"
-          src={avatarurl ? avatarurl : curAvatar()}
+          src={avatar}
           sx={{ width: 90, height: 90 }} />
       </div>
       <p>Tên: {user.username}</p>
       <form id='form-profile' onSubmit={handleSubmitProfile}>
         <div className='profile-form-group flex'>
           <label htmlFor='avatar' className='p-6 w-30 sm:w-40'>Avatar: </label>
-          <input type='file'
+          <input type='url'
             // chỉ file dạng ảnh
             name='avatar'
-            accept='image/*'
-            placeholder='chpsse avatar'
-            onChange={(e) => hanleFileChange(e)}>
+            placeholder='chosse link iamge'
+            autoComplete='off'
+            value={avatar}
+            className='border-2 border-black flex-1 '
+            onChange={e => setAvatar(e.target.value)}>
           </input>
         </div>
+        <br></br>
         <div className='profile-form-group flex'>
-          <lable htmlFor='username' className='p-6 w-30 sm:w-40'>Username: </lable>
-          <input type='textbox'
+          <label htmlFor='username' className='p-6 w-30 sm:w-40'>Username: </label>
+          <input type='text'
             name='username'
+            autoComplete='off'
             className='border-2 border-black flex-1 '
             placeholder='username'
             value={username}
@@ -82,13 +80,13 @@ const Profilepage = () => {
         </div>
         <br></br>
         <div className='profile-form-group flex'>
-          <lable htmlFor='username' className='p-6 w-30 sm:w-40'>Tiểu sử: </lable>
-          <input type='textbox'
-            name='username'
+          <label htmlFor='password' className='p-6 w-30 sm:w-40'>Password: </label>
+          <input type='password'
+            name='password'
             className='border-2 border-black flex-1 '
-            placeholder='tiểu sử'
-            value={tieusu}
-            onChange={handleTieuSu}></input>
+            placeholder='nhập password'
+            value={password}
+            onChange={handlePassword}></input>
         </div>
         <input type='submit' value='Thay doi profile'
           className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'

@@ -23,12 +23,20 @@ const CreateStudent = () => {
                 validator.isRequired("#role-login", "Vui lòng nhập role")
             ],
             onSubmit: function (data) {
-                const { email, password, role,username } = data;
+                const { email, password, role,username,linkimage } = data;
                 if(role === "student"){
-                    registerStudent({ email, password, username,role,admin:user._id })
+                    registerStudent({ email, password, linkimage,username,role,admin:user._id })
+                    .then(res => {
+                        alert('Đăng kí thành công')
+                    })
+                    .catch(err => {
+                        alert('Đăng kí thất bại')
+                        console.log(err)
+                    })
+
                 }
                 else if(role === "teacher"){
-                    registerTeacher({ email, password, role,admin:user._id })
+                    registerTeacher({ email, password,linkimage ,role,admin:user._id })
                 }
             },
         });
@@ -77,6 +85,17 @@ const CreateStudent = () => {
                     name="username"
                     id="create-username"
                     placeholder="username"
+                />
+                <span className="form-message block  text-red-500"></span>
+            </div>
+            <div className="relative form-group">
+                <input
+                    className="p-2 mt-2 rounded-xl border"
+                    autoComplete="true"
+                    type="url"
+                    name="linkimage"
+                    id="create-linkimage"
+                    placeholder="linkimage"
                 />
                 <span className="form-message block  text-red-500"></span>
             </div>

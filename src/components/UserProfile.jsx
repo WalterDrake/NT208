@@ -91,7 +91,7 @@ export const UserProfile = () => {
                                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                                     variant="dot"
                                 >
-                                    <Avatar alt="Thùy Trang" src="./src/assets/Avt.jpg" sx={{ width: 48, height: 48 }} />
+                                    <Avatar alt={`user-uit-course-${user.username}`} src={user.linkimage} sx={{ width: 48, height: 48 }} />
                                 </StyledBadge>
 
                             </Stack>
@@ -134,7 +134,7 @@ export const UserProfile = () => {
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
                     <MenuItem onClick={handleClose} to={config.profile}>
-                        <Link to={config.profile}>
+                        <Link to={`/Profile/${user._id}`}>
                             <Avatar alt="Thùy Trang" src="./src/assets/Avt.jpg" /> Tài khoản của tôi
                         </Link>
                     </MenuItem>

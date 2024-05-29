@@ -33,7 +33,6 @@ export default function ShowStudents() {
                 </div>
                 <button className='bg-red-500 text-white' onClick={() => { }}>Delete</button>
               </li>
-
             )
           })}
         </ul>
