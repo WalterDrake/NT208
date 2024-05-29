@@ -28,7 +28,7 @@ export default function PostItem({ post }) {
   return (
     <>
       {/* {showUpdate && <UpdatePost post={post} setShowUpdate={setShowUpdate} />} */}
-      <li className='flex md:flex-row flex-col gap-1 w-[80%] bg-white mx-auto rounded-3xl my-4 overflow-hidden h-auto'>
+      <li className='flex md:flex-row flex-col gap-1 w-[80%] shadow-lg bg-white mx-auto rounded-3xl my-4 overflow-hidden h-auto'>
         <div className="m-auto md:w-1/5">
           <img src={'https://i.pinimg.com/736x/a5/20/0f/a5200f19de6c7b5d35b89262cd73e129.jpg' && post.linkPDF} alt={`Post-image-${post.title}-image`} />
         </div>
@@ -54,7 +54,7 @@ export default function PostItem({ post }) {
           </div>
           <h3 className='font-bold text-xl max-w-[70%] w-auto rounded-md pl-8'>{post.title}</h3>
           <div className='flex-col h-full m-8'>
-            <a href={post.linkPDF} target='_blank'> PDF or image: {post.linkPDF}</a>
+            <a href={post.linkPDF} target='_blank' rel="noreferrer"> PDF or image: {post.linkPDF}</a>
             <p > description: {post.description}</p>
             <div className='flex md:mt-12 mt-4'>
               {post?.like}<FavoriteIcon sx={{ color: pink[500] }} fontSize='small' className='mx-4' />
