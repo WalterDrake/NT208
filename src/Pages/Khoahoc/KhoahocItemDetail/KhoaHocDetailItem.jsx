@@ -102,13 +102,18 @@ function KhoahocDetailItem() {
           <KhoahocDetailVideo url={curVideo?.link} />
         </div>
       </div>
-      <div className='bg-white max-h-[400px] w-full overflow-auto'>
+      <div className='bg-[#F0F7FF] flex flex-col max-h-[400px] w-full overflow-auto'>
         <div className="flex my-4">
           <CommentVideo item={curItem} />
         </div>
-        <h1 className="h-[56px] bg-gradient-to-l from-[#3292FF] to-[#B5D5FB] w-full box-border justify-between relative text-[#3f3f3f] font-bold text-[1.2rem] items-center flex md:px-4 px-2">Bài đăng</h1>
 
-        <ListPost item={curItem} />
+        <div className=" rounded-lg mb-4">
+          <h1 className="h-[56px] bg-gradient-to-l from-[#3292FF] to-[#B5D5FB] rounded-t-lg w-full box-border justify-between relative text-[#3f3f3f] font-bold text-[1.2rem] items-center flex md:px-4 px-2">
+            Bài đăng
+          </h1>
+          <ListPost item={curItem} />
+        </div>
+
         {(showListtudent && (user?.role === 'admin' || courseDetails?.owner === user._id)) &&
           <ListStudent courseId={courseId} />}
       </div>

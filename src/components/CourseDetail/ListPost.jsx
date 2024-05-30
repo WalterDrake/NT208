@@ -1,7 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
-
-
 import * as posts from "../../service/posts"
 import useUser from "../../hook/useUser";
 import { Tooltip } from "@mui/material";
@@ -61,8 +59,8 @@ export default function ListPost({ item }) {
                   </button>
                 )}
               </div>
-              <h3 className='font-bold text-xl max-w-[70%] w-auto rounded-md pl-8'>Title: {post.title}</h3>
-              <div className='flex-col h-full m-8'>
+              <h3 className='font-bold text-xl max-w-[70%] w-auto rounded-md pl-8'>{post.title}</h3>
+              <div className='flex-col m-8'>
                 <p > Description: {post.description}</p>
 
               </div>
