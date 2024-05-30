@@ -9,12 +9,20 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Tooltip } from '@mui/material';
 import * as groups from '../../../service/groups'
 import useUser from '../../../hook/useUser'
+import io from "socket.io-client";
+
+import { socket } from '../../../service/socket';
+import { set } from 'lodash';
+// socket;
+// export const socket = io.connect("http://localhost:8017");
 
 export default function HocNhomDetail() {
+
   const {user} = useUser()
   const { code } = useParams()
   const navigate = useNavigate()
   const [groupDetails, setgroupDetails] = useState({})
+  const [listMessage,setListMessage] = useState([])
   const handleBack = () => {
     navigate(-1)
   }
@@ -22,13 +30,24 @@ export default function HocNhomDetail() {
     const formMessage = document.querySelector('#message-group-chat-form')
     formMessage.addEventListener('submit', (e) => {
       e.preventDefault()
-      const message = formMessage.querySelector('input').value
+      const message = formMessage.querySelector('#chat-send-input').value
+      socket.emit("send_message", { message, code });
+      setListMessage(prevList => [...prevList, message]);
     })
   }, [])
+  useEffect(() => {
+    const check=socket.emit("join_room",code)
+    console.log(check)
+  },[code])
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      setListMessage(prevList => [...prevList, data.message]);
+    });
+  },[socket])
   useLayoutEffect(() => {
     groups.getGroupByCode(code)
       .then(res => {
-        console.log('res', res)
+        //console.log('res', res)
         setgroupDetails(res)
       })
       .catch(err => {
@@ -96,13 +115,23 @@ export default function HocNhomDetail() {
             className='h-full md:flex-1 
             bg-gradient-to-r from-[#FF9CDA] to-[#EA4492]'>
           <div id="chat-message" className='mt-0 overflow-y-scroll h-4/5'>
-
+             <ul>
+              {listMessage.map((message,index) => {
+                return (
+                  <li>
+                    {message}
+                  </li>
+                )
+              })
+            }
+             </ul>
           </div>
           {/* chat send */}
           <div id="chat-send" className='h-1/5'>
             <form className='h-full box-border p-2' id='message-group-chat-form'>
               <input type="text" placeholder='Type your message here' 
                   className='box-border w-[70%] mx-[5%] h-full rounded-xl' 
+                  id = 'chat-send-input'
                   />  
               <span className='w-1/5 box-border' id="more-type-message">
                 <Tooltip title='image'>
