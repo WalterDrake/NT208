@@ -286,3 +286,35 @@ Post khóa học
 
 ## Tham khảo sơ đồ chức năng của web ở link dưới
 [Sơ đồ chức năng](https://drive.google.com/file/d/154R6ONFJVh0bGFez0gV-TwrMxyg9wFdx/view)
+
+
+## Elearning project 
+
+The tech stack used in this project is MongoDB , Express , Reactjs and Nodejs
+
+
+## First time
+
+B1:  Tải thư viện cần thiết cho frontend
+```
+cd frontend 
+npm
+```
+B2 Tải thư viện cần thiết cho backend
+```
+cd backend
+yarn 
+```
+
+## Run project
+B1: Chạy frontend
+```
+cd fronend
+npm run dev
+```
+
+B2: Chạy backend
+```
+cd backend
+npm run dev
+```
