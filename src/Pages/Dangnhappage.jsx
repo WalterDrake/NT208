@@ -1,5 +1,5 @@
-import React, { useEffect, useContext } from "react";
-import { FaRegEyeSlash } from "react-icons/fa6";
+import React, { useEffect, useContext, useState } from "react";
+import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
 import loginImg from "../assets/BackgroundLogin.svg";
 
@@ -9,10 +9,13 @@ import * as serivce from "../service/authentic";
 import { saveUserToLocalStorage } from "../hook/useCheckLogin";
 
 import { UserContext } from "../App";
+
 const Dangnhappage = () => {
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const [showPassword, setShowPassword] = useState(false);
+
   useEffect(() => {
     validator({
       form: "#form-login",
@@ -24,44 +27,38 @@ const Dangnhappage = () => {
         // validator.isEmail('#email', 'Email không hợp lệ'),
         validator.isRequired("#password", "Vui lòng nhập mật khẩu"),
         validator.minLength("#password", 6),
-        validator.isRequired("#role-login", "Vui lòng nhập role")
+        validator.isRequired("#role-login", "Vui lòng nhập role"),
       ],
       onSubmit: function (data) {
         serivce
-          .login(data.email, data.password,data.role)
+          .login(data.email, data.password, data.role)
           .then((res) => {
             console.log("res dang nhap", res);
             setUser(res);
-            // console.log('user',res)
-            if(data.rememberPassword) 
-              saveUserToLocalStorage(res);
+            if (data.rememberPassword) saveUserToLocalStorage(res);
             if (location.pathname === "/Login") {
               navigate("/");
             } else {
               navigate(location.pathname);
             }
-            // nếu path là dangnhappage thì chuyển hướng sang trang chủ
-            // nếu path là trang khác thì chuyển hướng sang trang đó
           })
           .catch((err) => {
             console.log("loi r cu", err);
-            // setUser(
-            //     {
-            //         name: 'Nguyen Van A',
-            //         email: 'nguyenvietthang010@gmail.com'
-            //     }
-            // )
             alert("mat khau khong chính xác");
           });
       },
     });
-    return () => {};
+    return () => { };
   }, []);
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
-    <div className="flex bg-[#F0F7FF] flex-col items-center justify-center  flex-1 px-20 text-center">
-      <main className="flex  flex-col items-center w-full flex-1 px-20 text-center  mt-9">
-        <div className="rounded-2xl shadow-2xl h-[500px] flex max-w-3xl ">
+    <div className="flex bg-[#F0F7FF] flex-col items-center justify-center flex-1 px-20 text-center">
+      <main className="flex flex-col items-center w-full flex-1 px-20 text-center mt-9">
+        <div className="rounded-2xl shadow-2xl h-[500px] flex max-w-3xl">
           <div className="md:w-4/5 p-6">
             <div className=" py-8">
               <img
@@ -89,12 +86,22 @@ const Dangnhappage = () => {
                 <div className="relative form-group">
                   <input
                     className="p-2 mt-2 rounded-xl border"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
                     placeholder="Mật khẩu"
                   />
-                  <FaRegEyeSlash className="absolute fill-gray-400 top-7 right-3 -translate-y-1/2 inline-block w-5 h-5 mr-8 " />
+                  {showPassword ? (
+                    <FaRegEye
+                      className="absolute fill-gray-400 top-7 right-3 -translate-y-1/2 inline-block w-5 h-5 mr-8 cursor-pointer"
+                      onClick={togglePasswordVisibility}
+                    />
+                  ) : (
+                    <FaRegEyeSlash
+                      className="absolute fill-gray-400 top-7 right-3 -translate-y-1/2 inline-block w-5 h-5 mr-8 cursor-pointer"
+                      onClick={togglePasswordVisibility}
+                    />
+                  )}
                   <span className="form-message block  text-red-500"></span>
                 </div>
                 <div className="relative form-group">
@@ -108,8 +115,12 @@ const Dangnhappage = () => {
                   <span className="form-message block  text-red-500"></span>
                 </div>
                 <div className="text-sm mr-10 form-group">
-                    <input type="checkbox" name='rememberPassword' id="rememberPassword"/>
-                    <label htmlFor="rememberPassword">Nhớ tài khoản của tôi</label>
+                  <input
+                    type="checkbox"
+                    name="rememberPassword"
+                    id="rememberPassword"
+                  />
+                  <label htmlFor="rememberPassword">Nhớ tài khoản của tôi</label>
                 </div>
                 <button className="form-submit">
                   {" "}
