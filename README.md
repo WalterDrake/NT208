@@ -303,7 +303,7 @@ npm
 B2 Tải thư viện cần thiết cho backend
 ```
 cd backend
-yarn 
+npm 
 ```
 
 ## Run project
