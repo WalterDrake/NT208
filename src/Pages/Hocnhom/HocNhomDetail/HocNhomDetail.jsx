@@ -10,11 +10,17 @@ import { Tooltip } from '@mui/material';
 import * as groups from '../../../service/groups'
 import useUser from '../../../hook/useUser'
 
+import { socket } from '../../../service/socket';
+// socket;
+// export const socket = io.connect("http://localhost:8017");
+
 export default function HocNhomDetail() {
+
   const {user} = useUser()
   const { code } = useParams()
   const navigate = useNavigate()
   const [groupDetails, setgroupDetails] = useState({})
+  const [listMessage,setListMessage] = useState([{}])
   const handleBack = () => {
     navigate(-1)
   }
@@ -22,13 +28,31 @@ export default function HocNhomDetail() {
     const formMessage = document.querySelector('#message-group-chat-form')
     formMessage.addEventListener('submit', (e) => {
       e.preventDefault()
-      const message = formMessage.querySelector('input').value
+      const message = formMessage.querySelector('#chat-send-input').value
+      const data = { message, code , linkimage: user.linkimage, username: user.username,userid: user._id }
+      socket.emit("send_message", data );
+      setListMessage(prevList => [...prevList,data ]);
+    })
+    groups.getMessageList(code)
+    .then(res => {
+      setListMessage(res);
+    })
+    .catch(err => {
+      console.log(err)
     })
   }, [])
+  useEffect(() => {
+    socket.emit("join_room",code)
+  },[code])
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      setListMessage(prevList => [...prevList, data]);
+    });
+  },[socket])
   useLayoutEffect(() => {
     groups.getGroupByCode(code)
       .then(res => {
-        console.log('res', res)
+        //console.log('res', res)
         setgroupDetails(res)
       })
       .catch(err => {
@@ -89,20 +113,31 @@ export default function HocNhomDetail() {
       </ul>
       <div id="chatbox" className='flex h-[calc(100%-56px)] bg-slate-500'>
         <div id="chat-service" 
-            className='md:w-[25%] h-full
+            className='md:w-[25%] h-full w-[0%]
             bg-gradient-to-r from-[#56C596] to-[#7BE495] '>
         </div>
         <div id="chat-content" 
-            className='h-full md:flex-1 
+            className='h-full flex-1 
             bg-gradient-to-r from-[#FF9CDA] to-[#EA4492]'>
           <div id="chat-message" className='mt-0 overflow-y-scroll h-4/5'>
-
+             <ul>
+              {(listMessage.length>0)&&listMessage.map((message,index) => {
+                return (
+                  <li index={index}>
+                    <p>{message.username}</p>
+                    <p>{message.message}</p>
+                  </li>
+                )
+              })
+            }
+             </ul>
           </div>
           {/* chat send */}
           <div id="chat-send" className='h-1/5'>
             <form className='h-full box-border p-2' id='message-group-chat-form'>
               <input type="text" placeholder='Type your message here' 
                   className='box-border w-[70%] mx-[5%] h-full rounded-xl' 
+                  id = 'chat-send-input'
                   />  
               <span className='w-1/5 box-border' id="more-type-message">
                 <Tooltip title='image'>

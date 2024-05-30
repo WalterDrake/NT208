@@ -8,7 +8,6 @@ import * as studies from '../service/studies'
 import useUser from "../hook/useUser"
 import { CreateCourse } from "../components/teacherAction/courseAction"
 
-
 const Hoctappage = () => {
   //state
   const [hoctaps,setHoctaps] =useState([])

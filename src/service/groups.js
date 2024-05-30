@@ -80,7 +80,17 @@ const deleteGroupByCode = async (code,owner) => {
         throw err.response
     }
 }
+
+const getMessageList = async (code) => {
+    try {
+        const response = await httpRequest.get(`/groups/GetlistMess/${code}`)
+        return response
+    } catch (err) {
+        throw err.response
+    }
+}
 export {
+    getMessageList,
     deleteGroupByCode,
     getAllGroupByAdmin,
     leaveGroup,
