@@ -19,6 +19,6 @@ Router.route("/StudentLogin/:email/:password").post(
 );
 Router.route("/StudentLogOut/:id").put(userController.StudentLogOut);
 Router.route("/getAlluserOnline").get(userController.getAllUserOnline);
-Router.route("/UpdateStudent/:id").get(userController.updateStudent);
+Router.route("/UpdateStudent/:id").put(userController.updateStudent);
 
 export const userRoute = Router;
