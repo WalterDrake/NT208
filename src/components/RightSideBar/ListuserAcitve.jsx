@@ -92,7 +92,7 @@ function ListuserAcitve() {
                                 >
                                     <Avatar
                                         alt={`uit-course-avatar-of-${user.username}`}
-                                        src={(user.linkAvatar) ? user.linkAvatar : 'https://th.bing.com/th/id/OIP.j_sPXvgD1NS2aHjbgAB5UAHaJN?w=150&h=186&c=7&r=0&o=5&dpr=1.3&pid=1.7'} />
+                                        src={(user.linkimage) ? user.linkimage : 'https://th.bing.com/th/id/OIP.j_sPXvgD1NS2aHjbgAB5UAHaJN?w=150&h=186&c=7&r=0&o=5&dpr=1.3&pid=1.7'} />
                                 </StyledBadge>
                                 <div className='info avatar'>
                                     <p className='font-bold'>{user.username}</p>
