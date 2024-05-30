@@ -2,6 +2,7 @@ import express from "express";
 import { StatusCodes } from "http-status-codes";
 import { groupController } from "~/controllers/groupController";
 import { groupModel } from "~/models/Hocnhom/groupModel";
+import { messengerModel } from "~/models/RoomChat/messengetModel";
 const Router = express.Router();
 
 Router.route("/")
@@ -25,5 +26,6 @@ Router.route("/:id/getAllgroupByAdmin") // get by id
 Router.route("/:code/:owner").delete(groupController.deleteGroupByOwner);
 Router.route("/GetGroupOfStudent/:id").get(groupController.GetGroupOfStudent);
 Router.route("/GetListStudent/:id").get(groupModel.getListStudentOfGroup);
+Router.route("/GetlistMess/:code").get(groupController.getAllChatOfGroup);
 
 export const groupRoute = Router;

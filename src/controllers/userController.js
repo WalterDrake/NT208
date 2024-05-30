@@ -99,7 +99,7 @@ const updateStudent = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     const password = await bcrypt.hash(req.body.password, salt);
     const news = { ...req.body, password: password, salt: salt };
-    console.log("newss", news);
+    console.log("news", news);
     const student = await studentModel.update(req.params.id, news);
     const students = await studentModel.findOneById(req.params.id);
     res.status(StatusCodes.OK).json(students);

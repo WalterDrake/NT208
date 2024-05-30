@@ -1,4 +1,5 @@
 import { StatusCodes } from "http-status-codes";
+import { messengerModel } from "~/models/RoomChat/messengetModel";
 import { groupService } from "~/services/groupService";
 
 const createNew = async (req, res, next) => {
@@ -120,7 +121,18 @@ const GetGroupOfStudent = async (req, res, next) => {
     next(error);
   }
 };
+
+const getAllChatOfGroup = async (req, res, next) => {
+  const codeGroup = req.params.code;
+  try {
+    const result = await messengerModel.getAllChatOfGroup(codeGroup);
+    res.status(StatusCodes.OK).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
 export const groupController = {
+  getAllChatOfGroup,
   getGroup,
   getAllGroupByAdmin,
   createNew,
