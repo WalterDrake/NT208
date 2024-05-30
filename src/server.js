@@ -23,28 +23,7 @@ const START_SERVER = () => {
       methods: ["GET", "POST"],
     },
   });
-<<<<<<< HEAD
   connectChat(io);
-=======
-
-  io.on("connection", (socket) => {
-    console.log(`User Connected: ${socket.id}`);
-
-    socket.on("join_room", (data) => {
-      socket.join(data);
-      // call db 
-      //const listchat = 
-      socket.emit('get_list_chat',listchat)
-      console.log(`User ${socket.id} joined room: ${data}`);
-    });
-
-    socket.on("send_message", (data) => { // data :" userid , code  , message, username,linkimage"
-      socket.to(data.code).emit("receive_message", data);
-      // luu 
-      console.log(`Message from ${socket.id} to room ${data.code}: ${data.message}`);
-    });
-  });
->>>>>>> f93e759bcba9c0e40892312c9bf602ba739389dd
 
   // Enable req.body json data
   app.use(express.json());

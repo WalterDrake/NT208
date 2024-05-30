@@ -5,7 +5,7 @@ function connectChat(io) {
       socket.join(data);
     });
     socket.on("send_message", (data) => {
-      socket.to(data.room).emit("receive_message", data);
+      socket.to(data.room).emit("receive_message", data);  // data :" userid , code  , message, username,linkimage"
     });
   });
 }
