@@ -9,10 +9,8 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Tooltip } from '@mui/material';
 import * as groups from '../../../service/groups'
 import useUser from '../../../hook/useUser'
-import io from "socket.io-client";
 
 import { socket } from '../../../service/socket';
-import { set } from 'lodash';
 // socket;
 // export const socket = io.connect("http://localhost:8017");
 
@@ -22,7 +20,7 @@ export default function HocNhomDetail() {
   const { code } = useParams()
   const navigate = useNavigate()
   const [groupDetails, setgroupDetails] = useState({})
-  const [listMessage,setListMessage] = useState([])
+  const [listMessage,setListMessage] = useState([{}])
   const handleBack = () => {
     navigate(-1)
   }
@@ -31,8 +29,9 @@ export default function HocNhomDetail() {
     formMessage.addEventListener('submit', (e) => {
       e.preventDefault()
       const message = formMessage.querySelector('#chat-send-input').value
-      socket.emit("send_message", { message, code });
-      setListMessage(prevList => [...prevList, message]);
+      const data = { message, code , linkimage: user.linkimage, username: user.username,userid: user._id }
+      socket.emit("send_message", data );
+      setListMessage(prevList => [...prevList,data ]);
     })
   }, [])
   useEffect(() => {
@@ -116,10 +115,11 @@ export default function HocNhomDetail() {
             bg-gradient-to-r from-[#FF9CDA] to-[#EA4492]'>
           <div id="chat-message" className='mt-0 overflow-y-scroll h-4/5'>
              <ul>
-              {listMessage.map((message,index) => {
+              {(listMessage.length>0)&&listMessage.map((message,index) => {
                 return (
-                  <li>
-                    {message}
+                  <li index={index}>
+                    <p>{message.username}</p>
+                    <p>{message.message}</p>
                   </li>
                 )
               })
