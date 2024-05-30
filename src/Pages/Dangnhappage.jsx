@@ -129,7 +129,7 @@ const Dangnhappage = () => {
                   </p>
                 </button>
                 <p className="text-sm mt-4">
-                  <a href="#">Quên mật khẩu?</a>
+                  <a href="*">Quên mật khẩu?</a>
                 </p>
               </form>
             </div>
