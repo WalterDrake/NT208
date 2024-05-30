@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-catch */
-import { messageModel } from '~/models/Hocnhom/ChatRealTime/messageModel'
+
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
 import { chatRealTimeModel } from '~/models/Hocnhom/ChatRealTime/chatRealTimeModel'

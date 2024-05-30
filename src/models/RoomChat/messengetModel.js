@@ -9,6 +9,7 @@ import {
 } from "~/utils/validators";
 import bcrypt from "bcryptjs";
 
+
 const MESSENGER_COLLECTION_NAME = "messengers";
 const MESSENGER_COLLECTION_SCHEMA = Joi.object().keys({
   userid: Joi.string()
@@ -18,7 +19,7 @@ const MESSENGER_COLLECTION_SCHEMA = Joi.object().keys({
     .required(), // ycau
   username: Joi.string().trim(),
   code: Joi.string().required().trim(),
-  message: Joi.string().required().min(3).trim().strict().required(), // yeu cau
+  message: Joi.string().required().trim().strict().required(), // yeu cau
   linkimage: Joi.string().trim(),
   createdAt: Joi.date().iso().default(Date.now),
 });
@@ -26,12 +27,12 @@ const MESSENGER_COLLECTION_SCHEMA = Joi.object().keys({
 const INVALID_UPDATE_FIELDS = ["_id", "createdAt"];
 
 const validateBeforeCreate = async (data) => {
-  return await MESSENGER_COLLECTION_NAME.validateAsync(data, {
+  return await MESSENGER_COLLECTION_SCHEMA.validateAsync(data, {
     abortEarly: false,
   });
 };
 
-const createMessage = async (req, res, next) => {
+const createMessage = async (data) => {
   try {
     const validData = await validateBeforeCreate(data);
     const createMessage = await GET_DB()
