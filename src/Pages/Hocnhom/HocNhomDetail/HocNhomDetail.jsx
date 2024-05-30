@@ -33,6 +33,14 @@ export default function HocNhomDetail() {
       socket.emit("send_message", data );
       setListMessage(prevList => [...prevList,data ]);
     })
+    groups.getMessageList(code)
+    .then(res => {
+      console.log(res)
+      setListMessage(res);
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }, [])
   useEffect(() => {
     const check=socket.emit("join_room",code)
@@ -40,7 +48,7 @@ export default function HocNhomDetail() {
   },[code])
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      setListMessage(prevList => [...prevList, data.message]);
+      setListMessage(prevList => [...prevList, data]);
     });
   },[socket])
   useLayoutEffect(() => {
