@@ -43,8 +43,8 @@ const Dangnhappage = () => {
             }
           })
           .catch((err) => {
-            console.log("loi r cu", err);
-            alert("mat khau khong chính xác");
+            console.log("Lỗi", err);
+            alert("Mật khẩu không chính xác");
           });
       },
     });
@@ -56,7 +56,7 @@ const Dangnhappage = () => {
   };
 
   return (
-    <div className="flex bg-[#F0F7FF] flex-col items-center justify-center flex-1 px-20 text-center">
+    <div className="flex bg-[#F0F7FF] flex-col items-center h-screen justify-center flex-1 px-20 text-center">
       <main className="flex flex-col items-center w-full flex-1 px-20 text-center mt-9">
         <div className="rounded-2xl shadow-2xl h-[500px] flex max-w-3xl">
           <div className="md:w-4/5 p-6">
