@@ -106,6 +106,8 @@ function KhoahocDetailItem() {
         <div className="flex my-4">
           <CommentVideo item={curItem} />
         </div>
+        <h1 className="h-[56px] bg-gradient-to-l from-[#3292FF] to-[#B5D5FB] w-full box-border justify-between relative text-[#3f3f3f] font-bold text-[1.2rem] items-center flex md:px-4 px-2">Bài đăng</h1>
+
         <ListPost item={curItem} />
         {(showListtudent && (user?.role === 'admin' || courseDetails?.owner === user._id)) &&
           <ListStudent courseId={courseId} />}
