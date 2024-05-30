@@ -35,7 +35,6 @@ export default function HocNhomDetail() {
     })
     groups.getMessageList(code)
     .then(res => {
-      console.log(res)
       setListMessage(res);
     })
     .catch(err => {
@@ -43,8 +42,7 @@ export default function HocNhomDetail() {
     })
   }, [])
   useEffect(() => {
-    const check=socket.emit("join_room",code)
-    console.log(check)
+    socket.emit("join_room",code)
   },[code])
   useEffect(() => {
     socket.on("receive_message", (data) => {
