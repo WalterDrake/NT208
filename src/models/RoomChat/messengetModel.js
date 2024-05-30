@@ -9,49 +9,35 @@ import {
 } from "~/utils/validators";
 import bcrypt from "bcryptjs";
 
-const MESSENGER_COLLECTION_NAME = "messenger";
+const MESSENGER_COLLECTION_NAME = "messengers";
 const MESSENGER_COLLECTION_SCHEMA = Joi.object().keys({
-  senderId: Joi.string()
+  userid: Joi.string()
+    .required()
     .pattern(OBJECT_ID_RULE)
-    .message(OBJECT_ID_RULE_MESSAGE), //nguoi gui
-  receiverId: Joi.array()
-    .items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
-    .default([]), // danh sach nguoi nhan
-  text: Joi.string().trim(),
+    .message(OBJECT_ID_RULE_MESSAGE)
+    .required(), // ycau
+  username: Joi.string().trim(),
+  code: Joi.string().required().trim(),
+  message: Joi.string().required().min(3).trim().strict().required(), // yeu cau
+  linkimage: Joi.string().trim(),
   createdAt: Joi.date().iso().default(Date.now),
 });
 
 const INVALID_UPDATE_FIELDS = ["_id", "createdAt"];
 
 const validateBeforeCreate = async (data) => {
-  return await CONVERSATION_COLLECTION_NAME.validateAsync(data, {
+  return await MESSENGER_COLLECTION_NAME.validateAsync(data, {
     abortEarly: false,
   });
 };
 
-const createSendMessenger = async (req, res, next) => {
+const createMessage = async (req, res, next) => {
   try {
-    // truyen vao danh sach user
-    const existingStudent = await GET_DB()
-      .collection(ADMIN_COLLECTION_NAME)
-      .findOne({
-        email: data.email,
-      });
-
-    if (existingStudent) {
-      return null;
-    } else {
-      const validData = await validateBeforeCreate(data);
-      let salt = bcrypt.genSaltSync(10);
-      let hashPassword = bcrypt.hashSync(data.password, salt);
-      validData.salt = salt;
-      validData.password = hashPassword;
-
-      const createdUser = await GET_DB()
-        .collection(ADMIN_COLLECTION_NAME)
-        .insertOne(validData);
-      return createdUser;
-    }
+    const validData = await validateBeforeCreate(data);
+    const createMessage = await GET_DB()
+      .collection(MESSENGER_COLLECTION_NAME)
+      .insertOne(validData);
+    return createMessage;
   } catch (error) {
     throw new Error(error);
   }
@@ -179,11 +165,21 @@ const getIds = async (mssv) => {
     throw new Error(error);
   }
 };
+const getAllChatOfGroup = async (idcode) => {
+  try {
+    const finder = await GET_DB()
+      .collection(messengerModel.MESSENGER_COLLECTION_NAME)
+      .find({ code: idcode })
+      .toArray();
+    return finder;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 
-export const adminModel = {
-  ADMIN_COLLECTION_NAME,
-  ADMIN_COLLECTION_SCHEMA,
-  createNew,
+export const messengerModel = {
+  MESSENGER_COLLECTION_NAME,
+  MESSENGER_COLLECTION_SCHEMA,
   findOneById,
   update,
   getDetails,
@@ -192,4 +188,6 @@ export const adminModel = {
   checkExist,
   findOneByemail,
   getDetailsbyEmail,
+  createMessage,
+  getAllChatOfGroup,
 };
