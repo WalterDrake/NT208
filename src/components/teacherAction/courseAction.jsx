@@ -12,6 +12,7 @@ import * as CreateCourseForm from "../Form/CreateCourse";
 import validator from "../../hook/validate";
 import * as videos from '../../service/videos'
 import { addDocument } from "../../service/document"
+import { Fab } from "@mui/material";
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -152,22 +153,26 @@ export function AddDealine() {
 export const CreateCourse = ({ user, isCourse, isStudy }) => {
     const [showFormCreateCourse, setShowFormCreateCourse] = useState(false)
     const handleCloseFromCreate = () => {
-      setShowFormCreateCourse(false)
+        setShowFormCreateCourse(false)
     }
     const handleOpenFromCreate = () => {
-      setShowFormCreateCourse(true)
+        setShowFormCreateCourse(true)
     }
-  return(
-    <>
-        <Button onClick={handleOpenFromCreate}>Create Study</Button>
-        <Dialog open={showFormCreateCourse} onClose={handleCloseFromCreate} fullWidth={true} maxWidth='md'>
-            <DialogTitle>Create Study</DialogTitle>
-            <DialogContent>
-                <CreateCourseForm.CreateCourse user={user} isCourse={isCourse} isStudy={isStudy} />
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleCloseFromCreate}>Cancel</Button>
-            </DialogActions>
-        </Dialog>
-    </>)
+    return (
+        <div className="w-full flex-col md:flex-row flex justify-between">
+
+            <Fab variant="extended" onClick={handleOpenFromCreate} className='bg-[#0077ff] text-white' sx={{ position: 'absolute', top: 15, right: 25 }}>
+                Creat Study
+            </Fab>
+
+            <Dialog open={showFormCreateCourse} onClose={handleCloseFromCreate} fullWidth={true} maxWidth='md'>
+                <DialogTitle>Create Study</DialogTitle>
+                <DialogContent>
+                    <CreateCourseForm.CreateCourse user={user} isCourse={isCourse} isStudy={isStudy} />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseFromCreate}>Cancel</Button>
+                </DialogActions>
+            </Dialog>
+        </div>)
 }

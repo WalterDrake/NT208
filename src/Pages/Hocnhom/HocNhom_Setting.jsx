@@ -1,17 +1,17 @@
-import { useState,useContext } from "react";
+import { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { Tooltip, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import Groups2Icon from '@mui/icons-material/Groups2';
-import{ ShowFormAddGroupContext} from "../Hocnhompage";
+import { ShowFormAddGroupContext } from "../Hocnhompage";
 function HocNhom_Setting() {
   function HandleSettingClick() { }
   const [open, setOpen] = useState(false)
-  const {setOpenJoinGroup,setOpenAddGroup} = useContext(ShowFormAddGroupContext)
+  const { setOpenJoinGroup, setOpenAddGroup } = useContext(ShowFormAddGroupContext)
   const handleClickOpen = () => {
     setOpen((pre) => {
-      if(pre===true){
+      if (pre === true) {
         setOpenAddGroup(false)
         setOpenJoinGroup(false)
       }
@@ -28,7 +28,6 @@ function HocNhom_Setting() {
   }
   return (
     <div>
-      <FontAwesomeIcon icon={faGear} />
       <button
         title="Setting"
         className="framebutton"
