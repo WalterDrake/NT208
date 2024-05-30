@@ -55,8 +55,8 @@ const Khoahocpage = () => {
   }
   return (
     <KhoaHocRenderContext.Provider value={{ khoaHocRender, SetKhoaHocRender }}>
-      <div className=" dimension relative">
-        <div className="relative ml-[1rem]">
+      <div className=" dimension">
+        <div className=" ml-[1rem]">
           <h1 className="text-3xl mb-5 ml-2 font-bold">Khóa học</h1>
           {(user.role === 'student') ?
             <ul className="flex mb-5">

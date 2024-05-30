@@ -161,7 +161,7 @@ export const CreateCourse = ({ user, isCourse, isStudy }) => {
     return (
         <div className="w-full flex-col md:flex-row flex justify-between">
 
-            <Fab variant="extended" onClick={handleOpenFromCreate} className='bg-[#0077ff] text-white' sx={{ position: 'absolute', top: 15, right: 25 }}>
+            <Fab variant="extended" onClick={handleOpenFromCreate} className='bg-[#0077ff] text-white' sx={{ position: 'absolute', top: 130, right: 25 }}>
                 Creat Study
             </Fab>
 
