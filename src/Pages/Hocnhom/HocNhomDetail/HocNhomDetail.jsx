@@ -113,11 +113,11 @@ export default function HocNhomDetail() {
       </ul>
       <div id="chatbox" className='flex h-[calc(100%-56px)] bg-slate-500'>
         <div id="chat-service" 
-            className='md:w-[25%] h-full
+            className='md:w-[25%] h-full w-[0%]
             bg-gradient-to-r from-[#56C596] to-[#7BE495] '>
         </div>
         <div id="chat-content" 
-            className='h-full md:flex-1 
+            className='h-full flex-1 
             bg-gradient-to-r from-[#FF9CDA] to-[#EA4492]'>
           <div id="chat-message" className='mt-0 overflow-y-scroll h-4/5'>
              <ul>
