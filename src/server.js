@@ -23,7 +23,7 @@ const START_SERVER = () => {
       methods: ["GET", "POST"],
     },
   });
-  connectChat(io, app);
+  connectChat(io);
 
   // Enable req.body json data
   app.use(express.json());
