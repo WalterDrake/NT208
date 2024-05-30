@@ -8,12 +8,36 @@ import { CONNECT_DB, CLOSE_DB } from "~/config/mongodb";
 import { env } from "~/config/environment";
 import { APIs } from "~/routes/api";
 import { errorHandlingMiddleware } from "~/middlewares/errorHandlingMiddleware";
+const { Server } = require("socket.io");
+const http = require("http");
 
 const START_SERVER = () => {
   const app = express();
 
   // Hanlde cors
   app.use(cors(corsOptions));
+
+  const server = http.createServer(app);
+
+  const io = new Server(server, {
+    cors: {
+      origin: "http://localhost:5173",
+      methods: ["GET", "POST"],
+    },
+  });
+
+  io.on("connection", (socket) => {
+    console.log(`User Connected: ${socket.id}`);
+
+    socket.on("join_room", (data) => {
+      socket.join(data); // tham gia vao cai luong do
+    });
+
+    socket.on("send_message", (data) => {
+      //
+      socket.to(data.room).emit("receive_message", data);
+    });
+  });
 
   // Enable req.body json data
   app.use(express.json());
@@ -23,8 +47,7 @@ const START_SERVER = () => {
 
   // Middleware handles errors collectively
   app.use(errorHandlingMiddleware);
-  
-  
+
   app.listen(env.APP_PORT, env.APP_HOST, () => {
     console.log(`http://${env.APP_HOST}:${env.APP_PORT}`);
   });
