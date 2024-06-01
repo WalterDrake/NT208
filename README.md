@@ -407,11 +407,8 @@ npm run dev
 ## DANH SÁCH THÀNH VIÊN NHÓM 9
 ``
 Hồ Đăng Mạnh Hưng – 22520502
-
 Lê Thị Thùy Trang – 22521511
-
 Nguyễn Việt Thắng – 22521339
-
 Nguyễn Phan Quốc Đạt – 22520218
 ``
 
