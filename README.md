@@ -417,4 +417,7 @@ Nguyễn Phan Quốc Đạt–22520218
 ## Link web deploy
 [Linkweb](https://uitwebelearning.vercel.app)
 
+## Tiêu chí cộng điểm 
+**Google page speed và SEO Score**
+![image](https://github.com/manhhunghoo/NT208/assets/87658807/7df0d97b-e2bc-4443-8863-62aab8ce47ec)
 
