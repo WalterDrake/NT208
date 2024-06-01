@@ -2,7 +2,7 @@
 export const WHITELIST_DOMAINS = [
   "https://uitwebelearning.onrender.com",
   "http://localhost:5173",
-  "https://uitwebelearning-j1slzcxs0-hodangmanhhungs-projects.vercel.app",
+  "https://web-or9v.vercel.app",
 ];
 
 export const BOARD_TYPES = {
