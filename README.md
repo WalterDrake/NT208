@@ -372,6 +372,8 @@ Post khóa học
 ## Tham khảo sơ đồ chức năng của web ở link dưới
 [Sơ đồ chức năng](https://drive.google.com/file/d/154R6ONFJVh0bGFez0gV-TwrMxyg9wFdx/view)
 [Sơ đồ các bảng trong DB](https://app.diagrams.net/#G1wn_qjR4yDZ7StfXItSkd-eadcSycjVrz#%7B"pageId"%3A"R2lEEEUBdFMjLlhIrx00"%7D)
+
+
 ## Elearning project 
 
 The tech stack used in this project is MongoDB , Express , Reactjs and Nodejs
@@ -402,4 +404,11 @@ B2: Chạy backend
 cd backend
 npm run dev
 ```
+## DANH SÁCH THÀNH VIÊN NHÓM 9
+``
+Hồ Đăng Mạnh Hưng – 22520502 
+Lê Thị Thùy Trang – 22521511 
+Nguyễn Việt Thắng – 22521339 
+Nguyễn Phan Quốc Đạt – 22520218
+``
 
