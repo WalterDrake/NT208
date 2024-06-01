@@ -1,13 +1,12 @@
-let apiRoot = ''
+let apiRoot = "";
 // console.log('import.meta.env: ', import.meta.env)
 // console.log('process.env: ', process.env)
 
 // Môi trường Dev sẽ chạy localhost với port 8017
-if (process.env.BUILD_MODE === 'dev') {
-  apiRoot = 'http://localhost:8017'
-}
-else if (process.env.BUILD_MODE === 'production') {
-  apiRoot = 'https://trello-api-0gbu.onrender.com'
+if (process.env.BUILD_MODE === "dev") {
+  apiRoot = "https://uitwebelearning.onrender.com";
+} else if (process.env.BUILD_MODE === "production") {
+  apiRoot = "https://uitwebelearning.onrender.com";
 }
 
 // Môi trường Production sẽ cần api endpoint chuẩn của các bạn
@@ -16,4 +15,4 @@ else if (process.env.BUILD_MODE === 'production') {
 //   apiRoot = 'https://trello-api-0gbu.onrender.com'
 // }
 //onsole.log('🚀 ~ file: constants.js:7 ~ apiRoot:', apiRoot)
-export const API_ROOT = apiRoot
+export const API_ROOT = apiRoot;
