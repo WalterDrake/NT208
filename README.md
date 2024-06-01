@@ -4,8 +4,8 @@ UITeCo là một trang web học tập trực tuyến dành cho sinh viên và g
 
 ## Mô tả
 
--UITeCo là một trang web học tập trực tuyến dành riêng cho sinh viên và giảng UIT với các khóa học, tài liệu, video bài giảng được các thầy cô, sinh viên của trường chia sẻ lên hoàn toàn miễn phí. UITeCo lầ sự kết hợp giữa UIT courses và Microsoft Teams, giúp sinh viên có thể vào học các môn học và vừa có thể tạo phòng học, nhóm học với nhau như trên Teams. Điểm đặc biệt của UITeCo là trang web chia sẻ tài liệu của tất cả các môn học của từng khoa từ môn cơ sở ngành đến các môn chuyên ngành (tài liệu này sẽ do giảng viên môn học chia sẻ lên nên sẽ đảm bảo về chất lượng và nguồn gốc) nhằm phụ vụ mong muốn học hỏi thêm kiến thức của sinh viên. Trang web tích hợp các chức năng cơ bản, cần thiết của UIT Courses và Microsoft Teams như: tạo phòng học, tạo group học, đăng tải hình ảnh, chia sẻ tài liệu, xem video bài học, nhắn tin,...
--Đối với giảng viên: Website có các chức năng giúp giảng viên có thể đăng tải video, tài liệu học tập, giao bài tập và deadline, tạo lớp học, tạo phòng học trực tuyến, quản lý sinh viên giống như UIT courses.
+-UITeCo là một trang web học tập trực tuyến dành riêng cho sinh viên và giảng UIT với các khóa học, tài liệu, video bài giảng được các thầy cô, sinh viên của trường chia sẻ lên hoàn toàn miễn phí. UITeCo lấy ý tưởng từ UIT courses và Microsoft Teams, giúp sinh viên có thể vào học các môn học cảu các khoa khsc nhau và vừa có thể tạo phòng học, nhóm học với nhau như trên Teams. Điểm đặc biệt của UITeCo là trang web chia sẻ tài liệu của tất cả các môn học của từng khoa từ môn cơ sở ngành đến các môn chuyên ngành (tài liệu này sẽ do giảng viên môn học chia sẻ lên nên sẽ đảm bảo về chất lượng và nguồn gốc) nhằm phụ vụ mong muốn học hỏi thêm kiến thức của sinh viên. Trang web tích hợp các chức năng cơ bản, cần thiết của UIT Courses và Microsoft Teams như: tạo phòng học, tạo group học, đăng tải hình ảnh, xem video bài học, nhắn tin,...
+-Đối với giảng viên: Website có các chức năng giúp giảng viên có thể đăng tải video, giao bài tập, deadline, chấm điểm sinh viên, tạo lớp học, tạo phòng học trực tuyến, quản lý sinh viên giống như UIT courses.
 
 ## PHẦN 1: CÁC CHỨC NĂNG (Mô tải sơ lược)
  (Mô tả chi tiết ở phần 2)
@@ -79,9 +79,9 @@ UITeCo là một trang web học tập trực tuyến dành cho sinh viên và g
 
 ### Chức năng 1: Đăng nhập/ Đăng xuất
 **Đăng nhập**
-![DangNhap](https://github.com/WalterDrake/NT208/assets/87658807/2e7e425c-9fa2-4832-ac71-8e394e1c41cf)
+![Dang nhap](https://github.com/manhhunghoo/DoAnWeb/assets/87658807/5ab58edc-a38d-4790-b299-aa196493539a)
 
-- **Mô tả:** Dành riêng cho uit nên sẽ cố định định dạng email đk tài khoản (.uit.edu.vn). Ở phần đăng ký sẽ có mục chọn thân phận (Giảng viên/ Sinh viên), ở mỗi thân phận sẽ có một vài chức năng khác nhau.
+- **Mô tả:** Dành riêng cho uit nên sẽ cố định định dạng email đk tài khoản (.uit.edu.vn). 
 - **Chức năng:**
    + Tạo tài khoản
    + Đăng nhập	
@@ -89,8 +89,10 @@ UITeCo là một trang web học tập trực tuyến dành cho sinh viên và g
    + Ghi nhớ đăng nhập	
    + Ghi nhớ phiên hoạt động	
 
-### 2. Trang chủ
-![Trang chủ](https://github.com/WalterDrake/NT208/assets/87658807/6fb46b24-a585-4ee5-bd7e-3fa376409e05)
+### Chức năng 2. Trang chủ
+![trang chu](https://github.com/manhhunghoo/DoAnWeb/assets/87658807/5ae81114-610a-42c8-b6c7-91ed21b7b478)
+
+![Trang chu](https://github.com/manhhunghoo/DoAnWeb/assets/87658807/fde2e32e-2bb2-45d1-86f6-6dc5ef054aa7)
 
 - **Mô tả:** 
   Bao gồm các module chính:
@@ -99,30 +101,35 @@ UITeCo là một trang web học tập trực tuyến dành cho sinh viên và g
   - Học tập
   - Học nhóm
   - Diễn đàn
+  - To do list
   - Tìm kiếm
-  - Tin nhắn
   - Thông báo
   - Tài khoản
+  - Các mục đề xuất
   - Lịch
-  - Đang hoạt động
-  - Sự kiện
-  - Hỗ trợ
+  - Thành viên đang hoạt động
 
-### 3. Khóa học
+### Chức năng 3. Khóa học
 
-![Khóa học](https://github.com/WalterDrake/NT208/assets/87658807/7ef01741-1014-4c5c-9bb1-167b5521737d)
+![Khóa học](https://github.com/manhhunghoo/DoAnWeb/assets/87658807/f2de6985-4c31-4ea0-8a66-25082b3ff222)
+
 
 - **Mô tả:**
-  Khóa học, khóa training do trường và các khoa tổ chức, thông tin các khóa học sắp tới.
+
+  -Gồm các khóa học do Admin tạo (có thể là các khóa training của các khoa hoặc trường tổ chức)
+
+  -Admin có quyền thêm giáo viên và sinh viên vào khóa học 
+
+  -Giáo viên có quyền chấm điểm sinh viên, khi sinh viên được chấm điểm thì sẽ được xác nhận là hoàn thành khóa học.
 
 
 - **Chức năng:**
-  - *Sinh viên:* Xem, tải tài liệu từ các khóa học hiện có, xem tiếp tục các khóa học đang học dở.
+  - *Sinh viên:* Xem video bài giảng, comment từng video bài giảng 
   - *Giảng viên:* Đăng các khóa traing, tài liệu, video bài giảng.
 
-### 4. Học tập
+### Chức năng 4. Học tập
 
-![Học tập](https://github.com/WalterDrake/NT208/assets/87658807/ce7d4488-3edd-4440-961b-3523abc01236)
+![Học tập](https://github.com/manhhunghoo/DoAnWeb/assets/87658807/8ce9a545-b6b8-468b-ae79-e67c30fb1b60)
 
 - **Mô tả:**
   Bao gồm các môn học đại cương, các môn cơ sở ngành và chuyên ngành của từng khoa.
@@ -133,8 +140,9 @@ UITeCo là một trang web học tập trực tuyến dành cho sinh viên và g
   - *Giảng viên:* Đăng tải tài liệu, video bài giảng, phản hồi thắc mắc của sinh viên.
 
 
-### 5. Học nhóm
-![Học nhóm](https://github.com/WalterDrake/NT208/assets/87658807/f117807c-f45b-444f-b71e-b8588ac673d1)
+### Chức năng 5. Học nhóm
+![Học nhóm](https://github.com/manhhunghoo/DoAnWeb/assets/87658807/8d030e73-384b-4018-9abb-4781b666b739)
+
 
 - **Mô tả:**
   Bao gồm các lớp học do giảng viên bộ môn tạo vào các group học tập cá nhân, có thể tạo các cuộc họp trực tuyến để trò chuyện, học tập giống như Microsoft Teams.
@@ -158,9 +166,41 @@ UITeCo là một trang web học tập trực tuyến dành cho sinh viên và g
 
   -Giao dl (chỉnh sửa dl), bài tập.
 
-### 6. Diễn đàn
-![Diễn đàn](https://github.com/WalterDrake/NT208/assets/87658807/63366cd8-1ae7-4af9-a6c3-2f682601db23)
-![Diễn đàn1](https://github.com/WalterDrake/NT208/assets/87658807/d98fb760-befb-4b55-afd3-7f7975bdfa5c)
+### Chức năng 6. Diễn đàn
+![Diễn đàn](https://github.com/manhhunghoo/DoAnWeb/assets/87658807/7aa38982-84bd-4a1b-8975-e03d7aa20de3)
+
+- **Mô tả:**
+
+### Chức năng 7. Todolist 
+![image](https://github.com/manhhunghoo/DoAnWeb/assets/87658807/0c84143e-60e8-4fc6-848d-a2c250f1ae4d)
+
+- **Mô tả:**
+
+### Chức năng 8: Thống kê
+
+**Mô tả:**
+- Cho phép thống kê số lượng sinh viên, giáo viên, số lượng khóa học
+- Cho phép quản lý danh sách các sinh viên (thêm, xóa sinh viên)
+- Cho phép quản lý danh sách các giáo viên (thêm, xóa giáo viên)
+- Cho phép xem danh sách các nhóm học 
+- Cho phép xem danh sách các khóa học 
+
+### Chức năng 9: Thông báo
+
+- **Mô tả:**
+- **Thông báo bài tập:** Khi giáo viên đăng bài tập thì chỉ những học sinh có trong khóa học mới nhận được thông báo 
+- **Thông báo diễn đàn:** Khi Admin đăng bài thì tất cả học sinh đều nhìn thấy thông báo 
+
+### Chức năng 10: Tìm kiếm
+
+- **Mô tả:**
+- Cho phép tìm kiếm khóa học, đưa ra đề xuất khóa học tồn tại
+
+### Chức năng 11: Profile
+
+- **Mô tả:**
+- Cho phép update thông tin người dùng 
+
 
 ## PHẦN 3: SƠ ĐỒ DATABASE, CÁC BẢNG TRONG MONGODB
 
@@ -286,35 +326,3 @@ Post khóa học
 
 ## Tham khảo sơ đồ chức năng của web ở link dưới
 [Sơ đồ chức năng](https://drive.google.com/file/d/154R6ONFJVh0bGFez0gV-TwrMxyg9wFdx/view)
-
-
-## Elearning project 
-
-The tech stack used in this project is MongoDB , Express , Reactjs and Nodejs
-
-
-## First time
-
-B1:  Tải thư viện cần thiết cho frontend
-```
-cd frontend 
-npm
-```
-B2 Tải thư viện cần thiết cho backend
-```
-cd backend
-npm 
-```
-
-## Run project
-B1: Chạy frontend
-```
-cd fronend
-npm run dev
-```
-
-B2: Chạy backend
-```
-cd backend
-npm run dev
-```
