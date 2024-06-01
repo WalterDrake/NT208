@@ -4,7 +4,7 @@ let apiRoot = "";
 
 // Môi trường Dev sẽ chạy localhost với port 8017
 if (process.env.BUILD_MODE === "dev") {
-  apiRoot = "https://uitwebelearning.onrender.com";
+  apiRoot = "http://localhost:8017";
 } else if (process.env.BUILD_MODE === "production") {
   apiRoot = "https://uitwebelearning.onrender.com";
 }
