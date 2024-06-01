@@ -21,7 +21,7 @@ const START_SERVER = () => {
 
   const io = new Server(server, {
     cors: {
-      origin: "http://localhost:5173",
+      origin: "https://web-or9v.vercel.app",
       methods: ["GET", "POST"],
     },
   });
