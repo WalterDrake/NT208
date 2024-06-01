@@ -366,8 +366,40 @@ Post khóa học
 
 
 ## **PHẦN 4: CÁC API TRONG POSTMAN**
-
+[Postman](https://lunar-meteor-546064.postman.co/workspace/My-Workspace~4273396b-c868-4d1c-8899-4d2557c20925/collection/34142186-f8552a91-1987-47c7-af18-b72d485e2185?action=share&creator=34142186)
 
 
 ## Tham khảo sơ đồ chức năng của web ở link dưới
 [Sơ đồ chức năng](https://drive.google.com/file/d/154R6ONFJVh0bGFez0gV-TwrMxyg9wFdx/view)
+[Sơ đồ các bảng trong DB](https://app.diagrams.net/#G1wn_qjR4yDZ7StfXItSkd-eadcSycjVrz#%7B"pageId"%3A"R2lEEEUBdFMjLlhIrx00"%7D)
+## Elearning project 
+
+The tech stack used in this project is MongoDB , Express , Reactjs and Nodejs
+
+
+## First time
+
+B1:  Tải thư viện cần thiết cho frontend
+```
+cd frontend 
+npm
+```
+B2 Tải thư viện cần thiết cho backend
+```
+cd backend
+npm 
+```
+
+## Run project
+B1: Chạy frontend
+```
+cd fronend
+npm run dev
+```
+
+B2: Chạy backend
+```
+cd backend
+npm run dev
+```
+
