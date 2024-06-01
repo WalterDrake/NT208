@@ -28,7 +28,6 @@ const START_SERVER = () => {
   // call medthod io
   connectChat(io);
 
-
   // Enable req.body json data
   app.use(express.json());
 
@@ -37,10 +36,15 @@ const START_SERVER = () => {
 
   // Middleware handles errors collectively
   app.use(errorHandlingMiddleware);
-
-  server.listen(env.APP_PORT, env.APP_HOST, () => {
-    console.log(`http://${env.APP_HOST}:${env.APP_PORT}`);
-  });
+  if (env.BUILD_MODE === "production") {
+    server.listen(process.env.PORT, () => {
+      console.log("PRODUCTION-run at PORT:", process.env.PORT);
+    });
+  } else {
+    server.listen(env.APP_PORT, env.APP_HOST, () => {
+      console.log(`DEV-http://${env.APP_HOST}:${env.APP_PORT}`);
+    });
+  }
 
   // Clean up task before stopping server
   exitHook(() => {
