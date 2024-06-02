@@ -384,12 +384,12 @@ The tech stack used in this project is MongoDB , Express , Reactjs and Nodejs
 B1:  Tải thư viện cần thiết cho frontend
 ```
 cd frontend 
-npm
+npm i
 ```
 B2 Tải thư viện cần thiết cho backend
 ```
 cd backend
-npm 
+npm i
 ```
 
 ## Run project
