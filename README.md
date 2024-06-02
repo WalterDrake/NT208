@@ -384,12 +384,12 @@ The tech stack used in this project is MongoDB , Express , Reactjs and Nodejs
 B1:  Tải thư viện cần thiết cho frontend
 ```
 cd frontend 
-npm
+npm i
 ```
 B2 Tải thư viện cần thiết cho backend
 ```
 cd backend
-npm 
+npm i
 ```
 
 ## Run project
@@ -414,4 +414,13 @@ Nguyễn Việt Thắng–22521339
 
 Nguyễn Phan Quốc Đạt–22520218
 
+![Nhom9](https://github.com/manhhunghoo/NT208/assets/87658807/f518438e-2884-4a72-a5de-c0b48a2dbe30)
+
+
+## Link web deploy
+[Linkweb](https://uitwebelearning.vercel.app)
+
+## Tiêu chí cộng điểm 
+**Google page speed và SEO Score**
+![image](https://github.com/manhhunghoo/NT208/assets/87658807/7df0d97b-e2bc-4443-8863-62aab8ce47ec)
 

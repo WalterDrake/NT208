@@ -16,15 +16,24 @@ const START_SERVER = () => {
 
   // Handle cors
   app.use(cors(corsOptions));
-
+  let io;
   const server = http.createServer(app);
+  if (env.BUILD_MODE === "production") {
+    io = new Server(server, {
+      cors: {
+        origin: "https://uitwebelearning.vercel.app",
+        methods: ["GET", "POST"],
+      },
+    });
+  } else {
+    io = new Server(server, {
+      cors: {
+        origin: "http://localhost:5173",
+        methods: ["GET", "POST"],
+      },
+    });
+  }
 
-  const io = new Server(server, {
-    cors: {
-      origin: "http://localhost:5173",
-      methods: ["GET", "POST"],
-    },
-  });
   // call medthod io
   connectChat(io);
 
