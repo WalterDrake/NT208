@@ -45,7 +45,7 @@ function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDeta
         overflowX: 'auto',
         overflowY: 'hidden',
         '&::-webkit-scrollbar-track': { m: 2 },
-        backgroundImage: 'trellobg', // Thêm đường dẫn đến hình ảnh
+        backgroundImage: `url(${trellobg})`, // Thêm đường dẫn đến hình ảnh
         backgroundSize: 'cover', // Điều chỉnh kích thước hình ảnh để lấp đầy Box
         backgroundPosition: 'center', // Canh giữa hình ảnh trong Box
         backgroundRepeat: 'no-repeat' // Không lặp lại hình ảnh
