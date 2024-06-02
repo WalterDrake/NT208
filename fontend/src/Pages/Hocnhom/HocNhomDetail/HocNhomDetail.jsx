@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState, useRef } from 'react'
+import { useEffect, useLayoutEffect, useState, useRef, useCallback } from 'react'
 import { useParams } from 'react-router'
 import { useNavigate } from 'react-router-dom'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -34,7 +34,7 @@ export default function HocNhomDetail() {
     formMessage.addEventListener('submit', (e) => {
       e.preventDefault()
       const message = formMessage.querySelector('#chat-send-input').value
-      if (message.trim() === '') return null
+      if (message.trim() == '') return null
       const data = { message, code, linkimage: user.linkimage, username: user.username, userid: user._id }
       socket.emit("send_message", data);
       setListMessage(prevList => [...prevList, data]);
@@ -51,12 +51,26 @@ export default function HocNhomDetail() {
   }, [])
   useEffect(() => {
     socket.emit("join_room", code)
+    return () => {
+      socket.emit("leave_room", code)
+    }
   }, [code])
+  
   useEffect(() => {
     socket.on("receive_message", (data) => {
       setListMessage(prevList => [...prevList, data]);
     });
+    socket.on("deleted_message", (data) => {
+      if(data)
+        setListMessage(prevList => prevList.map(item => item._id === data._id ? { ...item, isDeleted: true } : item))
+    })
+  }, [])
+
+  const deleteMessage = useCallback((data) => {
+    socket.emit("delete_message", data);
+    setListMessage(prevList => prevList.map(item => item._id === data._id ? { ...item, isDeleted: true } : item))
   }, [socket])
+
   useLayoutEffect(() => {
     groups.getGroupByCode(code)
       .then(res => {
@@ -128,7 +142,7 @@ export default function HocNhomDetail() {
         <div id="chat-content"
           style={{ backgroundImage: `url(${backgroundImage})` }} className='bg-no-repeat h-full flex-1 bg-cover'>
           <div id="chat-message" className='mt-0 overflow-y-scroll h-4/5'>
-            <ListMessage listMessage={listMessage} />
+            <ListMessage listMessage={listMessage} deleteMessage={deleteMessage} />
           </div>
           {/* chat send */}
           <div id="chat-send" className='h-1/5'>
