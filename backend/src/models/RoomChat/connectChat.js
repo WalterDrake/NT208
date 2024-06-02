@@ -10,6 +10,13 @@ function connectChat(io) {
       socket.to(data.code).emit("receive_message", data);
       messengerModel.createMessage(data);
     });
+    socket.on("delete_message", async (data) => {
+      const deletedMessage = await messengerModel.setDeleted(data._id);
+      socket.to(data.code).emit("deleted_message", deletedMessage);
+    });
+    socket.on("leave_room", () => {
+      //console.log("User disconnected");
+    });
   });
 }
 
