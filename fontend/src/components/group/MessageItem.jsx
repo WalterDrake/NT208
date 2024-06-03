@@ -97,7 +97,7 @@ function MessageItem({ message, isSameSender , deleteMessage}) {
         return (
             <div className='flex gap-3 justify-end m-2'>
                 <div className='flex gap-3'>
-                    <MoreMessage message= {message} deleteMessage={deleteMessage}/>
+                    {(message._id)&&<MoreMessage message= {message} deleteMessage={deleteMessage}/>}
                     <div>
                         <p
                             onClick={handleToggleTime}

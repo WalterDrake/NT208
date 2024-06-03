@@ -151,6 +151,7 @@ export default function HocNhomDetail() {
                 className='box-border w-[70%] mx-[5%] h-[80%] rounded-xl mt-3 px-3 py-1 bg-white border-[2px] border-blue-300 text-black'
                 id='chat-send-input'
                 ref={inputRef}
+                autoComplete='off'
               />
               <span className='w-1/5 box-border' id="more-type-message">
                 <Tooltip title='image'>
