@@ -20,6 +20,7 @@ const MESSENGER_COLLECTION_SCHEMA = Joi.object().keys({
   username: Joi.string().trim(),
   code: Joi.string().required().trim(),
   message: Joi.string().required().trim().strict().required(), // yeu cau
+  isDeleted: Joi.boolean().default(false),
   linkimage: Joi.string().trim(),
   createdAt: Joi.date().iso().default(Date.now),
 });
@@ -178,10 +179,25 @@ const getAllChatOfGroup = async (idcode) => {
   }
 };
 
+const setDeleted = async (messageId) => {
+  try {
+    const result = await GET_DB()
+      .collection(messengerModel.MESSENGER_COLLECTION_NAME)
+      .findOneAndUpdate(
+        { _id: new ObjectId(messageId) },
+        { $set: { isDeleted: true } },
+        { returnDocument: "after" } // sẽ trả về kết quả mới sau khi cập nhật
+      );
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
 export const messengerModel = {
   MESSENGER_COLLECTION_NAME,
   MESSENGER_COLLECTION_SCHEMA,
   findOneById,
+  setDeleted,
   update,
   getDetails,
   getDetailsAll,
