@@ -176,8 +176,9 @@ Việc xóa nhóm ảnh hưởng rất nhiều đến các thông tin lưu trữ
 
  **Cho phép học sinh tham gia nhóm học, rời nhóm học:** Sinh viên được tham gia khóa học và rời khóa học cũng ảnh hưởng nhiều đến các ràng buộc đi kèm.
 
- **Cho phép các thành viên trong nhóm chat với nhau (realtime):** Thực hiện chức năng chat realtime cho các thành viên trong nhóm học, và lưu trữ tin nhắn trong đoạn chat, mỗi nhóm sẽ có đoạn tin nhắn hội thoại khác nhau.
+ **Cho phép các thành viên trong nhóm chat với nhau (realtime):** Thực hiện chức năng chat realtime cho các thành viên trong nhóm học, và lưu trữ tin nhắn trong đoạn chat, mỗi nhóm sẽ có đoạn tin nhắn hội thoại khác nhau. Admin sẽ có quyền kick thành viên trong nhóm chat
 
+![Chat](https://github.com/manhhunghoo/NT208/assets/87658807/2b831c71-f360-466d-bd08-76fe6e5dac5b)
 
 ###  Chức năng 6. Diễn đàn
 ![Diễn đàn](https://github.com/manhhunghoo/DoAnWeb/assets/87658807/7aa38982-84bd-4a1b-8975-e03d7aa20de3)
