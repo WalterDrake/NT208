@@ -4,7 +4,7 @@ import { CurrentVideoContext, CurrentCommentListContext } from '../../../../stat
 import useUser from '../../../../hook/useUser'
 import * as comment from '../../../../service/comment'
 import * as commentbox from '../../../../service/commentbox'
-import { Avatar, Box, Button, Drawer, Fab, List, ListItem, ListItemButton, ListItemIcon, CircularProgress, ListItemText, TextField } from '@mui/material'
+import { Avatar, Box, Button, Drawer, Fab, List, ListItem, ListItemIcon, CircularProgress, ListItemText, TextField } from '@mui/material'
 import { NavigationIcon } from 'lucide-react'
 import { createTheme } from '@mui/material/styles';
 
