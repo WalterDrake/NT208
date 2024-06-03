@@ -12,7 +12,7 @@ import { HiOutlineUserGroup } from "react-icons/hi";
 import { TbSchool } from "react-icons/tb"
 import { LiaSchoolSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
-
+import control from "../assets/control.png"
 
 const Sidebar = () => {
     const [open, setOpen] = useState(true);
@@ -52,7 +52,7 @@ const Sidebar = () => {
                     }  flex p-5 pt-8 relative duration-300`}
             >
                 <img
-                    src="./src/assets/control.png"
+                    src={control}
                     className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
              border-2 rounded-full ${!open && "rotate-180"}`}
                     onClick={() => setOpen(!open)}

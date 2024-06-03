@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Grid from '@mui/material/Grid'
-
+import schoolimg from '../../assets/School.svg'
 
 import * as studies from '../../service/studies'
 import * as courses from '../../service/courses'
@@ -82,7 +82,7 @@ export default function Home() {
           </h1>
           <div className=" flex flex-initial -mt-28 h-96 w-96 ml-32">
             <img
-              src="./src/assets/School.svg"
+              src={schoolimg}
               className="object-contain"
             />
           </div>

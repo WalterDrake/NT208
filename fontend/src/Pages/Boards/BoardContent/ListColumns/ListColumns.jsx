@@ -8,6 +8,7 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import TextField from '@mui/material/TextField'
 import CloseIcon from '@mui/icons-material/Close'
 import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortable'
+import trellobg from '../../../../assets/trello.png'
 
 function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDetails }) {
   const [openNewColumnForm, setOpenNewColumnForm] = useState(false)
@@ -44,7 +45,7 @@ function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDeta
         overflowX: 'auto',
         overflowY: 'hidden',
         '&::-webkit-scrollbar-track': { m: 2 },
-        backgroundImage: 'url("/src/assets/trello.png")', // Thêm đường dẫn đến hình ảnh
+        backgroundImage: `url(${trellobg})`, // Thêm đường dẫn đến hình ảnh
         backgroundSize: 'cover', // Điều chỉnh kích thước hình ảnh để lấp đầy Box
         backgroundPosition: 'center', // Canh giữa hình ảnh trong Box
         backgroundRepeat: 'no-repeat' // Không lặp lại hình ảnh
