@@ -26,8 +26,8 @@ export default function HocNhomDetail() {
   //ref của thẻ input tin nhắn
   const inputRef = useRef()
   // function
-  const handleBack = () => {
-    navigate(-1)
+  const handleBack = () => {  
+    navigate('/Hocnhompage')
   }
   useEffect(() => {
     const formMessage = document.querySelector('#message-group-chat-form')
