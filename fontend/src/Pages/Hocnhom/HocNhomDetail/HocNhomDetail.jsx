@@ -15,9 +15,6 @@ import ListMember from '../../../components/group/ListMember';
 import ListMessage from '../../../components/group/ListMessage';
 
 
-// socket;
-// export const socket = io.connect("http://localhost:8017");
-
 export default function HocNhomDetail() {
   // state and data 
   const { user } = useUser()
