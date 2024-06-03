@@ -13,6 +13,8 @@ import backgroundImage from '../../../assets/wallapaper.jpeg'
 import { socket } from '../../../service/socket';
 import ListMember from '../../../components/group/ListMember';
 import ListMessage from '../../../components/group/ListMessage';
+
+
 // socket;
 // export const socket = io.connect("http://localhost:8017");
 

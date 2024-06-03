@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from 'react'
 import useUser from '../hook/useUser'
 import * as event from '../service/event'
 
+
 export const NotificationEventContext = createContext()
 
 function NotificationEvent({ children }) {
