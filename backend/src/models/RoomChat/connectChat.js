@@ -6,9 +6,9 @@ function connectChat(io) {
       socket.join(data);
     });
 
-    socket.on("send_message", (data) => {
-      socket.to(data.code).emit("receive_message", data);
-      messengerModel.createMessage(data);
+    socket.on("send_message",async (data) => {
+      const res = await messengerModel.createMessage(data);
+      socket.to(data.code).emit("receive_message", res);
     });
     socket.on("delete_message", async (data) => {
       const deletedMessage = await messengerModel.setDeleted(data._id);
