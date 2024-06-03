@@ -89,7 +89,7 @@ export default function Home() {
         </div>
         <div className="mt-8 min-h-[24rem] bg-[#F0F7FF] rounded-lg">
           <div className="title justify-between">
-            <h1 className='text-red-600  font-extrabold  font-sans text-3xl pl-[4rem] pt-3'>Đề Xuất Khóa học</h1>
+            <h1 className='text-[#050506]  font-extrabold  font-sans text-3xl pl-[4rem] pt-3'>Đề Xuất Khóa học</h1>
             <div className='flex justify-end mr-4'>
               <p className='bg-blue-500 text-white rounded-lg p-1 hover:bg-blue-800 '><Link to={routes.khoahoc}>Xem thêm</Link></p>
             </div>
@@ -104,7 +104,7 @@ export default function Home() {
         </div>
         <div className="mt-8 min-h-[24rem] h-auto bg-[#F0F7FF] rounded-lg">
           <div className="title justify-between">
-            <h1 className='text-red-600  font-extrabold  font-sans text-3xl pl-[4rem] pt-5'>Đề Xuất Nhóm của bạn</h1>
+            <h1 className='text-[#050506]  font-extrabold  font-sans text-3xl pl-[4rem] pt-5'>Đề Xuất Nhóm của bạn</h1>
             <div className='flex justify-end mr-4'>
               <p className='bg-blue-500 text-white rounded-lg p-1 hover:bg-blue-800 '><Link to={routes.group}>Xem thêm</Link></p>
             </div>
