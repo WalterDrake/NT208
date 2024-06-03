@@ -317,7 +317,8 @@ Nơi trao đổi bài tập, tạo các bài đăng tương tác của các sinh
 
 **14. MessageModel**
 
-![MessageModel](https://github.com/WalterDrake/NT208/assets/87658807/0d121872-8c36-483f-876c-bc499d476e41)
+![image](https://github.com/manhhunghoo/NT208/assets/87658807/af20ba5e-d463-4323-89dc-654ee8ed927b)
+
 
 
 **15. NotificationModel**
